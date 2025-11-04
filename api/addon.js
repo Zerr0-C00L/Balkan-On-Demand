@@ -193,11 +193,10 @@ builder.defineMetaHandler(async ({ type, id }) => {
     return { meta: localItem };
 });
 
-// Stream handler
-builder.defineStreamHandler(({ type, id }) => {
+// Stream handler - returns HTTP streams from movies.json
+builder.defineStreamHandler(async ({ type, id }) => {
     console.log(`Stream request: type=${type}, id=${id}`);
     
-    // Find the movie or series
     let item = null;
     if (type === 'movie') {
         item = movies.movies?.find(m => m.id === id);
@@ -205,11 +204,11 @@ builder.defineStreamHandler(({ type, id }) => {
         item = movies.series?.find(s => s.id === id);
     }
     
-    if (!item || !item.streams) {
-        return Promise.resolve({ streams: [] });
+    if (!item) {
+        return { streams: [] };
     }
     
-    return Promise.resolve({ streams: item.streams });
+    return { streams: item.streams || [] };
 });
 
 // Export for Vercel
