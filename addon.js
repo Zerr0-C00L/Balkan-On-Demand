@@ -7,7 +7,7 @@ const manifest = {
     version: '1.0.0',
     name: 'Balkan On Demand',
     description: 'Stream popular movies and TV shows from the Balkan region (ex-Yugoslavia)',
-    resources: ['catalog', 'stream'],
+    resources: ['catalog', 'meta', 'stream'],
     types: ['movie', 'series'],
     catalogs: [
         {
@@ -33,10 +33,23 @@ const manifest = {
     idPrefixes: ['tt', 'balkan:']
 };
 
+// Fetch metadata from Cinemeta
+async function getCinemetaMeta(type, id) {
+    try {
+        const response = await fetch(`https://v3-cinemeta.strem.io/meta/${type}/${id}.json`);
+        if (!response.ok) return null;
+        const data = await response.json();
+        return data.meta;
+    } catch (error) {
+        console.error('Error fetching from Cinemeta:', error);
+        return null;
+    }
+}
+
 const builder = new addonBuilder(manifest);
 
-// Catalog handler
-builder.defineCatalogHandler(({ type, id, extra }) => {
+// Catalog handler - returns basic info, Stremio will fetch full meta
+builder.defineCatalogHandler(async ({ type, id, extra }) => {
     console.log(`Catalog request: type=${type}, id=${id}`);
     
     if (type === 'movie' && id === 'balkan-movies') {
@@ -54,14 +67,61 @@ builder.defineCatalogHandler(({ type, id, extra }) => {
         const limit = 100;
         filteredMovies = filteredMovies.slice(skip, skip + limit);
         
-        return Promise.resolve({ metas: filteredMovies });
+        // Return minimal info - just id and type
+        // Stremio will fetch full metadata from our meta handler
+        const metas = filteredMovies.map(m => ({
+            id: m.id,
+            type: 'movie'
+        }));
+        
+        return { metas };
     }
     
     if (type === 'series' && id === 'balkan-series') {
-        return Promise.resolve({ metas: movies.series || [] });
+        const metas = (movies.series || []).map(s => ({
+            id: s.id,
+            type: 'series'
+        }));
+        return { metas };
     }
     
-    return Promise.resolve({ metas: [] });
+    return { metas: [] };
+});
+
+// Meta handler - fetches full metadata from Cinemeta for IMDB IDs
+builder.defineMetaHandler(async ({ type, id }) => {
+    console.log(`Meta request: type=${type}, id=${id}`);
+    
+    // Check if this is one of our movies
+    let localItem = null;
+    if (type === 'movie') {
+        localItem = movies.movies?.find(m => m.id === id);
+    } else if (type === 'series') {
+        localItem = movies.series?.find(s => s.id === id);
+    }
+    
+    if (!localItem) {
+        return { meta: null };
+    }
+    
+    // If it has an IMDB ID (starts with 'tt'), fetch from Cinemeta
+    if (id.startsWith('tt')) {
+        const cinemetaMeta = await getCinemetaMeta(type, id);
+        if (cinemetaMeta) {
+            // Merge Cinemeta data with our local data
+            return {
+                meta: {
+                    ...cinemetaMeta,
+                    // Add Balkan-specific info
+                    description: cinemetaMeta.description || localItem.description,
+                    country: localItem.country
+                }
+            };
+        }
+    }
+    
+    // Fallback to local data
+    return { meta: localItem };
 });
 
 // Stream handler
