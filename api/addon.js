@@ -193,7 +193,98 @@ builder.defineMetaHandler(async ({ type, id }) => {
     return { meta: localItem };
 });
 
-// Stream handler - returns HTTP streams from movies.json
+// Search Internet Archive for Yugoslav/Balkan content
+async function searchInternetArchive(name, year) {
+    const streams = [];
+    
+    try {
+        // Clean the search query
+        const cleanName = name.replace(/\(.*?\)/g, '').trim();
+        const searchTerms = [
+            `${cleanName} ${year || ''}`,
+            `${cleanName} yugoslav`,
+            `${cleanName} serbian`,
+            `${cleanName} croatian`,
+            `${cleanName} bosnian`
+        ];
+        
+        for (const searchTerm of searchTerms) {
+            try {
+                const query = encodeURIComponent(searchTerm);
+                const searchUrl = `https://archive.org/advancedsearch.php?q=${query}%20AND%20mediatype:(movies)&fl[]=identifier,title,format&output=json&rows=10`;
+                
+                const response = await fetch(searchUrl, {
+                    signal: AbortSignal.timeout(5000)
+                });
+                
+                if (!response.ok) continue;
+                
+                const data = await response.json();
+                
+                if (data.response?.docs?.length > 0) {
+                    for (const doc of data.response.docs) {
+                        try {
+                            // Get file details
+                            const metadataUrl = `https://archive.org/metadata/${doc.identifier}`;
+                            const metaResponse = await fetch(metadataUrl, {
+                                signal: AbortSignal.timeout(3000)
+                            });
+                            
+                            if (!metaResponse.ok) continue;
+                            
+                            const metadata = await metaResponse.json();
+                            const files = metadata.files || [];
+                            
+                            // Find video files, prioritize HD
+                            const videoFiles = files.filter(f => 
+                                f.name && (
+                                    f.name.endsWith('.mp4') ||
+                                    f.name.endsWith('.mkv') ||
+                                    f.name.endsWith('.avi')
+                                ) && f.format !== 'Metadata'
+                            );
+                            
+                            // Sort by quality/size
+                            videoFiles.sort((a, b) => {
+                                const aSize = parseInt(a.size) || 0;
+                                const bSize = parseInt(b.size) || 0;
+                                return bSize - aSize; // Larger files = better quality
+                            });
+                            
+                            for (const file of videoFiles.slice(0, 3)) {
+                                const sizeGB = (parseInt(file.size) / (1024 * 1024 * 1024)).toFixed(2);
+                                const quality = parseInt(file.size) > 1000000000 ? 'HD' : 'SD';
+                                const format = file.format || 'Video';
+                                
+                                streams.push({
+                                    title: `Internet Archive - ${quality} (${sizeGB}GB)`,
+                                    url: `https://archive.org/download/${doc.identifier}/${encodeURIComponent(file.name)}`,
+                                    behaviorHints: {
+                                        notWebReady: false
+                                    }
+                                });
+                            }
+                            
+                        } catch (error) {
+                            console.error(`Error fetching metadata for ${doc.identifier}:`, error.message);
+                        }
+                    }
+                    
+                    // If we found streams, break
+                    if (streams.length > 0) break;
+                }
+            } catch (error) {
+                console.error('Internet Archive search error:', error.message);
+            }
+        }
+    } catch (error) {
+        console.error('Error searching Internet Archive:', error);
+    }
+    
+    return streams;
+}
+
+// Stream handler - returns HTTP streams from Internet Archive
 builder.defineStreamHandler(async ({ type, id }) => {
     console.log(`Stream request: type=${type}, id=${id}`);
     
@@ -208,7 +299,18 @@ builder.defineStreamHandler(async ({ type, id }) => {
         return { streams: [] };
     }
     
-    return { streams: item.streams || [] };
+    // Get manual streams from movies.json
+    const manualStreams = item.streams || [];
+    
+    // Search Internet Archive
+    const searchName = item.name.replace(/\(.*?\)/g, '').trim();
+    const year = item.releaseInfo;
+    const archiveStreams = await searchInternetArchive(searchName, year);
+    
+    // Combine: manual first, then Internet Archive (HD first)
+    const allStreams = [...manualStreams, ...archiveStreams];
+    
+    return { streams: allStreams };
 });
 
 // Export for Vercel
