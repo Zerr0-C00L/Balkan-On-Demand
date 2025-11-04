@@ -48,7 +48,7 @@ async function getCinemetaMeta(type, id) {
 
 const builder = new addonBuilder(manifest);
 
-// Catalog handler - returns basic info, Stremio will fetch full meta
+// Catalog handler - returns basic info with poster for display
 builder.defineCatalogHandler(async ({ type, id, extra }) => {
     console.log(`Catalog request: type=${type}, id=${id}`);
     
@@ -67,20 +67,55 @@ builder.defineCatalogHandler(async ({ type, id, extra }) => {
         const limit = 100;
         filteredMovies = filteredMovies.slice(skip, skip + limit);
         
-        // Return minimal info - just id and type
-        // Stremio will fetch full metadata from our meta handler
-        const metas = filteredMovies.map(m => ({
-            id: m.id,
-            type: 'movie'
+        // Fetch Cinemeta posters for IMDB IDs
+        const metas = await Promise.all(filteredMovies.map(async m => {
+            if (m.id.startsWith('tt')) {
+                const cinemetaMeta = await getCinemetaMeta('movie', m.id);
+                if (cinemetaMeta && cinemetaMeta.poster) {
+                    return {
+                        id: m.id,
+                        type: 'movie',
+                        name: cinemetaMeta.name || m.name,
+                        poster: cinemetaMeta.poster,
+                        posterShape: 'poster'
+                    };
+                }
+            }
+            // Fallback to local data
+            return {
+                id: m.id,
+                type: 'movie',
+                name: m.name,
+                poster: m.poster,
+                posterShape: 'poster'
+            };
         }));
         
         return { metas };
     }
     
     if (type === 'series' && id === 'balkan-series') {
-        const metas = (movies.series || []).map(s => ({
-            id: s.id,
-            type: 'series'
+        const series = movies.series || [];
+        const metas = await Promise.all(series.map(async s => {
+            if (s.id.startsWith('tt')) {
+                const cinemetaMeta = await getCinemetaMeta('series', s.id);
+                if (cinemetaMeta && cinemetaMeta.poster) {
+                    return {
+                        id: s.id,
+                        type: 'series',
+                        name: cinemetaMeta.name || s.name,
+                        poster: cinemetaMeta.poster,
+                        posterShape: 'poster'
+                    };
+                }
+            }
+            return {
+                id: s.id,
+                type: 'series',
+                name: s.name,
+                poster: s.poster,
+                posterShape: 'poster'
+            };
         }));
         return { metas };
     }
