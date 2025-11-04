@@ -33,15 +33,39 @@ const manifest = {
     idPrefixes: ['tt', 'balkan:']
 };
 
-// Fetch metadata from Cinemeta
-async function getCinemetaMeta(type, id) {
+// Cache for Cinemeta metadata
+const metaCache = new Map();
+
+// Fetch metadata from Cinemeta with caching and timeout
+async function getCinemetaMeta(type, id, timeoutMs = 3000) {
+    const cacheKey = `${type}:${id}`;
+    
+    // Check cache first
+    if (metaCache.has(cacheKey)) {
+        return metaCache.get(cacheKey);
+    }
+    
     try {
-        const response = await fetch(`https://v3-cinemeta.strem.io/meta/${type}/${id}.json`);
-        if (!response.ok) return null;
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), timeoutMs);
+        
+        const response = await fetch(`https://v3-cinemeta.strem.io/meta/${type}/${id}.json`, {
+            signal: controller.signal
+        });
+        
+        clearTimeout(timeout);
+        
+        if (!response.ok) {
+            metaCache.set(cacheKey, null);
+            return null;
+        }
+        
         const data = await response.json();
+        metaCache.set(cacheKey, data.meta);
         return data.meta;
     } catch (error) {
-        console.error('Error fetching from Cinemeta:', error);
+        console.error(`Error fetching from Cinemeta for ${id}:`, error.message);
+        metaCache.set(cacheKey, null);
         return null;
     }
 }
@@ -67,28 +91,33 @@ builder.defineCatalogHandler(async ({ type, id, extra }) => {
         const limit = 100;
         filteredMovies = filteredMovies.slice(skip, skip + limit);
         
-        // Fetch Cinemeta posters for IMDB IDs
+        // Fetch Cinemeta posters for IMDB IDs with faster timeout for catalog
         const metas = await Promise.all(filteredMovies.map(async m => {
-            if (m.id.startsWith('tt')) {
-                const cinemetaMeta = await getCinemetaMeta('movie', m.id);
-                if (cinemetaMeta && cinemetaMeta.poster) {
-                    return {
-                        id: m.id,
-                        type: 'movie',
-                        name: cinemetaMeta.name || m.name,
-                        poster: cinemetaMeta.poster,
-                        posterShape: 'poster'
-                    };
-                }
-            }
-            // Fallback to local data
-            return {
+            // Always include local data as base
+            const baseMeta = {
                 id: m.id,
                 type: 'movie',
                 name: m.name,
-                poster: m.poster,
+                poster: m.poster || `https://via.placeholder.com/300x450/1a1a2e/16213e?text=${encodeURIComponent(m.name)}`,
                 posterShape: 'poster'
             };
+            
+            if (m.id.startsWith('tt')) {
+                try {
+                    const cinemetaMeta = await getCinemetaMeta('movie', m.id, 2000);
+                    if (cinemetaMeta && cinemetaMeta.poster) {
+                        return {
+                            ...baseMeta,
+                            name: cinemetaMeta.name || baseMeta.name,
+                            poster: cinemetaMeta.poster
+                        };
+                    }
+                } catch (error) {
+                    console.error(`Failed to fetch poster for ${m.id}:`, error.message);
+                }
+            }
+            
+            return baseMeta;
         }));
         
         return { metas };
@@ -97,25 +126,30 @@ builder.defineCatalogHandler(async ({ type, id, extra }) => {
     if (type === 'series' && id === 'balkan-series') {
         const series = movies.series || [];
         const metas = await Promise.all(series.map(async s => {
-            if (s.id.startsWith('tt')) {
-                const cinemetaMeta = await getCinemetaMeta('series', s.id);
-                if (cinemetaMeta && cinemetaMeta.poster) {
-                    return {
-                        id: s.id,
-                        type: 'series',
-                        name: cinemetaMeta.name || s.name,
-                        poster: cinemetaMeta.poster,
-                        posterShape: 'poster'
-                    };
-                }
-            }
-            return {
+            const baseMeta = {
                 id: s.id,
                 type: 'series',
                 name: s.name,
-                poster: s.poster,
+                poster: s.poster || `https://via.placeholder.com/300x450/1a1a2e/16213e?text=${encodeURIComponent(s.name)}`,
                 posterShape: 'poster'
             };
+            
+            if (s.id.startsWith('tt')) {
+                try {
+                    const cinemetaMeta = await getCinemetaMeta('series', s.id, 2000);
+                    if (cinemetaMeta && cinemetaMeta.poster) {
+                        return {
+                            ...baseMeta,
+                            name: cinemetaMeta.name || baseMeta.name,
+                            poster: cinemetaMeta.poster
+                        };
+                    }
+                } catch (error) {
+                    console.error(`Failed to fetch poster for ${s.id}:`, error.message);
+                }
+            }
+            
+            return baseMeta;
         }));
         return { metas };
     }
