@@ -30,15 +30,52 @@ const manifest = {
             name: 'Balkan TV Series'
         }
     ],
-    idPrefixes: ['tt', 'balkan:', 'archive:']
+    idPrefixes: ['tt', 'balkan:']
 };
 
-// Cache for Cinemeta metadata and Internet Archive content
+// Cache for Cinemeta metadata and scraped content
 const metaCache = new Map();
-const archiveCache = new Map();
-let archiveCatalog = [];
-let lastArchiveFetch = 0;
-const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
+const streamCache = new Map();
+const CACHE_DURATION = 6 * 60 * 60 * 1000; // 6 hours
+
+// Ex-Yu streaming websites to scrape
+const EX_YU_SOURCES = [
+    {
+        name: 'Filmoton.net',
+        searchUrl: 'https://filmoton.net',
+        type: 'html'
+    },
+    {
+        name: 'Filmativa.club',
+        searchUrl: 'https://filmativa.club',
+        type: 'html'
+    },
+    {
+        name: 'DomaciFilmovi.online',
+        searchUrl: 'https://domacifilmovi.online',
+        type: 'html'
+    },
+    {
+        name: 'ToSuSamoFilmovi.rs.ba',
+        searchUrl: 'https://tosusamofilmovi.rs.ba',
+        type: 'html'
+    },
+    {
+        name: 'FenixSite.net',
+        searchUrl: 'https://www.fenixsite.net',
+        type: 'html'
+    },
+    {
+        name: 'FilmoviX.net',
+        searchUrl: 'https://www.filmovix.net',
+        type: 'html'
+    },
+    {
+        name: 'PopcornFilmovi.com',
+        searchUrl: 'https://www.popcornfilmovi.com',
+        type: 'html'
+    }
+];
 
 // Fetch metadata from Cinemeta with caching and timeout
 async function getCinemetaMeta(type, id, timeoutMs = 3000) {
@@ -74,75 +111,69 @@ async function getCinemetaMeta(type, id, timeoutMs = 3000) {
     }
 }
 
-// Fetch all Yugoslav content from Internet Archive
-async function fetchArchiveCatalog() {
-    const now = Date.now();
-    
-    // Return cached catalog if still valid
-    if (archiveCatalog.length > 0 && (now - lastArchiveFetch) < CACHE_DURATION) {
-        return archiveCatalog;
-    }
-    
-    console.log('Fetching Yugoslav content from Internet Archive...');
-    const items = [];
-    
+// Extract video URLs from webpage HTML
+async function extractStreamFromPage(url, sourceName) {
     try {
-        // Search for Yugoslav/Balkan films
-        const searchQueries = [
-            'yugoslav film',
-            'serbian film',
-            'croatian film',
-            'bosnian film',
-            'balkan cinema'
+        console.log(`Scraping ${sourceName}: ${url}`);
+        
+        const response = await fetch(url, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+            },
+            signal: AbortSignal.timeout(10000)
+        });
+        
+        if (!response.ok) return [];
+        
+        const html = await response.text();
+        const streams = [];
+        
+        // Extract video sources using regex patterns
+        const patterns = [
+            // Direct video sources
+            /<video[^>]*>[\s\S]*?<source[^>]+src=["']([^"']+)["']/gi,
+            /src:\s*["']([^"']+\.mp4[^"']*)["']/gi,
+            /file:\s*["']([^"']+\.mp4[^"']*)["']/gi,
+            // iframe embeds
+            /<iframe[^>]+src=["']([^"']+)["']/gi,
+            // Common CDN patterns
+            /https?:\/\/[^"'\s]+\.(?:mp4|m3u8|mpd)[^"'\s]*/gi
         ];
         
-        for (const query of searchQueries) {
-            try {
-                const encodedQuery = encodeURIComponent(query);
-                const searchUrl = `https://archive.org/advancedsearch.php?q=${encodedQuery}%20AND%20mediatype:(movies)&fl[]=identifier,title,description,year,language&output=json&rows=100&sort[]=downloads%20desc`;
-                
-                const response = await fetch(searchUrl, {
-                    signal: AbortSignal.timeout(10000)
-                });
-                
-                if (!response.ok) continue;
-                
-                const data = await response.json();
-                
-                if (data.response?.docs) {
-                    for (const doc of data.response.docs) {
-                        // Create unique ID
-                        const id = `archive:${doc.identifier}`;
-                        
-                        // Avoid duplicates
-                        if (!items.find(item => item.id === id)) {
-                            items.push({
-                                id: id,
-                                type: 'movie',
-                                name: doc.title || doc.identifier,
-                                poster: `https://archive.org/services/img/${doc.identifier}`,
-                                posterShape: 'poster',
-                                description: doc.description || 'Yugoslav/Balkan film from Internet Archive',
-                                releaseInfo: doc.year || 'Unknown',
-                                archiveId: doc.identifier
-                            });
+        for (const pattern of patterns) {
+            let match;
+            while ((match = pattern.exec(html)) !== null) {
+                const streamUrl = match[1] || match[0];
+                if (streamUrl && !streamUrl.includes('google') && !streamUrl.includes('facebook')) {
+                    streams.push({
+                        name: sourceName,
+                        title: `🎬 ${sourceName}`,
+                        url: streamUrl.startsWith('http') ? streamUrl : new URL(streamUrl, url).href,
+                        behaviorHints: {
+                            notWebReady: false
                         }
-                    }
+                    });
                 }
-            } catch (error) {
-                console.error(`Error fetching ${query}:`, error.message);
             }
         }
         
-        console.log(`Fetched ${items.length} Yugoslav films from Internet Archive`);
-        archiveCatalog = items;
-        lastArchiveFetch = now;
+        // If no direct streams found, return the page URL for external viewing
+        if (streams.length === 0) {
+            streams.push({
+                name: sourceName,
+                title: `📺 Watch on ${sourceName}`,
+                externalUrl: url,
+                behaviorHints: {
+                    notWebReady: true
+                }
+            });
+        }
         
+        return streams;
     } catch (error) {
-        console.error('Error fetching Archive catalog:', error);
+        console.error(`Error scraping ${sourceName}:`, error.message);
+        return [];
     }
-    
-    return items;
 }
 
 const builder = new addonBuilder(manifest);
@@ -152,11 +183,10 @@ builder.defineCatalogHandler(async ({ type, id, extra }) => {
     console.log(`Catalog request: type=${type}, id=${id}`);
     
     if (type === 'movie' && id === 'balkan-movies') {
-        // Combine local movies with Internet Archive catalog
+        // Use only local curated movies with Cinemeta artwork
         const localMovies = movies.movies || [];
-        const archiveMovies = await fetchArchiveCatalog();
         
-        let allMovies = [...localMovies, ...archiveMovies];
+        let allMovies = [...localMovies];
         
         // Filter by genre if requested
         if (extra && extra.genre) {
@@ -248,11 +278,7 @@ builder.defineMetaHandler(async ({ type, id }) => {
         localItem = movies.series?.find(s => s.id === id);
     }
     
-    // Check Internet Archive catalog
-    if (!localItem && id.startsWith('archive:')) {
-        const archiveMovies = await fetchArchiveCatalog();
-        localItem = archiveMovies.find(m => m.id === id);
-    }
+
     
     if (!localItem) {
         return { meta: null };
@@ -291,25 +317,25 @@ async function validateStream(url) {
     }
 }
 
-// Search Internet Archive for Yugoslav/Balkan content
-async function searchInternetArchive(name, year) {
+// Search Dailymotion for Yugoslav/Balkan content
+async function searchDailymotion(name, year) {
     const streams = [];
     
     try {
-        // Clean the search query
         const cleanName = name.replace(/\(.*?\)/g, '').trim();
         const searchTerms = [
             `${cleanName} ${year || ''}`,
-            `${cleanName} yugoslav`,
-            `${cleanName} serbian`,
-            `${cleanName} croatian`,
-            `${cleanName} bosnian`
+            `${cleanName} srpski`,
+            `${cleanName} hrvatski`,
+            `${cleanName} bosanski`,
+            `${cleanName} film`
         ];
         
         for (const searchTerm of searchTerms) {
             try {
                 const query = encodeURIComponent(searchTerm);
-                const searchUrl = `https://archive.org/advancedsearch.php?q=${query}%20AND%20mediatype:(movies)&fl[]=identifier,title,format&output=json&rows=10`;
+                // Dailymotion API search
+                const searchUrl = `https://api.dailymotion.com/videos?search=${query}&fields=id,title,duration,quality,url&limit=10`;
                 
                 const response = await fetch(searchUrl, {
                     signal: AbortSignal.timeout(5000)
@@ -319,147 +345,114 @@ async function searchInternetArchive(name, year) {
                 
                 const data = await response.json();
                 
-                if (data.response?.docs?.length > 0) {
-                    for (const doc of data.response.docs) {
-                        try {
-                            // Get file details
-                            const metadataUrl = `https://archive.org/metadata/${doc.identifier}`;
-                            const metaResponse = await fetch(metadataUrl, {
-                                signal: AbortSignal.timeout(3000)
-                            });
-                            
-                            if (!metaResponse.ok) continue;
-                            
-                            const metadata = await metaResponse.json();
-                            const files = metadata.files || [];
-                            
-                            // Validate: Check if item is actually accessible
-                            if (metadata.is_dark || metadata.access_restricted_item) {
-                                console.log(`Skipping restricted item: ${doc.identifier}`);
-                                continue;
+                if (data.list && data.list.length > 0) {
+                    for (const video of data.list) {
+                        const duration = Math.floor(video.duration / 60);
+                        const quality = video.quality || 'SD';
+                        
+                        streams.push({
+                            title: `▶️ Dailymotion - ${quality} (${duration}min)`,
+                            url: `https://www.dailymotion.com/embed/video/${video.id}`,
+                            behaviorHints: {
+                                notWebReady: true
                             }
-                            
-                            // Find video files, prioritize HD
-                            const videoFiles = files.filter(f => 
-                                f.name && 
-                                f.size && parseInt(f.size) > 1000000 && // At least 1MB
-                                (
-                                    f.name.endsWith('.mp4') ||
-                                    f.name.endsWith('.mkv') ||
-                                    f.name.endsWith('.avi') ||
-                                    f.name.endsWith('.webm')
-                                ) && 
-                                f.format !== 'Metadata' &&
-                                !f.name.includes('sample') &&
-                                !f.name.includes('trailer')
-                            );
-                            
-                            // Sort by quality/size
-                            videoFiles.sort((a, b) => {
-                                const aSize = parseInt(a.size) || 0;
-                                const bSize = parseInt(b.size) || 0;
-                                return bSize - aSize; // Larger files = better quality
-                            });
-                            
-                            for (const file of videoFiles.slice(0, 3)) {
-                                const sizeGB = (parseInt(file.size) / (1024 * 1024 * 1024)).toFixed(2);
-                                const quality = parseInt(file.size) > 1000000000 ? 'HD' : 'SD';
-                                const streamUrl = `https://archive.org/download/${doc.identifier}/${encodeURIComponent(file.name)}`;
-                                
-                                // Only add if size is reasonable (not corrupted/fake)
-                                if (parseInt(file.size) > 10000000) { // At least 10MB
-                                    streams.push({
-                                        title: `📦 Internet Archive - ${quality} (${sizeGB}GB)`,
-                                        url: streamUrl,
-                                        behaviorHints: {
-                                            notWebReady: false
-                                        }
-                                    });
-                                }
-                            }
-                            
-                        } catch (error) {
-                            console.error(`Error fetching metadata for ${doc.identifier}:`, error.message);
-                        }
+                        });
                     }
                     
                     // If we found streams, break
                     if (streams.length > 0) break;
                 }
             } catch (error) {
-                console.error('Internet Archive search error:', error.message);
+                console.error('Dailymotion search error:', error.message);
             }
         }
     } catch (error) {
-        console.error('Error searching Internet Archive:', error);
+        console.error('Error searching Dailymotion:', error);
     }
     
     return streams;
 }
 
-// Get streams directly from Internet Archive item
-async function getArchiveStreams(archiveId) {
+// Search Ex-Yu websites for content by name
+async function searchExYuSites(name, year) {
+    const cacheKey = `${name}-${year}`;
+    
+    // Check cache first
+    const cached = streamCache.get(cacheKey);
+    if (cached && (Date.now() - cached.timestamp) < CACHE_DURATION) {
+        console.log(`Using cached streams for: ${name}`);
+        return cached.streams;
+    }
+    
     const streams = [];
+    const cleanName = name.replace(/\(.*?\)/g, '').trim().toLowerCase();
     
     try {
-        const metadataUrl = `https://archive.org/metadata/${archiveId}`;
-        const response = await fetch(metadataUrl, {
-            signal: AbortSignal.timeout(5000)
-        });
+        // Search patterns for different sites
+        const searchUrls = [
+            `https://filmoton.net/?s=${encodeURIComponent(cleanName)}`,
+            `https://filmativa.club/?s=${encodeURIComponent(cleanName)}`,
+            `https://domacifilmovi.online/?s=${encodeURIComponent(cleanName)}`,
+            `https://tosusamofilmovi.rs.ba/?s=${encodeURIComponent(cleanName)}`,
+            `https://www.fenixsite.net/?s=${encodeURIComponent(cleanName)}`,
+            `https://www.filmovix.net/?s=${encodeURIComponent(cleanName)}`,
+            `https://www.popcornfilmovi.com/?s=${encodeURIComponent(cleanName)}`
+        ];
         
-        if (!response.ok) return streams;
-        
-        const metadata = await response.json();
-        
-        // Validate: Check if item is accessible
-        if (metadata.is_dark || metadata.access_restricted_item) {
-            console.log(`Skipping restricted item: ${archiveId}`);
-            return streams;
-        }
-        
-        const files = metadata.files || [];
-        
-        // Find video files with validation
-        const videoFiles = files.filter(f => 
-            f.name && 
-            f.size && parseInt(f.size) > 10000000 && // At least 10MB
-            (
-                f.name.endsWith('.mp4') ||
-                f.name.endsWith('.mkv') ||
-                f.name.endsWith('.avi') ||
-                f.name.endsWith('.webm')
-            ) && 
-            f.format !== 'Metadata' &&
-            !f.name.includes('sample') &&
-            !f.name.includes('trailer')
-        );
-        
-        // Sort by quality/size (larger = better)
-        videoFiles.sort((a, b) => {
-            const aSize = parseInt(a.size) || 0;
-            const bSize = parseInt(b.size) || 0;
-            return bSize - aSize;
-        });
-        
-        for (const file of videoFiles.slice(0, 5)) {
-            const sizeGB = (parseInt(file.size) / (1024 * 1024 * 1024)).toFixed(2);
-            const quality = parseInt(file.size) > 1000000000 ? 'HD' : 'SD';
-            
-            streams.push({
-                title: `📦 Internet Archive - ${quality} (${sizeGB}GB)`,
-                url: `https://archive.org/download/${archiveId}/${encodeURIComponent(file.name)}`,
-                behaviorHints: {
-                    notWebReady: false
+        // Try to find movie pages
+        for (let i = 0; i < searchUrls.length; i++) {
+            try {
+                const source = EX_YU_SOURCES[i];
+                const response = await fetch(searchUrls[i], {
+                    headers: {
+                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+                    },
+                    signal: AbortSignal.timeout(8000)
+                });
+                
+                if (!response.ok) continue;
+                
+                const html = await response.text();
+                
+                // Extract movie page links
+                const linkPattern = /<a[^>]+href=["']([^"']+)["'][^>]*>/gi;
+                const links = [];
+                let match;
+                
+                while ((match = linkPattern.exec(html)) !== null) {
+                    const link = match[1];
+                    if (link && link.includes(source.searchUrl) && 
+                        (link.includes('/film') || link.includes('/movie') || 
+                         link.includes(cleanName.split(' ')[0]))) {
+                        links.push(link);
+                    }
                 }
-            });
+                
+                // Extract streams from first matching page
+                if (links.length > 0) {
+                    const pageStreams = await extractStreamFromPage(links[0], source.name);
+                    streams.push(...pageStreams);
+                }
+                
+            } catch (error) {
+                console.error(`Error searching ${EX_YU_SOURCES[i].name}:`, error.message);
+            }
         }
+        
+        // Cache the results
+        streamCache.set(cacheKey, {
+            streams,
+            timestamp: Date.now()
+        });
         
     } catch (error) {
-        console.error(`Error fetching streams for ${archiveId}:`, error.message);
+        console.error('Error searching Ex-Yu sites:', error);
     }
     
     return streams;
 }
+
+
 
 // Stream handler - searches entire Internet Archive for ANY content
 builder.defineStreamHandler(async ({ type, id, name }) => {
@@ -506,19 +499,16 @@ builder.defineStreamHandler(async ({ type, id, name }) => {
     // Get manual streams from movies.json if available
     const manualStreams = item?.streams || [];
     
-    let archiveStreams = [];
+    let exYuStreams = [];
     
-    // If this is an Internet Archive item, get streams directly
-    if (archiveId || item?.archiveId) {
-        archiveStreams = await getArchiveStreams(archiveId || item.archiveId);
-    } else if (searchName) {
-        // Search Internet Archive for ANY content (not just local database)
-        const cleanName = searchName.replace(/\(.*?\)/g, '').trim();
-        archiveStreams = await searchInternetArchive(cleanName, year);
+    // Search Ex-Yu websites for streams
+    if (searchName) {
+        console.log(`Searching Ex-Yu sites for: ${searchName} (${year})`);
+        exYuStreams = await searchExYuSites(searchName, year);
     }
     
-    // Combine: manual first, then Internet Archive (HD first)
-    const allStreams = [...manualStreams, ...archiveStreams];
+    // Combine: manual first, then Ex-Yu scraped streams
+    const allStreams = [...manualStreams, ...exYuStreams];
     
     return { streams: allStreams };
 });
