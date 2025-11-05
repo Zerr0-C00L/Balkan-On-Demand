@@ -1,5 +1,4 @@
 const { addonBuilder } = require('stremio-addon-sdk');
-const express = require('express');
 const movies = require('./movies.json');
 
 // Addon manifest
@@ -364,13 +363,5 @@ builder.defineStreamHandler(async ({ type, id, name }) => {
     return { streams: allStreams };
 });
 
-// Create Express app with the addon interface
-const addonInterface = builder.getInterface();
-const app = express();
-app.use(addonInterface);
-
-// Vercel serverless function wrapper
-module.exports = (req, res) => {
-    // Let Express handle the request
-    app(req, res);
-};
+// Export the addon interface directly for Vercel
+module.exports = builder.getInterface();
