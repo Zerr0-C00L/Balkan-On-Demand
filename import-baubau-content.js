@@ -228,22 +228,63 @@ async function importContent() {
     originalTitle: series.originalTitle
   }));
   
+  // Load existing database to merge with new content
+  const outputPath = path.join(dataDir, 'baubau-content.json');
+  let existingDatabase = { movies: [], series: [] };
+  
+  if (fs.existsSync(outputPath)) {
+    try {
+      existingDatabase = JSON.parse(fs.readFileSync(outputPath, 'utf8'));
+      console.log(`\n📚 Loaded existing database: ${existingDatabase.movies?.length || 0} movies, ${existingDatabase.series?.length || 0} series`);
+    } catch (err) {
+      console.warn('⚠️  Could not load existing database, creating new one');
+    }
+  }
+  
+  // Merge new content with existing (avoid duplicates by ID)
+  const existingMovieIds = new Set((existingDatabase.movies || []).map(m => m.id));
+  const existingSeriesIds = new Set((existingDatabase.series || []).map(s => s.id));
+  
+  // Add only new items that don't exist yet
+  const newMoviesAdded = enrichedMovies.filter(m => !existingMovieIds.has(m.id));
+  const newSeriesAdded = enrichedSeries.filter(s => !existingSeriesIds.has(s.id));
+  
+  // Update existing BauBau items with fresh data
+  const updatedMovies = (existingDatabase.movies || []).map(existing => {
+    const updated = enrichedMovies.find(m => m.id === existing.id);
+    return updated || existing; // Use new data if available, otherwise keep existing
+  });
+  
+  const updatedSeries = (existingDatabase.series || []).map(existing => {
+    const updated = enrichedSeries.find(s => s.id === existing.id);
+    return updated || existing;
+  });
+  
+  // Combine: updated existing + brand new items
+  const finalMovies = [...updatedMovies, ...newMoviesAdded];
+  const finalSeries = [...updatedSeries, ...newSeriesAdded];
+  
+  console.log(`\n🔄 Merge Results:`);
+  console.log(`   • New movies added: ${newMoviesAdded.length}`);
+  console.log(`   • New series added: ${newSeriesAdded.length}`);
+  console.log(`   • Total movies: ${finalMovies.length}`);
+  console.log(`   • Total series: ${finalSeries.length}`);
+  
   // Create final database
   const database = {
     generated: new Date().toISOString(),
     stats: {
-      totalMovies: enrichedMovies.length,
+      totalMovies: finalMovies.length,
       moviesWithTMDB: enrichedCount,
       moviesEnriched: enrichedCount,
-      totalSeries: enrichedSeries.length,
+      totalSeries: finalSeries.length,
       totalEpisodes: 0
     },
-    movies: enrichedMovies,
-    series: enrichedSeries
+    movies: finalMovies,
+    series: finalSeries
   };
   
   // Save to file
-  const outputPath = path.join(dataDir, 'baubau-content.json');
   fs.writeFileSync(outputPath, JSON.stringify(database, null, 2), 'utf8');
   
   console.log('\n✅ Import completed successfully!\n');

@@ -679,7 +679,7 @@ app.listen(PORT, () => {
   console.log(`   • Movies: ${movieCategories.movies.length}`);
   console.log(`   • Foreign Movies: ${movieCategories.foreign.length}`);
   console.log(`   • Crtani Filmovi: ${movieCategories.kids.length}`);
-  console.log(`   • Series: ${balkanSeries.length}`);
+  console.log(`   • Series: ${bauBauDB.series?.length || 0}`);
   console.log(`\n✅ Ready to serve streams with Cinemeta metadata enrichment!\n`);
   console.log(`🎛️  Separate Home/Discover configuration supported!\n`);
 });
