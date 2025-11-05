@@ -143,6 +143,7 @@ function generateManifest(config = null) {
       
       // Build the extra array and extraSupported based on home/discover settings
       const filteredExtra = [];
+      const extraRequired = [];
       
       // Add 'skip' for home catalogs (enables pagination in Home section)
       if (inHome) {
@@ -154,7 +155,13 @@ function generateManifest(config = null) {
       if (inDiscover) {
         if (cat.extra.some(e => e.name === 'search')) {
           extraSupported.push('search');
-          filteredExtra.push({ name: 'search', isRequired: false });
+          // If Discover-only (not in Home), make search required to hide from Home
+          if (!inHome) {
+            filteredExtra.push({ name: 'search', isRequired: true });
+            extraRequired.push('search');
+          } else {
+            filteredExtra.push({ name: 'search', isRequired: false });
+          }
         }
         if (cat.extra.some(e => e.name === 'genre')) {
           extraSupported.push('genre');
@@ -164,6 +171,9 @@ function generateManifest(config = null) {
       
       catalogCopy.extra = filteredExtra;
       catalogCopy.extraSupported = [...new Set(extraSupported)]; // Remove duplicates
+      if (extraRequired.length > 0) {
+        catalogCopy.extraRequired = extraRequired;
+      }
       
       return catalogCopy;
     }).filter(Boolean);
@@ -179,7 +189,7 @@ function generateManifest(config = null) {
 
   return {
     id: 'community.balkan.on.demand',
-    version: '5.0.8',
+    version: '5.0.9',
     name: 'Balkan On Demand',
     description: 'Balkan Movies & Series from Serbia, Croatia & Bosnia, with direct streaming links',
     
