@@ -321,11 +321,12 @@ builder.defineStreamHandler(async ({ type, id, name }) => {
     }
     
     // Check Internet Archive catalog
-    if (!item && id.startsWith('archive:')) {
-        archiveId = id.replace('archive:', '');
-        const archiveMovies = await fetchArchiveCatalog();
-        item = archiveMovies.find(m => m.id === id);
-    }
+    // Note: fetchArchiveCatalog function removed for now
+    // if (!item && id.startsWith('archive:')) {
+    //     archiveId = id.replace('archive:', '');
+    //     const archiveMovies = await fetchArchiveCatalog();
+    //     item = archiveMovies.find(m => m.id === id);
+    // }
     
     // Extract info from item or use provided metadata
     if (item) {
