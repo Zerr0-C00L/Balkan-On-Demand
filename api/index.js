@@ -369,5 +369,8 @@ const addonInterface = builder.getInterface();
 const app = express();
 app.use(addonInterface);
 
-// Export for Vercel
-module.exports = app;
+// Vercel serverless function wrapper
+module.exports = (req, res) => {
+    // Let Express handle the request
+    app(req, res);
+};
