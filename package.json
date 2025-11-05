@@ -1,14 +1,15 @@
 {
   "name": "balkan-stremio-addon",
-  "version": "1.0.0",
-  "description": "Stremio addon for Balkan movies and TV shows",
-  "main": "addon.js",
+  "version": "4.0.0",
+  "description": "Stremio addon for Balkan movies and TV shows with Apple TV support",
+  "main": "addon-enhanced.js",
   "engines": {
     "node": ">=18.x"
   },
   "scripts": {
-    "start": "node addon.js",
-    "dev": "nodemon addon.js"
+    "start": "node addon-enhanced.js",
+    "start:old": "node addon.js",
+    "dev": "nodemon addon-enhanced.js"
   },
   "keywords": [
     "stremio",
