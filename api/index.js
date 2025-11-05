@@ -1,5 +1,5 @@
 const { addonBuilder } = require('stremio-addon-sdk');
-const movies = require('../movies.json');
+const movies = require('./movies.json');
 
 // Addon manifest
 const manifest = {
