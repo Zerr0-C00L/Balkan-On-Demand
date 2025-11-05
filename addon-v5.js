@@ -108,6 +108,7 @@ const allCatalogs = [
     name: 'Crtani Filmovi',
     type: 'movie',
     extra: [
+      { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
     ]
   },
@@ -116,6 +117,7 @@ const allCatalogs = [
     name: 'Serije',
     type: 'series',
     extra: [
+      { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
     ]
   }
@@ -137,7 +139,12 @@ function generateManifest(config = null) {
       }
       
       const catalogCopy = { ...cat };
-      const extraSupported = ['skip']; // Always include skip for basic pagination
+      const extraSupported = [];
+      
+      // Add 'skip' for home catalogs (enables pagination in Home section)
+      if (inHome) {
+        extraSupported.push('skip');
+      }
       
       // Add 'search' and 'genre' for discover
       if (inDiscover) {
@@ -165,7 +172,7 @@ function generateManifest(config = null) {
 
   return {
     id: 'community.balkan.on.demand',
-    version: '5.0.6',
+    version: '5.0.7',
     name: 'Balkan On Demand',
     description: 'Balkan Movies & Series from Serbia, Croatia & Bosnia, with direct streaming links',
     
@@ -673,7 +680,7 @@ app.all('/:config(*)', (req, res, next) => {
 app.use(getRouter(builder.getInterface()));
 
 app.listen(PORT, () => {
-  console.log(`\n🚀 Balkan On Demand v5.0.6 running on http://localhost:${PORT}\n`);
+  console.log(`\n🚀 Balkan On Demand v5.0.7 running on http://localhost:${PORT}\n`);
   console.log(`📊 Content Stats:`);
   console.log(`   • Movies: ${movieCategories.movies.length}`);
   console.log(`   • Foreign Movies: ${movieCategories.foreign.length}`);
