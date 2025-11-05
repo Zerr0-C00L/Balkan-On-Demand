@@ -18,25 +18,28 @@ async function getDirectStreamUrl(videoId) {
     }
     
     try {
-        // Method 1: Try Invidious instances (provides direct MP4 links)
+        // Method 1: Try Invidious instances (provides direct MP4 links) with shorter timeout
         const invidiousInstances = [
+            'https://invidious.io.lol',
             'https://inv.nadeko.net',
-            'https://invidious.nerdvpn.de',
-            'https://inv.tux.pizza',
-            'https://invidious.perennialte.ch',
-            'https://yt.artemislena.eu'
+            'https://invidious.privacyredirect.com',
+            'https://yewtu.be',
+            'https://invidious.nerdvpn.de'
         ];
         
         for (const instance of invidiousInstances) {
             try {
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), 3000); // Reduced to 3s
+                
                 const response = await fetch(`${instance}/api/v1/videos/${videoId}`, { 
-                    signal: AbortSignal.timeout(5000)
+                    signal: controller.signal
                 });
+                clearTimeout(timeout);
                 
                 if (!response.ok) continue;
                 const data = await response.json();
                 
-                // Get best quality formats that work on Apple TV
                 const formats = [];
                 
                 // Try formatStreams first (video+audio combined - BEST for Apple TV)
@@ -96,28 +99,32 @@ async function getDirectStreamUrl(videoId) {
                         type: f.container
                     }));
                     
-                    console.log(`✓ Successfully extracted ${result.length} streams for ${videoId} from ${instance}`);
+                    console.log(`✓ Extracted ${result.length} streams for ${videoId} from ${instance}`);
                     streamCache.set(videoId, result);
                     return result;
                 }
             } catch (err) {
-                console.log(`Failed ${instance}: ${err.message}`);
+                // Silently continue to next instance
                 continue;
             }
         }
         
-        // Method 2: Try Piped API (fallback)
+        // Method 2: Try Piped API (fallback) with shorter timeout
         const pipedInstances = [
             'https://pipedapi.kavin.rocks',
-            'https://pipedapi.tokhmi.xyz',
-            'https://piped-api.garudalinux.org'
+            'https://api-piped.mha.fi',
+            'https://pipedapi.tokhmi.xyz'
         ];
         
         for (const instance of pipedInstances) {
             try {
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), 3000);
+                
                 const response = await fetch(`${instance}/streams/${videoId}`, {
-                    signal: AbortSignal.timeout(5000)
+                    signal: controller.signal
                 });
+                clearTimeout(timeout);
                 
                 if (!response.ok) continue;
                 const data = await response.json();
@@ -147,17 +154,16 @@ async function getDirectStreamUrl(videoId) {
                 }
                 
                 if (formats.length > 0) {
-                    console.log(`✓ Successfully extracted ${formats.length} streams for ${videoId} from Piped`);
+                    console.log(`✓ Extracted ${formats.length} streams for ${videoId} from Piped`);
                     streamCache.set(videoId, formats);
                     return formats;
                 }
             } catch (err) {
-                console.log(`Failed ${instance}: ${err.message}`);
                 continue;
             }
         }
         
-        console.log(`✗ All extraction methods failed for ${videoId}`);
+        console.log(`⚠ No direct streams found for ${videoId}, using embed URLs`);
         return null;
     } catch (error) {
         console.error(`Error extracting stream URL for ${videoId}:`, error.message);
@@ -447,13 +453,35 @@ builder.defineStreamHandler(async ({ type, id }) => {
             });
         }
         console.log(`✓ Added ${directStreams.length} direct streams for ${youtubeId}`);
-    } else {
-        console.log(`✗ No direct streams available for ${youtubeId}`);
     }
     
-    // Add YouTube fallback (for web/Android)
+    // Add multiple player options that work on different devices
+    
+    // 1. Invidious embed (works on most devices including Apple TV)
     streams.push({
-        name: '📺 YouTube (Fallback)',
+        name: '🎥 Invidious Player',
+        title: itemName,
+        url: `https://invidious.io.lol/embed/${youtubeId}`,
+        behaviorHints: {
+            notWebReady: false,
+            bingeGroup: 'balkan-invidious'
+        }
+    });
+    
+    // 2. Piped embed (alternative)
+    streams.push({
+        name: '🌊 Piped Player',
+        title: itemName,
+        url: `https://piped.video/watch?v=${youtubeId}`,
+        behaviorHints: {
+            notWebReady: false,
+            bingeGroup: 'balkan-piped'
+        }
+    });
+    
+    // 3. YouTube as last resort (for web/Android only)
+    streams.push({
+        name: '📺 YouTube',
         title: itemName,
         ytId: youtubeId,
         behaviorHints: {
