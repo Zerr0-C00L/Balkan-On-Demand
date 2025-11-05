@@ -64,7 +64,8 @@ function getExYuStreams(name) {
     
     // Add YouTube search first (most likely to have full movies)
     streams.push({
-        title: `🎬 YouTube: ${cleanName} - Full Movie`,
+        name: 'Balkan On Demand',
+        title: `🎬 YouTube Search\n${cleanName} - Full Movie`,
         externalUrl: `https://www.youtube.com/results?search_query=${encodeURIComponent(cleanName + ' ceo film')}`,
         behaviorHints: {
             notWebReady: true
@@ -73,7 +74,8 @@ function getExYuStreams(name) {
     
     // Add Archive.org search
     streams.push({
-        title: `📼 Archive.org: ${cleanName}`,
+        name: 'Balkan On Demand',
+        title: `📼 Archive.org\n${cleanName}`,
         externalUrl: `https://archive.org/search.php?query=${encodeURIComponent(cleanName)}`,
         behaviorHints: {
             notWebReady: true
@@ -84,7 +86,8 @@ function getExYuStreams(name) {
     for (const source of EX_YU_SOURCES) {
         const url = generateExYuLinks(cleanName, source);
         streams.push({
-            title: `🔍 ${source.name}: ${cleanName}`,
+            name: 'Balkan On Demand',
+            title: `🔍 ${source.name}\n${cleanName}`,
             externalUrl: url,
             behaviorHints: {
                 notWebReady: true
