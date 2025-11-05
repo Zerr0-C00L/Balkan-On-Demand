@@ -1,4 +1,4 @@
-const { addonBuilder, serveHTTP } = require('stremio-addon-sdk');
+const { addonBuilder, getRouter } = require('stremio-addon-sdk');
 const movies = require('./movies.json');
 
 // Addon manifest
@@ -363,7 +363,8 @@ builder.defineStreamHandler(async ({ type, id, name }) => {
     return { streams: allStreams };
 });
 
-// Export for Vercel using serveHTTP
-module.exports = (req, res) => {
-    serveHTTP(builder.getInterface(), { req, res });
-};
+// Create the router for Vercel
+const router = getRouter(builder.getInterface());
+
+// Export for Vercel
+module.exports = router;
