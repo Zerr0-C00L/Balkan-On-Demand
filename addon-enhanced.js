@@ -237,7 +237,7 @@ async function searchCinemeta(title, year, type = 'movie') {
 // Addon manifest
 const manifest = {
     id: 'org.balkan.films.enhanced',
-    version: '4.0.0',
+    version: '4.0.1',
     name: 'Domaci Filmovi - Apple TV Enhanced',
     description: '1090+ Yugoslav/Balkan movies with Apple TV compatible streams (HLS/MP4)',
     resources: ['catalog', 'meta', 'stream'],
@@ -247,20 +247,30 @@ const manifest = {
             type: 'movie',
             id: 'domaci-filmovi',
             name: 'Domaci Filmovi',
+            extraSupported: ['genre', 'skip'],
             extra: [
                 {
                     name: 'genre',
+                    isRequired: false,
                     options: ['Domaci film', 'Akcija', 'Animirani', 'Dokumentarni', 'Horor', 'Komedija', 'Misterija', 'Romansa', 'Sci-Fi']
                 },
                 {
-                    name: 'skip'
+                    name: 'skip',
+                    isRequired: false
                 }
             ]
         },
         {
             type: 'series',
             id: 'domace-serije',
-            name: 'Domace Serije'
+            name: 'Domace Serije',
+            extraSupported: ['skip'],
+            extra: [
+                {
+                    name: 'skip',
+                    isRequired: false
+                }
+            ]
         }
     ],
     idPrefixes: ['yt:']
@@ -270,7 +280,7 @@ const builder = new addonBuilder(manifest);
 
 // Catalog handler
 builder.defineCatalogHandler(async ({ type, id, extra }) => {
-    console.log(`Catalog request: type=${type}, id=${id}`);
+    console.log(`Catalog request: type=${type}, id=${id}, extra=${JSON.stringify(extra)}`);
     
     if (type === 'movie' && id === 'domaci-filmovi') {
         let allMovies = [...sevcetContent.movies];
@@ -288,15 +298,33 @@ builder.defineCatalogHandler(async ({ type, id, extra }) => {
         const metasPromises = paginatedMovies.map(async m => {
             const cinemeta = await searchCinemeta(m.name, m.releaseInfo, 'movie');
             
-            return {
+            const meta = {
                 id: m.id,
                 type: 'movie',
                 name: sanitizeText(m.name),
-                poster: cinemeta?.poster || m.poster,
-                posterShape: cinemeta?.poster ? 'poster' : 'landscape',
-                releaseInfo: sanitizeText(m.releaseInfo),
-                description: sanitizeText(m.description)
+                poster: cinemeta?.poster || m.poster || 'https://via.placeholder.com/300x450/1a1a1a/ffffff?text=No+Poster',
+                posterShape: 'poster', // Always use poster shape for proper display
+                releaseInfo: sanitizeText(m.releaseInfo || ''),
+                description: sanitizeText(m.description || ''),
+                genres: m.genres || []
             };
+            
+            // Add logo if available from cinemeta
+            if (cinemeta?.fullMeta?.logo) {
+                meta.logo = cinemeta.fullMeta.logo;
+            }
+            
+            // Add background if available
+            if (cinemeta?.background) {
+                meta.background = cinemeta.background;
+            }
+            
+            // Add IMDb rating if available
+            if (cinemeta?.fullMeta?.imdbRating) {
+                meta.imdbRating = cinemeta.fullMeta.imdbRating;
+            }
+            
+            return meta;
         });
         
         const metas = await Promise.all(metasPromises);
@@ -306,18 +334,40 @@ builder.defineCatalogHandler(async ({ type, id, extra }) => {
     }
     
     if (type === 'series' && id === 'domace-serije') {
-        const metasPromises = sevcetContent.series.map(async s => {
+        const skip = extra && extra.skip ? parseInt(extra.skip) : 0;
+        const limit = 100;
+        const paginatedSeries = sevcetContent.series.slice(skip, skip + limit);
+        
+        const metasPromises = paginatedSeries.map(async s => {
             const cinemeta = await searchCinemeta(s.name, s.releaseInfo, 'series');
             
-            return {
+            const meta = {
                 id: s.id,
                 type: 'series',
                 name: sanitizeText(s.name),
-                poster: cinemeta?.poster || s.poster,
-                posterShape: cinemeta?.poster ? 'poster' : 'landscape',
-                releaseInfo: sanitizeText(s.releaseInfo),
-                description: sanitizeText(s.description)
+                poster: cinemeta?.poster || s.poster || 'https://via.placeholder.com/300x450/1a1a1a/ffffff?text=No+Poster',
+                posterShape: 'poster', // Always use poster shape
+                releaseInfo: sanitizeText(s.releaseInfo || ''),
+                description: sanitizeText(s.description || ''),
+                genres: s.genres || []
             };
+            
+            // Add logo if available
+            if (cinemeta?.fullMeta?.logo) {
+                meta.logo = cinemeta.fullMeta.logo;
+            }
+            
+            // Add background if available
+            if (cinemeta?.background) {
+                meta.background = cinemeta.background;
+            }
+            
+            // Add IMDb rating if available
+            if (cinemeta?.fullMeta?.imdbRating) {
+                meta.imdbRating = cinemeta.fullMeta.imdbRating;
+            }
+            
+            return meta;
         });
         
         const metas = await Promise.all(metasPromises);
@@ -351,41 +401,54 @@ builder.defineMetaHandler(async ({ type, id }) => {
         id: item.id,
         type: type,
         name: sanitizeText(item.name),
-        poster: cinemeta?.poster || item.poster,
-        posterShape: cinemeta?.poster ? 'poster' : 'landscape',
+        poster: cinemeta?.poster || item.poster || 'https://via.placeholder.com/300x450/1a1a1a/ffffff?text=No+Poster',
+        posterShape: 'poster', // Always use poster shape
         background: cinemeta?.background || null,
-        releaseInfo: sanitizeText(item.releaseInfo),
+        logo: cinemeta?.fullMeta?.logo || null,
+        releaseInfo: sanitizeText(item.releaseInfo || ''),
+        year: item.releaseInfo?.match(/(\d{4})/)?.[1] || null,
         description: sanitizeText(item.description || cinemeta?.fullMeta?.description || ''),
-        genre: (item.genres || cinemeta?.fullMeta?.genres || []).map(g => sanitizeText(g)),
+        genres: (item.genres || cinemeta?.fullMeta?.genres || []).map(g => sanitizeText(g)),
         cast: (cinemeta?.fullMeta?.cast || []).map(c => sanitizeText(c)),
         director: (cinemeta?.fullMeta?.director || []).map(d => sanitizeText(d)),
+        writer: (cinemeta?.fullMeta?.writer || []).map(w => sanitizeText(w)),
         imdbRating: cinemeta?.fullMeta?.imdbRating || null,
         runtime: cinemeta?.fullMeta?.runtime || null,
+        country: cinemeta?.fullMeta?.country || null,
+        awards: cinemeta?.fullMeta?.awards || null,
         trailers: cinemeta?.fullMeta?.trailers || [],
-        links: cinemeta?.imdbId ? [{ 
+        links: []
+    };
+    
+    // Add IMDb link if available
+    if (cinemeta?.imdbId) {
+        meta.links.push({ 
             name: 'IMDb',
             category: 'imdb',
             url: `https://www.imdb.com/title/${cinemeta.imdbId}/`
-        }] : []
-    };
+        });
+    }
     
+    // Add series episodes if available
     if (type === 'series' && item.videos && item.videos.length > 0) {
         const yearMatch = item.releaseInfo.match(/(\d{4})/);
         const year = yearMatch ? yearMatch[1] : '1970';
         
         meta.videos = item.videos.map(v => ({
             id: `${item.id}:${v.season}:${v.episode}`,
+            title: sanitizeText(v.title || `Episode ${v.episode}`),
             name: sanitizeText(v.title || `Episode ${v.episode}`),
             season: parseInt(v.season),
             episode: parseInt(v.episode),
             number: parseInt(v.episode),
             thumbnail: `https://img.youtube.com/vi/${v.id}/hqdefault.jpg`,
-            overview: sanitizeText(item.description),
+            overview: sanitizeText(item.description || ''),
+            description: sanitizeText(item.description || ''),
             released: new Date(`${year}-01-01`).toISOString()
         }));
     }
     
-    console.log(`Returning meta for ${item.name}`);
+    console.log(`Returning enhanced meta for ${item.name} with ${Object.keys(meta).length} fields`);
     return { meta };
 });
 
