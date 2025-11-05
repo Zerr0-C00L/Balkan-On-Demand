@@ -1,0 +1,108 @@
+name: Update BauBau Content
+
+on:
+  schedule:
+    # Run every day at 3 AM UTC (4 AM CET)
+    - cron: '0 3 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  update-content:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Download latest BauBau content
+        run: |
+          echo "📥 Downloading latest content from BauBau API..."
+          mkdir -p archive/analysis
+          
+          # Download all files (file1-file6)
+          for i in {1..6}; do
+            echo "Downloading file$i..."
+            curl -s "https://dexe.win/addons/klik/klik.php?api&file=file$i&group=KLIK+PREMIJERA" \
+              -o "archive/analysis/baubau-file$i.xml" || echo "Failed to download file$i"
+          done
+          
+          echo "✅ Download complete"
+      
+      - name: Check for content changes
+        id: check_changes
+        run: |
+          # Get file sizes
+          du -sh archive/analysis/baubau-*.xml
+          
+          # Check if any XML files changed
+          if git diff --quiet archive/analysis/; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ No new content detected"
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "🆕 New content detected!"
+          fi
+      
+      - name: Import new content
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          echo "🔄 Processing new content..."
+          node import-baubau-content.js
+      
+      - name: Commit and push changes
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          # Add all changes
+          git add archive/analysis/*.xml
+          git add data/baubau-content.json
+          
+          # Get current date
+          DATE=$(date '+%Y-%m-%d')
+          
+          # Count new content
+          MOVIES=$(jq '.stats.totalMovies' data/baubau-content.json)
+          SERIES=$(jq '.stats.totalSeries' data/baubau-content.json)
+          
+          # Commit with stats
+          git commit -m "🤖 Auto-update: New content - $DATE
+
+          📊 Updated Stats:
+          • Movies: $MOVIES
+          • Series: $SERIES
+          
+          Triggered by: GitHub Actions (daily update)" || echo "No changes to commit"
+          
+          git push
+      
+      - name: Trigger Heroku deployment
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          echo "🚀 Pushing to Heroku..."
+          # This will trigger automatic deployment on Heroku if connected to GitHub
+          echo "✅ Changes pushed - Heroku will auto-deploy"
+      
+      - name: Summary
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          echo "✅ Content update completed successfully!"
+          echo ""
+          echo "📊 New Stats:"
+          jq '.stats' data/baubau-content.json
+      
+      - name: No changes summary
+        if: steps.check_changes.outputs.changed == 'false'
+        run: |
+          echo "ℹ️ No new content available - skipping update"
