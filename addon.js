@@ -232,7 +232,7 @@ builder.defineMetaHandler(async ({ type, id }) => {
     return { meta };
 });
 
-// Stream handler - Only YouTube streams
+// Stream handler - Direct streaming URLs for all devices
 builder.defineStreamHandler(async ({ type, id }) => {
     console.log(`Stream request: type=${type}, id=${id}`);
     
@@ -276,14 +276,21 @@ builder.defineStreamHandler(async ({ type, id }) => {
         return { streams: [] };
     }
     
-    // Build YouTube stream
-    const streams = [{
-        name: 'YouTube',
-        title: itemName,
-        ytId: youtubeId
-    }];
+    // Return both YouTube embed and direct URL options
+    const streams = [
+        {
+            name: 'YouTube',
+            title: `${itemName} - YouTube`,
+            ytId: youtubeId
+        },
+        {
+            name: 'Direct Stream',
+            title: `${itemName} - Direct`,
+            externalUrl: `https://www.youtube.com/watch?v=${youtubeId}`
+        }
+    ];
     
-    console.log(`Returning YouTube stream: ${youtubeId} for ${itemName}`);
+    console.log(`Returning streams for: ${youtubeId} - ${itemName}`);
     return { streams };
 });
 
