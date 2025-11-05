@@ -163,80 +163,122 @@
         
         <div class="config-section">
             <h2>🎛️ Custom Configuration</h2>
-            <p style="text-align: center; margin-bottom: 20px; color: #ccc;">Select which catalogs you want to see</p>
+            <p style="text-align: center; margin-bottom: 20px; color: #ccc;">Choose where each catalog appears</p>
             
-            <div class="catalog-option" onclick="toggleCheckbox('balkan_movies')">
-                <input type="checkbox" id="balkan_movies" checked>
-                <label for="balkan_movies">
-                    <div class="catalog-name">🎬 Filmovi</div>
-                    <div class="catalog-desc">1,364 Ex-YU movies, 4K releases, classics</div>
-                </label>
-            </div>
-            
-            <div class="catalog-option" onclick="toggleCheckbox('balkan_foreign_movies')">
-                <input type="checkbox" id="balkan_foreign_movies" checked>
-                <label for="balkan_foreign_movies">
-                    <div class="catalog-name">🌍 Strani Filmovi</div>
-                    <div class="catalog-desc">1,076 International & Hollywood films</div>
-                </label>
-            </div>
-            
-            <div class="catalog-option" onclick="toggleCheckbox('balkan_kids')">
-                <input type="checkbox" id="balkan_kids" checked>
-                <label for="balkan_kids">
-                    <div class="catalog-name">🎨 Crtani Filmovi</div>
-                    <div class="catalog-desc">374 Animated films for kids</div>
-                </label>
-            </div>
-            
-            <div class="catalog-option" onclick="toggleCheckbox('balkan_series')">
-                <input type="checkbox" id="balkan_series" checked>
-                <label for="balkan_series">
-                    <div class="catalog-name">📺 Serije</div>
-                    <div class="catalog-desc">37 TV series with all episodes</div>
-                </label>
-            </div>
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="border-bottom: 2px solid #4ecca3;">
+                        <th style="text-align: left; padding: 15px 10px; color: #4ecca3;">Catalog</th>
+                        <th style="text-align: center; padding: 15px 10px; color: #4ecca3;">🏠 Home</th>
+                        <th style="text-align: center; padding: 15px 10px; color: #4ecca3;">🔍 Discover</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid #252844;">
+                        <td style="padding: 15px 10px;">
+                            <div class="catalog-name" style="font-size: 1.1em;">🎬 Filmovi</div>
+                            <div class="catalog-desc">1,364 Ex-YU movies</div>
+                        </td>
+                        <td style="text-align: center; padding: 15px 10px;">
+                            <input type="checkbox" id="home_balkan_movies" checked style="width: 24px; height: 24px; cursor: pointer;">
+                        </td>
+                        <td style="text-align: center; padding: 15px 10px;">
+                            <input type="checkbox" id="discover_balkan_movies" checked style="width: 24px; height: 24px; cursor: pointer;">
+                        </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #252844;">
+                        <td style="padding: 15px 10px;">
+                            <div class="catalog-name" style="font-size: 1.1em;">🌍 Strani Filmovi</div>
+                            <div class="catalog-desc">1,076 International films</div>
+                        </td>
+                        <td style="text-align: center; padding: 15px 10px;">
+                            <input type="checkbox" id="home_balkan_foreign_movies" checked style="width: 24px; height: 24px; cursor: pointer;">
+                        </td>
+                        <td style="text-align: center; padding: 15px 10px;">
+                            <input type="checkbox" id="discover_balkan_foreign_movies" checked style="width: 24px; height: 24px; cursor: pointer;">
+                        </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #252844;">
+                        <td style="padding: 15px 10px;">
+                            <div class="catalog-name" style="font-size: 1.1em;">🎨 Crtani Filmovi</div>
+                            <div class="catalog-desc">374 Animated films</div>
+                        </td>
+                        <td style="text-align: center; padding: 15px 10px;">
+                            <input type="checkbox" id="home_balkan_kids" checked style="width: 24px; height: 24px; cursor: pointer;">
+                        </td>
+                        <td style="text-align: center; padding: 15px 10px;">
+                            <input type="checkbox" id="discover_balkan_kids" checked style="width: 24px; height: 24px; cursor: pointer;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 15px 10px;">
+                            <div class="catalog-name" style="font-size: 1.1em;">📺 Serije</div>
+                            <div class="catalog-desc">37 TV series</div>
+                        </td>
+                        <td style="text-align: center; padding: 15px 10px;">
+                            <input type="checkbox" id="home_balkan_series" checked style="width: 24px; height: 24px; cursor: pointer;">
+                        </td>
+                        <td style="text-align: center; padding: 15px 10px;">
+                            <input type="checkbox" id="discover_balkan_series" checked style="width: 24px; height: 24px; cursor: pointer;">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             
             <button class="install-btn" onclick="installCustom()">
-                📥 Install Selected Catalogs
+                📥 Install with Custom Configuration
             </button>
             
             <div class="manifest-url" id="manifestUrl">
                 Click "Install" to generate your custom addon URL
             </div>
             
-            <p class="note">✨ Your selection will be saved in the addon URL</p>
+            <p class="note">✨ Home = Main page | Discover = Search & Browse section</p>
         </div>
     </div>
     
     <script>
-        function toggleCheckbox(id) {
-            const checkbox = document.getElementById(id);
-            checkbox.checked = !checkbox.checked;
-        }
-        
         function installCustom() {
-            const all = [
+            const catalogIds = [
                 'balkan_movies',
                 'balkan_foreign_movies',
                 'balkan_kids',
                 'balkan_series'
             ];
             
-            const selected = all.filter(id => document.getElementById(id).checked);
+            // Collect home selections
+            const homeSelected = catalogIds.filter(id => 
+                document.getElementById(`home_${id}`).checked
+            );
             
-            if (selected.length === 0) {
-                alert('Please select at least one catalog!');
+            // Collect discover selections
+            const discoverSelected = catalogIds.filter(id => 
+                document.getElementById(`discover_${id}`).checked
+            );
+            
+            // Check if at least one is selected in either home or discover
+            if (homeSelected.length === 0 && discoverSelected.length === 0) {
+                alert('Please select at least one catalog for Home or Discover!');
                 return;
             }
             
-            // If all are selected, use default URL (shorter)
+            // If all catalogs are selected in both home and discover, use default URL
             let manifestUrl;
-            if (selected.length === all.length) {
+            if (homeSelected.length === catalogIds.length && discoverSelected.length === catalogIds.length) {
                 manifestUrl = 'https://balkan-on-demand-828b9dd653f6.herokuapp.com/manifest.json';
             } else {
-                // Create config with selected catalogs
-                const config = selected.join(',');
+                // Create config string: home=id1,id2&discover=id3,id4
+                const configParts = [];
+                
+                if (homeSelected.length > 0) {
+                    configParts.push(`home=${homeSelected.join(',')}`);
+                }
+                
+                if (discoverSelected.length > 0) {
+                    configParts.push(`discover=${discoverSelected.join(',')}`);
+                }
+                
+                const config = configParts.join('&');
                 manifestUrl = `https://balkan-on-demand-828b9dd653f6.herokuapp.com/${config}/manifest.json`;
             }
             

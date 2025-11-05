@@ -81,7 +81,7 @@ function sanitizeText(text) {
         .trim();
 }
 
-// All available catalogs
+// All available catalogs with their base configuration
 const allCatalogs = [
   {
     id: 'balkan_movies',
@@ -121,16 +121,56 @@ const allCatalogs = [
   }
 ];
 
-// Generate manifest based on selected catalogs
-function generateManifest(selectedCatalogs = null) {
-  // If no selection provided, use all catalogs
-  const catalogs = selectedCatalogs 
-    ? allCatalogs.filter(cat => selectedCatalogs.includes(cat.id))
-    : allCatalogs;
+// Generate manifest based on home/discover configuration
+function generateManifest(config = null) {
+  let catalogs = allCatalogs;
+  
+  // If config is provided, filter and add extraSupported based on home/discover settings
+  if (config && (config.home || config.discover)) {
+    catalogs = allCatalogs.map(cat => {
+      const inHome = !config.home || config.home.includes(cat.id);
+      const inDiscover = !config.discover || config.discover.includes(cat.id);
+      
+      // Skip catalogs that are in neither home nor discover
+      if (!inHome && !inDiscover) {
+        return null;
+      }
+      
+      const catalogCopy = { ...cat };
+      const extraSupported = [];
+      
+      // Add 'skip' for home (pagination)
+      if (inHome) {
+        extraSupported.push('skip');
+      }
+      
+      // Add 'search' and 'genre' for discover
+      if (inDiscover) {
+        if (cat.extra.some(e => e.name === 'search')) {
+          extraSupported.push('search');
+        }
+        if (cat.extra.some(e => e.name === 'genre')) {
+          extraSupported.push('genre');
+        }
+      }
+      
+      catalogCopy.extraSupported = [...new Set(extraSupported)]; // Remove duplicates
+      
+      return catalogCopy;
+    }).filter(Boolean);
+  } else {
+    // Default: all catalogs in both home and discover
+    catalogs = allCatalogs.map(cat => ({
+      ...cat,
+      extraSupported: ['skip', 'search', 'genre'].filter(extra => 
+        cat.extra.some(e => e.name === extra)
+      )
+    }));
+  }
 
   return {
     id: 'community.balkan.on.demand',
-    version: '5.0.3',
+    version: '5.0.4',
     name: 'Balkan On Demand',
     description: 'Balkan Movies & Series from Serbia, Croatia & Bosnia, with direct streaming links',
     
@@ -562,15 +602,35 @@ builder.defineStreamHandler(({ type, id }) => {
 // Cache for custom builders
 const builderCache = new Map();
 
+// Parse config string format: "home=id1,id2&discover=id3,id4"
+function parseConfigString(configStr) {
+  if (!configStr || !configStr.includes('=')) {
+    return null;
+  }
+  
+  const config = {};
+  const parts = configStr.split('&');
+  
+  for (const part of parts) {
+    const [key, value] = part.split('=');
+    if (key && value) {
+      config[key] = value.split(',');
+    }
+  }
+  
+  return config;
+}
+
 // Get or create builder for specific catalog configuration
-function getBuilderForConfig(selectedCatalogs) {
-  const cacheKey = selectedCatalogs ? selectedCatalogs.sort().join(',') : 'all';
+function getBuilderForConfig(configStr) {
+  const cacheKey = configStr || 'all';
   
   if (builderCache.has(cacheKey)) {
     return builderCache.get(cacheKey);
   }
   
-  const customManifest = generateManifest(selectedCatalogs);
+  const config = parseConfigString(configStr);
+  const customManifest = generateManifest(config);
   const customBuilder = new addonBuilder(customManifest);
   
   // Define the same handlers
@@ -592,15 +652,15 @@ const app = express();
 // Serve static files from public directory
 app.use(express.static('public'));
 
-// Handle custom configuration routes: /:catalogs/...
-app.use('/:config([a-z_,]+)', (req, res, next) => {
-  // Only handle if it looks like a catalog config (contains underscores or commas)
-  if (!req.params.config.includes('_')) {
+// Handle custom configuration routes: /:config/...
+// Format: /home=id1,id2&discover=id3,id4/manifest.json
+app.use('/:config([a-z_,=&]+)', (req, res, next) => {
+  // Only handle if it looks like a config (contains = or _ or ,)
+  if (!req.params.config.includes('=') && !req.params.config.includes('_')) {
     return next();
   }
   
-  const selectedCatalogs = req.params.config.split(',');
-  const customBuilder = getBuilderForConfig(selectedCatalogs);
+  const customBuilder = getBuilderForConfig(req.params.config);
   const router = getRouter(customBuilder.getInterface());
   
   // Rewrite the URL to remove the config prefix
@@ -614,12 +674,12 @@ app.use('/:config([a-z_,]+)', (req, res, next) => {
 app.use(getRouter(builder.getInterface()));
 
 app.listen(PORT, () => {
-  console.log(`\n🚀 Balkan On Demand v5.0.3 running on http://localhost:${PORT}\n`);
+  console.log(`\n🚀 Balkan On Demand v5.0.4 running on http://localhost:${PORT}\n`);
   console.log(`📊 Content Stats:`);
   console.log(`   • Movies: ${movieCategories.movies.length}`);
   console.log(`   • Foreign Movies: ${movieCategories.foreign.length}`);
   console.log(`   • Crtani Filmovi: ${movieCategories.kids.length}`);
   console.log(`   • Series: ${bauBauDB.series.length}`);
   console.log(`\n✅ Ready to serve streams with Cinemeta metadata enrichment!\n`);
-  console.log(`🎛️  Custom catalog selection: /:catalogs/manifest.json\n`);
+  console.log(`🎛️  Separate Home/Discover configuration supported!\n`);
 });
