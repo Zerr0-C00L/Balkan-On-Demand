@@ -165,7 +165,7 @@ function generateManifest(config = null) {
 
   return {
     id: 'community.balkan.on.demand',
-    version: '5.0.5',
+    version: '5.0.6',
     name: 'Balkan On Demand',
     description: 'Balkan Movies & Series from Serbia, Croatia & Bosnia, with direct streaming links',
     
@@ -648,23 +648,22 @@ const app = express();
 app.use(express.static('public'));
 
 // Handle custom configuration routes: /:config/...
-// Format: /home=id1,id2&discover=id3,id4/manifest.json
-app.use('/:config', (req, res, next) => {
-  const config = req.params.config;
+// Format: /home=id1,id2&discover=id3,id4/manifest.json  
+app.all('/:config(*)', (req, res, next) => {
+  // Only match paths that start with a config-like string
+  const firstSegment = req.path.substring(1).split('/')[0];
   
-  // Only handle if config looks like a configuration string (contains = or _)
-  if (!config || (!config.includes('=') && !config.includes('_'))) {
+  // Only handle if first segment looks like a configuration string (contains = or _)
+  if (!firstSegment || (!firstSegment.includes('=') && !firstSegment.includes('_'))) {
     return next();
   }
   
-  const customBuilder = getBuilderForConfig(config);
+  const customBuilder = getBuilderForConfig(firstSegment);
   const router = getRouter(customBuilder.getInterface());
   
-  // Create a new request without the config prefix
-  req.url = req.url.substring(config.length + 1);
-  if (!req.url.startsWith('/')) {
-    req.url = '/' + req.url;
-  }
+  // Remove the config prefix from the path
+  const pathWithoutConfig = '/' + req.path.substring(1).split('/').slice(1).join('/');
+  req.url = pathWithoutConfig || '/';
   
   // Use the SDK router
   router(req, res, next);
@@ -674,7 +673,7 @@ app.use('/:config', (req, res, next) => {
 app.use(getRouter(builder.getInterface()));
 
 app.listen(PORT, () => {
-  console.log(`\n🚀 Balkan On Demand v5.0.5 running on http://localhost:${PORT}\n`);
+  console.log(`\n🚀 Balkan On Demand v5.0.6 running on http://localhost:${PORT}\n`);
   console.log(`📊 Content Stats:`);
   console.log(`   • Movies: ${movieCategories.movies.length}`);
   console.log(`   • Foreign Movies: ${movieCategories.foreign.length}`);
