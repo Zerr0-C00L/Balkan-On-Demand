@@ -363,5 +363,9 @@ builder.defineStreamHandler(async ({ type, id, name }) => {
     return { streams: allStreams };
 });
 
-// Export for Vercel - getInterface() returns an Express app
-module.exports = builder.getInterface();
+// Export for Vercel
+const interface = builder.getInterface();
+
+module.exports = (req, res) => {
+    interface(req, res);
+};
