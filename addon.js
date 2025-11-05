@@ -9,53 +9,106 @@ const cinemetaCache = new Map();
 // Cache for YouTube stream URLs
 const youtubeStreamCache = new Map();
 
-// Extract direct YouTube stream URL
+// Extract direct YouTube stream URL using multiple methods
 async function getYouTubeStreamUrl(videoId) {
     if (youtubeStreamCache.has(videoId)) {
-        return youtubeStreamCache.get(videoId);
+        const cached = youtubeStreamCache.get(videoId);
+        console.log(`Using cached stream URL for ${videoId}`);
+        return cached;
     }
     
     try {
-        // Use Invidious API for YouTube extraction (public instances)
-        const invidiousInstances = [
-            'https://inv.nadeko.net',
-            'https://invidious.nerdvpn.de',
-            'https://inv.tux.pizza',
-            'https://invidious.privacyredirect.com'
+        // Try multiple extraction services
+        const extractors = [
+            // Method 1: Invidious API
+            async () => {
+                const instances = [
+                    'https://inv.nadeko.net',
+                    'https://invidious.nerdvpn.de',
+                    'https://inv.tux.pizza'
+                ];
+                
+                for (const instance of instances) {
+                    try {
+                        const response = await fetch(`${instance}/api/v1/videos/${videoId}`, { 
+                            signal: AbortSignal.timeout(5000)
+                        });
+                        
+                        if (!response.ok) continue;
+                        const data = await response.json();
+                        
+                        // Try adaptiveFormats first (better quality)
+                        const adaptive = data.adaptiveFormats || [];
+                        const videoOnly = adaptive.filter(f => f.type?.includes('video/mp4'));
+                        
+                        if (videoOnly.length > 0) {
+                            const best = videoOnly.sort((a, b) => (b.bitrate || 0) - (a.bitrate || 0))[0];
+                            return best.url;
+                        }
+                        
+                        // Fallback to formatStreams (video + audio combined)
+                        const formats = data.formatStreams || [];
+                        if (formats.length > 0) {
+                            const best = formats.sort((a, b) => {
+                                const qA = parseInt(a.qualityLabel) || 0;
+                                const qB = parseInt(b.qualityLabel) || 0;
+                                return qB - qA;
+                            })[0];
+                            return best.url;
+                        }
+                    } catch (err) {
+                        continue;
+                    }
+                }
+                return null;
+            },
+            
+            // Method 2: Piped API
+            async () => {
+                const pipedInstances = [
+                    'https://pipedapi.kavin.rocks',
+                    'https://pipedapi.tokhmi.xyz'
+                ];
+                
+                for (const instance of pipedInstances) {
+                    try {
+                        const response = await fetch(`${instance}/streams/${videoId}`, {
+                            signal: AbortSignal.timeout(5000)
+                        });
+                        
+                        if (!response.ok) continue;
+                        const data = await response.json();
+                        
+                        if (data.videoStreams && data.videoStreams.length > 0) {
+                            const best = data.videoStreams.sort((a, b) => 
+                                (parseInt(b.quality?.replace('p', '')) || 0) - 
+                                (parseInt(a.quality?.replace('p', '')) || 0)
+                            )[0];
+                            return best.url;
+                        }
+                    } catch (err) {
+                        continue;
+                    }
+                }
+                return null;
+            }
         ];
         
-        for (const instance of invidiousInstances) {
+        // Try each extractor
+        for (const extractor of extractors) {
             try {
-                const url = `${instance}/api/v1/videos/${videoId}`;
-                const response = await fetch(url, { 
-                    signal: AbortSignal.timeout(5000),
-                    headers: { 'User-Agent': 'Stremio-Balkan-Addon/3.0' }
-                });
-                
-                if (!response.ok) continue;
-                
-                const data = await response.json();
-                
-                // Get the best quality stream
-                const formats = data.formatStreams || [];
-                if (formats.length > 0) {
-                    // Sort by quality (prefer 720p or highest available)
-                    const sorted = formats.sort((a, b) => {
-                        const qualityA = parseInt(a.qualityLabel) || 0;
-                        const qualityB = parseInt(b.qualityLabel) || 0;
-                        return qualityB - qualityA;
-                    });
-                    
-                    const streamUrl = sorted[0].url;
-                    youtubeStreamCache.set(videoId, streamUrl);
-                    return streamUrl;
+                const url = await extractor();
+                if (url) {
+                    console.log(`✓ Successfully extracted stream URL for ${videoId}`);
+                    youtubeStreamCache.set(videoId, url);
+                    return url;
                 }
             } catch (err) {
-                continue; // Try next instance
+                continue;
             }
         }
         
-        console.log(`Failed to extract stream for ${videoId}`);
+        console.log(`✗ All extraction methods failed for ${videoId}`);
         return null;
     } catch (error) {
         console.error(`Error extracting YouTube URL for ${videoId}:`, error.message);
@@ -130,7 +183,7 @@ async function searchCinemeta(title, year, type = 'movie') {
 // Addon manifest
 const manifest = {
     id: 'org.balkan.films',
-    version: '3.1.0',
+    version: '3.2.0',
     name: 'Domaci Filmovi i Serije',
     description: '1090+ Yugoslav/Balkan movies and series with direct YouTube streams',
     resources: ['catalog', 'meta', 'stream'],
@@ -335,32 +388,34 @@ builder.defineStreamHandler(async ({ type, id }) => {
     
     const streams = [];
     
-    // Try to get direct stream URL using Invidious
+    // Try to get direct stream URL
     console.log(`Extracting direct stream URL for: ${youtubeId}`);
     const directUrl = await getYouTubeStreamUrl(youtubeId);
     
     if (directUrl) {
+        // Add direct MP4 stream with proper headers
         streams.push({
-            name: 'Direct Stream (Best Quality)',
-            title: `${itemName}`,
-            url: directUrl
+            name: '🎬 Direct Stream',
+            title: itemName,
+            url: directUrl,
+            behaviorHints: {
+                notWebReady: false,
+                bingeGroup: 'balkan-direct'
+            }
         });
-        console.log(`✓ Direct stream URL found for ${youtubeId}`);
+        console.log(`✓ Direct stream URL extracted for ${youtubeId}`);
     } else {
-        console.log(`✗ Failed to extract direct URL for ${youtubeId}, using fallbacks`);
+        console.log(`✗ Failed to extract direct URL for ${youtubeId}`);
     }
     
-    // Fallback options
+    // Always add YouTube fallback (last resort)
     streams.push({
-        name: 'YouTube Embed',
-        title: `${itemName} - YouTube`,
-        ytId: youtubeId
-    });
-    
-    streams.push({
-        name: 'Open in YouTube',
-        title: `${itemName} - External`,
-        externalUrl: `https://www.youtube.com/watch?v=${youtubeId}`
+        name: '📺 YouTube',
+        title: `${itemName}`,
+        ytId: youtubeId,
+        behaviorHints: {
+            notWebReady: false
+        }
     });
     
     console.log(`Returning ${streams.length} stream options for: ${itemName}`);
