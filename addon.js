@@ -90,7 +90,7 @@ const manifest = {
             name: 'Domace Serije'
         }
     ],
-    idPrefixes: ['youtube:']
+    idPrefixes: ['yt:']
 };
 
 const builder = new addonBuilder(manifest);
