@@ -363,8 +363,10 @@ builder.defineStreamHandler(async ({ type, id, name }) => {
     return { streams: allStreams };
 });
 
+// Get the interface once
+const addonInterface = builder.getInterface();
+
 // Export for Vercel
 module.exports = (req, res) => {
-    const addonInterface = builder.getInterface();
     return addonInterface(req, res);
 };
