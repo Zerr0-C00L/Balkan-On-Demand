@@ -111,69 +111,45 @@ async function getCinemetaMeta(type, id, timeoutMs = 3000) {
     }
 }
 
-// Extract video URLs from webpage HTML
-async function extractStreamFromPage(url, sourceName) {
-    try {
-        console.log(`Scraping ${sourceName}: ${url}`);
-        
-        const response = await fetch(url, {
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-            },
-            signal: AbortSignal.timeout(10000)
-        });
-        
-        if (!response.ok) return [];
-        
-        const html = await response.text();
-        const streams = [];
-        
-        // Extract video sources using regex patterns
-        const patterns = [
-            // Direct video sources
-            /<video[^>]*>[\s\S]*?<source[^>]+src=["']([^"']+)["']/gi,
-            /src:\s*["']([^"']+\.mp4[^"']*)["']/gi,
-            /file:\s*["']([^"']+\.mp4[^"']*)["']/gi,
-            // iframe embeds
-            /<iframe[^>]+src=["']([^"']+)["']/gi,
-            // Common CDN patterns
-            /https?:\/\/[^"'\s]+\.(?:mp4|m3u8|mpd)[^"'\s]*/gi
-        ];
-        
-        for (const pattern of patterns) {
-            let match;
-            while ((match = pattern.exec(html)) !== null) {
-                const streamUrl = match[1] || match[0];
-                if (streamUrl && !streamUrl.includes('google') && !streamUrl.includes('facebook')) {
-                    streams.push({
-                        name: sourceName,
-                        title: `🎬 ${sourceName}`,
-                        url: streamUrl.startsWith('http') ? streamUrl : new URL(streamUrl, url).href,
-                        behaviorHints: {
-                            notWebReady: false
-                        }
-                    });
-                }
-            }
-        }
-        
-        // If no direct streams found, return the page URL for external viewing
-        if (streams.length === 0) {
-            streams.push({
-                name: sourceName,
-                title: `📺 Watch on ${sourceName}`,
-                externalUrl: url,
-                behaviorHints: {
-                    notWebReady: true
-                }
-            });
-        }
-        
-        return streams;
-    } catch (error) {
-        console.error(`Error scraping ${sourceName}:`, error.message);
-        return [];
+// Generate direct links to Ex-Yu websites
+function generateExYuLinks(name, source) {
+    const cleanName = name.toLowerCase()
+        .replace(/[():]/g, '')
+        .replace(/\s+/g, '-')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+    
+    const links = [];
+    
+    // Generate likely movie URLs for each site
+    switch(source.name) {
+        case 'Filmoton.net':
+            links.push(`${source.searchUrl}/film/${cleanName}`);
+            links.push(`${source.searchUrl}/?s=${encodeURIComponent(name)}`);
+            break;
+        case 'Filmativa.club':
+            links.push(`${source.searchUrl}/filmovi/${cleanName}`);
+            links.push(`${source.searchUrl}/?s=${encodeURIComponent(name)}`);
+            break;
+        case 'DomaciFilmovi.online':
+            links.push(`${source.searchUrl}/film/${cleanName}`);
+            links.push(`${source.searchUrl}/?s=${encodeURIComponent(name)}`);
+            break;
+        case 'ToSuSamoFilmovi.rs.ba':
+            links.push(`${source.searchUrl}/filmovi/${cleanName}`);
+            break;
+        case 'FenixSite.net':
+            links.push(`${source.searchUrl}/film/${cleanName}`);
+            break;
+        case 'FilmoviX.net':
+            links.push(`${source.searchUrl}/video/${cleanName}`);
+            break;
+        case 'PopcornFilmovi.com':
+            links.push(`${source.searchUrl}/film/${cleanName}`);
+            break;
     }
+    
+    return links[0] || `${source.searchUrl}/?s=${encodeURIComponent(name)}`;
 }
 
 const builder = new addonBuilder(manifest);
@@ -304,149 +280,23 @@ builder.defineMetaHandler(async ({ type, id }) => {
     return { meta: localItem };
 });
 
-// Validate stream URL is accessible
-async function validateStream(url) {
-    try {
-        const response = await fetch(url, {
-            method: 'HEAD',
-            signal: AbortSignal.timeout(3000)
-        });
-        return response.ok && response.status === 200;
-    } catch (error) {
-        return false;
-    }
-}
-
-// Search Dailymotion for Yugoslav/Balkan content
-async function searchDailymotion(name, year) {
+// Generate Ex-Yu website links for content
+function getExYuLinks(name, year) {
     const streams = [];
+    const cleanName = name.replace(/\(.*?\)/g, '').trim();
     
-    try {
-        const cleanName = name.replace(/\(.*?\)/g, '').trim();
-        const searchTerms = [
-            `${cleanName} ${year || ''}`,
-            `${cleanName} srpski`,
-            `${cleanName} hrvatski`,
-            `${cleanName} bosanski`,
-            `${cleanName} film`
-        ];
+    // Generate links for all sources
+    for (const source of EX_YU_SOURCES) {
+        const url = generateExYuLinks(cleanName, source);
         
-        for (const searchTerm of searchTerms) {
-            try {
-                const query = encodeURIComponent(searchTerm);
-                // Dailymotion API search
-                const searchUrl = `https://api.dailymotion.com/videos?search=${query}&fields=id,title,duration,quality,url&limit=10`;
-                
-                const response = await fetch(searchUrl, {
-                    signal: AbortSignal.timeout(5000)
-                });
-                
-                if (!response.ok) continue;
-                
-                const data = await response.json();
-                
-                if (data.list && data.list.length > 0) {
-                    for (const video of data.list) {
-                        const duration = Math.floor(video.duration / 60);
-                        const quality = video.quality || 'SD';
-                        
-                        streams.push({
-                            title: `▶️ Dailymotion - ${quality} (${duration}min)`,
-                            url: `https://www.dailymotion.com/embed/video/${video.id}`,
-                            behaviorHints: {
-                                notWebReady: true
-                            }
-                        });
-                    }
-                    
-                    // If we found streams, break
-                    if (streams.length > 0) break;
-                }
-            } catch (error) {
-                console.error('Dailymotion search error:', error.message);
+        streams.push({
+            name: source.name,
+            title: `📺 Watch on ${source.name}`,
+            externalUrl: url,
+            behaviorHints: {
+                notWebReady: true
             }
-        }
-    } catch (error) {
-        console.error('Error searching Dailymotion:', error);
-    }
-    
-    return streams;
-}
-
-// Search Ex-Yu websites for content by name
-async function searchExYuSites(name, year) {
-    const cacheKey = `${name}-${year}`;
-    
-    // Check cache first
-    const cached = streamCache.get(cacheKey);
-    if (cached && (Date.now() - cached.timestamp) < CACHE_DURATION) {
-        console.log(`Using cached streams for: ${name}`);
-        return cached.streams;
-    }
-    
-    const streams = [];
-    const cleanName = name.replace(/\(.*?\)/g, '').trim().toLowerCase();
-    
-    try {
-        // Search patterns for different sites
-        const searchUrls = [
-            `https://filmoton.net/?s=${encodeURIComponent(cleanName)}`,
-            `https://filmativa.club/?s=${encodeURIComponent(cleanName)}`,
-            `https://domacifilmovi.online/?s=${encodeURIComponent(cleanName)}`,
-            `https://tosusamofilmovi.rs.ba/?s=${encodeURIComponent(cleanName)}`,
-            `https://www.fenixsite.net/?s=${encodeURIComponent(cleanName)}`,
-            `https://www.filmovix.net/?s=${encodeURIComponent(cleanName)}`,
-            `https://www.popcornfilmovi.com/?s=${encodeURIComponent(cleanName)}`
-        ];
-        
-        // Try to find movie pages
-        for (let i = 0; i < searchUrls.length; i++) {
-            try {
-                const source = EX_YU_SOURCES[i];
-                const response = await fetch(searchUrls[i], {
-                    headers: {
-                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-                    },
-                    signal: AbortSignal.timeout(8000)
-                });
-                
-                if (!response.ok) continue;
-                
-                const html = await response.text();
-                
-                // Extract movie page links
-                const linkPattern = /<a[^>]+href=["']([^"']+)["'][^>]*>/gi;
-                const links = [];
-                let match;
-                
-                while ((match = linkPattern.exec(html)) !== null) {
-                    const link = match[1];
-                    if (link && link.includes(source.searchUrl) && 
-                        (link.includes('/film') || link.includes('/movie') || 
-                         link.includes(cleanName.split(' ')[0]))) {
-                        links.push(link);
-                    }
-                }
-                
-                // Extract streams from first matching page
-                if (links.length > 0) {
-                    const pageStreams = await extractStreamFromPage(links[0], source.name);
-                    streams.push(...pageStreams);
-                }
-                
-            } catch (error) {
-                console.error(`Error searching ${EX_YU_SOURCES[i].name}:`, error.message);
-            }
-        }
-        
-        // Cache the results
-        streamCache.set(cacheKey, {
-            streams,
-            timestamp: Date.now()
         });
-        
-    } catch (error) {
-        console.error('Error searching Ex-Yu sites:', error);
     }
     
     return streams;
@@ -501,13 +351,13 @@ builder.defineStreamHandler(async ({ type, id, name }) => {
     
     let exYuStreams = [];
     
-    // Search Ex-Yu websites for streams
+    // Generate Ex-Yu website links
     if (searchName) {
-        console.log(`Searching Ex-Yu sites for: ${searchName} (${year})`);
-        exYuStreams = await searchExYuSites(searchName, year);
+        console.log(`Generating Ex-Yu links for: ${searchName} (${year})`);
+        exYuStreams = getExYuLinks(searchName, year);
     }
     
-    // Combine: manual first, then Ex-Yu scraped streams
+    // Combine: manual first, then Ex-Yu links
     const allStreams = [...manualStreams, ...exYuStreams];
     
     return { streams: allStreams };
