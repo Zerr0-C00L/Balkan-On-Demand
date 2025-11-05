@@ -84,7 +84,7 @@ function sanitizeText(text) {
 // Manifest with user-configurable catalogs
 const manifest = {
   id: 'community.balkan.on.demand',
-  version: '5.0.1',
+  version: '5.0.2',
   name: 'Balkan On Demand',
   description: 'Balkan Movies & Series from Serbia, Croatia & Bosnia, with direct streaming links',
   
@@ -552,17 +552,25 @@ builder.defineStreamHandler(({ type, id }) => {
   return Promise.resolve({ streams });
 });
 
-// Serve addon
+// Serve addon with custom landing page
 const PORT = process.env.PORT || 7005;
+const express = require('express');
+const { getRouter } = require('stremio-addon-sdk');
 
-serveHTTP(builder.getInterface(), {
-  port: PORT
+const app = express();
+
+// Serve static files from public directory
+app.use(express.static('public'));
+
+// Serve addon endpoints
+app.use(getRouter(builder.getInterface()));
+
+app.listen(PORT, () => {
+  console.log(`\n🚀 Balkan On Demand v5.0.2 running on http://localhost:${PORT}\n`);
+  console.log(`📊 Content Stats:`);
+  console.log(`   • Movies: ${movieCategories.movies.length}`);
+  console.log(`   • Foreign Movies: ${movieCategories.foreign.length}`);
+  console.log(`   • Crtani Filmovi: ${movieCategories.kids.length}`);
+  console.log(`   • Series: ${bauBauDB.series.length}`);
+  console.log(`\n✅ Ready to serve streams with Cinemeta metadata enrichment!\n`);
 });
-
-console.log(`\n🚀 Balkan On Demand v5.0.1 running on http://localhost:${PORT}\n`);
-console.log(`📊 Content Stats:`);
-console.log(`   • Movies: ${movieCategories.movies.length}`);
-console.log(`   • Foreign Movies: ${movieCategories.foreign.length}`);
-console.log(`   • Crtani Filmovi: ${movieCategories.kids.length}`);
-console.log(`   • Series: ${bauBauDB.series.length}`);
-console.log(`\n✅ Ready to serve streams with Cinemeta metadata enrichment!\n`);
