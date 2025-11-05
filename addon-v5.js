@@ -87,12 +87,12 @@ const allCatalogs = [
     id: 'balkan_movies',
     name: 'Filmovi',
     type: 'movie',
-    genres: ['Action', 'Adventure', 'Comedy', 'Crime', 'Drama', 'Family', 'Fantasy', 'Horror', 'Romance', 'Sci-Fi', 'Thriller', 'War'],
+    genres: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western'],
     extra: [
       { 
         name: 'genre', 
         isRequired: false,
-        options: ['Action', 'Adventure', 'Comedy', 'Crime', 'Drama', 'Family', 'Fantasy', 'Horror', 'Romance', 'Sci-Fi', 'Thriller', 'War']
+        options: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
       },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
@@ -102,12 +102,12 @@ const allCatalogs = [
     id: 'balkan_foreign_movies',
     name: 'Strani Filmovi',
     type: 'movie',
-    genres: ['Action', 'Adventure', 'Comedy', 'Crime', 'Drama', 'Family', 'Fantasy', 'Horror', 'Romance', 'Sci-Fi', 'Thriller', 'War'],
+    genres: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western'],
     extra: [
       { 
         name: 'genre', 
         isRequired: false,
-        options: ['Action', 'Adventure', 'Comedy', 'Crime', 'Drama', 'Family', 'Fantasy', 'Horror', 'Romance', 'Sci-Fi', 'Thriller', 'War']
+        options: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
       },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
@@ -117,12 +117,12 @@ const allCatalogs = [
     id: 'balkan_kids',
     name: 'Crtani Filmovi',
     type: 'movie',
-    genres: ['Animation', 'Family', 'Adventure', 'Comedy', 'Fantasy'],
+    genres: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western'],
     extra: [
       { 
         name: 'genre', 
         isRequired: false,
-        options: ['Animation', 'Family', 'Adventure', 'Comedy', 'Fantasy']
+        options: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
       },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
@@ -132,12 +132,12 @@ const allCatalogs = [
     id: 'balkan_series',
     name: 'Serije',
     type: 'series',
-    genres: ['Action', 'Comedy', 'Crime', 'Drama', 'Family', 'Romance', 'Thriller'],
+    genres: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western'],
     extra: [
       { 
         name: 'genre', 
         isRequired: false,
-        options: ['Action', 'Comedy', 'Crime', 'Drama', 'Family', 'Romance', 'Thriller']
+        options: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
       },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
@@ -218,7 +218,7 @@ function generateManifest(config = null) {
 
   return {
     id: 'community.balkan.on.demand',
-    version: '5.1.0',
+    version: '5.1.1',
     name: 'Balkan On Demand',
     description: 'Balkan Movies & Series from Serbia, Croatia & Bosnia, with direct streaming links',
     
