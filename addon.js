@@ -1,6 +1,66 @@
 const { addonBuilder, serveHTTP } = require('stremio-addon-sdk');
 const sevcetContent = require('./sevcet-films.json');
 
+const CINEMETA_URL = 'https://v3-cinemeta.strem.io';
+
+// Cache for Cinemeta lookups
+const cinemetaCache = new Map();
+
+// Search Cinemeta for proper poster and metadata
+async function searchCinemeta(title, year, type = 'movie') {
+    const cacheKey = `${type}:${title}:${year}`;
+    
+    if (cinemetaCache.has(cacheKey)) {
+        return cinemetaCache.get(cacheKey);
+    }
+    
+    try {
+        const cleanTitle = title
+            .replace(/\([^)]*\)/g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
+        
+        const searchQuery = encodeURIComponent(cleanTitle);
+        const searchUrl = `${CINEMETA_URL}/catalog/${type}/top/search=${searchQuery}.json`;
+        
+        const response = await fetch(searchUrl);
+        const data = await response.json();
+        
+        if (data.metas && data.metas.length > 0) {
+            let match = data.metas.find(m => {
+                const metaYear = m.year || m.releaseInfo;
+                return metaYear && metaYear.toString() === year.toString();
+            });
+            
+            if (!match) {
+                match = data.metas[0];
+            }
+            
+            if (match) {
+                // Get full metadata
+                const metaUrl = `${CINEMETA_URL}/meta/${type}/${match.id}.json`;
+                const metaResponse = await fetch(metaUrl);
+                const metaData = await metaResponse.json();
+                
+                const result = {
+                    poster: match.poster || null,
+                    background: metaData.meta?.background || null,
+                    imdbId: match.id,
+                    fullMeta: metaData.meta || null
+                };
+                
+                cinemetaCache.set(cacheKey, result);
+                return result;
+            }
+        }
+    } catch (error) {
+        console.error(`Cinemeta search error for ${title}:`, error.message);
+    }
+    
+    cinemetaCache.set(cacheKey, null);
+    return null;
+}
+
 // Addon manifest
 const manifest = {
     id: 'org.balkan.youtube',
@@ -35,7 +95,7 @@ const manifest = {
 
 const builder = new addonBuilder(manifest);
 
-// Catalog handler
+// Catalog handler - Fetch posters in real-time
 builder.defineCatalogHandler(async ({ type, id, extra }) => {
     console.log(`Catalog request: type=${type}, id=${id}`);
     
@@ -54,39 +114,52 @@ builder.defineCatalogHandler(async ({ type, id, extra }) => {
         const limit = 100;
         const paginatedMovies = allMovies.slice(skip, skip + limit);
         
-        const metas = paginatedMovies.map(m => ({
-            id: m.id,
-            type: 'movie',
-            name: m.name,
-            poster: m.poster,
-            posterShape: 'landscape',
-            releaseInfo: m.year,
-            description: m.description
-        }));
+        // Fetch posters in parallel (batch of 10 at a time to avoid overload)
+        const metasPromises = paginatedMovies.map(async m => {
+            const cinemeta = await searchCinemeta(m.name, m.releaseInfo, 'movie');
+            
+            return {
+                id: m.id,
+                type: 'movie',
+                name: m.name,
+                poster: cinemeta?.poster || m.poster,
+                posterShape: cinemeta?.poster ? 'poster' : 'landscape',
+                releaseInfo: m.releaseInfo,
+                description: m.description
+            };
+        });
         
-        console.log(`Returning ${metas.length} movies`);
+        const metas = await Promise.all(metasPromises);
+        
+        console.log(`Returning ${metas.length} movies with real-time posters`);
         return { metas };
     }
     
     if (type === 'series' && id === 'domace-serije') {
-        const metas = sevcetContent.series.map(s => ({
-            id: s.id,
-            type: 'series',
-            name: s.name,
-            poster: s.poster,
-            posterShape: 'landscape',
-            releaseInfo: s.year,
-            description: s.description
-        }));
+        const metasPromises = sevcetContent.series.map(async s => {
+            const cinemeta = await searchCinemeta(s.name, s.releaseInfo, 'series');
+            
+            return {
+                id: s.id,
+                type: 'series',
+                name: s.name,
+                poster: cinemeta?.poster || s.poster,
+                posterShape: cinemeta?.poster ? 'poster' : 'landscape',
+                releaseInfo: s.releaseInfo,
+                description: s.description
+            };
+        });
         
-        console.log(`Returning ${metas.length} series`);
+        const metas = await Promise.all(metasPromises);
+        
+        console.log(`Returning ${metas.length} series with real-time posters`);
         return { metas };
     }
     
     return { metas: [] };
 });
 
-// Meta handler
+// Meta handler - Fetch full metadata from Cinemeta
 builder.defineMetaHandler(async ({ type, id }) => {
     console.log(`Meta request: type=${type}, id=${id}`);
     
@@ -102,8 +175,34 @@ builder.defineMetaHandler(async ({ type, id }) => {
         return { meta: null };
     }
     
-    console.log(`Returning meta for ${item.name}`);
-    return { meta: item };
+    // Fetch full metadata from Cinemeta
+    const cinemeta = await searchCinemeta(item.name, item.releaseInfo, type);
+    
+    // Build enhanced metadata
+    const meta = {
+        id: item.id,
+        type: type,
+        name: item.name,
+        poster: cinemeta?.poster || item.poster,
+        posterShape: cinemeta?.poster ? 'poster' : 'landscape',
+        background: cinemeta?.background || null,
+        releaseInfo: item.releaseInfo,
+        description: item.description || cinemeta?.fullMeta?.description || '',
+        genre: item.genres || cinemeta?.fullMeta?.genres || [],
+        cast: cinemeta?.fullMeta?.cast || [],
+        director: cinemeta?.fullMeta?.director || [],
+        imdbRating: cinemeta?.fullMeta?.imdbRating || null,
+        runtime: cinemeta?.fullMeta?.runtime || null,
+        trailers: cinemeta?.fullMeta?.trailers || [],
+        links: cinemeta?.imdbId ? [{ 
+            name: 'IMDb',
+            category: 'imdb',
+            url: `https://www.imdb.com/title/${cinemeta.imdbId}/`
+        }] : []
+    };
+    
+    console.log(`Returning enhanced meta for ${item.name}`);
+    return { meta };
 });
 
 // Stream handler - Only YouTube streams
@@ -118,6 +217,7 @@ builder.defineStreamHandler(async ({ type, id }) => {
         item = sevcetContent.series.find(s => s.id === id);
     }
     
+
     if (!item || !item.youtubeId) {
         console.log(`No item found for ${id}`);
         return { streams: [] };
