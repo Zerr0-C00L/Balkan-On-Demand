@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Balkan On Demand - Stremio Addon</title>
+    <title>Balkan On Demand v5.0 - Stremio Addon</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -18,12 +18,17 @@
         }
         .container {
             text-align: center;
-            max-width: 600px;
+            max-width: 700px;
         }
         h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
             color: #4ecca3;
+        }
+        .version {
+            color: #4ecca3;
+            font-size: 0.9em;
+            margin-top: -10px;
         }
         p {
             font-size: 1.2em;
@@ -52,38 +57,97 @@
             margin: 20px 0;
             word-break: break-all;
             font-family: monospace;
+            font-size: 0.9em;
+        }
+        .catalogs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 30px auto;
+            max-width: 500px;
+        }
+        .catalog-card {
+            background: #0f3460;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #4ecca3;
+        }
+        .catalog-card h3 {
+            margin: 0 0 10px 0;
+            color: #4ecca3;
+        }
+        .catalog-card p {
+            margin: 5px 0;
+            font-size: 1.1em;
         }
         .features {
             text-align: left;
             margin: 30px auto;
-            max-width: 400px;
+            max-width: 500px;
         }
         .features li {
             margin: 10px 0;
+        }
+        .stats {
+            background: #0f3460;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🎬 Balkan On Demand</h1>
-        <p>Stremio addon for classic Ex-Yugoslav movies and TV shows</p>
+        <p class="version">Version 5.0.0 🤖 Auto-Updated Daily</p>
+        <p>Comprehensive Balkan streaming with direct links from bilosta.org CDN</p>
         
-        <a href="stremio://balkan-on-demand.vercel.app/api/manifest.json" class="install-btn">
+        <a href="stremio://balkan-on-demand-828b9dd653f6.herokuapp.com/manifest.json" class="install-btn">
             📺 Install in Stremio
         </a>
         
         <div class="code">
-            https://balkan-on-demand.vercel.app/api/manifest.json
+            https://balkan-on-demand-828b9dd653f6.herokuapp.com/manifest.json
+        </div>
+
+        <div class="stats">
+            <h2>📊 Content Library</h2>
+            <p><strong>2,814 Movies</strong> + <strong>37 Series</strong> (24,991 episodes)</p>
+        </div>
+        
+        <div class="catalogs">
+            <div class="catalog-card">
+                <h3>🎬 Filmovi</h3>
+                <p>1,364 movies</p>
+                <small>Ex-YU classics, 4K releases, YouTube content</small>
+            </div>
+            <div class="catalog-card">
+                <h3>🌍 Strani Filmovi</h3>
+                <p>1,076 movies</p>
+                <small>International & Hollywood films</small>
+            </div>
+            <div class="catalog-card">
+                <h3>🎨 Crtani Filmovi</h3>
+                <p>374 movies</p>
+                <small>Kids & family animation</small>
+            </div>
+            <div class="catalog-card">
+                <h3>📺 Serije</h3>
+                <p>37 series</p>
+                <small>Full TV shows with all episodes</small>
+            </div>
         </div>
         
         <div class="features">
-            <h3>Features:</h3>
+            <h3>✨ Features:</h3>
             <ul>
-                <li>✅ 10 curated classic Balkan movies</li>
-                <li>✅ 3 legendary TV series</li>
-                <li>✅ Cinemeta artwork & metadata</li>
-                <li>✅ Links to 7 Ex-Yu streaming sites</li>
-                <li>✅ Filmoton, Filmativa, DomaciFilmovi & more</li>
+                <li>🎯 <strong>Direct Streaming</strong> - CDN links from bilosta.org</li>
+                <li>🔀 <strong>Multiple Sources</strong> - Direct + YouTube fallback</li>
+                <li>📊 <strong>Quality Sorted</strong> - 4K → 1080p → 720p → SD</li>
+                <li>🎭 <strong>Full Metadata</strong> - TMDB + Cinemeta integration</li>
+                <li>🔍 <strong>Search</strong> - Find content across all catalogs</li>
+                <li>🤖 <strong>Auto-Updates</strong> - New content added daily at 3 AM UTC</li>
+                <li>📱 <strong>Apple TV Ready</strong> - Works with Infuse fallback</li>
             </ul>
         </div>
     </div>
