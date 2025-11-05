@@ -1,5 +1,9 @@
 {
   "rewrites": [
-    { "source": "/(.*)", "destination": "/api/index" }
+    { "source": "/manifest.json", "destination": "/api/index/manifest.json" },
+    { "source": "/catalog/:type/:id.json", "destination": "/api/index/catalog/:type/:id.json" },
+    { "source": "/meta/:type/:id.json", "destination": "/api/index/meta/:type/:id.json" },
+    { "source": "/stream/:type/:id.json", "destination": "/api/index/stream/:type/:id.json" },
+    { "source": "/", "destination": "/api/index" }
   ]
 }

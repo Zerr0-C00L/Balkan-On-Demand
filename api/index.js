@@ -364,17 +364,5 @@ builder.defineStreamHandler(async ({ type, id, name }) => {
     return { streams: allStreams };
 });
 
-// Export for Vercel with error handling
-let addonInterface;
-try {
-    addonInterface = builder.getInterface();
-} catch (error) {
-    console.error('Error building interface:', error);
-}
-
-module.exports = (req, res) => {
-    if (!addonInterface) {
-        return res.status(500).json({ error: 'Failed to initialize addon' });
-    }
-    addonInterface(req, res);
-};
+// Export for Vercel - directly return the Express app
+module.exports = builder.getInterface();
