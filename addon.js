@@ -212,6 +212,10 @@ builder.defineMetaHandler(async ({ type, id }) => {
     
     // Add videos for series (seasons/episodes) - using Cinemeta-compatible format
     if (type === 'series' && item.videos && item.videos.length > 0) {
+        // Extract year from releaseInfo (handle both "–" and "-")
+        const yearMatch = item.releaseInfo.match(/(\d{4})/);
+        const year = yearMatch ? yearMatch[1] : '1970';
+        
         meta.videos = item.videos.map(v => ({
             id: `${item.id}:${v.season}:${v.episode}`,
             name: sanitizeText(v.title || `Episode ${v.episode}`),
@@ -220,7 +224,7 @@ builder.defineMetaHandler(async ({ type, id }) => {
             number: parseInt(v.episode),
             thumbnail: `https://img.youtube.com/vi/${v.id}/hqdefault.jpg`,
             overview: sanitizeText(item.description),
-            released: new Date(item.releaseInfo.split('–')[0] || '1970').toISOString()
+            released: new Date(`${year}-01-01`).toISOString()
         }));
     }
     
