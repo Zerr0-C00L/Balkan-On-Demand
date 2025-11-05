@@ -128,8 +128,8 @@ function generateManifest(config = null) {
   // If config is provided, filter and add extraSupported based on home/discover settings
   if (config && (config.home || config.discover)) {
     catalogs = allCatalogs.map(cat => {
-      const inHome = !config.home || config.home.includes(cat.id);
-      const inDiscover = !config.discover || config.discover.includes(cat.id);
+      const inHome = config.home && config.home.includes(cat.id);
+      const inDiscover = config.discover && config.discover.includes(cat.id);
       
       // Skip catalogs that are in neither home nor discover
       if (!inHome && !inDiscover) {
@@ -137,12 +137,7 @@ function generateManifest(config = null) {
       }
       
       const catalogCopy = { ...cat };
-      const extraSupported = [];
-      
-      // Add 'skip' for home (pagination)
-      if (inHome) {
-        extraSupported.push('skip');
-      }
+      const extraSupported = ['skip']; // Always include skip for basic pagination
       
       // Add 'search' and 'genre' for discover
       if (inDiscover) {
@@ -170,7 +165,7 @@ function generateManifest(config = null) {
 
   return {
     id: 'community.balkan.on.demand',
-    version: '5.0.4',
+    version: '5.0.5',
     name: 'Balkan On Demand',
     description: 'Balkan Movies & Series from Serbia, Croatia & Bosnia, with direct streaming links',
     
@@ -654,19 +649,24 @@ app.use(express.static('public'));
 
 // Handle custom configuration routes: /:config/...
 // Format: /home=id1,id2&discover=id3,id4/manifest.json
-app.use('/:config([a-z_,=&]+)', (req, res, next) => {
-  // Only handle if it looks like a config (contains = or _ or ,)
-  if (!req.params.config.includes('=') && !req.params.config.includes('_')) {
+app.use('/:config', (req, res, next) => {
+  const config = req.params.config;
+  
+  // Only handle if config looks like a configuration string (contains = or _)
+  if (!config || (!config.includes('=') && !config.includes('_'))) {
     return next();
   }
   
-  const customBuilder = getBuilderForConfig(req.params.config);
+  const customBuilder = getBuilderForConfig(config);
   const router = getRouter(customBuilder.getInterface());
   
-  // Rewrite the URL to remove the config prefix
-  const originalUrl = req.url;
-  req.url = originalUrl.replace(`/${req.params.config}`, '');
+  // Create a new request without the config prefix
+  req.url = req.url.substring(config.length + 1);
+  if (!req.url.startsWith('/')) {
+    req.url = '/' + req.url;
+  }
   
+  // Use the SDK router
   router(req, res, next);
 });
 
@@ -674,12 +674,12 @@ app.use('/:config([a-z_,=&]+)', (req, res, next) => {
 app.use(getRouter(builder.getInterface()));
 
 app.listen(PORT, () => {
-  console.log(`\n🚀 Balkan On Demand v5.0.4 running on http://localhost:${PORT}\n`);
+  console.log(`\n🚀 Balkan On Demand v5.0.5 running on http://localhost:${PORT}\n`);
   console.log(`📊 Content Stats:`);
   console.log(`   • Movies: ${movieCategories.movies.length}`);
   console.log(`   • Foreign Movies: ${movieCategories.foreign.length}`);
   console.log(`   • Crtani Filmovi: ${movieCategories.kids.length}`);
-  console.log(`   • Series: ${bauBauDB.series.length}`);
+  console.log(`   • Series: ${balkanSeries.length}`);
   console.log(`\n✅ Ready to serve streams with Cinemeta metadata enrichment!\n`);
   console.log(`🎛️  Separate Home/Discover configuration supported!\n`);
 });
