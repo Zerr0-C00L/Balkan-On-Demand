@@ -210,16 +210,18 @@ builder.defineMetaHandler(async ({ type, id }) => {
         }] : []
     };
     
-    // Add videos for series (seasons/episodes)
+    // Add videos for series (seasons/episodes) - using Cinemeta-compatible format
     if (type === 'series' && item.videos && item.videos.length > 0) {
         meta.videos = item.videos.map(v => ({
-            id: `yt:${v.id}`,
+            id: `${item.id}:${v.season}:${v.episode}`,
+            name: sanitizeText(v.title || `Episode ${v.episode}`),
             title: sanitizeText(v.title || `Episode ${v.episode}`),
-            released: sanitizeText(item.releaseInfo),
             season: parseInt(v.season),
             episode: parseInt(v.episode),
+            number: parseInt(v.episode),
             thumbnail: `https://img.youtube.com/vi/${v.id}/hqdefault.jpg`,
-            overview: sanitizeText(item.description)
+            overview: sanitizeText(item.description),
+            released: new Date(item.releaseInfo.split('–')[0] || '1970').toISOString()
         }));
     }
     
@@ -231,30 +233,44 @@ builder.defineMetaHandler(async ({ type, id }) => {
 builder.defineStreamHandler(async ({ type, id }) => {
     console.log(`Stream request: type=${type}, id=${id}`);
     
-    // Extract YouTube ID from the ID (format: yt:VIDEO_ID)
-    const youtubeId = id.replace('yt:', '');
-    
-    if (!youtubeId) {
-        console.log(`No YouTube ID found in ${id}`);
-        return { streams: [] };
-    }
-    
-    // For movies, find the item to get the name
+    let youtubeId = null;
     let itemName = 'Video';
+    
     if (type === 'movie') {
+        // For movies: id format is "yt:VIDEO_ID"
         const item = sevcetContent.movies.find(m => m.id === id);
-        if (item) itemName = item.name;
+        if (item) {
+            youtubeId = id.replace('yt:', '');
+            itemName = item.name;
+        }
     } else if (type === 'series') {
-        // For series episodes, find the series and episode
-        for (const series of sevcetContent.series) {
-            if (series.videos) {
-                const episode = series.videos.find(v => `yt:${v.id}` === id);
-                if (episode) {
-                    itemName = `${series.name} - S${episode.season}E${episode.episode}`;
-                    break;
+        // For series episodes: id format is "yt:SERIES_ID:season:episode"
+        const parts = id.split(':');
+        if (parts.length === 4) {
+            // Format: yt:VIDEO_ID:season:episode
+            const seriesId = `${parts[0]}:${parts[1]}`; // yt:VIDEO_ID
+            const season = parseInt(parts[2]);
+            const episode = parseInt(parts[3]);
+            
+            // Find the series and episode
+            for (const series of sevcetContent.series) {
+                if (series.id === seriesId && series.videos) {
+                    const ep = series.videos.find(v => 
+                        parseInt(v.season) === season && parseInt(v.episode) === episode
+                    );
+                    if (ep) {
+                        youtubeId = ep.id;
+                        itemName = `${series.name} - S${season}E${episode}`;
+                        break;
+                    }
                 }
             }
         }
+    }
+    
+    if (!youtubeId) {
+        console.log(`No YouTube ID found for ${id}`);
+        return { streams: [] };
     }
     
     // Build YouTube stream
