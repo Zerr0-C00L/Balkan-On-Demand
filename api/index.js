@@ -363,5 +363,8 @@ builder.defineStreamHandler(async ({ type, id, name }) => {
     return { streams: allStreams };
 });
 
-// Export the addon interface directly for Vercel
-module.exports = builder.getInterface();
+// Export as Vercel serverless function
+const addonInterface = builder.getInterface();
+module.exports = async (req, res) => {
+    return addonInterface(req, res);
+};
