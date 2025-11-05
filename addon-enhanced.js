@@ -455,33 +455,46 @@ builder.defineStreamHandler(async ({ type, id }) => {
         console.log(`✓ Added ${directStreams.length} direct streams for ${youtubeId}`);
     }
     
-    // Add multiple player options that work on different devices
+    // Fallback options when direct extraction fails
+    // Apple TV needs actual MP4/M3U8 URLs, not embed pages
     
-    // 1. Invidious embed (works on most devices including Apple TV)
+    // 1. Invidious direct video URL (720p MP4)
+    // Using itag=22 for 720p or itag=18 for 360p combined streams
     streams.push({
-        name: '🎥 Invidious Player',
+        name: '� Invidious 720p',
         title: itemName,
-        url: `https://invidious.io.lol/embed/${youtubeId}`,
+        url: `https://invidious.io.lol/latest_version?id=${youtubeId}&itag=22`,
         behaviorHints: {
             notWebReady: false,
-            bingeGroup: 'balkan-invidious'
+            bingeGroup: 'balkan-inv-720'
         }
     });
     
-    // 2. Piped embed (alternative)
+    // 2. Invidious 360p (more reliable, smaller file)
     streams.push({
-        name: '🌊 Piped Player',
+        name: '🎥 Invidious 360p',
         title: itemName,
-        url: `https://piped.video/watch?v=${youtubeId}`,
+        url: `https://invidious.io.lol/latest_version?id=${youtubeId}&itag=18`,
         behaviorHints: {
             notWebReady: false,
-            bingeGroup: 'balkan-piped'
+            bingeGroup: 'balkan-inv-360'
         }
     });
     
-    // 3. YouTube as last resort (for web/Android only)
+    // 3. Alternative Invidious instance
     streams.push({
-        name: '📺 YouTube',
+        name: '🔄 Alt Server 720p',
+        title: itemName,
+        url: `https://yewtu.be/latest_version?id=${youtubeId}&itag=22`,
+        behaviorHints: {
+            notWebReady: false,
+            bingeGroup: 'balkan-yewtu'
+        }
+    });
+    
+    // 4. YouTube as last resort (for web/Android only)
+    streams.push({
+        name: '📺 YouTube (Web Only)',
         title: itemName,
         ytId: youtubeId,
         behaviorHints: {
