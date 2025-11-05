@@ -475,19 +475,19 @@ builder.defineStreamHandler(async ({ type, id, name }) => {
     // Get manual streams from movies.json if available
     const manualStreams = item?.streams || [];
     
-    let archiveStreams = [];
+    let dailymotionStreams = [];
     
-    // If this is an Internet Archive item, get streams directly
-    if (archiveId || item?.archiveId) {
-        archiveStreams = await getArchiveStreams(archiveId || item.archiveId);
+    // If this is a Dailymotion item, get streams directly
+    if (id.startsWith('dailymotion:')) {
+        const dailymotionId = id.replace('dailymotion:', '');
+        dailymotionStreams = await getDailymotionStreams(dailymotionId);
     } else if (searchName) {
-        // Search Internet Archive for ANY content (not just local database)
-        const cleanName = searchName.replace(/\(.*?\)/g, '').trim();
-        archiveStreams = await searchInternetArchive(cleanName, year);
+        // Search Dailymotion for content
+        dailymotionStreams = await searchDailymotion(searchName, year);
     }
     
-    // Combine: manual first, then Internet Archive (HD first)
-    const allStreams = [...manualStreams, ...archiveStreams];
+    // Combine: manual first, then Dailymotion streams
+    const allStreams = [...manualStreams, ...dailymotionStreams];
     
     return { streams: allStreams };
 });
