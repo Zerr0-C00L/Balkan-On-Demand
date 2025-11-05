@@ -215,7 +215,6 @@ builder.defineMetaHandler(async ({ type, id }) => {
         meta.videos = item.videos.map(v => ({
             id: `${item.id}:${v.season}:${v.episode}`,
             name: sanitizeText(v.title || `Episode ${v.episode}`),
-            title: sanitizeText(v.title || `Episode ${v.episode}`),
             season: parseInt(v.season),
             episode: parseInt(v.episode),
             number: parseInt(v.episode),
