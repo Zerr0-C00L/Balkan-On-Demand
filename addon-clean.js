@@ -118,24 +118,19 @@ builder.defineStreamHandler(async ({ type, id }) => {
         item = sevcetContent.series.find(s => s.id === id);
     }
     
-    if (!item || !item.youtubeId) {
+    if (!item) {
         console.log(`No item found for ${id}`);
         return { streams: [] };
     }
     
-    // Build YouTube stream from youtubeId
-    const streams = [{
-        name: 'YouTube',
-        title: 'YouTube',
-        ytId: item.youtubeId
-    }];
-    
-    console.log(`Returning YouTube stream for ${item.name}: ${item.youtubeId}`);
+    // Return YouTube stream
+    const streams = item.streams || [];
+    console.log(`Returning ${streams.length} YouTube stream(s) for ${item.name}`);
     return { streams };
 });
 
 // Start the server
-const port = process.env.PORT || 7001;
+const port = process.env.PORT || 7000;
 serveHTTP(builder.getInterface(), { port: port });
 
 console.log(`\n🎬 Domaci Filmovi i Serije Addon is running!`);
