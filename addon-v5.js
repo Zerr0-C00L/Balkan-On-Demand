@@ -141,21 +141,28 @@ function generateManifest(config = null) {
       const catalogCopy = { ...cat };
       const extraSupported = [];
       
+      // Build the extra array and extraSupported based on home/discover settings
+      const filteredExtra = [];
+      
       // Add 'skip' for home catalogs (enables pagination in Home section)
       if (inHome) {
         extraSupported.push('skip');
+        filteredExtra.push({ name: 'skip', isRequired: false });
       }
       
       // Add 'search' and 'genre' for discover
       if (inDiscover) {
         if (cat.extra.some(e => e.name === 'search')) {
           extraSupported.push('search');
+          filteredExtra.push({ name: 'search', isRequired: false });
         }
         if (cat.extra.some(e => e.name === 'genre')) {
           extraSupported.push('genre');
+          filteredExtra.push({ name: 'genre', isRequired: false });
         }
       }
       
+      catalogCopy.extra = filteredExtra;
       catalogCopy.extraSupported = [...new Set(extraSupported)]; // Remove duplicates
       
       return catalogCopy;
@@ -172,7 +179,7 @@ function generateManifest(config = null) {
 
   return {
     id: 'community.balkan.on.demand',
-    version: '5.0.7',
+    version: '5.0.8',
     name: 'Balkan On Demand',
     description: 'Balkan Movies & Series from Serbia, Croatia & Bosnia, with direct streaming links',
     
