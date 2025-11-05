@@ -1,6 +1,6 @@
 {
   "name": "balkan-stremio-addon",
-  "version": "4.0.2",
+  "version": "4.1.0",
   "description": "Stremio addon for Balkan movies and TV shows with Apple TV support",
   "main": "addon-enhanced.js",
   "engines": {
