@@ -81,73 +81,80 @@ function sanitizeText(text) {
         .trim();
 }
 
-// Manifest with user-configurable catalogs
-const manifest = {
-  id: 'community.balkan.on.demand',
-  version: '5.0.2',
-  name: 'Balkan On Demand',
-  description: 'Balkan Movies & Series from Serbia, Croatia & Bosnia, with direct streaming links',
-  
-  resources: [
-    'catalog',
-    'meta',
-    'stream'
-  ],
-  
-  types: ['movie', 'series'],
-  
-  idPrefixes: ['tt', 'yt', 'bilosta'],
-  
-  catalogs: [
-    // All Movies (Ex-YU + 4K + YouTube merged)
-    {
-      id: 'balkan_movies',
-      name: 'Filmovi',
-      type: 'movie',
-      extra: [
-        { name: 'genre', isRequired: false },
-        { name: 'search', isRequired: false },
-        { name: 'skip', isRequired: false }
-      ]
-    },
-    // Foreign Movies
-    {
-      id: 'balkan_foreign_movies',
-      name: 'Strani Filmovi',
-      type: 'movie',
-      extra: [
-        { name: 'genre', isRequired: false },
-        { name: 'search', isRequired: false },
-        { name: 'skip', isRequired: false }
-      ]
-    },
-    // Kids/Cartoons
-    {
-      id: 'balkan_kids',
-      name: 'Crtani Filmovi',
-      type: 'movie',
-      extra: [
-        { name: 'skip', isRequired: false }
-      ]
-    },
-    // Series
-    {
-      id: 'balkan_series',
-      name: 'Serije',
-      type: 'series',
-      extra: [
-        { name: 'skip', isRequired: false }
-      ]
-    }
-  ],
-  
-  behaviorHints: {
-    configurable: true,
-    configurationRequired: false
+// All available catalogs
+const allCatalogs = [
+  {
+    id: 'balkan_movies',
+    name: 'Filmovi',
+    type: 'movie',
+    extra: [
+      { name: 'genre', isRequired: false },
+      { name: 'search', isRequired: false },
+      { name: 'skip', isRequired: false }
+    ]
+  },
+  {
+    id: 'balkan_foreign_movies',
+    name: 'Strani Filmovi',
+    type: 'movie',
+    extra: [
+      { name: 'genre', isRequired: false },
+      { name: 'search', isRequired: false },
+      { name: 'skip', isRequired: false }
+    ]
+  },
+  {
+    id: 'balkan_kids',
+    name: 'Crtani Filmovi',
+    type: 'movie',
+    extra: [
+      { name: 'skip', isRequired: false }
+    ]
+  },
+  {
+    id: 'balkan_series',
+    name: 'Serije',
+    type: 'series',
+    extra: [
+      { name: 'skip', isRequired: false }
+    ]
   }
-};
+];
 
-// Create builder
+// Generate manifest based on selected catalogs
+function generateManifest(selectedCatalogs = null) {
+  // If no selection provided, use all catalogs
+  const catalogs = selectedCatalogs 
+    ? allCatalogs.filter(cat => selectedCatalogs.includes(cat.id))
+    : allCatalogs;
+
+  return {
+    id: 'community.balkan.on.demand',
+    version: '5.0.3',
+    name: 'Balkan On Demand',
+    description: 'Balkan Movies & Series from Serbia, Croatia & Bosnia, with direct streaming links',
+    
+    resources: [
+      'catalog',
+      'meta',
+      'stream'
+    ],
+    
+    types: ['movie', 'series'],
+    
+    idPrefixes: ['tt', 'yt', 'bilosta'],
+    
+    catalogs: catalogs,
+    
+    behaviorHints: {
+      configurable: true,
+      configurationRequired: false
+    }
+  };
+}
+
+// Create default builder (all catalogs)
+const manifest = generateManifest();
 const builder = new addonBuilder(manifest);
 
 // Helper: Categorize movies with deduplication
@@ -552,7 +559,30 @@ builder.defineStreamHandler(({ type, id }) => {
   return Promise.resolve({ streams });
 });
 
-// Serve addon with custom landing page
+// Cache for custom builders
+const builderCache = new Map();
+
+// Get or create builder for specific catalog configuration
+function getBuilderForConfig(selectedCatalogs) {
+  const cacheKey = selectedCatalogs ? selectedCatalogs.sort().join(',') : 'all';
+  
+  if (builderCache.has(cacheKey)) {
+    return builderCache.get(cacheKey);
+  }
+  
+  const customManifest = generateManifest(selectedCatalogs);
+  const customBuilder = new addonBuilder(customManifest);
+  
+  // Define the same handlers
+  customBuilder.defineCatalogHandler(builder.getInterface().catalogHandler);
+  customBuilder.defineMetaHandler(builder.getInterface().metaHandler);
+  customBuilder.defineStreamHandler(builder.getInterface().streamHandler);
+  
+  builderCache.set(cacheKey, customBuilder);
+  return customBuilder;
+}
+
+// Serve addon with custom landing page and configurable manifests
 const PORT = process.env.PORT || 7005;
 const express = require('express');
 const { getRouter } = require('stremio-addon-sdk');
@@ -562,15 +592,34 @@ const app = express();
 // Serve static files from public directory
 app.use(express.static('public'));
 
-// Serve addon endpoints
+// Handle custom configuration routes: /:catalogs/...
+app.use('/:config([a-z_,]+)', (req, res, next) => {
+  // Only handle if it looks like a catalog config (contains underscores or commas)
+  if (!req.params.config.includes('_')) {
+    return next();
+  }
+  
+  const selectedCatalogs = req.params.config.split(',');
+  const customBuilder = getBuilderForConfig(selectedCatalogs);
+  const router = getRouter(customBuilder.getInterface());
+  
+  // Rewrite the URL to remove the config prefix
+  const originalUrl = req.url;
+  req.url = originalUrl.replace(`/${req.params.config}`, '');
+  
+  router(req, res, next);
+});
+
+// Serve default addon endpoints (all catalogs)
 app.use(getRouter(builder.getInterface()));
 
 app.listen(PORT, () => {
-  console.log(`\n🚀 Balkan On Demand v5.0.2 running on http://localhost:${PORT}\n`);
+  console.log(`\n🚀 Balkan On Demand v5.0.3 running on http://localhost:${PORT}\n`);
   console.log(`📊 Content Stats:`);
   console.log(`   • Movies: ${movieCategories.movies.length}`);
   console.log(`   • Foreign Movies: ${movieCategories.foreign.length}`);
   console.log(`   • Crtani Filmovi: ${movieCategories.kids.length}`);
   console.log(`   • Series: ${bauBauDB.series.length}`);
   console.log(`\n✅ Ready to serve streams with Cinemeta metadata enrichment!\n`);
+  console.log(`🎛️  Custom catalog selection: /:catalogs/manifest.json\n`);
 });
