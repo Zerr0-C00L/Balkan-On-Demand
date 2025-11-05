@@ -201,7 +201,20 @@ builder.defineMetaHandler(async ({ type, id }) => {
         }] : []
     };
     
-    console.log(`Returning enhanced meta for ${item.name}`);
+    // Add videos for series (seasons/episodes)
+    if (type === 'series' && item.videos && item.videos.length > 0) {
+        meta.videos = item.videos.map(v => ({
+            id: `yt:${v.id}`,
+            title: v.title || `Episode ${v.episode}`,
+            released: item.releaseInfo,
+            season: parseInt(v.season),
+            episode: parseInt(v.episode),
+            thumbnail: `https://img.youtube.com/vi/${v.id}/hqdefault.jpg`,
+            overview: item.description
+        }));
+    }
+    
+    console.log(`Returning enhanced meta for ${item.name}${type === 'series' ? ` with ${meta.videos?.length || 0} episodes` : ''}`);
     return { meta };
 });
 
@@ -209,28 +222,40 @@ builder.defineMetaHandler(async ({ type, id }) => {
 builder.defineStreamHandler(async ({ type, id }) => {
     console.log(`Stream request: type=${type}, id=${id}`);
     
-    // Find the item
-    let item = null;
-    if (type === 'movie') {
-        item = sevcetContent.movies.find(m => m.id === id);
-    } else if (type === 'series') {
-        item = sevcetContent.series.find(s => s.id === id);
-    }
+    // Extract YouTube ID from the ID (format: yt:VIDEO_ID)
+    const youtubeId = id.replace('yt:', '');
     
-
-    if (!item || !item.youtubeId) {
-        console.log(`No item found for ${id}`);
+    if (!youtubeId) {
+        console.log(`No YouTube ID found in ${id}`);
         return { streams: [] };
     }
     
-    // Build YouTube stream from youtubeId
+    // For movies, find the item to get the name
+    let itemName = 'Video';
+    if (type === 'movie') {
+        const item = sevcetContent.movies.find(m => m.id === id);
+        if (item) itemName = item.name;
+    } else if (type === 'series') {
+        // For series episodes, find the series and episode
+        for (const series of sevcetContent.series) {
+            if (series.videos) {
+                const episode = series.videos.find(v => `yt:${v.id}` === id);
+                if (episode) {
+                    itemName = `${series.name} - S${episode.season}E${episode.episode}`;
+                    break;
+                }
+            }
+        }
+    }
+    
+    // Build YouTube stream
     const streams = [{
         name: 'YouTube',
-        title: 'YouTube',
-        ytId: item.youtubeId
+        title: itemName,
+        ytId: youtubeId
     }];
     
-    console.log(`Returning YouTube stream for ${item.name}: ${item.youtubeId}`);
+    console.log(`Returning YouTube stream: ${youtubeId} for ${itemName}`);
     return { streams };
 });
 
