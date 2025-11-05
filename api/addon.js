@@ -278,6 +278,19 @@ builder.defineMetaHandler(async ({ type, id }) => {
     return { meta: localItem };
 });
 
+// Validate stream URL is accessible
+async function validateStream(url) {
+    try {
+        const response = await fetch(url, {
+            method: 'HEAD',
+            signal: AbortSignal.timeout(3000)
+        });
+        return response.ok && response.status === 200;
+    } catch (error) {
+        return false;
+    }
+}
+
 // Search Internet Archive for Yugoslav/Balkan content
 async function searchInternetArchive(name, year) {
     const streams = [];
@@ -320,13 +333,25 @@ async function searchInternetArchive(name, year) {
                             const metadata = await metaResponse.json();
                             const files = metadata.files || [];
                             
+                            // Validate: Check if item is actually accessible
+                            if (metadata.is_dark || metadata.access_restricted_item) {
+                                console.log(`Skipping restricted item: ${doc.identifier}`);
+                                continue;
+                            }
+                            
                             // Find video files, prioritize HD
                             const videoFiles = files.filter(f => 
-                                f.name && (
+                                f.name && 
+                                f.size && parseInt(f.size) > 1000000 && // At least 1MB
+                                (
                                     f.name.endsWith('.mp4') ||
                                     f.name.endsWith('.mkv') ||
-                                    f.name.endsWith('.avi')
-                                ) && f.format !== 'Metadata'
+                                    f.name.endsWith('.avi') ||
+                                    f.name.endsWith('.webm')
+                                ) && 
+                                f.format !== 'Metadata' &&
+                                !f.name.includes('sample') &&
+                                !f.name.includes('trailer')
                             );
                             
                             // Sort by quality/size
@@ -339,15 +364,18 @@ async function searchInternetArchive(name, year) {
                             for (const file of videoFiles.slice(0, 3)) {
                                 const sizeGB = (parseInt(file.size) / (1024 * 1024 * 1024)).toFixed(2);
                                 const quality = parseInt(file.size) > 1000000000 ? 'HD' : 'SD';
-                                const format = file.format || 'Video';
+                                const streamUrl = `https://archive.org/download/${doc.identifier}/${encodeURIComponent(file.name)}`;
                                 
-                                streams.push({
-                                    title: `Internet Archive - ${quality} (${sizeGB}GB)`,
-                                    url: `https://archive.org/download/${doc.identifier}/${encodeURIComponent(file.name)}`,
-                                    behaviorHints: {
-                                        notWebReady: false
-                                    }
-                                });
+                                // Only add if size is reasonable (not corrupted/fake)
+                                if (parseInt(file.size) > 10000000) { // At least 10MB
+                                    streams.push({
+                                        title: `📦 Internet Archive - ${quality} (${sizeGB}GB)`,
+                                        url: streamUrl,
+                                        behaviorHints: {
+                                            notWebReady: false
+                                        }
+                                    });
+                                }
                             }
                             
                         } catch (error) {
@@ -382,15 +410,28 @@ async function getArchiveStreams(archiveId) {
         if (!response.ok) return streams;
         
         const metadata = await response.json();
+        
+        // Validate: Check if item is accessible
+        if (metadata.is_dark || metadata.access_restricted_item) {
+            console.log(`Skipping restricted item: ${archiveId}`);
+            return streams;
+        }
+        
         const files = metadata.files || [];
         
-        // Find video files
+        // Find video files with validation
         const videoFiles = files.filter(f => 
-            f.name && (
+            f.name && 
+            f.size && parseInt(f.size) > 10000000 && // At least 10MB
+            (
                 f.name.endsWith('.mp4') ||
                 f.name.endsWith('.mkv') ||
-                f.name.endsWith('.avi')
-            ) && f.format !== 'Metadata'
+                f.name.endsWith('.avi') ||
+                f.name.endsWith('.webm')
+            ) && 
+            f.format !== 'Metadata' &&
+            !f.name.includes('sample') &&
+            !f.name.includes('trailer')
         );
         
         // Sort by quality/size (larger = better)
@@ -405,7 +446,7 @@ async function getArchiveStreams(archiveId) {
             const quality = parseInt(file.size) > 1000000000 ? 'HD' : 'SD';
             
             streams.push({
-                title: `Internet Archive - ${quality} (${sizeGB}GB)`,
+                title: `📦 Internet Archive - ${quality} (${sizeGB}GB)`,
                 url: `https://archive.org/download/${archiveId}/${encodeURIComponent(file.name)}`,
                 behaviorHints: {
                     notWebReady: false

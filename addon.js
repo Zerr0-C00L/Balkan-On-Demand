@@ -1,4 +1,4 @@
-const { addonBuilder, serveHTTP } = require('stremio-addon-sdk');
+const { addonBuilder } = require('stremio-addon-sdk');
 const movies = require('./movies.json');
 
 // Addon manifest
@@ -33,8 +33,12 @@ const manifest = {
     idPrefixes: ['tt', 'balkan:', 'archive:']
 };
 
-// Cache for Cinemeta metadata
+// Cache for Cinemeta metadata and Internet Archive content
 const metaCache = new Map();
+const archiveCache = new Map();
+let archiveCatalog = [];
+let lastArchiveFetch = 0;
+const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
 
 // Fetch metadata from Cinemeta with caching and timeout
 async function getCinemetaMeta(type, id, timeoutMs = 3000) {
@@ -70,6 +74,77 @@ async function getCinemetaMeta(type, id, timeoutMs = 3000) {
     }
 }
 
+// Fetch all Yugoslav content from Internet Archive
+async function fetchArchiveCatalog() {
+    const now = Date.now();
+    
+    // Return cached catalog if still valid
+    if (archiveCatalog.length > 0 && (now - lastArchiveFetch) < CACHE_DURATION) {
+        return archiveCatalog;
+    }
+    
+    console.log('Fetching Yugoslav content from Internet Archive...');
+    const items = [];
+    
+    try {
+        // Search for Yugoslav/Balkan films
+        const searchQueries = [
+            'yugoslav film',
+            'serbian film',
+            'croatian film',
+            'bosnian film',
+            'balkan cinema'
+        ];
+        
+        for (const query of searchQueries) {
+            try {
+                const encodedQuery = encodeURIComponent(query);
+                const searchUrl = `https://archive.org/advancedsearch.php?q=${encodedQuery}%20AND%20mediatype:(movies)&fl[]=identifier,title,description,year,language&output=json&rows=100&sort[]=downloads%20desc`;
+                
+                const response = await fetch(searchUrl, {
+                    signal: AbortSignal.timeout(10000)
+                });
+                
+                if (!response.ok) continue;
+                
+                const data = await response.json();
+                
+                if (data.response?.docs) {
+                    for (const doc of data.response.docs) {
+                        // Create unique ID
+                        const id = `archive:${doc.identifier}`;
+                        
+                        // Avoid duplicates
+                        if (!items.find(item => item.id === id)) {
+                            items.push({
+                                id: id,
+                                type: 'movie',
+                                name: doc.title || doc.identifier,
+                                poster: `https://archive.org/services/img/${doc.identifier}`,
+                                posterShape: 'poster',
+                                description: doc.description || 'Yugoslav/Balkan film from Internet Archive',
+                                releaseInfo: doc.year || 'Unknown',
+                                archiveId: doc.identifier
+                            });
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error(`Error fetching ${query}:`, error.message);
+            }
+        }
+        
+        console.log(`Fetched ${items.length} Yugoslav films from Internet Archive`);
+        archiveCatalog = items;
+        lastArchiveFetch = now;
+        
+    } catch (error) {
+        console.error('Error fetching Archive catalog:', error);
+    }
+    
+    return items;
+}
+
 const builder = new addonBuilder(manifest);
 
 // Catalog handler - returns basic info with poster for display
@@ -77,11 +152,15 @@ builder.defineCatalogHandler(async ({ type, id, extra }) => {
     console.log(`Catalog request: type=${type}, id=${id}`);
     
     if (type === 'movie' && id === 'balkan-movies') {
-        let filteredMovies = movies.movies || [];
+        // Combine local movies with Internet Archive catalog
+        const localMovies = movies.movies || [];
+        const archiveMovies = await fetchArchiveCatalog();
+        
+        let allMovies = [...localMovies, ...archiveMovies];
         
         // Filter by genre if requested
         if (extra && extra.genre) {
-            filteredMovies = filteredMovies.filter(movie => 
+            allMovies = allMovies.filter(movie => 
                 movie.genres && movie.genres.includes(extra.genre)
             );
         }
@@ -89,16 +168,16 @@ builder.defineCatalogHandler(async ({ type, id, extra }) => {
         // Apply pagination
         const skip = extra && extra.skip ? parseInt(extra.skip) : 0;
         const limit = 100;
-        filteredMovies = filteredMovies.slice(skip, skip + limit);
+        allMovies = allMovies.slice(skip, skip + limit);
         
         // Fetch Cinemeta posters for IMDB IDs with faster timeout for catalog
-        const metas = await Promise.all(filteredMovies.map(async m => {
+        const metas = await Promise.all(allMovies.map(async m => {
             // Always include local data as base
             const baseMeta = {
                 id: m.id,
                 type: 'movie',
                 name: m.name,
-                poster: m.poster || `https://via.placeholder.com/300x450/1a1a2e/16213e?text=${encodeURIComponent(m.name)}`,
+                poster: m.poster || `https://archive.org/services/img/${m.archiveId || 'default'}`,
                 posterShape: 'poster'
             };
             
@@ -161,12 +240,18 @@ builder.defineCatalogHandler(async ({ type, id, extra }) => {
 builder.defineMetaHandler(async ({ type, id }) => {
     console.log(`Meta request: type=${type}, id=${id}`);
     
-    // Check if this is one of our movies
+    // Check local movies first
     let localItem = null;
     if (type === 'movie') {
         localItem = movies.movies?.find(m => m.id === id);
     } else if (type === 'series') {
         localItem = movies.series?.find(s => s.id === id);
+    }
+    
+    // Check Internet Archive catalog
+    if (!localItem && id.startsWith('archive:')) {
+        const archiveMovies = await fetchArchiveCatalog();
+        localItem = archiveMovies.find(m => m.id === id);
     }
     
     if (!localItem) {
@@ -189,99 +274,21 @@ builder.defineMetaHandler(async ({ type, id }) => {
         }
     }
     
-    // Fallback to local data
+    // Fallback to local/archive data
     return { meta: localItem };
 });
 
-// Search Internet Archive for Yugoslav/Balkan content
-async function searchInternetArchive(name, year) {
-    const streams = [];
-    
+// Validate stream URL is accessible
+async function validateStream(url) {
     try {
-        // Clean the search query
-        const cleanName = name.replace(/\(.*?\)/g, '').trim();
-        const searchTerms = [
-            `${cleanName} ${year || ''}`,
-            `${cleanName} yugoslav`,
-            `${cleanName} serbian`,
-            `${cleanName} croatian`,
-            `${cleanName} bosnian`
-        ];
-        
-        for (const searchTerm of searchTerms) {
-            try {
-                const query = encodeURIComponent(searchTerm);
-                const searchUrl = `https://archive.org/advancedsearch.php?q=${query}%20AND%20mediatype:(movies)&fl[]=identifier,title,format&output=json&rows=10`;
-                
-                const response = await fetch(searchUrl, {
-                    signal: AbortSignal.timeout(5000)
-                });
-                
-                if (!response.ok) continue;
-                
-                const data = await response.json();
-                
-                if (data.response?.docs?.length > 0) {
-                    for (const doc of data.response.docs) {
-                        try {
-                            // Get file details
-                            const metadataUrl = `https://archive.org/metadata/${doc.identifier}`;
-                            const metaResponse = await fetch(metadataUrl, {
-                                signal: AbortSignal.timeout(3000)
-                            });
-                            
-                            if (!metaResponse.ok) continue;
-                            
-                            const metadata = await metaResponse.json();
-                            const files = metadata.files || [];
-                            
-                            // Find video files, prioritize HD
-                            const videoFiles = files.filter(f => 
-                                f.name && (
-                                    f.name.endsWith('.mp4') ||
-                                    f.name.endsWith('.mkv') ||
-                                    f.name.endsWith('.avi')
-                                ) && f.format !== 'Metadata'
-                            );
-                            
-                            // Sort by quality/size
-                            videoFiles.sort((a, b) => {
-                                const aSize = parseInt(a.size) || 0;
-                                const bSize = parseInt(b.size) || 0;
-                                return bSize - aSize; // Larger files = better quality
-                            });
-                            
-                            for (const file of videoFiles.slice(0, 3)) {
-                                const sizeGB = (parseInt(file.size) / (1024 * 1024 * 1024)).toFixed(2);
-                                const quality = parseInt(file.size) > 1000000000 ? 'HD' : 'SD';
-                                const format = file.format || 'Video';
-                                
-                                streams.push({
-                                    title: `Internet Archive - ${quality} (${sizeGB}GB)`,
-                                    url: `https://archive.org/download/${doc.identifier}/${encodeURIComponent(file.name)}`,
-                                    behaviorHints: {
-                                        notWebReady: false
-                                    }
-                                });
-                            }
-                            
-                        } catch (error) {
-                            console.error(`Error fetching metadata for ${doc.identifier}:`, error.message);
-                        }
-                    }
-                    
-                    // If we found streams, break
-                    if (streams.length > 0) break;
-                }
-            } catch (error) {
-                console.error('Internet Archive search error:', error.message);
-            }
-        }
+        const response = await fetch(url, {
+            method: 'HEAD',
+            signal: AbortSignal.timeout(3000)
+        });
+        return response.ok && response.status === 200;
     } catch (error) {
-        console.error('Error searching Internet Archive:', error);
+        return false;
     }
-    
-    return streams;
 }
 
 // Search Internet Archive for Yugoslav/Balkan content
@@ -326,13 +333,25 @@ async function searchInternetArchive(name, year) {
                             const metadata = await metaResponse.json();
                             const files = metadata.files || [];
                             
+                            // Validate: Check if item is actually accessible
+                            if (metadata.is_dark || metadata.access_restricted_item) {
+                                console.log(`Skipping restricted item: ${doc.identifier}`);
+                                continue;
+                            }
+                            
                             // Find video files, prioritize HD
                             const videoFiles = files.filter(f => 
-                                f.name && (
+                                f.name && 
+                                f.size && parseInt(f.size) > 1000000 && // At least 1MB
+                                (
                                     f.name.endsWith('.mp4') ||
                                     f.name.endsWith('.mkv') ||
-                                    f.name.endsWith('.avi')
-                                ) && f.format !== 'Metadata'
+                                    f.name.endsWith('.avi') ||
+                                    f.name.endsWith('.webm')
+                                ) && 
+                                f.format !== 'Metadata' &&
+                                !f.name.includes('sample') &&
+                                !f.name.includes('trailer')
                             );
                             
                             // Sort by quality/size
@@ -345,15 +364,18 @@ async function searchInternetArchive(name, year) {
                             for (const file of videoFiles.slice(0, 3)) {
                                 const sizeGB = (parseInt(file.size) / (1024 * 1024 * 1024)).toFixed(2);
                                 const quality = parseInt(file.size) > 1000000000 ? 'HD' : 'SD';
-                                const format = file.format || 'Video';
+                                const streamUrl = `https://archive.org/download/${doc.identifier}/${encodeURIComponent(file.name)}`;
                                 
-                                streams.push({
-                                    title: `Internet Archive - ${quality} (${sizeGB}GB)`,
-                                    url: `https://archive.org/download/${doc.identifier}/${encodeURIComponent(file.name)}`,
-                                    behaviorHints: {
-                                        notWebReady: false
-                                    }
-                                });
+                                // Only add if size is reasonable (not corrupted/fake)
+                                if (parseInt(file.size) > 10000000) { // At least 10MB
+                                    streams.push({
+                                        title: `📦 Internet Archive - ${quality} (${sizeGB}GB)`,
+                                        url: streamUrl,
+                                        behaviorHints: {
+                                            notWebReady: false
+                                        }
+                                    });
+                                }
                             }
                             
                         } catch (error) {
@@ -388,15 +410,28 @@ async function getArchiveStreams(archiveId) {
         if (!response.ok) return streams;
         
         const metadata = await response.json();
+        
+        // Validate: Check if item is accessible
+        if (metadata.is_dark || metadata.access_restricted_item) {
+            console.log(`Skipping restricted item: ${archiveId}`);
+            return streams;
+        }
+        
         const files = metadata.files || [];
         
-        // Find video files
+        // Find video files with validation
         const videoFiles = files.filter(f => 
-            f.name && (
+            f.name && 
+            f.size && parseInt(f.size) > 10000000 && // At least 10MB
+            (
                 f.name.endsWith('.mp4') ||
                 f.name.endsWith('.mkv') ||
-                f.name.endsWith('.avi')
-            ) && f.format !== 'Metadata'
+                f.name.endsWith('.avi') ||
+                f.name.endsWith('.webm')
+            ) && 
+            f.format !== 'Metadata' &&
+            !f.name.includes('sample') &&
+            !f.name.includes('trailer')
         );
         
         // Sort by quality/size (larger = better)
@@ -411,7 +446,7 @@ async function getArchiveStreams(archiveId) {
             const quality = parseInt(file.size) > 1000000000 ? 'HD' : 'SD';
             
             streams.push({
-                title: `Internet Archive - ${quality} (${sizeGB}GB)`,
+                title: `📦 Internet Archive - ${quality} (${sizeGB}GB)`,
                 url: `https://archive.org/download/${archiveId}/${encodeURIComponent(file.name)}`,
                 behaviorHints: {
                     notWebReady: false
