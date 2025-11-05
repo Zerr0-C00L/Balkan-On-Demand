@@ -6,6 +6,63 @@ const CINEMETA_URL = 'https://v3-cinemeta.strem.io';
 // Cache for Cinemeta lookups
 const cinemetaCache = new Map();
 
+// Cache for YouTube stream URLs
+const youtubeStreamCache = new Map();
+
+// Extract direct YouTube stream URL
+async function getYouTubeStreamUrl(videoId) {
+    if (youtubeStreamCache.has(videoId)) {
+        return youtubeStreamCache.get(videoId);
+    }
+    
+    try {
+        // Use Invidious API for YouTube extraction (public instances)
+        const invidiousInstances = [
+            'https://inv.nadeko.net',
+            'https://invidious.nerdvpn.de',
+            'https://inv.tux.pizza',
+            'https://invidious.privacyredirect.com'
+        ];
+        
+        for (const instance of invidiousInstances) {
+            try {
+                const url = `${instance}/api/v1/videos/${videoId}`;
+                const response = await fetch(url, { 
+                    signal: AbortSignal.timeout(5000),
+                    headers: { 'User-Agent': 'Stremio-Balkan-Addon/3.0' }
+                });
+                
+                if (!response.ok) continue;
+                
+                const data = await response.json();
+                
+                // Get the best quality stream
+                const formats = data.formatStreams || [];
+                if (formats.length > 0) {
+                    // Sort by quality (prefer 720p or highest available)
+                    const sorted = formats.sort((a, b) => {
+                        const qualityA = parseInt(a.qualityLabel) || 0;
+                        const qualityB = parseInt(b.qualityLabel) || 0;
+                        return qualityB - qualityA;
+                    });
+                    
+                    const streamUrl = sorted[0].url;
+                    youtubeStreamCache.set(videoId, streamUrl);
+                    return streamUrl;
+                }
+            } catch (err) {
+                continue; // Try next instance
+            }
+        }
+        
+        console.log(`Failed to extract stream for ${videoId}`);
+        return null;
+    } catch (error) {
+        console.error(`Error extracting YouTube URL for ${videoId}:`, error.message);
+        return null;
+    }
+}
+
 // Sanitize text to prevent serialization errors
 function sanitizeText(text) {
     if (!text) return '';
@@ -72,8 +129,8 @@ async function searchCinemeta(title, year, type = 'movie') {
 
 // Addon manifest
 const manifest = {
-    id: 'org.balkan.youtube',
-    version: '3.0.0',
+    id: 'org.balkan.films',
+    version: '3.1.0',
     name: 'Domaci Filmovi i Serije',
     description: '1090+ Yugoslav/Balkan movies and series with direct YouTube streams',
     resources: ['catalog', 'meta', 'stream'],
@@ -276,21 +333,37 @@ builder.defineStreamHandler(async ({ type, id }) => {
         return { streams: [] };
     }
     
-    // Return both YouTube embed and direct URL options
-    const streams = [
-        {
-            name: 'YouTube',
-            title: `${itemName} - YouTube`,
-            ytId: youtubeId
-        },
-        {
-            name: 'Direct Stream',
-            title: `${itemName} - Direct`,
-            externalUrl: `https://www.youtube.com/watch?v=${youtubeId}`
-        }
-    ];
+    const streams = [];
     
-    console.log(`Returning streams for: ${youtubeId} - ${itemName}`);
+    // Try to get direct stream URL using Invidious
+    console.log(`Extracting direct stream URL for: ${youtubeId}`);
+    const directUrl = await getYouTubeStreamUrl(youtubeId);
+    
+    if (directUrl) {
+        streams.push({
+            name: 'Direct Stream (Best Quality)',
+            title: `${itemName}`,
+            url: directUrl
+        });
+        console.log(`✓ Direct stream URL found for ${youtubeId}`);
+    } else {
+        console.log(`✗ Failed to extract direct URL for ${youtubeId}, using fallbacks`);
+    }
+    
+    // Fallback options
+    streams.push({
+        name: 'YouTube Embed',
+        title: `${itemName} - YouTube`,
+        ytId: youtubeId
+    });
+    
+    streams.push({
+        name: 'Open in YouTube',
+        title: `${itemName} - External`,
+        externalUrl: `https://www.youtube.com/watch?v=${youtubeId}`
+    });
+    
+    console.log(`Returning ${streams.length} stream options for: ${itemName}`);
     return { streams };
 });
 
