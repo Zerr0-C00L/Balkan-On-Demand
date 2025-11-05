@@ -87,8 +87,13 @@ const allCatalogs = [
     id: 'balkan_movies',
     name: 'Filmovi',
     type: 'movie',
+    genres: ['Action', 'Adventure', 'Comedy', 'Crime', 'Drama', 'Family', 'Fantasy', 'Horror', 'Romance', 'Sci-Fi', 'Thriller', 'War'],
     extra: [
-      { name: 'genre', isRequired: false },
+      { 
+        name: 'genre', 
+        isRequired: false,
+        options: ['Action', 'Adventure', 'Comedy', 'Crime', 'Drama', 'Family', 'Fantasy', 'Horror', 'Romance', 'Sci-Fi', 'Thriller', 'War']
+      },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
     ]
@@ -97,8 +102,13 @@ const allCatalogs = [
     id: 'balkan_foreign_movies',
     name: 'Strani Filmovi',
     type: 'movie',
+    genres: ['Action', 'Adventure', 'Comedy', 'Crime', 'Drama', 'Family', 'Fantasy', 'Horror', 'Romance', 'Sci-Fi', 'Thriller', 'War'],
     extra: [
-      { name: 'genre', isRequired: false },
+      { 
+        name: 'genre', 
+        isRequired: false,
+        options: ['Action', 'Adventure', 'Comedy', 'Crime', 'Drama', 'Family', 'Fantasy', 'Horror', 'Romance', 'Sci-Fi', 'Thriller', 'War']
+      },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
     ]
@@ -107,7 +117,13 @@ const allCatalogs = [
     id: 'balkan_kids',
     name: 'Crtani Filmovi',
     type: 'movie',
+    genres: ['Animation', 'Family', 'Adventure', 'Comedy', 'Fantasy'],
     extra: [
+      { 
+        name: 'genre', 
+        isRequired: false,
+        options: ['Animation', 'Family', 'Adventure', 'Comedy', 'Fantasy']
+      },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
     ]
@@ -116,7 +132,13 @@ const allCatalogs = [
     id: 'balkan_series',
     name: 'Serije',
     type: 'series',
+    genres: ['Action', 'Comedy', 'Crime', 'Drama', 'Family', 'Romance', 'Thriller'],
     extra: [
+      { 
+        name: 'genre', 
+        isRequired: false,
+        options: ['Action', 'Comedy', 'Crime', 'Drama', 'Family', 'Romance', 'Thriller']
+      },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
     ]
@@ -153,19 +175,26 @@ function generateManifest(config = null) {
       
       // Add 'search' and 'genre' for discover
       if (inDiscover) {
-        if (cat.extra.some(e => e.name === 'search')) {
-          extraSupported.push('search');
-          // If Discover-only (not in Home), make search required to hide from Home
+        const hasGenre = cat.extra.some(e => e.name === 'genre');
+        const hasSearch = cat.extra.some(e => e.name === 'search');
+        
+        // For Discover-only catalogs, make genre required if available (hides from Home)
+        if (hasGenre) {
+          extraSupported.push('genre');
+          const genreExtra = cat.extra.find(e => e.name === 'genre');
           if (!inHome) {
-            filteredExtra.push({ name: 'search', isRequired: true });
-            extraRequired.push('search');
+            // Discover-only: require genre to hide from Home
+            filteredExtra.push({ ...genreExtra, isRequired: true });
+            extraRequired.push('genre');
           } else {
-            filteredExtra.push({ name: 'search', isRequired: false });
+            // In both Home and Discover: genre is optional
+            filteredExtra.push({ ...genreExtra, isRequired: false });
           }
         }
-        if (cat.extra.some(e => e.name === 'genre')) {
-          extraSupported.push('genre');
-          filteredExtra.push({ name: 'genre', isRequired: false });
+        
+        if (hasSearch) {
+          extraSupported.push('search');
+          filteredExtra.push({ name: 'search', isRequired: false });
         }
       }
       
@@ -189,7 +218,7 @@ function generateManifest(config = null) {
 
   return {
     id: 'community.balkan.on.demand',
-    version: '5.0.9',
+    version: '5.1.0',
     name: 'Balkan On Demand',
     description: 'Balkan Movies & Series from Serbia, Croatia & Bosnia, with direct streaming links',
     
@@ -368,44 +397,45 @@ builder.defineCatalogHandler(async ({ type, id, extra }) => {
   const limit = 100;
   const skip = parseInt(extra.skip) || 0;
   const search = extra.search || '';
+  const genre = extra.genre || '';
   
   let items = [];
   
   switch (id) {
     case 'balkan_movies':
       items = movieCategories.movies;
-      
-      // Apply search filter
-      if (search) {
-        items = items.filter(m => 
-          m.name.toLowerCase().includes(search.toLowerCase())
-        );
-      }
-      
-      items = items.slice(skip, skip + limit);
       break;
       
     case 'balkan_foreign_movies':
       items = movieCategories.foreign;
-      
-      // Apply search filter
-      if (search) {
-        items = items.filter(m => 
-          m.name.toLowerCase().includes(search.toLowerCase())
-        );
-      }
-      
-      items = items.slice(skip, skip + limit);
       break;
       
     case 'balkan_kids':
-      items = movieCategories.kids.slice(skip, skip + limit);
+      items = movieCategories.kids;
       break;
       
     case 'balkan_series':
-      items = bauBauDB.series.slice(skip, skip + limit);
+      items = bauBauDB.series;
       break;
   }
+  
+  // Apply genre filter
+  if (genre) {
+    items = items.filter(item => {
+      if (!item.genres || !Array.isArray(item.genres)) return false;
+      return item.genres.some(g => g.toLowerCase() === genre.toLowerCase());
+    });
+  }
+  
+  // Apply search filter
+  if (search) {
+    items = items.filter(item => 
+      item.name.toLowerCase().includes(search.toLowerCase())
+    );
+  }
+  
+  // Apply pagination
+  items = items.slice(skip, skip + limit);
   
   // Enrich metadata with Cinemeta in parallel (for catalog view)
   const metasPromises = items.map(item => 
