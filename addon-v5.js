@@ -178,18 +178,11 @@ function generateManifest(config = null) {
         const hasGenre = cat.extra.some(e => e.name === 'genre');
         const hasSearch = cat.extra.some(e => e.name === 'search');
         
-        // For Discover-only catalogs, make genre required if available (hides from Home)
+        // Add genre support (always optional, never required)
         if (hasGenre) {
           extraSupported.push('genre');
           const genreExtra = cat.extra.find(e => e.name === 'genre');
-          if (!inHome) {
-            // Discover-only: require genre to hide from Home
-            filteredExtra.push({ ...genreExtra, isRequired: true });
-            extraRequired.push('genre');
-          } else {
-            // In both Home and Discover: genre is optional
-            filteredExtra.push({ ...genreExtra, isRequired: false });
-          }
+          filteredExtra.push({ ...genreExtra, isRequired: false });
         }
         
         if (hasSearch) {
@@ -200,9 +193,7 @@ function generateManifest(config = null) {
       
       catalogCopy.extra = filteredExtra;
       catalogCopy.extraSupported = [...new Set(extraSupported)]; // Remove duplicates
-      if (extraRequired.length > 0) {
-        catalogCopy.extraRequired = extraRequired;
-      }
+      // Note: Never set extraRequired - we want genres optional
       
       return catalogCopy;
     }).filter(Boolean);
@@ -218,7 +209,7 @@ function generateManifest(config = null) {
 
   return {
     id: 'community.balkan.on.demand',
-    version: '5.1.1',
+    version: '5.1.2',
     name: 'Balkan On Demand',
     description: 'Balkan Movies & Series from Serbia, Croatia & Bosnia, with direct streaming links',
     
