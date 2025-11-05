@@ -4,7 +4,7 @@ const movies = require('./movies.json');
 // Addon manifest
 const manifest = {
     id: 'org.balkan.movies',
-    version: '1.0.0',
+    version: '1.0.1',
     name: 'Balkan On Demand',
     description: 'Stream popular movies and TV shows from the Balkan region (ex-Yugoslavia)',
     resources: ['catalog', 'meta', 'stream'],
