@@ -530,22 +530,23 @@ builder.defineStreamHandler(async ({ type, id, name }) => {
     const manualStreams = item?.streams || [];
     
     let exYuStreams = [];
-    let dailymotionStreams = [];
     
-    // If this is a Dailymotion item, get streams directly
+    // If this is a Dailymotion catalog item, get streams directly
     if (baseId.startsWith('dailymotion:')) {
         const dailymotionId = baseId.replace('dailymotion:', '');
-        dailymotionStreams = await getDailymotionStreams(dailymotionId);
-    } else if (searchName) {
-        // Generate Ex-Yu website links
-        exYuStreams = getExYuStreams(searchName);
-        
-        // Also search Dailymotion for shorter content
-        dailymotionStreams = await searchDailymotion(searchName, year);
+        const dailymotionStreams = await getDailymotionStreams(dailymotionId);
+        const allStreams = [...manualStreams, ...dailymotionStreams];
+        console.log(`Returning ${allStreams.length} streams for Dailymotion video ${dailymotionId}`);
+        return { streams: allStreams };
     }
     
-    // Combine: manual first, then Ex-Yu links, then Dailymotion
-    const allStreams = [...manualStreams, ...exYuStreams, ...dailymotionStreams];
+    // For IMDB/regular movies, only show search links (no random Dailymotion results)
+    if (searchName) {
+        exYuStreams = getExYuStreams(searchName);
+    }
+    
+    // Combine: manual first, then search links
+    const allStreams = [...manualStreams, ...exYuStreams];
     
     console.log(`Returning ${allStreams.length} streams for ${searchName || id}`);
     return { streams: allStreams };
