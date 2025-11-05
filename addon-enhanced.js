@@ -389,15 +389,16 @@ builder.defineMetaHandler(async ({ type, id }) => {
     return { meta };
 });
 
-// Stream handler - Enhanced for Apple TV with multiple quality options
+// Stream handler - Enhanced for Apple TV with torrent and direct stream support
 builder.defineStreamHandler(async ({ type, id }) => {
     console.log(`Stream request: type=${type}, id=${id}`);
     
     let youtubeId = null;
     let itemName = 'Video';
+    let item = null;
     
     if (type === 'movie') {
-        const item = sevcetContent.movies.find(m => m.id === id);
+        item = sevcetContent.movies.find(m => m.id === id);
         if (item) {
             youtubeId = id.replace('yt:', '');
             itemName = item.name;
@@ -415,6 +416,7 @@ builder.defineStreamHandler(async ({ type, id }) => {
                         parseInt(v.season) === season && parseInt(v.episode) === episode
                     );
                     if (ep) {
+                        item = series;
                         youtubeId = ep.id;
                         itemName = `${series.name} - S${season}E${episode}`;
                         break;
@@ -424,35 +426,65 @@ builder.defineStreamHandler(async ({ type, id }) => {
         }
     }
     
-    if (!youtubeId) {
-        console.log(`No YouTube ID found for ${id}`);
+    if (!youtubeId && !item) {
+        console.log(`No content found for ${id}`);
         return { streams: [] };
     }
     
     const streams = [];
     
-    // Extract direct stream URLs
-    console.log(`Extracting direct streams for: ${youtubeId}`);
-    const directStreams = await getDirectStreamUrl(youtubeId);
-    
-    if (directStreams && directStreams.length > 0) {
-        // Add each quality option as a separate stream
-        for (const stream of directStreams) {
-            const streamName = stream.type === 'm3u8' 
-                ? '🍎 HLS Stream (Apple TV)' 
-                : `🎬 Direct ${stream.quality}`;
-            
+    // Priority 1: Torrents (BEST for Apple TV - works perfectly!)
+    if (item && item.torrents && item.torrents.length > 0) {
+        for (const torrent of item.torrents) {
             streams.push({
-                name: streamName,
-                title: `${itemName} - ${stream.quality}`,
-                url: stream.url,
+                name: `⚡ Torrent ${torrent.quality}`,
+                title: `${itemName} (${torrent.size || 'Unknown size'})`,
+                infoHash: torrent.infoHash,
+                fileIdx: torrent.fileIdx || 0,
                 behaviorHints: {
-                    notWebReady: false,
-                    bingeGroup: `balkan-${stream.type}`
+                    bingeGroup: `balkan-torrent-${torrent.quality}`
                 }
             });
         }
-        console.log(`✓ Added ${directStreams.length} direct streams for ${youtubeId}`);
+        console.log(`✓ Added ${item.torrents.length} torrent streams for ${itemName}`);
+    }
+    
+        // Priority 2: Try to extract direct stream URLs from YouTube
+    if (youtubeId) {
+        console.log(`Extracting direct streams for: ${youtubeId}`);
+        const directStreams = await getDirectStreamUrl(youtubeId);
+        
+        if (directStreams && directStreams.length > 0) {
+            // Add each quality option as a separate stream
+            for (const stream of directStreams) {
+                const streamName = stream.type === 'm3u8' 
+                    ? '🍎 HLS Stream' 
+                    : `🎬 Direct ${stream.quality}`;
+                
+                streams.push({
+                    name: streamName,
+                    title: `${itemName} - ${stream.quality}`,
+                    url: stream.url,
+                    behaviorHints: {
+                        notWebReady: false,
+                        bingeGroup: `balkan-${stream.type}`
+                    }
+                });
+            }
+            console.log(`✓ Added ${directStreams.length} direct streams`);
+        } else {
+            console.log(`⚠ No direct streams extracted, only YouTube fallback available`);
+        }
+        
+        // Priority 3: YouTube fallback (works on web/Android, NOT on Apple TV)
+        streams.push({
+            name: '📺 YouTube',
+            title: itemName,
+            ytId: youtubeId,
+            behaviorHints: {
+                notWebReady: false
+            }
+        });
     }
     
     // Fallback options when direct extraction fails
