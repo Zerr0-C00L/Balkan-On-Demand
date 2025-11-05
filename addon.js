@@ -73,7 +73,7 @@ async function searchCinemeta(title, year, type = 'movie') {
 // Addon manifest
 const manifest = {
     id: 'org.balkan.youtube',
-    version: '2.1.0',
+    version: '3.0.0',
     name: 'Domaci Filmovi i Serije',
     description: '1090+ Yugoslav/Balkan movies and series with direct YouTube streams',
     resources: ['catalog', 'meta', 'stream'],
