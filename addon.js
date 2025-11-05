@@ -30,7 +30,7 @@ const manifest = {
             name: 'Balkan TV Series'
         }
     ],
-    idPrefixes: ['tt', 'balkan:']
+    idPrefixes: ['tt', 'balkan:', 'archive:']
 };
 
 // Cache for Cinemeta metadata
