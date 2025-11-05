@@ -198,10 +198,12 @@ function generateManifest(config = null) {
       return catalogCopy;
     }).filter(Boolean);
   } else {
-    // Default: all catalogs in both home and discover
+    // Default: all catalogs ONLY in discover (not in home)
+    // This prevents cluttering the home screen
     catalogs = allCatalogs.map(cat => ({
       ...cat,
-      extraSupported: ['skip', 'search', 'genre'].filter(extra => 
+      extra: cat.extra.filter(e => e.name !== 'skip'), // Remove skip for non-home catalogs
+      extraSupported: ['search', 'genre'].filter(extra => 
         cat.extra.some(e => e.name === extra)
       )
     }));
@@ -319,24 +321,36 @@ console.log(`📊 Categories: Movies(${movieCategories.movies.length}), Foreign(
 
 // Helper: Convert to Stremio meta format with Cinemeta enrichment
 async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
-  // Fetch Cinemeta metadata if enrichment is requested
+  // Always fetch Cinemeta metadata when enrichment is requested
   let cinemeta = null;
-  if (enrichMetadata && item.name && item.year) {
+  if (enrichMetadata && item.name) {
     cinemeta = await searchCinemeta(item.name, item.year, type);
   }
   
   if (type === 'series') {
+    // Extract fallback poster from first episode's thumbnail
+    let fallbackPoster = null;
+    if (item.seasons && item.seasons.length > 0) {
+      const firstSeason = item.seasons[0];
+      if (firstSeason.episodes && firstSeason.episodes.length > 0) {
+        fallbackPoster = firstSeason.episodes[0].thumbnail;
+      }
+    }
+    
+    // Use Cinemeta data as primary source, fallback to local data only if Cinemeta fails
+    const poster = cinemeta?.poster || fallbackPoster || 'https://via.placeholder.com/300x450/1a1a1a/ffffff?text=' + encodeURIComponent(item.name);
+    
     return {
       id: item.id,
       type: 'series',
-      name: sanitizeText(item.name),
-      poster: cinemeta?.poster || item.poster || 'https://via.placeholder.com/300x450/1a1a1a/ffffff?text=' + encodeURIComponent(item.name),
+      name: sanitizeText(cinemeta?.fullMeta?.name || item.name),
+      poster: poster,
       posterShape: 'poster',
-      background: cinemeta?.background || item.background || null,
-      logo: cinemeta?.logo || item.logo || null,
-      description: sanitizeText(item.description || cinemeta?.fullMeta?.description || 'Serbian/Croatian TV series'),
-      releaseInfo: item.year?.toString() || '',
-      genres: item.genres || cinemeta?.fullMeta?.genres || [],
+      background: cinemeta?.background || null,
+      logo: cinemeta?.logo || null,
+      description: sanitizeText(cinemeta?.fullMeta?.description || 'Serbian/Croatian TV series'),
+      releaseInfo: cinemeta?.fullMeta?.year?.toString() || item.year?.toString() || '',
+      genres: cinemeta?.fullMeta?.genres || ['Drama'],
       cast: cinemeta?.fullMeta?.cast || [],
       director: cinemeta?.fullMeta?.director || [],
       imdbRating: cinemeta?.fullMeta?.imdbRating || null,
@@ -346,27 +360,29 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
           title: sanitizeText(ep.title || `Episode ${ep.episode}`),
           season: season.number,
           episode: ep.episode,
-          released: new Date().toISOString()
+          released: new Date().toISOString(),
+          thumbnail: ep.thumbnail || poster
         }))
       )
     };
   }
   
+  // For movies, prioritize Cinemeta metadata
   const meta = {
     id: item.id,
     type: 'movie',
-    name: sanitizeText(item.name),
+    name: sanitizeText(cinemeta?.fullMeta?.name || item.name),
     poster: cinemeta?.poster || item.poster || 'https://via.placeholder.com/300x450/1a1a1a/ffffff?text=' + encodeURIComponent(item.name),
     posterShape: 'poster',
-    background: cinemeta?.background || item.background || null,
-    logo: cinemeta?.logo || item.logo || null,
-    description: sanitizeText(item.description || cinemeta?.fullMeta?.description || ''),
-    releaseInfo: item.year?.toString() || '',
-    genres: item.genres || cinemeta?.fullMeta?.genres || [],
+    background: cinemeta?.background || null,
+    logo: cinemeta?.logo || null,
+    description: sanitizeText(cinemeta?.fullMeta?.description || item.description || ''),
+    releaseInfo: cinemeta?.fullMeta?.year?.toString() || item.year?.toString() || '',
+    genres: cinemeta?.fullMeta?.genres || [],
     cast: cinemeta?.fullMeta?.cast || [],
     director: cinemeta?.fullMeta?.director || [],
-    imdbRating: cinemeta?.fullMeta?.imdbRating || item.imdbRating || null,
-    runtime: cinemeta?.fullMeta?.runtime || item.runtime || null
+    imdbRating: cinemeta?.fullMeta?.imdbRating || null,
+    runtime: cinemeta?.fullMeta?.runtime || null
   };
   
   // Add IMDb link if available
@@ -410,15 +426,7 @@ builder.defineCatalogHandler(async ({ type, id, extra }) => {
       break;
   }
   
-  // Apply genre filter
-  if (genre) {
-    items = items.filter(item => {
-      if (!item.genres || !Array.isArray(item.genres)) return false;
-      return item.genres.some(g => g.toLowerCase() === genre.toLowerCase());
-    });
-  }
-  
-  // Apply search filter
+  // Apply search filter first (before enrichment for better performance)
   if (search) {
     items = items.filter(item => 
       item.name.toLowerCase().includes(search.toLowerCase())
@@ -433,7 +441,15 @@ builder.defineCatalogHandler(async ({ type, id, extra }) => {
     toStremioMeta(item, id === 'balkan_series' ? 'series' : 'movie', true)
   );
   
-  const metas = await Promise.all(metasPromises);
+  let metas = await Promise.all(metasPromises);
+  
+  // Apply genre filter AFTER enrichment (since genres come from Cinemeta)
+  if (genre) {
+    metas = metas.filter(meta => {
+      if (!meta.genres || !Array.isArray(meta.genres)) return false;
+      return meta.genres.some(g => g.toLowerCase() === genre.toLowerCase());
+    });
+  }
   
   return { metas };
 });
