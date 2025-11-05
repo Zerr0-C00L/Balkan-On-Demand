@@ -6,6 +6,15 @@ const CINEMETA_URL = 'https://v3-cinemeta.strem.io';
 // Cache for Cinemeta lookups
 const cinemetaCache = new Map();
 
+// Sanitize text to prevent serialization errors
+function sanitizeText(text) {
+    if (!text) return '';
+    return text
+        .replace(/[\x00-\x1F\x7F-\x9F]/g, '') // Remove control characters
+        .replace(/\u0000/g, '') // Remove null characters
+        .trim();
+}
+
 // Search Cinemeta for proper poster and metadata
 async function searchCinemeta(title, year, type = 'movie') {
     const cacheKey = `${type}:${title}:${year}`;
@@ -121,11 +130,11 @@ builder.defineCatalogHandler(async ({ type, id, extra }) => {
             return {
                 id: m.id,
                 type: 'movie',
-                name: m.name,
+                name: sanitizeText(m.name),
                 poster: cinemeta?.poster || m.poster,
                 posterShape: cinemeta?.poster ? 'poster' : 'landscape',
-                releaseInfo: m.releaseInfo,
-                description: m.description
+                releaseInfo: sanitizeText(m.releaseInfo),
+                description: sanitizeText(m.description)
             };
         });
         
@@ -142,11 +151,11 @@ builder.defineCatalogHandler(async ({ type, id, extra }) => {
             return {
                 id: s.id,
                 type: 'series',
-                name: s.name,
+                name: sanitizeText(s.name),
                 poster: cinemeta?.poster || s.poster,
                 posterShape: cinemeta?.poster ? 'poster' : 'landscape',
-                releaseInfo: s.releaseInfo,
-                description: s.description
+                releaseInfo: sanitizeText(s.releaseInfo),
+                description: sanitizeText(s.description)
             };
         });
         
@@ -178,19 +187,19 @@ builder.defineMetaHandler(async ({ type, id }) => {
     // Fetch full metadata from Cinemeta
     const cinemeta = await searchCinemeta(item.name, item.releaseInfo, type);
     
-    // Build enhanced metadata
+    // Build enhanced metadata with sanitized text
     const meta = {
         id: item.id,
         type: type,
-        name: item.name,
+        name: sanitizeText(item.name),
         poster: cinemeta?.poster || item.poster,
         posterShape: cinemeta?.poster ? 'poster' : 'landscape',
         background: cinemeta?.background || null,
-        releaseInfo: item.releaseInfo,
-        description: item.description || cinemeta?.fullMeta?.description || '',
-        genre: item.genres || cinemeta?.fullMeta?.genres || [],
-        cast: cinemeta?.fullMeta?.cast || [],
-        director: cinemeta?.fullMeta?.director || [],
+        releaseInfo: sanitizeText(item.releaseInfo),
+        description: sanitizeText(item.description || cinemeta?.fullMeta?.description || ''),
+        genre: (item.genres || cinemeta?.fullMeta?.genres || []).map(g => sanitizeText(g)),
+        cast: (cinemeta?.fullMeta?.cast || []).map(c => sanitizeText(c)),
+        director: (cinemeta?.fullMeta?.director || []).map(d => sanitizeText(d)),
         imdbRating: cinemeta?.fullMeta?.imdbRating || null,
         runtime: cinemeta?.fullMeta?.runtime || null,
         trailers: cinemeta?.fullMeta?.trailers || [],
@@ -205,12 +214,12 @@ builder.defineMetaHandler(async ({ type, id }) => {
     if (type === 'series' && item.videos && item.videos.length > 0) {
         meta.videos = item.videos.map(v => ({
             id: `yt:${v.id}`,
-            title: v.title || `Episode ${v.episode}`,
-            released: item.releaseInfo,
+            title: sanitizeText(v.title || `Episode ${v.episode}`),
+            released: sanitizeText(item.releaseInfo),
             season: parseInt(v.season),
             episode: parseInt(v.episode),
             thumbnail: `https://img.youtube.com/vi/${v.id}/hqdefault.jpg`,
-            overview: item.description
+            overview: sanitizeText(item.description)
         }));
     }
     
