@@ -9,10 +9,82 @@ const sevcetDB = JSON.parse(fs.readFileSync(path.join(__dirname, 'sevcet-films.j
 console.log(`📚 Loaded Database: ${bauBauDB.movies.length} movies, ${bauBauDB.series.length} series`);
 console.log(`📚 Loaded YouTube: ${sevcetDB.movies?.length || 0} movies, ${sevcetDB.series?.length || 0} series`);
 
+// Cinemeta integration for metadata enrichment
+const CINEMETA_URL = 'https://v3-cinemeta.strem.io';
+const cinemetaCache = new Map();
+
+// Search Cinemeta for proper poster and metadata
+async function searchCinemeta(title, year, type = 'movie') {
+    const cacheKey = `${type}:${title}:${year}`;
+    
+    if (cinemetaCache.has(cacheKey)) {
+        return cinemetaCache.get(cacheKey);
+    }
+    
+    try {
+        const cleanTitle = title
+            .replace(/\([^)]*\)/g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
+        
+        const searchQuery = encodeURIComponent(cleanTitle);
+        const searchUrl = `${CINEMETA_URL}/catalog/${type}/top/search=${searchQuery}.json`;
+        
+        const response = await fetch(searchUrl);
+        if (!response.ok) throw new Error(`Cinemeta responded with ${response.status}`);
+        
+        const data = await response.json();
+        
+        if (data.metas && data.metas.length > 0) {
+            let match = data.metas.find(m => {
+                const metaYear = m.year || m.releaseInfo;
+                return metaYear && metaYear.toString() === year?.toString();
+            });
+            
+            if (!match) {
+                match = data.metas[0];
+            }
+            
+            if (match) {
+                const metaUrl = `${CINEMETA_URL}/meta/${type}/${match.id}.json`;
+                const metaResponse = await fetch(metaUrl);
+                if (!metaResponse.ok) throw new Error(`Meta fetch failed`);
+                
+                const metaData = await metaResponse.json();
+                
+                const result = {
+                    poster: match.poster || null,
+                    background: metaData.meta?.background || null,
+                    logo: metaData.meta?.logo || null,
+                    imdbId: match.id,
+                    fullMeta: metaData.meta || null
+                };
+                
+                cinemetaCache.set(cacheKey, result);
+                return result;
+            }
+        }
+    } catch (error) {
+        console.error(`Cinemeta search error for ${title}:`, error.message);
+    }
+    
+    cinemetaCache.set(cacheKey, null);
+    return null;
+}
+
+// Sanitize text to prevent serialization errors
+function sanitizeText(text) {
+    if (!text) return '';
+    return text
+        .replace(/[\x00-\x1F\x7F-\x9F]/g, '')
+        .replace(/\u0000/g, '')
+        .trim();
+}
+
 // Manifest with user-configurable catalogs
 const manifest = {
   id: 'community.balkan.on.demand',
-  version: '5.0.0',
+  version: '5.0.1',
   name: 'Balkan On Demand',
   description: 'Balkan Movies & Series from Serbia, Croatia & Bosnia, with direct streaming links',
   
@@ -159,22 +231,33 @@ function categorizeMovies() {
 const movieCategories = categorizeMovies();
 console.log(`📊 Categories: Movies(${movieCategories.movies.length}), Foreign(${movieCategories.foreign.length}), Kids(${movieCategories.kids.length})`);
 
-// Helper: Convert to Stremio meta format
-function toStremioMeta(item, type = 'movie') {
+// Helper: Convert to Stremio meta format with Cinemeta enrichment
+async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
+  // Fetch Cinemeta metadata if enrichment is requested
+  let cinemeta = null;
+  if (enrichMetadata && item.name && item.year) {
+    cinemeta = await searchCinemeta(item.name, item.year, type);
+  }
+  
   if (type === 'series') {
     return {
       id: item.id,
       type: 'series',
-      name: item.name,
-      poster: item.poster || 'https://via.placeholder.com/300x450/1a1a1a/ffffff?text=' + encodeURIComponent(item.name),
+      name: sanitizeText(item.name),
+      poster: cinemeta?.poster || item.poster || 'https://via.placeholder.com/300x450/1a1a1a/ffffff?text=' + encodeURIComponent(item.name),
       posterShape: 'poster',
-      background: item.background,
-      description: item.description || 'Serbian/Croatian TV series',
-      releaseInfo: item.year?.toString(),
+      background: cinemeta?.background || item.background || null,
+      logo: cinemeta?.logo || item.logo || null,
+      description: sanitizeText(item.description || cinemeta?.fullMeta?.description || 'Serbian/Croatian TV series'),
+      releaseInfo: item.year?.toString() || '',
+      genres: item.genres || cinemeta?.fullMeta?.genres || [],
+      cast: cinemeta?.fullMeta?.cast || [],
+      director: cinemeta?.fullMeta?.director || [],
+      imdbRating: cinemeta?.fullMeta?.imdbRating || null,
       videos: item.seasons.flatMap(season =>
         season.episodes.map(ep => ({
           id: `${item.id}:${season.number}:${ep.episode}`,
-          title: ep.title || `Episode ${ep.episode}`,
+          title: sanitizeText(ep.title || `Episode ${ep.episode}`),
           season: season.number,
           episode: ep.episode,
           released: new Date().toISOString()
@@ -183,104 +266,112 @@ function toStremioMeta(item, type = 'movie') {
     };
   }
   
-  return {
+  const meta = {
     id: item.id,
     type: 'movie',
-    name: item.name,
-    poster: item.poster || 'https://via.placeholder.com/300x450/1a1a1a/ffffff?text=' + encodeURIComponent(item.name),
+    name: sanitizeText(item.name),
+    poster: cinemeta?.poster || item.poster || 'https://via.placeholder.com/300x450/1a1a1a/ffffff?text=' + encodeURIComponent(item.name),
     posterShape: 'poster',
-    background: item.background,
-    logo: item.logo,
-    description: item.description || '',
-    releaseInfo: item.year?.toString(),
-    imdbRating: item.imdbRating,
-    genres: item.genres || [],
-    cast: item.cast || [],
-    director: item.director || [],
-    runtime: item.runtime,
-    links: item.streams?.map(s => ({
-      name: s.source,
-      url: s.url
-    }))
+    background: cinemeta?.background || item.background || null,
+    logo: cinemeta?.logo || item.logo || null,
+    description: sanitizeText(item.description || cinemeta?.fullMeta?.description || ''),
+    releaseInfo: item.year?.toString() || '',
+    genres: item.genres || cinemeta?.fullMeta?.genres || [],
+    cast: cinemeta?.fullMeta?.cast || [],
+    director: cinemeta?.fullMeta?.director || [],
+    imdbRating: cinemeta?.fullMeta?.imdbRating || item.imdbRating || null,
+    runtime: cinemeta?.fullMeta?.runtime || item.runtime || null
   };
+  
+  // Add IMDb link if available
+  if (cinemeta?.imdbId) {
+    meta.links = [{
+      name: 'IMDb',
+      category: 'imdb',
+      url: `https://www.imdb.com/title/${cinemeta.imdbId}/`
+    }];
+  }
+  
+  return meta;
 }
 
-// CATALOG Handler
-builder.defineCatalogHandler(({ type, id, extra }) => {
+// CATALOG Handler with Cinemeta enrichment
+builder.defineCatalogHandler(async ({ type, id, extra }) => {
   console.log(`📖 Catalog request: ${id} (type: ${type})`);
   
   const limit = 100;
   const skip = parseInt(extra.skip) || 0;
   const search = extra.search || '';
   
-  let metas = [];
+  let items = [];
   
   switch (id) {
     case 'balkan_movies':
-      let allMovies = movieCategories.movies;
+      items = movieCategories.movies;
       
       // Apply search filter
       if (search) {
-        allMovies = allMovies.filter(m => 
+        items = items.filter(m => 
           m.name.toLowerCase().includes(search.toLowerCase())
         );
       }
       
-      metas = allMovies
-        .slice(skip, skip + limit)
-        .map(m => toStremioMeta(m));
+      items = items.slice(skip, skip + limit);
       break;
       
     case 'balkan_foreign_movies':
-      let foreignMovies = movieCategories.foreign;
+      items = movieCategories.foreign;
       
       // Apply search filter
       if (search) {
-        foreignMovies = foreignMovies.filter(m => 
+        items = items.filter(m => 
           m.name.toLowerCase().includes(search.toLowerCase())
         );
       }
       
-      metas = foreignMovies
-        .slice(skip, skip + limit)
-        .map(m => toStremioMeta(m));
+      items = items.slice(skip, skip + limit);
       break;
       
     case 'balkan_kids':
-      metas = movieCategories.kids
-        .slice(skip, skip + limit)
-        .map(m => toStremioMeta(m));
+      items = movieCategories.kids.slice(skip, skip + limit);
       break;
       
     case 'balkan_series':
-      metas = bauBauDB.series
-        .slice(skip, skip + limit)
-        .map(s => toStremioMeta(s, 'series'));
+      items = bauBauDB.series.slice(skip, skip + limit);
       break;
   }
   
-  return Promise.resolve({ metas });
+  // Enrich metadata with Cinemeta in parallel (for catalog view)
+  const metasPromises = items.map(item => 
+    toStremioMeta(item, id === 'balkan_series' ? 'series' : 'movie', true)
+  );
+  
+  const metas = await Promise.all(metasPromises);
+  
+  return { metas };
 });
 
-// META Handler
-builder.defineMetaHandler(({ type, id }) => {
+// META Handler with full Cinemeta enrichment
+builder.defineMetaHandler(async ({ type, id }) => {
   console.log(`ℹ️  Meta request: ${id} (type: ${type})`);
   
-  let meta = null;
+  let item = null;
   
   // BauBau movie
   if (id.startsWith('bilosta:') && !id.includes(':series:')) {
-    meta = bauBauDB.movies.find(m => m.id === id);
-    if (meta) {
-      return Promise.resolve({ meta: toStremioMeta(meta) });
+    item = bauBauDB.movies.find(m => m.id === id);
+    if (item) {
+      const meta = await toStremioMeta(item, 'movie', true);
+      return { meta };
     }
   }
   
   // BauBau series
   if (id.startsWith('bilosta:series:')) {
-    meta = bauBauDB.series.find(s => s.id === id);
-    if (meta) {
-      return Promise.resolve({ meta: toStremioMeta(meta, 'series') });
+    item = bauBauDB.series.find(s => s.id === id);
+    if (item) {
+      const meta = await toStremioMeta(item, 'series', true);
+      return { meta };
     }
   }
   
@@ -290,22 +381,21 @@ builder.defineMetaHandler(({ type, id }) => {
     const movie = sevcetDB.movies?.find(m => m.youtubeId === ytId);
     
     if (movie) {
-      return Promise.resolve({
-        meta: {
-          id: id,
-          type: 'movie',
-          name: movie.name,
-          poster: movie.poster || `https://img.youtube.com/vi/${ytId}/mqdefault.jpg`,
-          posterShape: 'poster',
-          description: movie.description || 'Serbian/Croatian movie available on YouTube',
-          releaseInfo: movie.releaseInfo,
-          genres: movie.genres || ['Drama']
-        }
-      });
+      const movieData = {
+        id: id,
+        name: movie.name,
+        year: movie.releaseInfo,
+        poster: movie.poster || `https://img.youtube.com/vi/${ytId}/mqdefault.jpg`,
+        description: movie.description,
+        genres: movie.genres || ['Drama']
+      };
+      
+      const meta = await toStremioMeta(movieData, 'movie', true);
+      return { meta };
     }
   }
   
-  return Promise.resolve({ meta: null });
+  return { meta: null };
 });
 
 // Helper: Quality sorting order
@@ -469,10 +559,10 @@ serveHTTP(builder.getInterface(), {
   port: PORT
 });
 
-console.log(`\n🚀 Balkan On Demand v5.0.0 running on http://localhost:${PORT}\n`);
+console.log(`\n🚀 Balkan On Demand v5.0.1 running on http://localhost:${PORT}\n`);
 console.log(`📊 Content Stats:`);
 console.log(`   • Movies: ${movieCategories.movies.length}`);
 console.log(`   • Foreign Movies: ${movieCategories.foreign.length}`);
 console.log(`   • Crtani Filmovi: ${movieCategories.kids.length}`);
 console.log(`   • Series: ${bauBauDB.series.length}`);
-console.log(`\n✅ Ready to serve streams!\n`);
+console.log(`\n✅ Ready to serve streams with Cinemeta metadata enrichment!\n`);
