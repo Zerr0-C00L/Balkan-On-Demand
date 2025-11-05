@@ -3,153 +3,251 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Balkan On Demand v5.0 - Stremio Addon</title>
+    <title>Balkan On Demand v5.0 - Configure Catalogs</title>
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
             padding: 20px;
+            min-height: 100vh;
         }
         .container {
-            text-align: center;
-            max-width: 700px;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
         }
         h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
             color: #4ecca3;
+            text-align: center;
         }
         .version {
+            text-align: center;
             color: #4ecca3;
-            font-size: 0.9em;
-            margin-top: -10px;
-        }
-        p {
-            font-size: 1.2em;
-            margin: 20px 0;
-            line-height: 1.6;
-        }
-        .install-btn {
-            display: inline-block;
-            padding: 15px 30px;
-            background: #4ecca3;
-            color: #1a1a2e;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 1.2em;
-            font-weight: bold;
-            margin: 20px 0;
-            transition: transform 0.2s;
-        }
-        .install-btn:hover {
-            transform: scale(1.05);
-        }
-        .code {
-            background: #0f3460;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 20px 0;
-            word-break: break-all;
-            font-family: monospace;
-            font-size: 0.9em;
-        }
-        .catalogs {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin: 30px auto;
-            max-width: 500px;
-        }
-        .catalog-card {
-            background: #0f3460;
-            padding: 20px;
-            border-radius: 10px;
-            border: 2px solid #4ecca3;
-        }
-        .catalog-card h3 {
-            margin: 0 0 10px 0;
-            color: #4ecca3;
-        }
-        .catalog-card p {
-            margin: 5px 0;
-            font-size: 1.1em;
-        }
-        .features {
-            text-align: left;
-            margin: 30px auto;
-            max-width: 500px;
-        }
-        .features li {
-            margin: 10px 0;
+            margin-bottom: 30px;
         }
         .stats {
             background: #0f3460;
             padding: 20px;
             border-radius: 10px;
             margin: 20px 0;
+            text-align: center;
+        }
+        .config-section {
+            background: #0f3460;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        .config-section h2 {
+            color: #4ecca3;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .catalog-option {
+            background: #1a1a2e;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .catalog-option:hover {
+            background: #252844;
+            transform: translateX(5px);
+        }
+        .catalog-option input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+        .catalog-option label {
+            flex: 1;
+            cursor: pointer;
+        }
+        .catalog-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #4ecca3;
+        }
+        .catalog-desc {
+            font-size: 0.9em;
+            color: #ccc;
+            margin-top: 5px;
+        }
+        .install-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #4ecca3;
+            color: #1a1a2e;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .install-btn:hover {
+            transform: scale(1.02);
+        }
+        .manifest-url {
+            background: #1a1a2e;
+            padding: 15px;
+            border-radius: 5px;
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 0.9em;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .note {
+            text-align: center;
+            color: #ccc;
+            font-size: 0.9em;
+            margin-top: 20px;
+        }
+        .quick-install {
+            background: #0f3460;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .quick-install-btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #6c63ff;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin: 10px;
+            transition: transform 0.2s;
+        }
+        .quick-install-btn:hover {
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🎬 Balkan On Demand</h1>
-        <p class="version">Version 5.0.0 🤖 Auto-Updated Daily</p>
-        <p>Comprehensive Balkan streaming with direct links from bilosta.org CDN</p>
+        <p class="version">v5.0.2 - Configure Your Catalogs</p>
         
-        <a href="stremio://balkan-on-demand-828b9dd653f6.herokuapp.com/manifest.json" class="install-btn">
-            📺 Install in Stremio
-        </a>
-        
-        <div class="code">
-            https://balkan-on-demand-828b9dd653f6.herokuapp.com/manifest.json
+        <div class="stats">
+            <h3>📊 Content Library</h3>
+            <p><strong>1,364</strong> Ex-YU Movies • 
+               <strong>1,076</strong> Foreign Movies • 
+               <strong>374</strong> Cartoons • 
+               <strong>37</strong> Series</p>
         </div>
 
-        <div class="stats">
-            <h2>📊 Content Library</h2>
-            <p><strong>2,814 Movies</strong> + <strong>37 Series</strong> (24,991 episodes)</p>
+        <div class="quick-install">
+            <h3>⚡ Quick Install (All Catalogs)</h3>
+            <a href="stremio://balkan-on-demand-828b9dd653f6.herokuapp.com/manifest.json" class="quick-install-btn">
+                📺 Install All Catalogs
+            </a>
+            <p style="color: #ccc; margin-top: 10px;">Or customize below ⬇️</p>
         </div>
         
-        <div class="catalogs">
-            <div class="catalog-card">
-                <h3>🎬 Filmovi</h3>
-                <p>1,364 movies</p>
-                <small>Ex-YU classics, 4K releases, YouTube content</small>
+        <div class="config-section">
+            <h2>🎛️ Custom Configuration</h2>
+            <p style="text-align: center; margin-bottom: 20px; color: #ccc;">Select which catalogs you want to see</p>
+            
+            <div class="catalog-option" onclick="toggleCheckbox('balkan_movies')">
+                <input type="checkbox" id="balkan_movies" checked>
+                <label for="balkan_movies">
+                    <div class="catalog-name">🎬 Filmovi</div>
+                    <div class="catalog-desc">1,364 Ex-YU movies, 4K releases, classics</div>
+                </label>
             </div>
-            <div class="catalog-card">
-                <h3>🌍 Strani Filmovi</h3>
-                <p>1,076 movies</p>
-                <small>International & Hollywood films</small>
+            
+            <div class="catalog-option" onclick="toggleCheckbox('balkan_foreign_movies')">
+                <input type="checkbox" id="balkan_foreign_movies" checked>
+                <label for="balkan_foreign_movies">
+                    <div class="catalog-name">🌍 Strani Filmovi</div>
+                    <div class="catalog-desc">1,076 International & Hollywood films</div>
+                </label>
             </div>
-            <div class="catalog-card">
-                <h3>🎨 Crtani Filmovi</h3>
-                <p>374 movies</p>
-                <small>Kids & family animation</small>
+            
+            <div class="catalog-option" onclick="toggleCheckbox('balkan_kids')">
+                <input type="checkbox" id="balkan_kids" checked>
+                <label for="balkan_kids">
+                    <div class="catalog-name">🎨 Crtani Filmovi</div>
+                    <div class="catalog-desc">374 Animated films for kids</div>
+                </label>
             </div>
-            <div class="catalog-card">
-                <h3>📺 Serije</h3>
-                <p>37 series</p>
-                <small>Full TV shows with all episodes</small>
+            
+            <div class="catalog-option" onclick="toggleCheckbox('balkan_series')">
+                <input type="checkbox" id="balkan_series" checked>
+                <label for="balkan_series">
+                    <div class="catalog-name">📺 Serije</div>
+                    <div class="catalog-desc">37 TV series with all episodes</div>
+                </label>
             </div>
-        </div>
-        
-        <div class="features">
-            <h3>✨ Features:</h3>
-            <ul>
-                <li>🎯 <strong>Direct Streaming</strong> - CDN links from bilosta.org</li>
-                <li>🔀 <strong>Multiple Sources</strong> - Direct + YouTube fallback</li>
-                <li>📊 <strong>Quality Sorted</strong> - 4K → 1080p → 720p → SD</li>
-                <li>🎭 <strong>Full Metadata</strong> - TMDB + Cinemeta integration</li>
-                <li>🔍 <strong>Search</strong> - Find content across all catalogs</li>
-                <li>🤖 <strong>Auto-Updates</strong> - New content added daily at 3 AM UTC</li>
-                <li>📱 <strong>Apple TV Ready</strong> - Works with Infuse fallback</li>
-            </ul>
+            
+            <button class="install-btn" onclick="installCustom()">
+                📥 Install Selected Catalogs
+            </button>
+            
+            <div class="manifest-url" id="manifestUrl">
+                Click "Install" to generate your custom addon URL
+            </div>
+            
+            <p class="note">✨ Your selection will be saved in the addon URL</p>
         </div>
     </div>
+    
+    <script>
+        function toggleCheckbox(id) {
+            const checkbox = document.getElementById(id);
+            checkbox.checked = !checkbox.checked;
+        }
+        
+        function installCustom() {
+            const all = [
+                'balkan_movies',
+                'balkan_foreign_movies',
+                'balkan_kids',
+                'balkan_series'
+            ];
+            
+            const selected = all.filter(id => document.getElementById(id).checked);
+            
+            if (selected.length === 0) {
+                alert('Please select at least one catalog!');
+                return;
+            }
+            
+            // If all are selected, use default URL (shorter)
+            let manifestUrl;
+            if (selected.length === all.length) {
+                manifestUrl = 'https://balkan-on-demand-828b9dd653f6.herokuapp.com/manifest.json';
+            } else {
+                // Create config with selected catalogs
+                const config = selected.join(',');
+                manifestUrl = `https://balkan-on-demand-828b9dd653f6.herokuapp.com/${config}/manifest.json`;
+            }
+            
+            const stremioUrl = 'stremio://' + manifestUrl.replace('https://', '');
+            
+            // Show the URL
+            document.getElementById('manifestUrl').textContent = manifestUrl;
+            
+            // Redirect to Stremio
+            window.location.href = stremioUrl;
+        }
+    </script>
 </body>
 </html>
