@@ -420,14 +420,16 @@ async function getArchiveStreams(archiveId) {
     return streams;
 }
 
-// Stream handler - returns HTTP streams from Internet Archive
-builder.defineStreamHandler(async ({ type, id }) => {
-    console.log(`Stream request: type=${type}, id=${id}`);
+// Stream handler - searches entire Internet Archive for ANY content
+builder.defineStreamHandler(async ({ type, id, name }) => {
+    console.log(`Stream request: type=${type}, id=${id}, name=${name}`);
     
     let item = null;
     let archiveId = null;
+    let searchName = name;
+    let year = null;
     
-    // Check local movies
+    // Check local movies first
     if (type === 'movie') {
         item = movies.movies?.find(m => m.id === id);
     } else if (type === 'series') {
@@ -441,23 +443,37 @@ builder.defineStreamHandler(async ({ type, id }) => {
         item = archiveMovies.find(m => m.id === id);
     }
     
-    if (!item) {
-        return { streams: [] };
+    // Extract info from item or use provided metadata
+    if (item) {
+        searchName = item.name;
+        year = item.releaseInfo;
     }
     
-    // Get manual streams from movies.json
-    const manualStreams = item.streams || [];
+    // If we have an IMDB ID but no local item, fetch metadata from Cinemeta
+    if (!item && id.startsWith('tt')) {
+        try {
+            const meta = await getCinemetaMeta(type, id, 3000);
+            if (meta) {
+                searchName = meta.name;
+                year = meta.releaseInfo || meta.year;
+            }
+        } catch (error) {
+            console.error('Failed to fetch metadata:', error.message);
+        }
+    }
+    
+    // Get manual streams from movies.json if available
+    const manualStreams = item?.streams || [];
     
     let archiveStreams = [];
     
     // If this is an Internet Archive item, get streams directly
-    if (archiveId || item.archiveId) {
+    if (archiveId || item?.archiveId) {
         archiveStreams = await getArchiveStreams(archiveId || item.archiveId);
-    } else {
-        // Search Internet Archive
-        const searchName = item.name.replace(/\(.*?\)/g, '').trim();
-        const year = item.releaseInfo;
-        archiveStreams = await searchInternetArchive(searchName, year);
+    } else if (searchName) {
+        // Search Internet Archive for ANY content (not just local database)
+        const cleanName = searchName.replace(/\(.*?\)/g, '').trim();
+        archiveStreams = await searchInternetArchive(cleanName, year);
     }
     
     // Combine: manual first, then Internet Archive (HD first)
