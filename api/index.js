@@ -364,8 +364,8 @@ builder.defineStreamHandler(async ({ type, id, name }) => {
 });
 
 // Export for Vercel
-const interface = builder.getInterface();
+const addonInterface = builder.getInterface();
 
 module.exports = (req, res) => {
-    interface(req, res);
+    addonInterface(req, res);
 };
