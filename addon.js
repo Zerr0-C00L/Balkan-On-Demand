@@ -51,32 +51,10 @@ const EX_YU_SOURCES = [
     { name: 'PopcornFilmovi.com', searchUrl: 'https://www.popcornfilmovi.com' }
 ];
 
-// Generate Ex-Yu website links
+// Generate Ex-Yu website search links
 function generateExYuLinks(name, source) {
-    const cleanName = name.toLowerCase()
-        .replace(/[():]/g, '')
-        .replace(/\s+/g, '-')
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '');
-    
-    switch(source.name) {
-        case 'Filmoton.net':
-            return `${source.searchUrl}/film/${cleanName}`;
-        case 'Filmativa.club':
-            return `${source.searchUrl}/filmovi/${cleanName}`;
-        case 'DomaciFilmovi.online':
-            return `${source.searchUrl}/film/${cleanName}`;
-        case 'ToSuSamoFilmovi.rs.ba':
-            return `${source.searchUrl}/filmovi/${cleanName}`;
-        case 'FenixSite.net':
-            return `${source.searchUrl}/film/${cleanName}`;
-        case 'FilmoviX.net':
-            return `${source.searchUrl}/video/${cleanName}`;
-        case 'PopcornFilmovi.com':
-            return `${source.searchUrl}/film/${cleanName}`;
-        default:
-            return `${source.searchUrl}/?s=${encodeURIComponent(name)}`;
-    }
+    // Use search URL for all sites since we can't predict exact movie URLs
+    return `${source.searchUrl}/?s=${encodeURIComponent(name)}`;
 }
 
 // Get Ex-Yu website streams
@@ -88,7 +66,7 @@ function getExYuStreams(name) {
         const url = generateExYuLinks(cleanName, source);
         streams.push({
             name: source.name,
-            title: `📺 ${source.name}`,
+            title: `� Search on ${source.name}`,
             externalUrl: url,
             behaviorHints: {
                 notWebReady: true
