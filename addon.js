@@ -62,11 +62,32 @@ function getExYuStreams(name) {
     const streams = [];
     const cleanName = name.replace(/\(.*?\)/g, '').trim();
     
+    // Add YouTube search first (most likely to have full movies)
+    streams.push({
+        name: 'YouTube',
+        title: `🎬 Search on YouTube`,
+        externalUrl: `https://www.youtube.com/results?search_query=${encodeURIComponent(cleanName + ' ceo film')}`,
+        behaviorHints: {
+            notWebReady: true
+        }
+    });
+    
+    // Add Archive.org search
+    streams.push({
+        name: 'Archive.org',
+        title: `📼 Search Archive.org`,
+        externalUrl: `https://archive.org/search.php?query=${encodeURIComponent(cleanName)}`,
+        behaviorHints: {
+            notWebReady: true
+        }
+    });
+    
+    // Add Ex-Yu sites
     for (const source of EX_YU_SOURCES) {
         const url = generateExYuLinks(cleanName, source);
         streams.push({
             name: source.name,
-            title: `� Search on ${source.name}`,
+            title: `🔍 ${source.name}`,
             externalUrl: url,
             behaviorHints: {
                 notWebReady: true
