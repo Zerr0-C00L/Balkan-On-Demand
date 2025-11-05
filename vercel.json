@@ -1,15 +1,5 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "api/addon.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "api/addon.js"
-    }
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/api/addon" }
   ]
 }
