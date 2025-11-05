@@ -40,6 +40,65 @@ let archiveCatalog = [];
 let lastArchiveFetch = 0;
 const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
 
+// Ex-Yu streaming websites
+const EX_YU_SOURCES = [
+    { name: 'Filmoton.net', searchUrl: 'https://filmoton.net' },
+    { name: 'Filmativa.club', searchUrl: 'https://filmativa.club' },
+    { name: 'DomaciFilmovi.online', searchUrl: 'https://domacifilmovi.online' },
+    { name: 'ToSuSamoFilmovi.rs.ba', searchUrl: 'https://tosusamofilmovi.rs.ba' },
+    { name: 'FenixSite.net', searchUrl: 'https://www.fenixsite.net' },
+    { name: 'FilmoviX.net', searchUrl: 'https://www.filmovix.net' },
+    { name: 'PopcornFilmovi.com', searchUrl: 'https://www.popcornfilmovi.com' }
+];
+
+// Generate Ex-Yu website links
+function generateExYuLinks(name, source) {
+    const cleanName = name.toLowerCase()
+        .replace(/[():]/g, '')
+        .replace(/\s+/g, '-')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+    
+    switch(source.name) {
+        case 'Filmoton.net':
+            return `${source.searchUrl}/film/${cleanName}`;
+        case 'Filmativa.club':
+            return `${source.searchUrl}/filmovi/${cleanName}`;
+        case 'DomaciFilmovi.online':
+            return `${source.searchUrl}/film/${cleanName}`;
+        case 'ToSuSamoFilmovi.rs.ba':
+            return `${source.searchUrl}/filmovi/${cleanName}`;
+        case 'FenixSite.net':
+            return `${source.searchUrl}/film/${cleanName}`;
+        case 'FilmoviX.net':
+            return `${source.searchUrl}/video/${cleanName}`;
+        case 'PopcornFilmovi.com':
+            return `${source.searchUrl}/film/${cleanName}`;
+        default:
+            return `${source.searchUrl}/?s=${encodeURIComponent(name)}`;
+    }
+}
+
+// Get Ex-Yu website streams
+function getExYuStreams(name) {
+    const streams = [];
+    const cleanName = name.replace(/\(.*?\)/g, '').trim();
+    
+    for (const source of EX_YU_SOURCES) {
+        const url = generateExYuLinks(cleanName, source);
+        streams.push({
+            name: source.name,
+            title: `📺 ${source.name}`,
+            externalUrl: url,
+            behaviorHints: {
+                notWebReady: true
+            }
+        });
+    }
+    
+    return streams;
+}
+
 // Fetch metadata from Cinemeta with caching and timeout
 async function getCinemetaMeta(type, id, timeoutMs = 3000) {
     const cacheKey = `${type}:${id}`;
@@ -434,38 +493,34 @@ async function getDailymotionStreams(dailymotionId) {
 builder.defineStreamHandler(async ({ type, id, name }) => {
     console.log(`Stream request: type=${type}, id=${id}, name=${name}`);
     
+    // Extract base ID for series (remove episode info)
+    const baseId = id.split(':')[0];
+    
     let item = null;
-    let archiveId = null;
     let searchName = name;
     let year = null;
     
     // Check local movies first
     if (type === 'movie') {
-        item = movies.movies?.find(m => m.id === id);
+        item = movies.movies?.find(m => m.id === baseId);
     } else if (type === 'series') {
-        item = movies.series?.find(s => s.id === id);
+        item = movies.series?.find(s => s.id === baseId);
     }
     
-    // Check Internet Archive catalog
-    if (!item && id.startsWith('archive:')) {
-        archiveId = id.replace('archive:', '');
-        const archiveMovies = await fetchArchiveCatalog();
-        item = archiveMovies.find(m => m.id === id);
-    }
-    
-    // Extract info from item or use provided metadata
+    // Extract info from item
     if (item) {
         searchName = item.name;
         year = item.releaseInfo;
     }
     
-    // If we have an IMDB ID but no local item, fetch metadata from Cinemeta
-    if (!item && id.startsWith('tt')) {
+    // If we have an IMDB ID but no name yet, fetch metadata from Cinemeta
+    if (baseId.startsWith('tt') && !searchName) {
         try {
-            const meta = await getCinemetaMeta(type, id, 3000);
+            const meta = await getCinemetaMeta(type, baseId, 3000);
             if (meta) {
                 searchName = meta.name;
                 year = meta.releaseInfo || meta.year;
+                console.log(`Fetched name from Cinemeta: ${searchName}`);
             }
         } catch (error) {
             console.error('Failed to fetch metadata:', error.message);
@@ -475,20 +530,25 @@ builder.defineStreamHandler(async ({ type, id, name }) => {
     // Get manual streams from movies.json if available
     const manualStreams = item?.streams || [];
     
+    let exYuStreams = [];
     let dailymotionStreams = [];
     
     // If this is a Dailymotion item, get streams directly
-    if (id.startsWith('dailymotion:')) {
-        const dailymotionId = id.replace('dailymotion:', '');
+    if (baseId.startsWith('dailymotion:')) {
+        const dailymotionId = baseId.replace('dailymotion:', '');
         dailymotionStreams = await getDailymotionStreams(dailymotionId);
     } else if (searchName) {
-        // Search Dailymotion for content
+        // Generate Ex-Yu website links
+        exYuStreams = getExYuStreams(searchName);
+        
+        // Also search Dailymotion for shorter content
         dailymotionStreams = await searchDailymotion(searchName, year);
     }
     
-    // Combine: manual first, then Dailymotion streams
-    const allStreams = [...manualStreams, ...dailymotionStreams];
+    // Combine: manual first, then Ex-Yu links, then Dailymotion
+    const allStreams = [...manualStreams, ...exYuStreams, ...dailymotionStreams];
     
+    console.log(`Returning ${allStreams.length} streams for ${searchName || id}`);
     return { streams: allStreams };
 });
 
