@@ -449,7 +449,7 @@ builder.defineStreamHandler(async ({ type, id }) => {
         console.log(`✓ Added ${item.torrents.length} torrent streams for ${itemName}`);
     }
     
-        // Priority 2: Try to extract direct stream URLs from YouTube
+            // Priority 2: Try to extract direct stream URLs from YouTube
     if (youtubeId) {
         console.log(`Extracting direct streams for: ${youtubeId}`);
         const directStreams = await getDirectStreamUrl(youtubeId);
@@ -473,10 +473,23 @@ builder.defineStreamHandler(async ({ type, id }) => {
             }
             console.log(`✓ Added ${directStreams.length} direct streams`);
         } else {
-            console.log(`⚠ No direct streams extracted, only YouTube fallback available`);
+            console.log(`⚠ No direct streams extracted, using YouTube`);
         }
         
-        // Priority 3: YouTube fallback (works on web/Android, NOT on Apple TV)
+        // Priority 3: YouTube streams (work with Infuse external player!)
+        
+        // YouTube direct URL (for Infuse external player on Apple TV)
+        streams.push({
+            name: '📺 YouTube (Infuse)',
+            title: itemName,
+            url: `https://www.youtube.com/watch?v=${youtubeId}`,
+            behaviorHints: {
+                notWebReady: false,
+                bingeGroup: 'balkan-youtube'
+            }
+        });
+        
+        // YouTube ytId (for Stremio web/Android)
         streams.push({
             name: '📺 YouTube',
             title: itemName,
