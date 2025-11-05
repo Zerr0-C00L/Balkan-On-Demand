@@ -59,7 +59,7 @@ builder.defineCatalogHandler(async ({ type, id, extra }) => {
             type: 'movie',
             name: m.name,
             poster: m.poster,
-            posterShape: 'poster',
+            posterShape: 'landscape',
             releaseInfo: m.year,
             description: m.description
         }));
@@ -74,7 +74,7 @@ builder.defineCatalogHandler(async ({ type, id, extra }) => {
             type: 'series',
             name: s.name,
             poster: s.poster,
-            posterShape: 'poster',
+            posterShape: 'landscape',
             releaseInfo: s.year,
             description: s.description
         }));
