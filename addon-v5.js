@@ -152,13 +152,13 @@ const allCatalogs = [
     extra: [
       { 
         name: 'genre', 
-        isRequired: false,  // Optional - "All" is default
+        isRequired: true,  // Hide from Home - only show in Discover with genre selection
         options: ['All', 'Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
       },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
     ],
-    extraRequired: ['skip']  // Requires skip to show, effectively hiding from Home
+    extraRequired: ['genre']  // Hide from Home, only show in Discover
   },
   {
     id: 'balkan_foreign_movies',
@@ -168,13 +168,13 @@ const allCatalogs = [
     extra: [
       { 
         name: 'genre', 
-        isRequired: false,  // Optional - "All" is default
+        isRequired: true,  // Hide from Home - only show in Discover with genre selection
         options: ['All', 'Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
       },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
     ],
-    extraRequired: ['skip']  // Requires skip to show, effectively hiding from Home
+    extraRequired: ['genre']  // Hide from Home, only show in Discover
   },
   {
     id: 'balkan_kids',
@@ -184,13 +184,13 @@ const allCatalogs = [
     extra: [
       { 
         name: 'genre', 
-        isRequired: false,  // Optional - "All" is default
+        isRequired: true,  // Hide from Home - only show in Discover with genre selection
         options: ['All', 'Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
       },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
     ],
-    extraRequired: ['skip']  // Requires skip to show, effectively hiding from Home
+    extraRequired: ['genre']  // Hide from Home, only show in Discover
   },
   {
     id: 'balkan_series',
@@ -200,13 +200,13 @@ const allCatalogs = [
     extra: [
       { 
         name: 'genre', 
-        isRequired: false,  // Optional - "All" is default
+        isRequired: true,  // Hide from Home - only show in Discover with genre selection
         options: ['All', 'Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
       },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
     ],
-    extraRequired: ['skip']  // Requires skip to show, effectively hiding from Home
+    extraRequired: ['genre']  // Hide from Home, only show in Discover
   }
 ];
 
@@ -563,8 +563,7 @@ builder.defineCatalogHandler(async ({ type, id, extra }) => {
   let metas = await Promise.all(metasPromises);
   
   // Apply genre filter AFTER enrichment (since genres come from Cinemeta)
-  // Skip filtering if genre is "All" - show all items
-  if (genre && genre.toLowerCase() !== 'all') {
+  if (genre) {
     metas = metas.filter(meta => {
       if (!meta.genres || !Array.isArray(meta.genres)) return false;
       return meta.genres.some(g => g.toLowerCase() === genre.toLowerCase());
