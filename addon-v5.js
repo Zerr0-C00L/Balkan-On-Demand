@@ -626,17 +626,16 @@ function defineHandlers(builder, config = null) {
       const db = type === 'series' ? bauBauDB.series : bauBauDB.movies;
       
       for (const dbItem of db) {
-        if (dbItem.year) {
-          const cinemeta = await searchCinemeta(dbItem.name, dbItem.year, type);
-          if (cinemeta?.imdbId === id) {
-            console.log(`✅ Found match: ${dbItem.name} (${dbItem.id})`);
-            const meta = await toStremioMeta(dbItem, type, true, config?.tmdbApiKey);
-            // Override the ID to use the IMDb ID for cross-addon compatibility
-            if (meta) {
-              meta.id = id;
-            }
-            return { meta };
+        // Try to match by Cinemeta lookup
+        const cinemeta = await searchCinemeta(dbItem.name, dbItem.year, type);
+        if (cinemeta?.imdbId === id) {
+          console.log(`✅ Found match: ${dbItem.name} (${dbItem.id})`);
+          const meta = await toStremioMeta(dbItem, type, true, config?.tmdbApiKey);
+          // Override the ID to use the IMDb ID for cross-addon compatibility
+          if (meta) {
+            meta.id = id;
           }
+          return { meta };
         }
       }
       
