@@ -393,18 +393,24 @@ function generateManifest(config = null) {
   let catalogs = [];
   
   if (config && config.catalogs && Array.isArray(config.catalogs)) {
-    // User has configured catalogs - only include catalogs that should show on home
+    // User has configured catalogs - include all enabled catalogs
     catalogs = config.catalogs
-      .filter(cat => cat.enabled && cat.showInHome) // Only include enabled catalogs that show on home
+      .filter(cat => cat.enabled) // Only include enabled catalogs
       .map(cat => {
         const baseCatalog = allCatalogs.find(c => c.id === cat.id && c.type === cat.type);
         
         if (!baseCatalog) return null;
         
+        // If showInHome is false, make search required (Discover only)
+        // If showInHome is true, search is optional (appears on Board)
+        const extra = cat.showInHome 
+          ? [{ name: 'search', isRequired: false }, { name: 'skip', isRequired: false }]
+          : [{ name: 'search', isRequired: true }];
+        
         return {
           ...baseCatalog,
-          extra: [{ name: 'search', isRequired: false }, { name: 'skip', isRequired: false }],
-          extraSupported: ['search', 'skip']
+          extra: extra,
+          extraSupported: cat.showInHome ? ['search', 'skip'] : ['search']
         };
       })
       .filter(cat => cat !== null); // Remove any null entries
