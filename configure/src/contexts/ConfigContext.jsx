@@ -116,30 +116,32 @@ export function ConfigProvider({ children }) {
   const generateConfig = () => {
     const config = {
       language,
-      tmdbPrefix,
-      includeAdult,
-      hideEpisodeThumbnails,
-      hideInCinemaTag,
-      castCount: castCount === undefined ? 'Unlimited' : castCount,
-      searchEnabled,
-      provideImdbId,
-      returnImdbId,
-      enableAgeRating,
-      showAgeRatingInGenres,
-      showAgeRatingWithImdbRating,
       catalogs: catalogs
         .filter(c => c.enabled)
         .map(c => ({
           id: c.id,
           type: c.type,
-          enabled: c.enabled,
           showInHome: c.showInHome
+          // NOTE: No need to send 'enabled' - already filtered by .filter(c => c.enabled)
         }))
     };
 
-    if (ageRating && ageRating !== 'NONE') {
-      config.ageRating = ageRating;
-    }
+    // Only include optional settings if they differ from defaults
+    if (tmdbApiKey) config.tmdbApiKey = tmdbApiKey;
+    if (ageRating && ageRating !== 'NONE') config.ageRating = ageRating;
+    
+    // Convert booleans to strings for better compression (following mrcanelas pattern)
+    if (tmdbPrefix === true) config.tmdbPrefix = "true";
+    if (includeAdult === true) config.includeAdult = "true";
+    if (hideEpisodeThumbnails === true) config.hideEpisodeThumbnails = "true";
+    if (hideInCinemaTag === true) config.hideInCinemaTag = "true";
+    if (searchEnabled === false) config.searchEnabled = "false"; // Only if disabled
+    if (provideImdbId === true) config.provideImdbId = "true";
+    if (returnImdbId === true) config.returnImdbId = "true";
+    if (enableAgeRating === true) config.enableAgeRating = "true";
+    if (showAgeRatingInGenres === false) config.showAgeRatingInGenres = "false";
+    if (showAgeRatingWithImdbRating === true) config.showAgeRatingWithImdbRating = "true";
+    if (castCount !== 5 && castCount !== undefined) config.castCount = castCount; // Only if non-default
 
     return compressToEncodedURIComponent(JSON.stringify(config));
   };
