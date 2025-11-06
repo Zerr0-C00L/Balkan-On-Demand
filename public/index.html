@@ -180,10 +180,10 @@
                             <div class="catalog-desc">1,364 Ex-YU movies</div>
                         </td>
                         <td style="text-align: center; padding: 15px 10px;">
-                            <input type="checkbox" id="home_balkan_movies" checked style="width: 24px; height: 24px; cursor: pointer;">
+                            <input type="checkbox" id="home_balkan_movies" style="width: 24px; height: 24px; cursor: pointer;">
                         </td>
                         <td style="text-align: center; padding: 15px 10px;">
-                            <input type="checkbox" id="discover_balkan_movies" checked style="width: 24px; height: 24px; cursor: pointer;">
+                            <span style="color: #4ecca3; font-size: 1.5em;">✓</span>
                         </td>
                     </tr>
                     <tr style="border-bottom: 1px solid #252844;">
@@ -192,10 +192,10 @@
                             <div class="catalog-desc">1,076 International films</div>
                         </td>
                         <td style="text-align: center; padding: 15px 10px;">
-                            <input type="checkbox" id="home_balkan_foreign_movies" checked style="width: 24px; height: 24px; cursor: pointer;">
+                            <input type="checkbox" id="home_balkan_foreign_movies" style="width: 24px; height: 24px; cursor: pointer;">
                         </td>
                         <td style="text-align: center; padding: 15px 10px;">
-                            <input type="checkbox" id="discover_balkan_foreign_movies" checked style="width: 24px; height: 24px; cursor: pointer;">
+                            <span style="color: #4ecca3; font-size: 1.5em;">✓</span>
                         </td>
                     </tr>
                     <tr style="border-bottom: 1px solid #252844;">
@@ -204,10 +204,10 @@
                             <div class="catalog-desc">374 Animated films</div>
                         </td>
                         <td style="text-align: center; padding: 15px 10px;">
-                            <input type="checkbox" id="home_balkan_kids" checked style="width: 24px; height: 24px; cursor: pointer;">
+                            <input type="checkbox" id="home_balkan_kids" style="width: 24px; height: 24px; cursor: pointer;">
                         </td>
                         <td style="text-align: center; padding: 15px 10px;">
-                            <input type="checkbox" id="discover_balkan_kids" checked style="width: 24px; height: 24px; cursor: pointer;">
+                            <span style="color: #4ecca3; font-size: 1.5em;">✓</span>
                         </td>
                     </tr>
                     <tr>
@@ -216,10 +216,10 @@
                             <div class="catalog-desc">37 TV series</div>
                         </td>
                         <td style="text-align: center; padding: 15px 10px;">
-                            <input type="checkbox" id="home_balkan_series" checked style="width: 24px; height: 24px; cursor: pointer;">
+                            <input type="checkbox" id="home_balkan_series" style="width: 24px; height: 24px; cursor: pointer;">
                         </td>
                         <td style="text-align: center; padding: 15px 10px;">
-                            <input type="checkbox" id="discover_balkan_series" checked style="width: 24px; height: 24px; cursor: pointer;">
+                            <span style="color: #4ecca3; font-size: 1.5em;">✓</span>
                         </td>
                     </tr>
                 </tbody>
@@ -246,39 +246,19 @@
                 'balkan_series'
             ];
             
-            // Collect home selections
+            // Collect home selections only
             const homeSelected = catalogIds.filter(id => 
                 document.getElementById(`home_${id}`).checked
             );
             
-            // Collect discover selections
-            const discoverSelected = catalogIds.filter(id => 
-                document.getElementById(`discover_${id}`).checked
-            );
-            
-            // Check if at least one is selected in either home or discover
-            if (homeSelected.length === 0 && discoverSelected.length === 0) {
-                alert('Please select at least one catalog for Home or Discover!');
-                return;
-            }
-            
-            // If all catalogs are selected in both home and discover, use default URL
+            // Create manifest URL
             let manifestUrl;
-            if (homeSelected.length === catalogIds.length && discoverSelected.length === catalogIds.length) {
+            if (homeSelected.length === 0) {
+                // No home catalogs - all in Discover only (default)
                 manifestUrl = 'https://balkan-on-demand-828b9dd653f6.herokuapp.com/manifest.json';
             } else {
-                // Create config string: home=id1,id2&discover=id3,id4
-                const configParts = [];
-                
-                if (homeSelected.length > 0) {
-                    configParts.push(`home=${homeSelected.join(',')}`);
-                }
-                
-                if (discoverSelected.length > 0) {
-                    configParts.push(`discover=${discoverSelected.join(',')}`);
-                }
-                
-                const config = configParts.join('&');
+                // Custom home selection
+                const config = `home=${homeSelected.join(',')}`;
                 manifestUrl = `https://balkan-on-demand-828b9dd653f6.herokuapp.com/${config}/manifest.json`;
             }
             

@@ -182,54 +182,44 @@ const allCatalogs = [
   }
 ];
 
-// Generate manifest based on home/discover configuration
+// Generate manifest based on home configuration
 function generateManifest(config = null) {
-  let catalogs = allCatalogs;
+  let catalogs;
   
-  // If config is provided, filter and add extraSupported based on home/discover settings
-  if (config && (config.home || config.discover)) {
+  if (config && config.home) {
+    // User specified home catalogs
+    // Split catalogs: selected ones for Home, all others for Discover only
+    const homeCatalogIds = config.home;
+    
     catalogs = allCatalogs.map(cat => {
-      const inHome = config.home && config.home.includes(cat.id);
-      const inDiscover = config.discover && config.discover.includes(cat.id);
-      
-      // Skip catalogs that are in neither home nor discover
-      if (!inHome && !inDiscover) {
-        return null;
-      }
-      
       const catalogCopy = { ...cat };
-      const extraSupported = [];
+      const inHome = homeCatalogIds.includes(cat.id);
       
-      // Build the extra array and extraSupported based on home/discover settings
-      const filteredExtra = [];
-      
-      // Add 'skip' for home catalogs (enables pagination in Home section)
       if (inHome) {
-        extraSupported.push('skip');
-        filteredExtra.push({ name: 'skip', isRequired: false });
+        // Home catalogs: skip for pagination
+        catalogCopy.extraSupported = ['skip'];
+        catalogCopy.extra = [{ name: 'skip', isRequired: false }];
+      } else {
+        // Discover-only catalogs: search and skip
+        catalogCopy.extraSupported = ['search', 'skip'];
+        catalogCopy.extra = [
+          { name: 'search', isRequired: false },
+          { name: 'skip', isRequired: false }
+        ];
       }
-      
-      // Add 'search' and 'genre' for discover
-      if (inDiscover) {
-        const hasSearch = cat.extra.some(e => e.name === 'search');
-        
-        if (hasSearch) {
-          extraSupported.push('search');
-          filteredExtra.push({ name: 'search', isRequired: false });
-        }
-      }
-      
-      catalogCopy.extra = filteredExtra;
-      catalogCopy.extraSupported = [...new Set(extraSupported)]; // Remove duplicates
       
       return catalogCopy;
-    }).filter(Boolean);
+    });
   } else {
-    // Default: Show all catalogs in Discover only (not Home)
+    // Default: All catalogs in Discover only (no Home catalogs)
     // Search and skip for pagination
     catalogs = allCatalogs.map(cat => ({
       ...cat,
-      extraSupported: ['search', 'skip']
+      extraSupported: ['search', 'skip'],
+      extra: [
+        { name: 'search', isRequired: false },
+        { name: 'skip', isRequired: false }
+      ]
     }));
   }
 
@@ -237,7 +227,7 @@ function generateManifest(config = null) {
     id: 'community.balkan.on.demand',
     version: '5.1.2',
     name: 'Balkan On Demand',
-    description: 'Balkan Movies & Series from Serbia, Croatia & Bosnia, with direct streaming links',
+    description: 'Movies & Series from Serbia, Croatia & Bosnia',
     
     resources: [
       'catalog',
