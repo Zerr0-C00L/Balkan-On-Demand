@@ -4,7 +4,10 @@
  * This script searches TMDB for Serbian/Croatian titles and extracts metadata.
  * Since our database already has TMDB poster URLs, we know these titles exist in TMDB.
  * 
- * Usage: node scrape-tmdb-metadata.js
+ * Usage: 
+ *   1. Set environment variable: export TMDB_API_KEY="your_key"
+ *   2. Or configure in Settings page (stores in localStorage for reference)
+ *   3. Run: node scrape-tmdb-metadata.js
  */
 
 const fs = require('fs');

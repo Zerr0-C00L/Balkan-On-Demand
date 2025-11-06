@@ -32,6 +32,7 @@ function Sidebar({ currentPage, setCurrentPage, isMobileOpen, setIsMobileOpen })
   const menuItems = [
     { id: 'home', label: 'Home', icon: '🏠' },
     { id: 'catalogs', label: 'Catalogs', icon: '📚' },
+    { id: 'settings', label: 'Settings', icon: '⚙️' },
   ]
 
   return (
@@ -176,6 +177,160 @@ function HomePage() {
               Explore TV series, seasons, episodes, and stay up to date with your favorite shows.
             </p>
           </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// Settings Page
+function SettingsPage({ tmdbApiKey, setTmdbApiKey }) {
+  const [localKey, setLocalKey] = useState(tmdbApiKey)
+  const [saved, setSaved] = useState(false)
+  const [testResult, setTestResult] = useState(null)
+
+  const handleSave = () => {
+    setTmdbApiKey(localKey)
+    localStorage.setItem('tmdb_api_key', localKey)
+    setSaved(true)
+    setTimeout(() => setSaved(false), 3000)
+  }
+
+  const handleTest = async () => {
+    if (!localKey || localKey === 'YOUR_TMDB_API_KEY_HERE') {
+      setTestResult({ success: false, message: 'Please enter a valid API key' })
+      return
+    }
+
+    setTestResult({ success: null, message: 'Testing...' })
+    
+    try {
+      const response = await fetch(`https://api.themoviedb.org/3/configuration?api_key=${localKey}`)
+      const data = await response.json()
+      
+      if (response.ok) {
+        setTestResult({ 
+          success: true, 
+          message: '✅ API key is valid! Your TMDB integration is working.' 
+        })
+      } else {
+        setTestResult({ 
+          success: false, 
+          message: `❌ ${data.status_message || 'Invalid API key'}` 
+        })
+      }
+    } catch (error) {
+      setTestResult({ 
+        success: false, 
+        message: `❌ Error: ${error.message}` 
+      })
+    }
+  }
+
+  return (
+    <div className="p-6 md:p-12 bg-gray-50 min-h-screen">
+      <div className="max-w-2xl">
+        <h1 className="text-3xl font-bold mb-2 text-gray-800">Settings</h1>
+        <p className="text-gray-600 mb-8">Configure your addon settings and API keys</p>
+
+        {/* TMDB API Key Section */}
+        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+          <h2 className="text-xl font-semibold mb-4 text-gray-800">🎬 TMDB API Key</h2>
+          
+          <div className="mb-4">
+            <p className="text-sm text-gray-600 mb-4">
+              Add your TMDB API key to enable metadata scraping for better descriptions, cast info, and ratings.
+            </p>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  API Key
+                </label>
+                <input
+                  type="text"
+                  value={localKey}
+                  onChange={(e) => setLocalKey(e.target.value)}
+                  placeholder="Enter your TMDB API key"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#00d4ff] focus:border-transparent outline-none"
+                />
+              </div>
+
+              <div className="flex gap-2">
+                <button
+                  onClick={handleSave}
+                  className="px-6 py-2 bg-[#00d4ff] hover:bg-[#00b8e6] text-white font-semibold rounded-lg transition-colors"
+                >
+                  {saved ? '✓ Saved!' : 'Save'}
+                </button>
+                <button
+                  onClick={handleTest}
+                  className="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold rounded-lg transition-colors"
+                >
+                  Test Key
+                </button>
+              </div>
+
+              {testResult && (
+                <div className={`p-4 rounded-lg ${
+                  testResult.success === null ? 'bg-blue-50 text-blue-800' :
+                  testResult.success ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'
+                }`}>
+                  {testResult.message}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Instructions */}
+          <div className="mt-6 pt-6 border-t border-gray-200">
+            <h3 className="font-semibold text-gray-800 mb-3">📖 How to get your TMDB API key:</h3>
+            <ol className="list-decimal list-inside space-y-2 text-sm text-gray-700">
+              <li>
+                Go to{' '}
+                <a 
+                  href="https://www.themoviedb.org/signup" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-[#00d4ff] hover:underline"
+                >
+                  themoviedb.org/signup
+                </a>
+                {' '}and create a free account
+              </li>
+              <li>
+                Navigate to Settings → API → Request an API Key
+              </li>
+              <li>Choose "Developer" option and fill out the form</li>
+              <li>Copy your API key (v3 auth) and paste it above</li>
+              <li>Click "Test Key" to verify it works</li>
+            </ol>
+          </div>
+
+          {/* Usage Instructions */}
+          <div className="mt-6 pt-6 border-t border-gray-200">
+            <h3 className="font-semibold text-gray-800 mb-3">🚀 Usage:</h3>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <p className="text-sm text-gray-700 mb-2">Once you've saved your API key, run the metadata scraper:</p>
+              <code className="block bg-gray-800 text-gray-100 p-3 rounded text-xs overflow-x-auto">
+                export TMDB_API_KEY="{localKey || 'your_key_here'}"<br/>
+                node scrape-tmdb-metadata.js
+              </code>
+              <p className="text-xs text-gray-600 mt-2">
+                The scraper will use the environment variable to authenticate with TMDB.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Additional Info */}
+        <div className="bg-blue-50 border-l-4 border-[#00d4ff] rounded-lg p-4">
+          <h4 className="font-semibold text-gray-800 mb-2">💡 What does this do?</h4>
+          <p className="text-sm text-gray-700">
+            The TMDB scraper will search TMDB for all your titles and extract metadata like descriptions, 
+            cast, genres, and ratings. This data is saved locally and used to enhance your addon's content 
+            without making API calls during runtime.
+          </p>
         </div>
       </div>
     </div>
@@ -392,6 +547,9 @@ function App() {
   const [selectedCatalogs, setSelectedCatalogs] = useState(
     catalogs.map(cat => cat.id)
   )
+  const [tmdbApiKey, setTmdbApiKey] = useState(
+    localStorage.getItem('tmdb_api_key') || ''
+  )
 
   const renderPage = () => {
     switch (currentPage) {
@@ -399,6 +557,8 @@ function App() {
         return <HomePage />
       case 'catalogs':
         return <CatalogsPage selectedCatalogs={selectedCatalogs} setSelectedCatalogs={setSelectedCatalogs} />
+      case 'settings':
+        return <SettingsPage tmdbApiKey={tmdbApiKey} setTmdbApiKey={setTmdbApiKey} />
       default:
         return <HomePage />
     }
