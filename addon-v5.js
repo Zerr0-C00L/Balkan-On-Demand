@@ -152,12 +152,13 @@ const allCatalogs = [
     extra: [
       { 
         name: 'genre', 
-        isRequired: false,  // Optional - allows "All" to show all movies
+        isRequired: false,  // Optional - "All" is default
         options: ['All', 'Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
       },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
-    ]
+    ],
+    extraRequired: ['skip']  // Requires skip to show, effectively hiding from Home
   },
   {
     id: 'balkan_foreign_movies',
@@ -167,12 +168,13 @@ const allCatalogs = [
     extra: [
       { 
         name: 'genre', 
-        isRequired: false,  // Optional - allows "All" to show all movies
+        isRequired: false,  // Optional - "All" is default
         options: ['All', 'Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
       },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
-    ]
+    ],
+    extraRequired: ['skip']  // Requires skip to show, effectively hiding from Home
   },
   {
     id: 'balkan_kids',
@@ -182,12 +184,13 @@ const allCatalogs = [
     extra: [
       { 
         name: 'genre', 
-        isRequired: false,  // Optional - allows "All" to show all movies
+        isRequired: false,  // Optional - "All" is default
         options: ['All', 'Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
       },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
-    ]
+    ],
+    extraRequired: ['skip']  // Requires skip to show, effectively hiding from Home
   },
   {
     id: 'balkan_series',
@@ -197,12 +200,13 @@ const allCatalogs = [
     extra: [
       { 
         name: 'genre', 
-        isRequired: false,  // Optional - allows "All" to show all series
+        isRequired: false,  // Optional - "All" is default
         options: ['All', 'Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
       },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
-    ]
+    ],
+    extraRequired: ['skip']  // Requires skip to show, effectively hiding from Home
   }
 ];
 
