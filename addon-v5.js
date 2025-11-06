@@ -534,7 +534,7 @@ function defineHandlers(builder) {
             // Stremio will handle "Next Episode" navigation automatically
             streams.push({
               name: 'Direct HD',
-              title: `⭐ ${series.name}\nS${seasonNum}E${epNum} - Direct HD 1080p`,
+              title: `⭐ ${series.name}\nDirect HD`,
               url: episode.url,
               behaviorHints: {
                 bingeGroup: `balkan-series-${seriesSlug}`
