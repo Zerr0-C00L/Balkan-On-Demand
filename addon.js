@@ -406,29 +406,26 @@ function parseConfig(configString) {
 function generateManifest(config = null) {
   let catalogs = [];
   
-  // Map of new catalog IDs to legacy IDs
-  const catalogIdMap = {
-    'bilosta.movies': 'balkan_movies',
-    'bilosta.series': 'balkan_series',
-    'tmdb.bosnian': 'balkan_movies',
-    'tmdb.croatian': 'balkan_movies', 
-    'tmdb.serbian': 'balkan_movies',
-    // TMDB catalogs don't exist yet in backend, skip for now
-  };
-  
   if (config && config.catalogs && Array.isArray(config.catalogs)) {
+    console.log('📦 Generating manifest with config:', JSON.stringify(config.catalogs, null, 2));
+    
     // User has configured catalogs - include all enabled catalogs
     catalogs = config.catalogs
       .filter(cat => cat.enabled) // Only include enabled catalogs
       .map(cat => {
-        // Map new catalog IDs to legacy IDs
-        const legacyId = catalogIdMap[cat.id] || cat.id;
-        const baseCatalog = allCatalogs.find(c => c.id === legacyId && c.type === cat.type);
+        // Map bilosta.* IDs to actual catalog IDs
+        let catalogId = cat.id;
+        if (cat.id === 'bilosta.movies') catalogId = 'balkan_movies';
+        if (cat.id === 'bilosta.series') catalogId = 'balkan_series';
+        
+        const baseCatalog = allCatalogs.find(c => c.id === catalogId && c.type === cat.type);
         
         if (!baseCatalog) {
-          console.log(`⚠️  Skipping unknown catalog: ${cat.id} (${cat.type})`);
+          console.log(`⚠️  Skipping unknown catalog: ${cat.id} (${cat.type}) - mapped to ${catalogId}`);
           return null;
         }
+        
+        console.log(`✅ Found catalog: ${cat.id} -> ${catalogId} (${cat.type})`);
         
         // If showInHome is false, make search required (Discover only)
         // If showInHome is true, search is optional (appears on Board)
@@ -443,6 +440,10 @@ function generateManifest(config = null) {
         };
       })
       .filter(cat => cat !== null); // Remove any null entries
+    
+    console.log(`📋 Generated ${catalogs.length} catalogs`);
+  } else {
+    console.log('⚠️  No config provided or no catalogs in config');
   }
   // If no config, catalogs remain empty (disabled by default)
 
