@@ -645,7 +645,7 @@ function defineHandlers(builder, config = null) {
     // We only provide streams for OUR content, not for Cinemeta/IMDb IDs
     // If someone clicks a movie from Cinemeta (tt12345), we return empty - that's expected!
     if (id.startsWith('tt')) {
-      console.log(`ℹ️  IMDb ID ${id} - not in our database (this is normal)`);
+      console.log(`ℹ️  IMDb ID ${id} - not in our database (this is normal, browse from addon catalogs instead)`);
       return Promise.resolve({ streams: [] });
     }
     
@@ -660,6 +660,7 @@ function defineHandlers(builder, config = null) {
         if (season) {
           const episode = season.episodes.find(e => e.episode === parseInt(epNum));
           if (episode) {
+            console.log(`✅ Found episode stream for ${series.name} S${seasonNum}E${epNum}`);
             // Only return the current episode's stream
             // Stremio will handle "Next Episode" navigation automatically
             streams.push({
@@ -670,8 +671,14 @@ function defineHandlers(builder, config = null) {
                 bingeGroup: `balkan-series-${seriesSlug}`
               }
             });
+          } else {
+            console.log(`❌ Episode not found: S${seasonNum}E${epNum}`);
           }
+        } else {
+          console.log(`❌ Season not found: ${seasonNum}`);
         }
+      } else {
+        console.log(`❌ Series not found: ${seriesId}`);
       }
       
       return Promise.resolve({ streams });
@@ -686,8 +693,10 @@ function defineHandlers(builder, config = null) {
       
       if (movie) {
         movieName = movie.name;
+        console.log(`✅ Found movie: ${movieName}`);
         
         if (movie.streams) {
+          console.log(`✅ Movie has ${movie.streams.length} stream(s)`);
           movie.streams.forEach(stream => {
             const quality = stream.quality || 'HD';
             // Don't assume HD = 1080p, just show the quality as-is
@@ -702,13 +711,18 @@ function defineHandlers(builder, config = null) {
               }
             });
           });
+        } else {
+          console.log(`❌ Movie has no streams property`);
         }
+      } else {
+        console.log(`❌ Movie not found in database: ${id}`);
       }
     }
     
     // Sort streams by quality: 4K > 1080p > 720p > SD
     streams = sortStreamsByQuality(streams);
     
+    console.log(`📤 Returning ${streams.length} stream(s)`);
     return Promise.resolve({ streams });
   });
   
