@@ -2,28 +2,39 @@ import { useState, useEffect } from 'react'
 
 const catalogs = [
   {
-    id: 'balkan_movies',
-    name: '🎬 Filmovi',
-    description: '1,364 Ex-YU movies',
-    type: 'movie'
+    id: 'tmdb_balkan_movies',
+    name: '�🇦 Bosnian Movies',
+    description: 'TMDB-powered Bosnian cinema',
+    type: 'movie',
+    source: 'tmdb'
   },
   {
-    id: 'balkan_foreign_movies',
-    name: '🌍 Strani Filmovi',
-    description: '1,076 International films',
-    type: 'movie'
+    id: 'tmdb_croatian_movies',
+    name: '�🇷 Croatian Movies',
+    description: 'TMDB-powered Croatian cinema',
+    type: 'movie',
+    source: 'tmdb'
   },
   {
-    id: 'balkan_kids',
-    name: '🎨 Crtani Filmovi',
-    description: '374 Animated films',
-    type: 'movie'
+    id: 'tmdb_serbian_series',
+    name: '�🇸 Serbian TV Series',
+    description: 'TMDB-powered Serbian shows',
+    type: 'series',
+    source: 'tmdb'
   },
   {
-    id: 'balkan_series',
-    name: '📺 Serije',
-    description: '37 TV series',
-    type: 'series'
+    id: 'bilosta_direct_movies',
+    name: '⭐ Direct HD Movies',
+    description: 'Curated HD movie collection',
+    type: 'movie',
+    source: 'bilosta'
+  },
+  {
+    id: 'bilosta_direct_series',
+    name: '📺 Direct HD Series',
+    description: 'Curated series collection',
+    type: 'series',
+    source: 'bilosta'
   }
 ]
 
@@ -37,7 +48,7 @@ function Sidebar({ currentPage, setCurrentPage, isMobileOpen, setIsMobileOpen, s
 
   const getManifestUrl = () => {
     const baseUrl = window.location.hostname === 'localhost'
-      ? 'http://localhost:7005'
+      ? 'http://localhost:7006'
       : 'https://balkan-on-demand-828b9dd653f6.herokuapp.com'
 
     const configParts = []
@@ -46,10 +57,10 @@ function Sidebar({ currentPage, setCurrentPage, isMobileOpen, setIsMobileOpen, s
     if (selectedCatalogs.length === 0) {
       // No catalogs selected for home - all will be Discover only
       configParts.push(`home=none`)
-    } else if (selectedCatalogs.length > 0 && selectedCatalogs.length < 4) {
+    } else if (selectedCatalogs.length > 0 && selectedCatalogs.length < catalogs.length) {
       configParts.push(`home=${selectedCatalogs.join(',')}`)
-    } else if (selectedCatalogs.length === 4) {
-      configParts.push(`home=${['balkan_movies', 'balkan_foreign_movies', 'balkan_kids', 'balkan_series'].join(',')}`)
+    } else if (selectedCatalogs.length === catalogs.length) {
+      configParts.push(`home=${catalogs.map(c => c.id).join(',')}`)
     }
     
     // Add TMDB API key if set
@@ -91,9 +102,9 @@ function Sidebar({ currentPage, setCurrentPage, isMobileOpen, setIsMobileOpen, s
           <div className="px-6 mb-10">
             <div className="flex items-center gap-2">
               <span className="text-2xl">🎬</span>
-              <h1 className="text-xl font-bold text-white">Balkan On Demand</h1>
+              <h1 className="text-xl font-bold text-white">Balkan HD Streams</h1>
             </div>
-            <p className="text-gray-400 text-sm mt-1">v5.2.0</p>
+            <p className="text-gray-400 text-sm mt-1">v6.0.0</p>
           </div>
 
           {/* Navigation */}
@@ -180,47 +191,47 @@ function HomePage() {
       {/* Content */}
       <div className="relative z-10 text-center px-4">
         <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
-          Balkan On Demand
+          Balkan HD Streams
         </h1>
         <p className="text-xl md:text-2xl text-gray-300 mb-8">
-          Explore a vast catalog of movies and TV shows from Serbia, Croatia & Bosnia.
+          TMDB-powered catalogs with Direct HD streams for Balkan content
         </p>
         <p className="text-lg text-gray-400 mb-12">
-          Version 5.2.0
+          Version 6.0.0
         </p>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-12">
           <div className="bg-white/10 backdrop-blur-md rounded-lg p-6">
-            <div className="text-3xl font-bold text-[#00d4ff] mb-2">{stats.movies.toLocaleString()}</div>
-            <div className="text-sm text-gray-300">Ex-YU Movies</div>
+            <div className="text-3xl font-bold text-[#00d4ff] mb-2">{stats.tmdbCatalogs}</div>
+            <div className="text-sm text-gray-300">TMDB Catalogs</div>
           </div>
           <div className="bg-white/10 backdrop-blur-md rounded-lg p-6">
-            <div className="text-3xl font-bold text-[#00d4ff] mb-2">{stats.foreign.toLocaleString()}</div>
-            <div className="text-sm text-gray-300">Foreign Movies</div>
+            <div className="text-3xl font-bold text-[#00d4ff] mb-2">{stats.directMovies.toLocaleString()}</div>
+            <div className="text-sm text-gray-300">Direct HD Movies</div>
           </div>
           <div className="bg-white/10 backdrop-blur-md rounded-lg p-6">
-            <div className="text-3xl font-bold text-[#00d4ff] mb-2">{stats.kids.toLocaleString()}</div>
-            <div className="text-sm text-gray-300">Cartoons</div>
+            <div className="text-3xl font-bold text-[#00d4ff] mb-2">{stats.directSeries}</div>
+            <div className="text-sm text-gray-300">Direct HD Series</div>
           </div>
           <div className="bg-white/10 backdrop-blur-md rounded-lg p-6">
-            <div className="text-3xl font-bold text-[#00d4ff] mb-2">{stats.series.toLocaleString()}</div>
-            <div className="text-sm text-gray-300">Series</div>
+            <div className="text-3xl font-bold text-[#00d4ff] mb-2">∞</div>
+            <div className="text-sm text-gray-300">Via TMDB</div>
           </div>
         </div>
 
         {/* Feature Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
           <div className="bg-white/10 backdrop-blur-md rounded-lg p-6 text-left">
-            <h3 className="text-xl font-semibold text-white mb-2">Movies</h3>
+            <h3 className="text-xl font-semibold text-white mb-2">🎬 TMDB-Powered Catalogs</h3>
             <p className="text-gray-300">
-              Access detailed information about thousands of movies from the Balkans and beyond.
+              Browse Bosnian, Croatian, and Serbian content with full TMDB metadata: ratings, cast, trailers, and more.
             </p>
           </div>
           <div className="bg-white/10 backdrop-blur-md rounded-lg p-6 text-left">
-            <h3 className="text-xl font-semibold text-white mb-2">TV Shows</h3>
+            <h3 className="text-xl font-semibold text-white mb-2">⭐ Direct HD Streams</h3>
             <p className="text-gray-300">
-              Explore TV series, seasons, episodes, and stay up to date with your favorite shows.
+              Instant playback with direct CDN links. No torrents, no waiting - just pure streaming quality.
             </p>
           </div>
         </div>
@@ -361,13 +372,13 @@ function SettingsPage({ tmdbApiKey, setTmdbApiKey }) {
           <div className="mt-6 pt-6 border-t border-gray-200">
             <h3 className="font-semibold text-gray-800 mb-3">🚀 Usage:</h3>
             <div className="bg-gray-50 rounded-lg p-4">
-              <p className="text-sm text-gray-700 mb-2">Once you've saved your API key, run the metadata scraper:</p>
+              <p className="text-sm text-gray-700 mb-2">Set your TMDB API key as an environment variable for the server:</p>
               <code className="block bg-gray-800 text-gray-100 p-3 rounded text-xs overflow-x-auto">
                 export TMDB_API_KEY="{localKey || 'your_key_here'}"<br/>
-                node scrape-tmdb-metadata.js
+                node addon-tmdb-catalogs.js
               </code>
               <p className="text-xs text-gray-600 mt-2">
-                The scraper will use the environment variable to authenticate with TMDB.
+                The addon will use TMDB API to fetch Balkan content catalogs in real-time.
               </p>
             </div>
           </div>
@@ -395,40 +406,8 @@ function SettingsPage({ tmdbApiKey, setTmdbApiKey }) {
 // Catalogs Page
 function CatalogsPage({ selectedCatalogs, setSelectedCatalogs, tmdbApiKey }) {
   const [installedUrl, setInstalledUrl] = useState('')
-  const [stats, setStats] = useState({
-    movies: 1364,
-    foreign: 1076,
-    kids: 374,
-    series: 37
-  })
-
-  // Fetch real-time stats from server
-  useEffect(() => {
-    fetch('/api/stats')
-      .then(res => res.json())
-      .then(data => setStats(data))
-      .catch(err => console.error('Failed to load stats:', err))
-  }, [])
-
-  // Update catalog descriptions with real stats
-  const catalogsWithStats = catalogs.map(cat => {
-    let description = cat.description
-    switch(cat.id) {
-      case 'balkan_movies':
-        description = `${stats.movies.toLocaleString()} Ex-YU movies`
-        break
-      case 'balkan_foreign_movies':
-        description = `${stats.foreign.toLocaleString()} International films`
-        break
-      case 'balkan_kids':
-        description = `${stats.kids.toLocaleString()} Animated films`
-        break
-      case 'balkan_series':
-        description = `${stats.series.toLocaleString()} TV series`
-        break
-    }
-    return { ...cat, description }
-  })
+  
+  const catalogsWithStats = catalogs
 
   const toggleCatalog = (catalogId) => {
     setSelectedCatalogs(prev => 
@@ -486,17 +465,109 @@ function CatalogsPage({ selectedCatalogs, setSelectedCatalogs, tmdbApiKey }) {
 
       {/* Info Box */}
       <div className="bg-blue-50 border-l-4 border-[#00d4ff] rounded-lg p-4 mb-8">
-        <h4 className="font-semibold text-gray-800 mb-2">💡 Recommended Setup</h4>
+        <h4 className="font-semibold text-gray-800 mb-2">🎬 How it Works</h4>
         <div className="text-sm text-gray-700 space-y-2">
-          <p><strong>Leave catalogs disabled</strong> and use TMDB/Cinemeta addons for browsing.</p>
-          <p>This addon will automatically provide <strong>Direct HD streams</strong> when you watch any Balkan content.</p>
+          <p><strong>TMDB Catalogs:</strong> Browse Bosnian, Croatian & Serbian content with full metadata from TMDB.</p>
+          <p><strong>Direct Catalogs:</strong> Our curated HD collection with instant streaming links.</p>
+          <p><strong>Smart Matching:</strong> When you watch Balkan content from any addon, we automatically provide Direct HD streams if available.</p>
           <p className="text-xs text-gray-600 mt-2">
-            💡 Tip: Enable catalogs only if you want dedicated Balkan browsing sections in Stremio.
+            ⚠️ Note: TMDB API key required for TMDB-powered catalogs. Set it in Settings.
           </p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="space-y-8">
+        {/* TMDB Catalogs Section */}
+        <div>
+          <h2 className="text-xl font-semibold mb-2 text-gray-800">🎬 TMDB-Powered Catalogs</h2>
+          <p className="text-sm text-gray-600 mb-4">Full metadata from TMDB with smart stream matching</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {catalogsWithStats.filter(c => c.source === 'tmdb').map((catalog) => {
+              const isSelected = selectedCatalogs.includes(catalog.id)
+              
+              return (
+                <div
+                  key={catalog.id}
+                  onClick={() => toggleCatalog(catalog.id)}
+                  className={`
+                    p-4 rounded-lg cursor-pointer transition-all duration-200 border-2
+                    ${isSelected 
+                      ? 'bg-[#00d4ff]/10 border-[#00d4ff] shadow-md' 
+                      : 'bg-white border-gray-200 hover:border-gray-300 hover:shadow'
+                    }
+                  `}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className={`
+                        w-6 h-6 rounded border-2 flex items-center justify-center
+                        ${isSelected ? 'bg-[#00d4ff] border-[#00d4ff]' : 'border-gray-400'}
+                      `}>
+                        {isSelected && (
+                          <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                          </svg>
+                        )}
+                      </div>
+                      <div>
+                        <div className="font-semibold text-gray-800">{catalog.name}</div>
+                        <div className="text-sm text-gray-600">{catalog.description}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* Direct HD Catalogs Section */}
+        <div>
+          <h2 className="text-xl font-semibold mb-2 text-gray-800">⭐ Direct HD Catalogs</h2>
+          <p className="text-sm text-gray-600 mb-4">Curated collection with instant streaming</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {catalogsWithStats.filter(c => c.source === 'bilosta').map((catalog) => {
+              const isSelected = selectedCatalogs.includes(catalog.id)
+              
+              return (
+                <div
+                  key={catalog.id}
+                  onClick={() => toggleCatalog(catalog.id)}
+                  className={`
+                    p-4 rounded-lg cursor-pointer transition-all duration-200 border-2
+                    ${isSelected 
+                      ? 'bg-[#00d4ff]/10 border-[#00d4ff] shadow-md' 
+                      : 'bg-white border-gray-200 hover:border-gray-300 hover:shadow'
+                    }
+                  `}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className={`
+                        w-6 h-6 rounded border-2 flex items-center justify-center
+                        ${isSelected ? 'bg-[#00d4ff] border-[#00d4ff]' : 'border-gray-400'}
+                      `}>
+                        {isSelected && (
+                          <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                          </svg>
+                        )}
+                      </div>
+                      <div>
+                        <div className="font-semibold text-gray-800">{catalog.name}</div>
+                        <div className="text-sm text-gray-600">{catalog.description}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Legacy two-column layout (hidden) */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 hidden">
         {/* Movies Column */}
         <div>
           <h2 className="text-xl font-semibold mb-4 text-gray-800">Movies</h2>

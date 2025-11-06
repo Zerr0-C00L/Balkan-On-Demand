@@ -9,7 +9,9 @@
   "scripts": {
     "start": "node addon-enhanced.js",
     "start:old": "node addon.js",
-    "dev": "nodemon addon-enhanced.js"
+    "start:tmdb": "node addon-tmdb-catalogs.js",
+    "dev": "nodemon addon-enhanced.js",
+    "dev:tmdb": "nodemon addon-tmdb-catalogs.js"
   },
   "keywords": [
     "stremio",
