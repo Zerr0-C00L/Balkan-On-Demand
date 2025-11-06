@@ -461,21 +461,21 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
     };
   }
   
-  // For movies, prioritize Cinemeta metadata with OMDb enhancements
+  // For movies, prioritize Cinemeta metadata with OMDb enhancements, fallback to local data
   const meta = {
     id: item.id,
     type: 'movie',
     name: sanitizeText(cinemeta?.fullMeta?.name || item.name),
     poster: cinemeta?.poster || item.poster || 'https://via.placeholder.com/300x450/1a1a1a/ffffff?text=' + encodeURIComponent(item.name),
     posterShape: 'poster',
-    background: cinemeta?.background || null,
+    background: cinemeta?.background || item.background || null,
     logo: cinemeta?.logo || null,
-    description: sanitizeText(omdb?.plot || cinemeta?.fullMeta?.description || ''),
+    description: sanitizeText(omdb?.plot || cinemeta?.fullMeta?.description || item.description || ''),
     releaseInfo: cinemeta?.fullMeta?.year?.toString() || item.year?.toString() || '',
     released: cinemeta?.fullMeta?.released || null,
-    genres: cinemeta?.fullMeta?.genres || [],
-    cast: cinemeta?.fullMeta?.cast || [],
-    director: cinemeta?.fullMeta?.director || [],
+    genres: cinemeta?.fullMeta?.genres || item.genres || [],
+    cast: cinemeta?.fullMeta?.cast || item.cast || [],
+    director: cinemeta?.fullMeta?.director || item.director || [],
     writer: cinemeta?.fullMeta?.writer || [],
     awards: omdb?.awards || cinemeta?.fullMeta?.awards || null,
     imdbRating: cinemeta?.fullMeta?.imdbRating || null,
