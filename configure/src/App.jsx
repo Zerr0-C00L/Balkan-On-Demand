@@ -395,8 +395,11 @@ function CatalogsPage({ selectedCatalogs, setSelectedCatalogs, tmdbApiKey }) {
 
     const configParts = []
     
-    // Add catalog selection
-    if (selectedCatalogs.length > 0 && selectedCatalogs.length < catalogs.length) {
+    // Add catalog selection - always include home parameter to indicate user configuration
+    if (selectedCatalogs.length === 0) {
+      // No catalogs selected for home - all will be Discover only
+      configParts.push(`home=none`)
+    } else if (selectedCatalogs.length > 0 && selectedCatalogs.length < catalogs.length) {
       configParts.push(`home=${selectedCatalogs.join(',')}`)
     } else if (selectedCatalogs.length === catalogs.length) {
       configParts.push(`home=${catalogs.map(c => c.id).join(',')}`)

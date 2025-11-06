@@ -358,7 +358,8 @@ function parseConfig(configString) {
     parts.forEach(part => {
       // Handle home=catalog1,catalog2 format
       if (part.startsWith('home=')) {
-        const homeCatalogs = part.replace('home=', '').split(',');
+        const homeValue = part.replace('home=', '');
+        const homeCatalogs = homeValue === 'none' ? [] : homeValue.split(',');
         
         // Build catalogs config
         config.catalogs = allCatalogs.map(cat => ({
