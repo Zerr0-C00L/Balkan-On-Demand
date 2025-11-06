@@ -617,10 +617,52 @@ function sortStreamsByQuality(streams) {
 }
 
 // STREAM Handler with merged streams
-builder.defineStreamHandler(({ type, id }) => {
+builder.defineStreamHandler(async ({ type, id }) => {
   console.log(`🎬 Stream request: ${id} (type: ${type})`);
   
   let streams = [];
+  
+  // Handle IMDb ID requests (tt*) - find matching movie/series in our database
+  if (id.startsWith('tt')) {
+    if (type === 'movie') {
+      // Search through our movies to find one that matches this IMDb ID
+      for (const movie of bauBauDB.movies) {
+        // Use Cinemeta to get the IMDb ID for this movie
+        const cinemeta = await searchCinemeta(movie.name, movie.year, 'movie');
+        if (cinemeta?.imdbId === id) {
+          // Found a match! Add our streams
+          if (movie.streams) {
+            movie.streams.forEach(stream => {
+              const quality = stream.quality || 'HD';
+              const qualityLabel = quality === '4K' ? '4K UHD' : quality === 'HD' ? 'HD 1080p' : quality;
+              
+              streams.push({
+                name: `Balkan On Demand - ${qualityLabel}`,
+                title: `🇷🇸 Direct ${qualityLabel}\n${movie.name} • Bilosta CDN`,
+                url: stream.url,
+                behaviorHints: {
+                  bingeGroup: 'balkan-' + movie.id,
+                  notWebReady: false
+                }
+              });
+            });
+          }
+          break; // Found the movie, stop searching
+        }
+      }
+    } else if (type === 'series') {
+      // Search through our series
+      for (const series of bauBauDB.series) {
+        const cinemeta = await searchCinemeta(series.name, series.year, 'series');
+        if (cinemeta?.imdbId === id) {
+          // This is handled by episode ID, not series ID
+          break;
+        }
+      }
+    }
+    
+    return Promise.resolve({ streams });
+  }
   
   // Handle series episode streams
   if (id.includes(':series:') && id.split(':').length === 5) {
