@@ -148,13 +148,7 @@ const allCatalogs = [
     id: 'balkan_movies',
     name: 'Filmovi',
     type: 'movie',
-    genres: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western'],
     extra: [
-      { 
-        name: 'genre', 
-        isRequired: false,  // Optional - shows in Discover with genre dropdown
-        options: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
-      },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
     ]
@@ -163,13 +157,7 @@ const allCatalogs = [
     id: 'balkan_foreign_movies',
     name: 'Strani Filmovi',
     type: 'movie',
-    genres: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western'],
     extra: [
-      { 
-        name: 'genre', 
-        isRequired: false,  // Optional - shows in Discover with genre dropdown
-        options: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
-      },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
     ]
@@ -178,13 +166,7 @@ const allCatalogs = [
     id: 'balkan_kids',
     name: 'Crtani Filmovi',
     type: 'movie',
-    genres: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western'],
     extra: [
-      { 
-        name: 'genre', 
-        isRequired: false,  // Optional - shows in Discover with genre dropdown
-        options: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
-      },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
     ]
@@ -193,13 +175,7 @@ const allCatalogs = [
     id: 'balkan_series',
     name: 'Serije',
     type: 'series',
-    genres: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western'],
     extra: [
-      { 
-        name: 'genre', 
-        isRequired: false,  // Optional - shows in Discover with genre dropdown
-        options: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
-      },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
     ]
@@ -235,15 +211,7 @@ function generateManifest(config = null) {
       
       // Add 'search' and 'genre' for discover
       if (inDiscover) {
-        const hasGenre = cat.extra.some(e => e.name === 'genre');
         const hasSearch = cat.extra.some(e => e.name === 'search');
-        
-        // Add genre support - keep as optional
-        if (hasGenre) {
-          extraSupported.push('genre');
-          const genreExtra = cat.extra.find(e => e.name === 'genre');
-          filteredExtra.push({ ...genreExtra, isRequired: false });
-        }
         
         if (hasSearch) {
           extraSupported.push('search');
@@ -258,10 +226,10 @@ function generateManifest(config = null) {
     }).filter(Boolean);
   } else {
     // Default: Show all catalogs in both Home and Discover
-    // Genre is optional - users can browse all content or filter by genre
+    // Simple pagination with search support
     catalogs = allCatalogs.map(cat => ({
       ...cat,
-      extraSupported: ['genre', 'search', 'skip']
+      extraSupported: ['search', 'skip']
     }));
   }
 
