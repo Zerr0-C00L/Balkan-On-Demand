@@ -1,6 +1,7 @@
 const { addonBuilder, serveHTTP } = require('stremio-addon-sdk');
 const fs = require('fs');
 const path = require('path');
+const { decompressFromEncodedURIComponent } = require('lz-string');
 
 // Load content databases
 const bauBauDB = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'baubau-content.json'), 'utf8'));
@@ -347,6 +348,18 @@ function parseConfig(configString) {
   }
   
   try {
+    // First, try to decompress using lz-string (new config format from React app)
+    try {
+      const decompressed = decompressFromEncodedURIComponent(configString);
+      if (decompressed) {
+        const config = JSON.parse(decompressed);
+        console.log('📦 Loaded compressed config:', config);
+        return config;
+      }
+    } catch (decompressError) {
+      // Not a compressed config, try legacy formats
+    }
+    
     const config = {
       catalogs: null,
       tmdbApiKey: null
@@ -393,14 +406,29 @@ function parseConfig(configString) {
 function generateManifest(config = null) {
   let catalogs = [];
   
+  // Map of new catalog IDs to legacy IDs
+  const catalogIdMap = {
+    'bilosta.movies': 'balkan_movies',
+    'bilosta.series': 'balkan_series',
+    'tmdb.bosnian': 'balkan_movies',
+    'tmdb.croatian': 'balkan_movies', 
+    'tmdb.serbian': 'balkan_movies',
+    // TMDB catalogs don't exist yet in backend, skip for now
+  };
+  
   if (config && config.catalogs && Array.isArray(config.catalogs)) {
     // User has configured catalogs - include all enabled catalogs
     catalogs = config.catalogs
       .filter(cat => cat.enabled) // Only include enabled catalogs
       .map(cat => {
-        const baseCatalog = allCatalogs.find(c => c.id === cat.id && c.type === cat.type);
+        // Map new catalog IDs to legacy IDs
+        const legacyId = catalogIdMap[cat.id] || cat.id;
+        const baseCatalog = allCatalogs.find(c => c.id === legacyId && c.type === cat.type);
         
-        if (!baseCatalog) return null;
+        if (!baseCatalog) {
+          console.log(`⚠️  Skipping unknown catalog: ${cat.id} (${cat.type})`);
+          return null;
+        }
         
         // If showInHome is false, make search required (Discover only)
         // If showInHome is true, search is optional (appears on Board)
