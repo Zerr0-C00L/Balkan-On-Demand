@@ -68,47 +68,64 @@ async function syncToMDBList(apiKey) {
   const listDescription = 'Movies and series from Serbia, Croatia & Bosnia available on Balkan On Demand addon';
   
   try {
-    // Create list
-    const createResponse = await fetch('https://api.mdblist.com/lists', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: listName,
-        description: listDescription,
-        public: true,
-        apikey: apiKey
-      })
-    });
+    // First, check if list already exists
+    console.log('🔍 Checking for existing list...');
+    const listsResponse = await fetch(`https://mdblist.com/api/lists/user?apikey=${apiKey}`);
     
-    if (!createResponse.ok) {
-      const error = await createResponse.json();
-      throw new Error(error.message || 'Failed to create list');
+    let listId = null;
+    
+    if (listsResponse.ok) {
+      const lists = await listsResponse.json();
+      const existingList = lists.find(l => l.name === listName);
+      
+      if (existingList) {
+        listId = existingList.id;
+        console.log(`✅ Found existing list: ${listName} (ID: ${listId})`);
+      }
     }
     
-    const listData = await createResponse.json();
-    const listId = listData.id;
-    
-    console.log(`✅ Created list: ${listName} (ID: ${listId})`);
+    // Create list if it doesn't exist
+    if (!listId) {
+      console.log('📝 Creating new list...');
+      const createResponse = await fetch(`https://mdblist.com/api/lists?apikey=${apiKey}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: listName,
+          description: listDescription,
+          is_public: 1
+        })
+      });
+      
+      if (!createResponse.ok) {
+        const errorText = await createResponse.text();
+        throw new Error(`Failed to create list (${createResponse.status}): ${errorText}`);
+      }
+      
+      const listData = await createResponse.json();
+      listId = listData.id;
+      
+      console.log(`✅ Created list: ${listName} (ID: ${listId})`);
+    }
     
     // Add items to list
     console.log(`📝 Adding ${imdbIds.length} items to list...`);
     
-    const addResponse = await fetch(`https://api.mdblist.com/lists/${listId}/items`, {
+    const addResponse = await fetch(`https://mdblist.com/api/lists/${listId}/items?apikey=${apiKey}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        items: imdbIds.map(id => ({ imdb_id: id })),
-        apikey: apiKey
+        items: imdbIds.map(id => ({ imdb_id: id }))
       })
     });
     
     if (!addResponse.ok) {
-      const error = await addResponse.json();
-      throw new Error(error.message || 'Failed to add items');
+      const errorText = await addResponse.text();
+      throw new Error(`Failed to add items (${addResponse.status}): ${errorText}`);
     }
     
     const addData = await addResponse.json();
