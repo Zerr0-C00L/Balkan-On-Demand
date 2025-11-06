@@ -712,11 +712,9 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
       trailers: cinemeta?.fullMeta?.trailers || [],
       trailerStreams: cinemeta?.fullMeta?.trailerStreams || [],
       videos: videos,
-      links: cinemeta?.imdbId ? [{
-        name: 'IMDb',
-        category: 'imdb',
-        url: `https://www.imdb.com/title/${cinemeta.imdbId}/`
-      }] : [],
+      // DON'T add IMDb links - Stremio will use IMDb IDs for stream requests
+      // and we only have streams for bilosta IDs
+      links: [],
       behaviorHints: cinemeta?.fullMeta?.behaviorHints || {}
     };
   }
@@ -743,19 +741,13 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
     trailers: cinemeta?.fullMeta?.trailers || [],
     trailerStreams: cinemeta?.fullMeta?.trailerStreams || [],
     country: omdb?.country || cinemeta?.fullMeta?.country || null,
-    dvdRelease: cinemeta?.fullMeta?.dvdRelease || null
+    dvdRelease: cinemeta?.fullMeta?.dvdRelease || null,
+    // DON'T add IMDb links - Stremio will use IMDb IDs for stream requests
+    // and we only have streams for bilosta IDs
+    links: []
   };
   
-  // Add IMDb link if available
-  if (cinemeta?.imdbId) {
-    meta.links = [{
-      name: 'IMDb',
-      category: 'imdb',
-      url: `https://www.imdb.com/title/${cinemeta.imdbId}/`
-    }];
-  }
-  
-  // Add behavior hints from Cinemeta if available
+  return meta;
   if (cinemeta?.fullMeta?.behaviorHints) {
     meta.behaviorHints = cinemeta.fullMeta.behaviorHints;
   }
