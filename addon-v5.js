@@ -16,10 +16,9 @@ const OMDB_URL = 'https://www.omdbapi.com';
 const OMDB_API_KEY = 'trilogy'; // Free public API key
 const omdbCache = new Map();
 
-// TMDB API integration for direct metadata lookup
-const TMDB_URL = 'https://api.themoviedb.org/3';
-const TMDB_API_KEY = '96b90a4671c68e4e24526bbad02bf522'; // Read-only API key
-const tmdbCache = new Map();
+// MetaHub integration for fallback metadata (no API key required)
+const METAHUB_URL = 'https://images.metahub.space';
+const metahubCache = new Map();
 
 // Extract TMDB ID from poster URL
 function extractTMDBId(posterUrl) {
@@ -149,7 +148,15 @@ async function fetchOMDb(imdbId, title = null, year = null) {
                 awards: data.Awards && data.Awards !== 'N/A' ? data.Awards : null,
                 metascore: data.Metascore || null,
                 country: data.Country || null,
-                language: data.Language || null
+                language: data.Language || null,
+                // Include additional fields for fallback metadata
+                poster: data.Poster && data.Poster !== 'N/A' ? data.Poster : null,
+                year: data.Year || null,
+                imdbRating: data.imdbRating && data.imdbRating !== 'N/A' ? data.imdbRating : null,
+                runtime: data.Runtime && data.Runtime !== 'N/A' ? data.Runtime : null,
+                director: data.Director && data.Director !== 'N/A' ? data.Director.split(', ') : [],
+                cast: data.Actors && data.Actors !== 'N/A' ? data.Actors.split(', ') : [],
+                genres: data.Genre && data.Genre !== 'N/A' ? data.Genre.split(', ') : []
             };
             
             omdbCache.set(cacheKey, result);
@@ -646,10 +653,9 @@ function defineHandlers(builder) {
 async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
   let cinemeta = null;
   let omdb = null;
-  let tmdb = null;
   
   if (enrichMetadata) {
-    // TIER 1: Items with years - use Cinemeta + OMDb (safe year-based matching)
+    // TIER 1: Items with years - try Cinemeta first (most accurate with IMDb IDs)
     if (item.year) {
       cinemeta = await searchCinemeta(item.name, item.year, type);
       
@@ -657,17 +663,16 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
       if (cinemeta?.imdbId) {
         omdb = await fetchOMDb(cinemeta.imdbId);
       }
-    }
-    // TIER 2: Items without years but with TMDB posters - use TMDB directly
-    // This is 100% accurate because we're using the TMDB ID from their own poster URL
-    else if (item.poster && item.poster.includes('tmdb')) {
-      // Try to search TMDB by title (without year) as fallback
-      const tmdbId = await searchTMDB(item.name, null, type);
-      if (tmdbId) {
-        tmdb = await fetchTMDB(tmdbId, type);
+      // If Cinemeta failed, try OMDb direct search with title + year
+      else {
+        omdb = await fetchOMDb(null, item.name, item.year);
       }
     }
-    // TIER 3: Items without years or TMDB - use local database only (no enrichment)
+    // TIER 2: Items without years - try OMDb search by title only
+    else {
+      omdb = await fetchOMDb(null, item.name, null);
+    }
+    // TIER 3: If all enrichment fails - use local database only
   }
   
   if (type === 'series') {
@@ -680,8 +685,8 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
       }
     }
     
-    // Use enriched data if available: Cinemeta (with year) > TMDB (without year) > local data
-    const poster = cinemeta?.poster || tmdb?.poster || fallbackPoster || 'https://via.placeholder.com/300x450/1a1a1a/ffffff?text=' + encodeURIComponent(item.name);
+    // Use enriched data if available: Cinemeta > OMDb fallback > local data
+    const poster = cinemeta?.poster || omdb?.poster || fallbackPoster || 'https://via.placeholder.com/300x450/1a1a1a/ffffff?text=' + encodeURIComponent(item.name);
     
     // Build videos array with Cinemeta episode metadata when available
     const videos = item.seasons.flatMap(season =>
@@ -706,20 +711,20 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
     return {
       id: item.id,
       type: 'series',
-      name: sanitizeText(cinemeta?.fullMeta?.name || tmdb?.name || item.name),
+      name: sanitizeText(cinemeta?.fullMeta?.name || item.name),
       poster: poster,
       posterShape: 'poster',
-      background: cinemeta?.background || tmdb?.background || null,
+      background: cinemeta?.background || null,
       logo: cinemeta?.logo || null,
-      description: sanitizeText(omdb?.plot || tmdb?.description || cinemeta?.fullMeta?.description || ''),
-      releaseInfo: cinemeta?.fullMeta?.year?.toString() || tmdb?.year?.toString() || item.year?.toString() || '',
-      genres: cinemeta?.fullMeta?.genres || tmdb?.genres || [],
-      cast: cinemeta?.fullMeta?.cast || tmdb?.cast || [],
-      director: cinemeta?.fullMeta?.director || tmdb?.director || [],
+      description: sanitizeText(omdb?.plot || cinemeta?.fullMeta?.description || ''),
+      releaseInfo: cinemeta?.fullMeta?.year?.toString() || omdb?.year?.toString() || item.year?.toString() || '',
+      genres: cinemeta?.fullMeta?.genres || omdb?.genres || [],
+      cast: cinemeta?.fullMeta?.cast || omdb?.cast || [],
+      director: cinemeta?.fullMeta?.director || omdb?.director || [],
       writer: cinemeta?.fullMeta?.writer || [],
-      imdbRating: cinemeta?.fullMeta?.imdbRating || tmdb?.rating || null,
+      imdbRating: cinemeta?.fullMeta?.imdbRating || omdb?.imdbRating || null,
       awards: omdb?.awards || cinemeta?.fullMeta?.awards || null,
-      trailers: cinemeta?.fullMeta?.trailers || tmdb?.trailers || [],
+      trailers: cinemeta?.fullMeta?.trailers || [],
       trailerStreams: cinemeta?.fullMeta?.trailerStreams || [],
       videos: videos,
       // DON'T add IMDb links - Stremio will use IMDb IDs for stream requests
@@ -729,26 +734,26 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
     };
   }
   
-  // For movies: Priority order: Cinemeta (with year) > TMDB (without year) > Local data
+  // For movies: Priority order: Cinemeta > OMDb fallback > Local data
   const meta = {
     id: item.id,
     type: 'movie',
-    name: sanitizeText(cinemeta?.fullMeta?.name || tmdb?.name || item.name),
-    poster: cinemeta?.poster || tmdb?.poster || item.poster || 'https://via.placeholder.com/300x450/1a1a1a/ffffff?text=' + encodeURIComponent(item.name),
+    name: sanitizeText(cinemeta?.fullMeta?.name || item.name),
+    poster: cinemeta?.poster || omdb?.poster || item.poster || 'https://via.placeholder.com/300x450/1a1a1a/ffffff?text=' + encodeURIComponent(item.name),
     posterShape: 'poster',
-    background: cinemeta?.background || tmdb?.background || item.background || null,
+    background: cinemeta?.background || item.background || null,
     logo: cinemeta?.logo || null,
-    description: sanitizeText(omdb?.plot || tmdb?.description || cinemeta?.fullMeta?.description || item.description || ''),
-    releaseInfo: cinemeta?.fullMeta?.year?.toString() || tmdb?.year?.toString() || item.year?.toString() || '',
+    description: sanitizeText(omdb?.plot || cinemeta?.fullMeta?.description || item.description || ''),
+    releaseInfo: cinemeta?.fullMeta?.year?.toString() || omdb?.year?.toString() || item.year?.toString() || '',
     released: cinemeta?.fullMeta?.released || null,
-    genres: cinemeta?.fullMeta?.genres || tmdb?.genres || item.genres || [],
-    cast: cinemeta?.fullMeta?.cast || tmdb?.cast || item.cast || [],
-    director: cinemeta?.fullMeta?.director || tmdb?.director || item.director || [],
+    genres: cinemeta?.fullMeta?.genres || omdb?.genres || item.genres || [],
+    cast: cinemeta?.fullMeta?.cast || omdb?.cast || item.cast || [],
+    director: cinemeta?.fullMeta?.director || omdb?.director || item.director || [],
     writer: cinemeta?.fullMeta?.writer || [],
     awards: omdb?.awards || cinemeta?.fullMeta?.awards || null,
-    imdbRating: cinemeta?.fullMeta?.imdbRating || tmdb?.rating || null,
-    runtime: cinemeta?.fullMeta?.runtime || tmdb?.runtime || null,
-    trailers: cinemeta?.fullMeta?.trailers || tmdb?.trailers || [],
+    imdbRating: cinemeta?.fullMeta?.imdbRating || omdb?.imdbRating || null,
+    runtime: cinemeta?.fullMeta?.runtime || omdb?.runtime || null,
+    trailers: cinemeta?.fullMeta?.trailers || [],
     trailerStreams: cinemeta?.fullMeta?.trailerStreams || [],
     country: omdb?.country || cinemeta?.fullMeta?.country || null,
     dvdRelease: cinemeta?.fullMeta?.dvdRelease || null,
@@ -853,8 +858,8 @@ app.listen(PORT, () => {
   console.log(`   • Crtani Filmovi: ${movieCategories.kids.length}`);
   console.log(`   • Series: ${allSeriesItems.length}`);
   console.log(`\n✅ Ready to serve streams with multi-tier metadata enrichment!`);
-  console.log(`   📋 Tier 1: Cinemeta + OMDb (items with years) - safe matching`);
-  console.log(`   📋 Tier 2: TMDB API (items without years) - fallback enrichment`);
+  console.log(`   📋 Tier 1: Cinemeta (items with year match) - IMDb verified`);
+  console.log(`   📋 Tier 2: OMDb API (fallback) - title/year search`);
   console.log(`   📋 Tier 3: Local database only (prevents wrong matches)`);
   console.log(`🎛️  Custom catalog configuration supported!`);
   console.log(`\n📖 Usage:`);
