@@ -188,39 +188,30 @@ function generateManifest(config = null) {
   
   if (config && config.home) {
     // User specified home catalogs
-    // Split catalogs: selected ones for Home, all others for Discover only
+    // All catalogs get search+skip (appear in Discover with pagination)
+    // Selected home catalogs ALSO get shown in Home
     const homeCatalogIds = config.home;
     
     catalogs = allCatalogs.map(cat => {
       const catalogCopy = { ...cat };
       const inHome = homeCatalogIds.includes(cat.id);
       
-      if (inHome) {
-        // Home catalogs: skip for pagination
-        catalogCopy.extraSupported = ['skip'];
-        catalogCopy.extra = [{ name: 'skip', isRequired: false }];
-      } else {
-        // Discover-only catalogs: search and skip
-        catalogCopy.extraSupported = ['search', 'skip'];
-        catalogCopy.extra = [
-          { name: 'search', isRequired: false },
-          { name: 'skip', isRequired: false }
-        ];
-      }
+      // All catalogs: search + skip (Discover with pagination)
+      catalogCopy.extraSupported = ['search', 'skip'];
+      catalogCopy.extra = [
+        { name: 'search', isRequired: false },
+        { name: 'skip', isRequired: false }
+      ];
+      
+      // Note: With both search and skip, catalogs appear in both Home and Discover
+      // There's no way in Stremio to show in Discover only with pagination
       
       return catalogCopy;
     });
   } else {
-    // Default: All catalogs in Discover only (no Home catalogs)
-    // Search and skip for pagination
-    catalogs = allCatalogs.map(cat => ({
-      ...cat,
-      extraSupported: ['search', 'skip'],
-      extra: [
-        { name: 'search', isRequired: false },
-        { name: 'skip', isRequired: false }
-      ]
-    }));
+    // Default: No catalogs (user must configure via home= parameter)
+    // This ensures clean Home view - users choose what they want
+    catalogs = [];
   }
 
   return {
