@@ -4,10 +4,8 @@ const path = require('path');
 
 // Load content databases
 const bauBauDB = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'baubau-content.json'), 'utf8'));
-const sevcetDB = JSON.parse(fs.readFileSync(path.join(__dirname, 'sevcet-films.json'), 'utf8'));
 
 console.log(`📚 Loaded Database: ${bauBauDB.movies.length} movies, ${bauBauDB.series.length} series`);
-console.log(`📚 Loaded YouTube: ${sevcetDB.movies?.length || 0} movies, ${sevcetDB.series?.length || 0} series`);
 
 // Cinemeta integration for metadata enrichment
 const CINEMETA_URL = 'https://v3-cinemeta.strem.io';
@@ -266,7 +264,7 @@ function generateManifest(config = null) {
     
     types: ['movie', 'series'],
     
-    idPrefixes: ['tt', 'yt', 'bilosta'],
+    idPrefixes: ['tt', 'bilosta'],
     
     catalogs: catalogs,
     
@@ -330,30 +328,7 @@ function categorizeMovies() {
     }
   });
   
-  // Add YouTube movies only if they don't exist in BauBau (no duplicates)
-  if (sevcetDB.movies && Array.isArray(sevcetDB.movies)) {
-    sevcetDB.movies.forEach(item => {
-      if (item.youtubeId) {
-        const normalizedName = item.name.toLowerCase().trim();
-        
-        // Only add if not already in movieMap (prefer direct streams)
-        if (!movieMap.has(normalizedName)) {
-          movieMap.set(normalizedName, {
-            id: item.id || `yt:${item.youtubeId}`,
-            name: item.name,
-            poster: item.poster || `https://img.youtube.com/vi/${item.youtubeId}/mqdefault.jpg`,
-            type: 'youtube',
-            youtubeId: item.youtubeId,
-            year: item.releaseInfo,
-            description: item.description,
-            genres: item.genres
-          });
-        }
-      }
-    });
-  }
-  
-  // Convert Maps back to arrays
+  // Convert Maps back to arrays (no YouTube movies)
   categories.movies = Array.from(movieMap.values());
   categories.foreign = Array.from(foreignMap.values());
   categories.kids = Array.from(kidsMap.values());
@@ -464,26 +439,6 @@ function defineHandlers(builder) {
       }
     }
     
-    // YouTube movie
-    if (id.startsWith('yt:') && !id.includes(':series:')) {
-      const ytId = id.replace('yt:', '');
-      const movie = sevcetDB.movies?.find(m => m.youtubeId === ytId);
-      
-      if (movie) {
-        const movieData = {
-          id: id,
-          name: movie.name,
-          year: movie.releaseInfo,
-          poster: movie.poster || `https://img.youtube.com/vi/${ytId}/mqdefault.jpg`,
-          description: movie.description,
-          genres: movie.genres || ['Drama']
-        };
-        
-        const meta = await toStremioMeta(movieData, 'movie', true);
-        return { meta };
-      }
-    }
-    
     return { meta: null };
   });
 
@@ -573,61 +528,6 @@ function defineHandlers(builder) {
             });
           });
         }
-        
-        // Check if this movie also exists on YouTube
-        const youtubeMatch = sevcetDB.movies?.find(m => 
-          m.name.toLowerCase().trim() === movieName.toLowerCase().trim()
-        );
-        
-        if (youtubeMatch && youtubeMatch.youtubeId) {
-          streams.push({
-            name: 'YouTube HD (Infuse)',
-            title: '📺 YouTube HD 720p\nExternal Player (Infuse)',
-            url: `https://www.youtube.com/watch?v=${youtubeMatch.youtubeId}`,
-            behaviorHints: {
-              bingeGroup: 'balkan-' + movie.id
-            }
-          });
-          
-          streams.push({
-            name: 'YouTube SD',
-            title: '📺 YouTube SD 480p\nWeb Player (Fallback)',
-            ytId: youtubeMatch.youtubeId,
-            behaviorHints: {
-              bingeGroup: 'balkan-' + movie.id
-            }
-          });
-        }
-      }
-    }
-    
-    // Handle YouTube-only movies (no direct stream available)
-    if (id.startsWith('yt:')) {
-      const ytId = id.replace('yt:', '');
-      const movie = sevcetDB.movies?.find(m => m.youtubeId === ytId);
-      
-      if (movie) {
-        movieName = movie.name;
-        
-        // YouTube for Infuse (Apple TV)
-        streams.push({
-          name: 'YouTube HD (Infuse)',
-          title: '📺 YouTube HD 720p\nExternal Player (Infuse)',
-          url: `https://www.youtube.com/watch?v=${ytId}`,
-          behaviorHints: {
-            bingeGroup: 'youtube-' + ytId
-          }
-        });
-        
-        // YouTube ytId fallback (Web/Android)
-        streams.push({
-          name: 'YouTube SD',
-          title: '📺 YouTube SD 480p\nWeb Player (Android/Desktop)',
-          ytId: ytId,
-          behaviorHints: {
-            bingeGroup: 'youtube-' + ytId
-          }
-        });
       }
     }
     
