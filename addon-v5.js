@@ -13,6 +13,57 @@ console.log(`📚 Loaded YouTube: ${sevcetDB.movies?.length || 0} movies, ${sevc
 const CINEMETA_URL = 'https://v3-cinemeta.strem.io';
 const cinemetaCache = new Map();
 
+// OMDb API integration for additional metadata (descriptions, etc)
+const OMDB_URL = 'https://www.omdbapi.com';
+const OMDB_API_KEY = 'trilogy'; // Free public API key
+const omdbCache = new Map();
+
+// Fetch metadata from OMDb by IMDb ID or search by title
+async function fetchOMDb(imdbId, title = null, year = null) {
+    const cacheKey = imdbId || `${title}:${year}`;
+    
+    if (omdbCache.has(cacheKey)) {
+        return omdbCache.get(cacheKey);
+    }
+    
+    try {
+        let url;
+        if (imdbId) {
+            url = `${OMDB_URL}/?i=${imdbId}&apikey=${OMDB_API_KEY}&plot=full`;
+        } else if (title) {
+            url = `${OMDB_URL}/?t=${encodeURIComponent(title)}&apikey=${OMDB_API_KEY}&plot=full`;
+            if (year) url += `&y=${year}`;
+        } else {
+            return null;
+        }
+        
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`OMDb responded with ${response.status}`);
+        
+        const data = await response.json();
+        
+        if (data.Response === 'True') {
+            const result = {
+                plot: data.Plot && data.Plot !== 'N/A' ? data.Plot : null,
+                genre: data.Genre || null,
+                rated: data.Rated || null,
+                awards: data.Awards && data.Awards !== 'N/A' ? data.Awards : null,
+                metascore: data.Metascore || null,
+                country: data.Country || null,
+                language: data.Language || null
+            };
+            
+            omdbCache.set(cacheKey, result);
+            return result;
+        }
+    } catch (error) {
+        console.error(`OMDb fetch error for ${cacheKey}:`, error.message);
+    }
+    
+    omdbCache.set(cacheKey, null);
+    return null;
+}
+
 // Search Cinemeta for proper poster and metadata
 async function searchCinemeta(title, year, type = 'movie') {
     const cacheKey = `${type}:${title}:${year}`;
@@ -323,8 +374,20 @@ console.log(`📊 Total Series: ${allSeriesItems.length}`);
 async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
   // Always fetch Cinemeta metadata when enrichment is requested
   let cinemeta = null;
+  let omdb = null;
+  
   if (enrichMetadata && item.name) {
     cinemeta = await searchCinemeta(item.name, item.year, type);
+    
+    // Fetch OMDb data - try IMDb ID from Cinemeta first, then search by title
+    if (cinemeta?.imdbId) {
+      omdb = await fetchOMDb(cinemeta.imdbId);
+    }
+    
+    // If OMDb by IMDb ID didn't return a plot, try searching by title
+    if (!omdb?.plot && item.name) {
+      omdb = await fetchOMDb(null, item.name, item.year);
+    }
   }
   
   if (type === 'series') {
@@ -368,14 +431,14 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
       posterShape: 'poster',
       background: cinemeta?.background || null,
       logo: cinemeta?.logo || null,
-      description: sanitizeText(cinemeta?.fullMeta?.description || ''),
+      description: sanitizeText(omdb?.plot || cinemeta?.fullMeta?.description || ''),
       releaseInfo: cinemeta?.fullMeta?.year?.toString() || item.year?.toString() || '',
       genres: cinemeta?.fullMeta?.genres || [],
       cast: cinemeta?.fullMeta?.cast || [],
       director: cinemeta?.fullMeta?.director || [],
       writer: cinemeta?.fullMeta?.writer || [],
       imdbRating: cinemeta?.fullMeta?.imdbRating || null,
-      awards: cinemeta?.fullMeta?.awards || null,
+      awards: omdb?.awards || cinemeta?.fullMeta?.awards || null,
       trailers: cinemeta?.fullMeta?.trailers || [],
       trailerStreams: cinemeta?.fullMeta?.trailerStreams || [],
       videos: videos,
@@ -388,7 +451,7 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
     };
   }
   
-  // For movies, prioritize Cinemeta metadata
+  // For movies, prioritize Cinemeta metadata with OMDb enhancements
   const meta = {
     id: item.id,
     type: 'movie',
@@ -397,19 +460,19 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
     posterShape: 'poster',
     background: cinemeta?.background || null,
     logo: cinemeta?.logo || null,
-    description: sanitizeText(cinemeta?.fullMeta?.description || ''),
+    description: sanitizeText(omdb?.plot || cinemeta?.fullMeta?.description || ''),
     releaseInfo: cinemeta?.fullMeta?.year?.toString() || item.year?.toString() || '',
     released: cinemeta?.fullMeta?.released || null,
     genres: cinemeta?.fullMeta?.genres || [],
     cast: cinemeta?.fullMeta?.cast || [],
     director: cinemeta?.fullMeta?.director || [],
     writer: cinemeta?.fullMeta?.writer || [],
-    awards: cinemeta?.fullMeta?.awards || null,
+    awards: omdb?.awards || cinemeta?.fullMeta?.awards || null,
     imdbRating: cinemeta?.fullMeta?.imdbRating || null,
     runtime: cinemeta?.fullMeta?.runtime || null,
     trailers: cinemeta?.fullMeta?.trailers || [],
     trailerStreams: cinemeta?.fullMeta?.trailerStreams || [],
-    country: cinemeta?.fullMeta?.country || null,
+    country: omdb?.country || cinemeta?.fullMeta?.country || null,
     dvdRelease: cinemeta?.fullMeta?.dvdRelease || null
   };
   
