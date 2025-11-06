@@ -198,15 +198,10 @@ function generateManifest(config = null) {
       return catalogCopy;
     }).filter(Boolean);
   } else {
-    // Default: all catalogs ONLY in discover (not in home)
-    // This prevents cluttering the home screen
-    catalogs = allCatalogs.map(cat => ({
-      ...cat,
-      extra: cat.extra.filter(e => e.name !== 'skip'), // Remove skip for non-home catalogs
-      extraSupported: ['search', 'genre'].filter(extra => 
-        cat.extra.some(e => e.name === extra)
-      )
-    }));
+    // Default: NO catalogs in manifest (requires user configuration)
+    // This prevents any catalogs from appearing until user selects them
+    // Users must use configuration URL format: /home=catalog1&discover=catalog2/manifest.json
+    catalogs = [];
   }
 
   return {
@@ -379,6 +374,7 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
       cast: cinemeta?.fullMeta?.cast || [],
       director: cinemeta?.fullMeta?.director || [],
       imdbRating: cinemeta?.fullMeta?.imdbRating || null,
+      trailers: cinemeta?.fullMeta?.trailers || [],
       videos: videos
     };
   }
@@ -398,7 +394,8 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
     cast: cinemeta?.fullMeta?.cast || [],
     director: cinemeta?.fullMeta?.director || [],
     imdbRating: cinemeta?.fullMeta?.imdbRating || null,
-    runtime: cinemeta?.fullMeta?.runtime || null
+    runtime: cinemeta?.fullMeta?.runtime || null,
+    trailers: cinemeta?.fullMeta?.trailers || []
   };
   
   // Add IMDb link if available
