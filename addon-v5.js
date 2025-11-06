@@ -225,11 +225,11 @@ function generateManifest(config = null) {
       return catalogCopy;
     }).filter(Boolean);
   } else {
-    // Default: Show all catalogs in both Home and Discover
-    // Simple pagination with search support
+    // Default: Show all catalogs in Discover only (not Home)
+    // Only search support, no skip (skip is for Home pagination)
     catalogs = allCatalogs.map(cat => ({
       ...cat,
-      extraSupported: ['search', 'skip']
+      extraSupported: ['search']
     }));
   }
 
