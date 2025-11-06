@@ -116,6 +116,66 @@ async function fetchTMDB(tmdbId, type = 'movie') {
     return null;
 }
 
+// Normalize Serbian/Croatian titles to English equivalents for better API matching
+function normalizeTitle(title) {
+    // Common Serbian/Croatian to English translations
+    const translations = {
+        'Kung Fu Panda': 'Kung Fu Panda',
+        'U Mojoj Glavi': 'Inside Out',
+        'Gru i Malci': 'Despicable Me',
+        'Gru': 'Despicable Me',
+        'Ko je smestio Crvenkapi': 'Hoodwinked',
+        'Snupi': 'Snoopy',
+        'Čarli Braun': 'Charlie Brown',
+        'Neukrotivi Robot': 'The Wild Robot',
+        'Ledeno Doba': 'Ice Age',
+        'Kako Izdresirati Zmaja': 'How to Train Your Dragon',
+        'Malci': 'Minions',
+        'Sing': 'Sing',
+        'Zveropolis': 'Zootopia',
+        'Tajna Ljubimaca': 'The Secret Life of Pets',
+        'Moana': 'Moana',
+        'Coco': 'Coco',
+        'Kod Kuce': 'Home',
+        'Valijana': 'Moana',
+        'Frozen': 'Frozen',
+        'Snezno Kraljevstvo': 'Frozen',
+        'Cars': 'Cars',
+        'Auti': 'Cars',
+        'Shrek': 'Shrek',
+        'Srek': 'Shrek',
+        'Spider': 'Spider',
+        'Pauk': 'Spider',
+        'Batman': 'Batman',
+        'Superman': 'Superman',
+        'Betmen': 'Batman',
+        'Iron Man': 'Iron Man',
+        'Gvozdeni Covek': 'Iron Man'
+    };
+    
+    // Try direct translation first
+    for (const [serbian, english] of Object.entries(translations)) {
+        if (title.includes(serbian)) {
+            // Extract sequel number (e.g., "4" from "Kung Fu Panda 4")
+            const numberMatch = title.match(/\d+/);
+            return numberMatch ? `${english} ${numberMatch[0]}` : english;
+        }
+    }
+    
+    // If no translation found, try removing Serbian diacritics and common words
+    let cleaned = title
+        .replace(/č/gi, 'c')
+        .replace(/ć/gi, 'c')
+        .replace(/š/gi, 's')
+        .replace(/ž/gi, 'z')
+        .replace(/đ/gi, 'd')
+        .replace(/\([^)]*\)/g, '') // Remove parentheses
+        .replace(/\s+/g, ' ')
+        .trim();
+    
+    return cleaned;
+}
+
 // Fetch metadata from OMDb by IMDb ID or search by title
 async function fetchOMDb(imdbId, title = null, year = null) {
     const cacheKey = imdbId || `${title}:${year}`;
@@ -360,7 +420,7 @@ function generateManifest(config = null) {
 
   return {
     id: 'community.balkan.on.demand',
-    version: '5.4.0',
+    version: '5.5.0',
     name: 'Balkan On Demand',
     description: 'Movies & Series from Serbia, Croatia & Bosnia',
     
@@ -668,9 +728,15 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
         omdb = await fetchOMDb(null, item.name, item.year);
       }
     }
-    // TIER 2: Items without years - try OMDb search by title only
+    // TIER 2: Items without years - try OMDb with normalized title
     else {
-      omdb = await fetchOMDb(null, item.name, null);
+      const normalizedTitle = normalizeTitle(item.name);
+      omdb = await fetchOMDb(null, normalizedTitle, null);
+      
+      // If normalized title didn't work, try original title
+      if (!omdb || !omdb.plot) {
+        omdb = await fetchOMDb(null, item.name, null);
+      }
     }
     // TIER 3: If all enrichment fails - use local database only
   }
@@ -851,7 +917,7 @@ app.use((req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`\n🚀 Balkan On Demand v5.4.0 running on http://localhost:${PORT}\n`);
+  console.log(`\n🚀 Balkan On Demand v5.5.0 running on http://localhost:${PORT}\n`);
   console.log(`📊 Content Stats:`);
   console.log(`   • Movies: ${movieCategories.movies.length}`);
   console.log(`   • Foreign Movies: ${movieCategories.foreign.length}`);
@@ -859,8 +925,9 @@ app.listen(PORT, () => {
   console.log(`   • Series: ${allSeriesItems.length}`);
   console.log(`\n✅ Ready to serve streams with multi-tier metadata enrichment!`);
   console.log(`   📋 Tier 1: Cinemeta (items with year match) - IMDb verified`);
-  console.log(`   📋 Tier 2: OMDb API (fallback) - title/year search`);
+  console.log(`   📋 Tier 2: OMDb API (fallback) - title/year search + Serbian→English translation`);
   console.log(`   📋 Tier 3: Local database only (prevents wrong matches)`);
+  console.log(`   🌍 Serbian title normalization enabled for better matching`);
   console.log(`🎛️  Custom catalog configuration supported!`);
   console.log(`\n📖 Usage:`);
   console.log(`   Default (all catalogs): http://localhost:${PORT}/manifest.json`);
