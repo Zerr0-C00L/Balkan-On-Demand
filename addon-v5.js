@@ -32,6 +32,9 @@ const OMDB_URL = 'https://www.omdbapi.com';
 const OMDB_API_KEY = 'trilogy'; // Free public API key
 const omdbCache = new Map();
 
+// TMDB API integration for enhanced metadata (when API key is provided)
+const tmdbCache = new Map();
+
 // MetaHub integration for fallback metadata (no API key required)
 const METAHUB_URL = 'https://images.metahub.space';
 const metahubCache = new Map();
@@ -646,7 +649,17 @@ function defineHandlers(builder, config = null) {
     // If someone clicks a movie from Cinemeta (tt12345), we return empty - that's expected!
     if (id.startsWith('tt')) {
       console.log(`ℹ️  IMDb ID ${id} - not in our database (this is normal, browse from addon catalogs instead)`);
-      return Promise.resolve({ streams: [] });
+      // Return empty streams with a helpful message for the user
+      return Promise.resolve({ 
+        streams: [{
+          name: '⚠️ No streams available',
+          title: '⚠️ No direct streams for this item\n\n💡 Tip: Browse from "Filmovi", "Serije", or other Balkan On Demand catalogs to get direct streams.\n\nThis item is from IMDb/Cinemeta, not from our database.',
+          url: '',
+          behaviorHints: {
+            notWebReady: true
+          }
+        }]
+      });
     }
     
     // Handle series episode streams
