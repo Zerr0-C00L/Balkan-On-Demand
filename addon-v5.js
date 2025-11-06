@@ -552,22 +552,35 @@ builder.defineCatalogHandler(async ({ type, id, extra }) => {
     );
   }
   
-  // Apply pagination
-  items = items.slice(skip, skip + limit);
+  // If genre filter is specified, we need to enrich first, then filter, then paginate
+  // Otherwise we can paginate first for better performance
+  let metas;
   
-  // Enrich metadata with Cinemeta in parallel (for catalog view)
-  const metasPromises = items.map(item => 
-    toStremioMeta(item, id === 'balkan_series' ? 'series' : 'movie', true)
-  );
-  
-  let metas = await Promise.all(metasPromises);
-  
-  // Apply genre filter AFTER enrichment (since genres come from Cinemeta)
   if (genre) {
+    // Enrich ALL items first (needed to get genres from Cinemeta)
+    const metasPromises = items.map(item => 
+      toStremioMeta(item, id === 'balkan_series' ? 'series' : 'movie', true)
+    );
+    
+    metas = await Promise.all(metasPromises);
+    
+    // Apply genre filter AFTER enrichment (since genres come from Cinemeta)
     metas = metas.filter(meta => {
       if (!meta.genres || !Array.isArray(meta.genres)) return false;
       return meta.genres.some(g => g.toLowerCase() === genre.toLowerCase());
     });
+    
+    // Apply pagination AFTER filtering
+    metas = metas.slice(skip, skip + limit);
+  } else {
+    // No genre filter: paginate first, then enrich (better performance)
+    items = items.slice(skip, skip + limit);
+    
+    const metasPromises = items.map(item => 
+      toStremioMeta(item, id === 'balkan_series' ? 'series' : 'movie', true)
+    );
+    
+    metas = await Promise.all(metasPromises);
   }
   
   return { metas };
