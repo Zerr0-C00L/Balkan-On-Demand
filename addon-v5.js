@@ -808,6 +808,18 @@ const app = express();
 // Serve React configure app from dist directory
 app.use('/configure', express.static('dist'));
 
+// API endpoint to get content stats
+app.get('/api/stats', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Content-Type', 'application/json');
+  res.json({
+    movies: movieCategories.movies.length,
+    foreign: movieCategories.foreign.length,
+    kids: movieCategories.kids.length,
+    series: allSeriesItems.length
+  });
+});
+
 // Redirect root to configure
 app.get('/', (req, res) => {
   res.redirect('/configure');

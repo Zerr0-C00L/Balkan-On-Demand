@@ -1,20 +1,4 @@
-import { useState } from 'react'
-import { compressToEncodedURIComponent } from 'lz-string'
-
-// Ko-fi Button Component
-const KoFiButton = ({ username }) => {
-  return (
-    <a
-      href={`https://ko-fi.com/${username}`}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center gap-2 bg-[#FF5E5B] hover:bg-[#ff4845] text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200 hover:scale-105 whitespace-nowrap shadow-lg"
-    >
-      <span>☕</span>
-      <span>Support</span>
-    </a>
-  )
-}
+import { useState, useEffect } from 'react'
 
 const catalogs = [
   {
@@ -43,11 +27,198 @@ const catalogs = [
   }
 ]
 
-function App() {
-  const [selectedCatalogs, setSelectedCatalogs] = useState(
-    catalogs.map(cat => cat.id)
+// Sidebar Component
+function Sidebar({ currentPage, setCurrentPage, isMobileOpen, setIsMobileOpen }) {
+  const menuItems = [
+    { id: 'home', label: 'Home', icon: '🏠' },
+    { id: 'catalogs', label: 'Catalogs', icon: '📚' },
+  ]
+
+  return (
+    <>
+      {/* Mobile Overlay */}
+      {isMobileOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-30 md:hidden"
+          onClick={() => setIsMobileOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <div
+        className={`fixed inset-y-0 left-0 z-40 w-64 bg-[#0d253f] transform transition-transform duration-200 ease-in-out ${
+          isMobileOpen ? 'translate-x-0' : '-translate-x-full'
+        } md:translate-x-0`}
+      >
+        <div className="flex flex-col h-full py-6">
+          {/* Logo */}
+          <div className="px-6 mb-10">
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">🎬</span>
+              <h1 className="text-xl font-bold text-white">Balkan On Demand</h1>
+            </div>
+            <p className="text-gray-400 text-sm mt-1">v5.2.0</p>
+          </div>
+
+          {/* Navigation */}
+          <nav className="flex-1 px-3">
+            <ul className="space-y-2">
+              {menuItems.map((item) => (
+                <li key={item.id}>
+                  <button
+                    onClick={() => {
+                      setCurrentPage(item.id)
+                      setIsMobileOpen(false)
+                    }}
+                    className={`flex items-center w-full px-4 py-3 rounded-lg transition-colors ${
+                      currentPage === item.id
+                        ? 'bg-white/10 text-white'
+                        : 'text-gray-400 hover:bg-white/5 hover:text-white'
+                    }`}
+                  >
+                    <span className="mr-3 text-xl">{item.icon}</span>
+                    {item.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Ko-fi Button */}
+          <div className="px-6 mt-6">
+            <a
+              href="https://ko-fi.com/ZeroQ"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full inline-flex items-center justify-center gap-2 bg-[#FF5E5B] hover:bg-[#ff4845] text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 hover:scale-105 shadow-lg"
+            >
+              <span>☕</span>
+              <span>Support me</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </>
   )
+}
+
+// Home Page
+function HomePage() {
+  const [stats, setStats] = useState({
+    movies: 1364,
+    foreign: 1076,
+    kids: 374,
+    series: 37
+  })
+
+  // Fetch real-time stats from server
+  useEffect(() => {
+    fetch('/api/stats')
+      .then(res => res.json())
+      .then(data => setStats(data))
+      .catch(err => console.error('Failed to load stats:', err))
+  }, [])
+
+  return (
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-900">
+      {/* Background */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: 'url(https://images.metahub.space/background/medium/tt0816692/img)',
+          filter: 'brightness(0.3)'
+        }}
+      />
+      
+      {/* Content */}
+      <div className="relative z-10 text-center px-4">
+        <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
+          Balkan On Demand
+        </h1>
+        <p className="text-xl md:text-2xl text-gray-300 mb-8">
+          Explore a vast catalog of movies and TV shows from Serbia, Croatia & Bosnia.
+        </p>
+        <p className="text-lg text-gray-400 mb-12">
+          Version 5.2.0
+        </p>
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-12">
+          <div className="bg-white/10 backdrop-blur-md rounded-lg p-6">
+            <div className="text-3xl font-bold text-[#00d4ff] mb-2">{stats.movies.toLocaleString()}</div>
+            <div className="text-sm text-gray-300">Ex-YU Movies</div>
+          </div>
+          <div className="bg-white/10 backdrop-blur-md rounded-lg p-6">
+            <div className="text-3xl font-bold text-[#00d4ff] mb-2">{stats.foreign.toLocaleString()}</div>
+            <div className="text-sm text-gray-300">Foreign Movies</div>
+          </div>
+          <div className="bg-white/10 backdrop-blur-md rounded-lg p-6">
+            <div className="text-3xl font-bold text-[#00d4ff] mb-2">{stats.kids.toLocaleString()}</div>
+            <div className="text-sm text-gray-300">Cartoons</div>
+          </div>
+          <div className="bg-white/10 backdrop-blur-md rounded-lg p-6">
+            <div className="text-3xl font-bold text-[#00d4ff] mb-2">{stats.series.toLocaleString()}</div>
+            <div className="text-sm text-gray-300">Series</div>
+          </div>
+        </div>
+
+        {/* Feature Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+          <div className="bg-white/10 backdrop-blur-md rounded-lg p-6 text-left">
+            <h3 className="text-xl font-semibold text-white mb-2">Movies</h3>
+            <p className="text-gray-300">
+              Access detailed information about thousands of movies from the Balkans and beyond.
+            </p>
+          </div>
+          <div className="bg-white/10 backdrop-blur-md rounded-lg p-6 text-left">
+            <h3 className="text-xl font-semibold text-white mb-2">TV Shows</h3>
+            <p className="text-gray-300">
+              Explore TV series, seasons, episodes, and stay up to date with your favorite shows.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// Catalogs Page
+function CatalogsPage({ selectedCatalogs, setSelectedCatalogs }) {
   const [installedUrl, setInstalledUrl] = useState('')
+  const [stats, setStats] = useState({
+    movies: 1364,
+    foreign: 1076,
+    kids: 374,
+    series: 37
+  })
+
+  // Fetch real-time stats from server
+  useEffect(() => {
+    fetch('/api/stats')
+      .then(res => res.json())
+      .then(data => setStats(data))
+      .catch(err => console.error('Failed to load stats:', err))
+  }, [])
+
+  // Update catalog descriptions with real stats
+  const catalogsWithStats = catalogs.map(cat => {
+    let description = cat.description
+    switch(cat.id) {
+      case 'balkan_movies':
+        description = `${stats.movies.toLocaleString()} Ex-YU movies`
+        break
+      case 'balkan_foreign_movies':
+        description = `${stats.foreign.toLocaleString()} International films`
+        break
+      case 'balkan_kids':
+        description = `${stats.kids.toLocaleString()} Animated films`
+        break
+      case 'balkan_series':
+        description = `${stats.series.toLocaleString()} TV series`
+        break
+    }
+    return { ...cat, description }
+  })
 
   const toggleCatalog = (catalogId) => {
     setSelectedCatalogs(prev => 
@@ -67,11 +238,9 @@ function App() {
     }
 
     if (selectedCatalogs.length === catalogs.length) {
-      // All catalogs selected - use simple format
       return `${baseUrl}/home=${catalogs.map(c => c.id).join(',')}/manifest.json`
     }
 
-    // Custom selection
     const config = `home=${selectedCatalogs.join(',')}`
     return `${baseUrl}/${config}/manifest.json`
   }
@@ -83,81 +252,31 @@ function App() {
     window.location.href = stremioUrl
   }
 
+  const movieCatalogs = catalogsWithStats.filter(c => c.type === 'movie')
+  const seriesCatalogs = catalogsWithStats.filter(c => c.type === 'series')
+
   return (
-    <div className="min-h-screen text-white p-4 md:p-8">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-primary mb-3">
-            🎬 Balkan On Demand
-          </h1>
-          <p className="text-xl text-gray-300 mb-2">v5.2.0</p>
-          <p className="text-gray-400">
-            Movies & Series from Serbia, Croatia & Bosnia
-          </p>
+    <div className="p-6 md:p-12 bg-gray-50 min-h-screen">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold mb-2 text-gray-800">Catalogs</h1>
+        <p className="text-gray-600">Select which catalogs to show on your Stremio home screen</p>
+      </div>
+
+      {/* Info Box */}
+      <div className="bg-blue-50 border-l-4 border-[#00d4ff] rounded-lg p-4 mb-8">
+        <h4 className="font-semibold text-gray-800 mb-2">🏠 Home vs Discover</h4>
+        <div className="text-sm text-gray-700">
+          <p><strong>Selected (✓):</strong> Catalog appears on your Stremio home screen with browsable content</p>
+          <p><strong>Unselected:</strong> Catalog only available through search (Discover section)</p>
         </div>
+      </div>
 
-        {/* Stats */}
-        <div className="bg-secondary/50 backdrop-blur-sm rounded-xl p-6 mb-8 text-center">
-          <h3 className="text-lg font-semibold mb-3 text-primary">📊 Content Library</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div>
-              <div className="text-2xl font-bold text-primary">1,364</div>
-              <div className="text-sm text-gray-400">Ex-YU Movies</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-primary">1,076</div>
-              <div className="text-sm text-gray-400">Foreign Movies</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-primary">374</div>
-              <div className="text-sm text-gray-400">Cartoons</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-primary">37</div>
-              <div className="text-sm text-gray-400">Series</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Ko-fi Support Banner */}
-        <a 
-          href="https://ko-fi.com/ZeroQ" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="block mb-8 rounded-xl overflow-hidden hover:scale-[1.02] transition-transform duration-200 shadow-2xl"
-        >
-          <img 
-            src="/kofi-banner.jpg" 
-            alt="Support ZeroQ on Ko-fi" 
-            className="w-full h-auto"
-          />
-        </a>
-
-        {/* Main Configuration */}
-        <div className="bg-secondary/50 backdrop-blur-sm rounded-xl p-6 md:p-8 mb-6">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-            <div>
-              <h2 className="text-2xl font-bold text-primary mb-2">Configure Catalogs</h2>
-              <p className="text-gray-400 text-sm">
-                Select which catalogs to show on your Stremio home screen
-              </p>
-            </div>
-            <KoFiButton username="ZeroQ" />
-          </div>
-
-          {/* Info Box */}
-          <div className="bg-background/50 border-l-4 border-primary rounded-lg p-4 mb-6">
-            <h4 className="font-semibold text-primary mb-2">🏠 What's the difference?</h4>
-            <div className="text-sm text-gray-300 space-y-1">
-              <p><strong>Selected (✓):</strong> Catalog appears on your Stremio home screen with browsable content</p>
-              <p><strong>Unselected:</strong> Catalog only available through search (Discover section)</p>
-            </div>
-          </div>
-
-          {/* Catalog List */}
-          <div className="space-y-3 mb-6">
-            {catalogs.map((catalog) => {
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Movies Column */}
+        <div>
+          <h2 className="text-xl font-semibold mb-4 text-gray-800">Movies</h2>
+          <div className="space-y-3">
+            {movieCatalogs.map((catalog) => {
               const isSelected = selectedCatalogs.includes(catalog.id)
               
               return (
@@ -165,99 +284,151 @@ function App() {
                   key={catalog.id}
                   onClick={() => toggleCatalog(catalog.id)}
                   className={`
-                    flex items-center justify-between p-4 rounded-lg cursor-pointer
-                    transition-all duration-200 hover:scale-[1.02]
+                    p-4 rounded-lg cursor-pointer transition-all duration-200 border-2
                     ${isSelected 
-                      ? 'bg-primary/20 border-2 border-primary' 
-                      : 'bg-background/50 border-2 border-gray-600 hover:border-gray-500'
+                      ? 'bg-[#00d4ff]/10 border-[#00d4ff] shadow-md' 
+                      : 'bg-white border-gray-200 hover:border-gray-300 hover:shadow'
                     }
                   `}
                 >
-                  <div className="flex items-center gap-4">
-                    <div className={`
-                      w-6 h-6 rounded border-2 flex items-center justify-center
-                      ${isSelected ? 'bg-primary border-primary' : 'border-gray-500'}
-                    `}>
-                      {isSelected && (
-                        <svg className="w-4 h-4 text-background" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                        </svg>
-                      )}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className={`
+                        w-6 h-6 rounded border-2 flex items-center justify-center
+                        ${isSelected ? 'bg-[#00d4ff] border-[#00d4ff]' : 'border-gray-400'}
+                      `}>
+                        {isSelected && (
+                          <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                          </svg>
+                        )}
+                      </div>
+                      <div>
+                        <div className="font-semibold text-gray-800">{catalog.name}</div>
+                        <div className="text-sm text-gray-600">{catalog.description}</div>
+                      </div>
                     </div>
-                    <div>
-                      <div className="text-lg font-semibold">{catalog.name}</div>
-                      <div className="text-sm text-gray-400">{catalog.description}</div>
-                    </div>
-                  </div>
-                  <div className="text-gray-400">
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
                   </div>
                 </div>
               )
             })}
           </div>
+        </div>
 
-          {/* Install Button */}
-          <button
-            onClick={handleInstall}
-            className="w-full bg-primary hover:bg-primary/90 text-background font-bold py-4 px-6 rounded-lg text-lg transition-all duration-200 hover:scale-[1.02] shadow-lg"
-          >
-            📥 Install Addon
-          </button>
-
-          {/* Manifest URL */}
-          {installedUrl && (
-            <div className="mt-4 p-4 bg-background/50 rounded-lg">
-              <p className="text-xs text-gray-400 mb-2">Manifest URL:</p>
-              <p className="text-sm font-mono text-primary break-all">{installedUrl}</p>
-            </div>
-          )}
-
-          {/* Note */}
-          <div className="mt-6 text-center text-sm text-gray-400">
-            <p>
-              💡 All catalogs are always searchable in Discover.<br />
-              This only controls what appears on your home screen.
-            </p>
+        {/* Series Column */}
+        <div>
+          <h2 className="text-xl font-semibold mb-4 text-gray-800">TV Shows</h2>
+          <div className="space-y-3">
+            {seriesCatalogs.map((catalog) => {
+              const isSelected = selectedCatalogs.includes(catalog.id)
+              
+              return (
+                <div
+                  key={catalog.id}
+                  onClick={() => toggleCatalog(catalog.id)}
+                  className={`
+                    p-4 rounded-lg cursor-pointer transition-all duration-200 border-2
+                    ${isSelected 
+                      ? 'bg-[#00d4ff]/10 border-[#00d4ff] shadow-md' 
+                      : 'bg-white border-gray-200 hover:border-gray-300 hover:shadow'
+                    }
+                  `}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className={`
+                        w-6 h-6 rounded border-2 flex items-center justify-center
+                        ${isSelected ? 'bg-[#00d4ff] border-[#00d4ff]' : 'border-gray-400'}
+                      `}>
+                        {isSelected && (
+                          <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                          </svg>
+                        )}
+                      </div>
+                      <div>
+                        <div className="font-semibold text-gray-800">{catalog.name}</div>
+                        <div className="text-sm text-gray-600">{catalog.description}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
           </div>
         </div>
+      </div>
 
-        {/* Quick Install */}
-        <div className="bg-secondary/30 backdrop-blur-sm rounded-xl p-6 text-center">
-          <h3 className="text-lg font-semibold mb-3 text-primary">⚡ Quick Install</h3>
-          <p className="text-gray-400 mb-4 text-sm">
-            Want everything on your home screen?
+      {/* Install Button */}
+      <div className="mt-8 max-w-4xl mx-auto">
+        <button
+          onClick={handleInstall}
+          className="w-full bg-[#00d4ff] hover:bg-[#00b8e6] text-white font-bold py-4 px-6 rounded-lg text-lg transition-all duration-200 hover:scale-[1.02] shadow-lg"
+        >
+          📥 Install Addon
+        </button>
+
+        {installedUrl && (
+          <div className="mt-4 p-4 bg-white rounded-lg shadow">
+            <p className="text-xs text-gray-600 mb-2">Manifest URL:</p>
+            <p className="text-sm font-mono text-[#00d4ff] break-all">{installedUrl}</p>
+          </div>
+        )}
+
+        <div className="mt-4 text-center text-sm text-gray-600">
+          <p>
+            💡 All catalogs are always searchable in Discover.<br />
+            This only controls what appears on your home screen.
           </p>
-          <a
-            href={`stremio://${getManifestUrl().replace('http://', '').replace('https://', '')}`}
-            className="inline-block bg-accent hover:bg-accent/80 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 hover:scale-[1.02]"
-          >
-            📺 Install All Catalogs
-          </a>
         </div>
+      </div>
+    </div>
+  )
+}
 
-        {/* Footer */}
-        <div className="mt-8 text-center">
-          <div className="bg-secondary/30 backdrop-blur-sm rounded-xl p-6 mb-4">
-            <p className="text-gray-300 mb-4">
-              Made with ❤️ for the Balkan community
-            </p>
-            <a 
-              href="https://ko-fi.com/ZeroQ" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-[#FF5E5B] hover:bg-[#ff4845] text-white font-bold py-3 px-6 rounded-lg transition-all duration-200 hover:scale-105 shadow-lg"
+function App() {
+  const [currentPage, setCurrentPage] = useState('home')
+  const [isMobileOpen, setIsMobileOpen] = useState(false)
+  const [selectedCatalogs, setSelectedCatalogs] = useState(
+    catalogs.map(cat => cat.id)
+  )
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'home':
+        return <HomePage />
+      case 'catalogs':
+        return <CatalogsPage selectedCatalogs={selectedCatalogs} setSelectedCatalogs={setSelectedCatalogs} />
+      default:
+        return <HomePage />
+    }
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-100">
+      <Sidebar 
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        isMobileOpen={isMobileOpen}
+        setIsMobileOpen={setIsMobileOpen}
+      />
+      
+      <div className="md:pl-64 min-h-screen">
+        {/* Mobile Header */}
+        {currentPage !== 'home' && (
+          <header className="md:hidden bg-white p-4 shadow-sm sticky top-0 z-20">
+            <button
+              onClick={() => setIsMobileOpen(true)}
+              className="p-2 text-gray-700 hover:bg-gray-100 rounded-lg"
             >
-              <span className="text-2xl">☕</span>
-              <span>Support on Ko-fi</span>
-            </a>
-          </div>
-          <p className="text-sm text-gray-500">
-            v5.2.0 • Free & Open Source
-          </p>
-        </div>
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </header>
+        )}
+        
+        {renderPage()}
       </div>
     </div>
   )
