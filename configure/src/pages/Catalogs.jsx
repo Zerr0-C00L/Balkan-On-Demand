@@ -16,10 +16,7 @@ import {
 import { SortableCatalogCard } from '../components/SortableCatalogCard';
 
 export function Catalogs() {
-  const { catalogs, setCatalogs, tmdbApiKey, getManifestUrl } = useConfig();
-  const [installedUrl, setInstalledUrl] = useState('');
-  const [showDropdown, setShowDropdown] = useState(false);
-  const dropdownRef = useRef(null);
+  const { catalogs, setCatalogs } = useConfig();
 
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
@@ -35,23 +32,6 @@ export function Catalogs() {
   });
 
   const sensors = useSensors(mouseSensor, touchSensor);
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShowDropdown(false);
-      }
-    };
-
-    if (showDropdown) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [showDropdown]);
 
   const handleCatalogChange = (catalogId, type, enabled, showInHome) => {
     setCatalogs((prev) =>
@@ -79,40 +59,6 @@ export function Catalogs() {
       const reordered = arrayMove(typeCatalogs, oldIndex, newIndex);
       return [...reordered, ...otherCatalogs];
     });
-  };
-
-  const handleInstall = () => {
-    const manifestUrl = getManifestUrl();
-    const stremioUrl = manifestUrl.replace('http://', 'stremio://').replace('https://', 'stremio://');
-    setInstalledUrl(manifestUrl);
-    window.location.href = stremioUrl;
-    setShowDropdown(false);
-  };
-
-  const handleInstallWeb = () => {
-    const manifestUrl = getManifestUrl();
-    setInstalledUrl(manifestUrl);
-    window.open(manifestUrl, '_blank');
-    setShowDropdown(false);
-  };
-
-  const handleCopyUrl = async () => {
-    const manifestUrl = getManifestUrl();
-    setInstalledUrl(manifestUrl);
-    try {
-      await navigator.clipboard.writeText(manifestUrl);
-      alert('Manifest URL copied to clipboard!');
-    } catch (err) {
-      // Fallback for older browsers
-      const textArea = document.createElement('textarea');
-      textArea.value = manifestUrl;
-      document.body.appendChild(textArea);
-      textArea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textArea);
-      alert('Manifest URL copied to clipboard!');
-    }
-    setShowDropdown(false);
   };
 
   const movieCatalogs = catalogs.filter(c => c.type === 'movie');
@@ -210,73 +156,6 @@ export function Catalogs() {
               ))}
             </SortableContext>
           </DndContext>
-        </div>
-      </div>
-
-      {/* Install Button */}
-      <div className="mt-8 max-w-4xl mx-auto">
-        {tmdbApiKey && (
-          <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg flex items-center gap-2 text-sm">
-            <span className="text-green-600">✓</span>
-            <span className="text-green-800">TMDB API key configured - Enhanced metadata enabled</span>
-          </div>
-        )}
-        
-        <div className="relative" ref={dropdownRef}>
-          <div className="flex">
-            <button
-              onClick={handleInstall}
-              className="flex-1 bg-[#00d4ff] hover:bg-[#00b8e6] text-white font-bold py-4 px-6 rounded-l-lg text-lg transition-all duration-200 shadow-lg"
-            >
-              📥 Install
-            </button>
-            <button
-              onClick={() => setShowDropdown(!showDropdown)}
-              className="bg-[#00d4ff] hover:bg-[#00b8e6] text-white font-bold py-4 px-4 rounded-r-lg border-l border-white/20 transition-all duration-200 shadow-lg"
-            >
-              ▼
-            </button>
-          </div>
-
-          {showDropdown && (
-            <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden z-10">
-              <button
-                onClick={handleInstall}
-                className="w-full text-left px-6 py-3 hover:bg-gray-50 transition-colors text-gray-700 font-medium"
-              >
-                📥 Install
-              </button>
-              <button
-                onClick={handleInstallWeb}
-                className="w-full text-left px-6 py-3 hover:bg-gray-50 transition-colors text-gray-700 font-medium border-t border-gray-100"
-              >
-                🌐 Install Web
-              </button>
-              <button
-                onClick={handleCopyUrl}
-                className="w-full text-left px-6 py-3 hover:bg-gray-50 transition-colors text-gray-700 font-medium border-t border-gray-100"
-              >
-                📋 Copy URL
-              </button>
-            </div>
-          )}
-        </div>
-
-        {installedUrl && (
-          <div className="mt-4 p-4 bg-white rounded-lg shadow">
-            <p className="text-xs text-gray-600 mb-2">Manifest URL:</p>
-            <p className="text-sm font-mono text-[#00d4ff] break-all">{installedUrl}</p>
-            <p className="text-xs text-gray-500 mt-2">
-              This URL contains your compressed configuration. You can bookmark it or share it.
-            </p>
-          </div>
-        )}
-
-        <div className="mt-4 text-center text-sm text-gray-600">
-          <p>
-            💡 Your configuration is compressed and embedded in the install URL.<br />
-            All enabled catalogs are searchable; "Home" catalogs appear on your home screen.
-          </p>
         </div>
       </div>
     </div>
