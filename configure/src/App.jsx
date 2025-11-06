@@ -28,12 +28,47 @@ const catalogs = [
 ]
 
 // Sidebar Component
-function Sidebar({ currentPage, setCurrentPage, isMobileOpen, setIsMobileOpen }) {
+function Sidebar({ currentPage, setCurrentPage, isMobileOpen, setIsMobileOpen, selectedCatalogs, tmdbApiKey }) {
   const menuItems = [
     { id: 'home', label: 'Home', icon: '🏠' },
     { id: 'catalogs', label: 'Catalogs', icon: '📚' },
     { id: 'settings', label: 'Settings', icon: '⚙️' },
   ]
+
+  const getManifestUrl = () => {
+    const baseUrl = window.location.hostname === 'localhost'
+      ? 'http://localhost:7005'
+      : 'https://balkan-on-demand-828b9dd653f6.herokuapp.com'
+
+    const configParts = []
+    
+    // Add catalog selection - always include home parameter to indicate user configuration
+    if (selectedCatalogs.length === 0) {
+      // No catalogs selected for home - all will be Discover only
+      configParts.push(`home=none`)
+    } else if (selectedCatalogs.length > 0 && selectedCatalogs.length < 4) {
+      configParts.push(`home=${selectedCatalogs.join(',')}`)
+    } else if (selectedCatalogs.length === 4) {
+      configParts.push(`home=${['balkan_movies', 'balkan_foreign_movies', 'balkan_kids', 'balkan_series'].join(',')}`)
+    }
+    
+    // Add TMDB API key if set
+    if (tmdbApiKey && tmdbApiKey !== '') {
+      configParts.push(`tmdb=${encodeURIComponent(tmdbApiKey)}`)
+    }
+    
+    if (configParts.length === 0) {
+      return `${baseUrl}/manifest.json`
+    }
+    
+    return `${baseUrl}/${configParts.join('&')}/manifest.json`
+  }
+
+  const handleInstall = () => {
+    const manifestUrl = getManifestUrl()
+    const stremioUrl = manifestUrl.replace('http://', 'stremio://').replace('https://', 'stremio://')
+    window.location.href = stremioUrl
+  }
 
   return (
     <>
@@ -85,8 +120,19 @@ function Sidebar({ currentPage, setCurrentPage, isMobileOpen, setIsMobileOpen })
             </ul>
           </nav>
 
+          {/* Install Button */}
+          <div className="px-6 mt-auto mb-3">
+            <button
+              onClick={handleInstall}
+              className="w-full inline-flex items-center justify-center gap-2 bg-[#00d4ff] hover:bg-[#00b8e6] text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 hover:scale-105 shadow-lg"
+            >
+              <span>📥</span>
+              <span>Install Addon</span>
+            </button>
+          </div>
+
           {/* Ko-fi Button */}
-          <div className="px-6 mt-6">
+          <div className="px-6">
             <a
               href="https://ko-fi.com/ZeroQ"
               target="_blank"
@@ -598,6 +644,8 @@ function App() {
         setCurrentPage={setCurrentPage}
         isMobileOpen={isMobileOpen}
         setIsMobileOpen={setIsMobileOpen}
+        selectedCatalogs={selectedCatalogs}
+        tmdbApiKey={tmdbApiKey}
       />
       
       <div className="md:pl-64 min-h-screen">
