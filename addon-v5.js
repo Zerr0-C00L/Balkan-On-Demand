@@ -340,6 +340,26 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
     // Use Cinemeta data as primary source, fallback to local data only if Cinemeta fails
     const poster = cinemeta?.poster || fallbackPoster || 'https://via.placeholder.com/300x450/1a1a1a/ffffff?text=' + encodeURIComponent(item.name);
     
+    // Build videos array with Cinemeta episode metadata when available
+    const videos = item.seasons.flatMap(season =>
+      season.episodes.map(ep => {
+        // Try to find matching episode from Cinemeta
+        const cinemetaEpisode = cinemeta?.fullMeta?.videos?.find(v => 
+          v.season === season.number && v.episode === ep.episode
+        );
+        
+        return {
+          id: `${item.id}:${season.number}:${ep.episode}`,
+          title: sanitizeText(cinemetaEpisode?.title || ep.title || `Episode ${ep.episode}`),
+          season: season.number,
+          episode: ep.episode,
+          released: cinemetaEpisode?.released || new Date().toISOString(),
+          thumbnail: cinemetaEpisode?.thumbnail || ep.thumbnail || poster,
+          overview: cinemetaEpisode?.overview || null
+        };
+      })
+    );
+    
     return {
       id: item.id,
       type: 'series',
@@ -354,16 +374,7 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
       cast: cinemeta?.fullMeta?.cast || [],
       director: cinemeta?.fullMeta?.director || [],
       imdbRating: cinemeta?.fullMeta?.imdbRating || null,
-      videos: item.seasons.flatMap(season =>
-        season.episodes.map(ep => ({
-          id: `${item.id}:${season.number}:${ep.episode}`,
-          title: sanitizeText(ep.title || `Episode ${ep.episode}`),
-          season: season.number,
-          episode: ep.episode,
-          released: new Date().toISOString(),
-          thumbnail: ep.thumbnail || poster
-        }))
-      )
+      videos: videos
     };
   }
   
