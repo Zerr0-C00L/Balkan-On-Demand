@@ -1,4 +1,16 @@
-// Base TMDB catalogs - inspired by mrcanelas addon
+// TMDB dynamic catalogs - these will be available once TMDB integration is complete
+export const tmdbCatalogs = [
+  { id: "tmdb.top", name: "Popular", type: "movie" },
+  { id: "tmdb.top", name: "Popular", type: "series" },
+  { id: "tmdb.year", name: "Year", type: "movie" },
+  { id: "tmdb.year", name: "Year", type: "series" },
+  { id: "tmdb.language", name: "Language", type: "movie" },
+  { id: "tmdb.language", name: "Language", type: "series" },
+  { id: "tmdb.trending", name: "Trending", type: "movie" },
+  { id: "tmdb.trending", name: "Trending", type: "series" },
+];
+
+// Direct HD catalogs from your Bilosta collection
 export const baseCatalogs = [
   { id: "bilosta.movies", name: "Direct HD Movies", type: "movie" },
   { id: "bilosta.series", name: "Direct HD Series", type: "series" },

@@ -22,13 +22,21 @@ export function SortableCatalogCard({ catalog, config, onChange, uniqueId }) {
 
   // Determine icon based on catalog source
   const getIcon = () => {
-    if (catalog.id.startsWith('tmdb.bosnian')) return '🇧🇦';
-    if (catalog.id.startsWith('tmdb.croatian')) return '🇭🇷';
-    if (catalog.id.startsWith('tmdb.serbian')) return '🇷🇸';
-    if (catalog.id.startsWith('tmdb.')) return '🎬';
+    if (catalog.id.startsWith('tmdb.')) return '�';
     if (catalog.id.startsWith('bilosta.')) return '⭐';
+    if (catalog.id === 'balkan_movies' || catalog.id === 'balkan_series') return '��';
     return '📺';
   };
+  
+  // Determine source badge
+  const getSourceBadge = () => {
+    if (catalog.id.startsWith('tmdb.')) return { text: 'TMDB', color: 'bg-green-100 text-green-700' };
+    if (catalog.id.startsWith('bilosta.')) return { text: 'Direct HD', color: 'bg-yellow-100 text-yellow-700' };
+    if (catalog.id.startsWith('balkan_')) return { text: 'Balkan', color: 'bg-blue-100 text-blue-700' };
+    return null;
+  };
+  
+  const sourceBadge = getSourceBadge();
 
   return (
     <div ref={setNodeRef} style={style} className="mb-3">
@@ -67,6 +75,11 @@ export function SortableCatalogCard({ catalog, config, onChange, uniqueId }) {
                 }`}>
                   {catalog.type === 'movie' ? 'Movie' : 'Series'}
                 </span>
+                {sourceBadge && (
+                  <span className={`text-xs px-2 py-0.5 rounded font-medium ${sourceBadge.color}`}>
+                    {sourceBadge.text}
+                  </span>
+                )}
               </div>
               {catalog.description && (
                 <div className="text-sm text-gray-600">{catalog.description}</div>

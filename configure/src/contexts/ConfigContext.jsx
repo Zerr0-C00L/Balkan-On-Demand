@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from 'lz-string';
-import { baseCatalogs, balkanCatalogs } from '../data/catalogs';
+import { tmdbCatalogs, baseCatalogs, balkanCatalogs } from '../data/catalogs';
 
 const ConfigContext = createContext();
 
@@ -9,7 +9,7 @@ export function ConfigProvider({ children }) {
   const [language, setLanguage] = useState('en-US');
   
   // Catalog configuration - combine all catalogs
-  const allCatalogs = [...baseCatalogs, ...balkanCatalogs];
+  const allCatalogs = [...tmdbCatalogs, ...baseCatalogs, ...balkanCatalogs];
   const [catalogs, setCatalogs] = useState(
     allCatalogs.map(cat => ({
       ...cat,
