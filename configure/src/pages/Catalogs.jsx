@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useConfig } from '../contexts/ConfigContext';
 import { 
   DndContext,
@@ -18,6 +18,8 @@ import { SortableCatalogCard } from '../components/SortableCatalogCard';
 export function Catalogs() {
   const { catalogs, setCatalogs, tmdbApiKey, getManifestUrl } = useConfig();
   const [installedUrl, setInstalledUrl] = useState('');
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef(null);
 
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
@@ -33,6 +35,23 @@ export function Catalogs() {
   });
 
   const sensors = useSensors(mouseSensor, touchSensor);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    if (showDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showDropdown]);
 
   const handleCatalogChange = (catalogId, type, enabled, showInHome) => {
     setCatalogs((prev) =>
@@ -67,6 +86,33 @@ export function Catalogs() {
     const stremioUrl = manifestUrl.replace('http://', 'stremio://').replace('https://', 'stremio://');
     setInstalledUrl(manifestUrl);
     window.location.href = stremioUrl;
+    setShowDropdown(false);
+  };
+
+  const handleInstallWeb = () => {
+    const manifestUrl = getManifestUrl();
+    setInstalledUrl(manifestUrl);
+    window.open(manifestUrl, '_blank');
+    setShowDropdown(false);
+  };
+
+  const handleCopyUrl = async () => {
+    const manifestUrl = getManifestUrl();
+    setInstalledUrl(manifestUrl);
+    try {
+      await navigator.clipboard.writeText(manifestUrl);
+      alert('Manifest URL copied to clipboard!');
+    } catch (err) {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = manifestUrl;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      alert('Manifest URL copied to clipboard!');
+    }
+    setShowDropdown(false);
   };
 
   const movieCatalogs = catalogs.filter(c => c.type === 'movie');
@@ -176,12 +222,45 @@ export function Catalogs() {
           </div>
         )}
         
-        <button
-          onClick={handleInstall}
-          className="w-full bg-[#00d4ff] hover:bg-[#00b8e6] text-white font-bold py-4 px-6 rounded-lg text-lg transition-all duration-200 hover:scale-[1.02] shadow-lg"
-        >
-          📥 Install Addon with Current Configuration
-        </button>
+        <div className="relative" ref={dropdownRef}>
+          <div className="flex">
+            <button
+              onClick={handleInstall}
+              className="flex-1 bg-[#00d4ff] hover:bg-[#00b8e6] text-white font-bold py-4 px-6 rounded-l-lg text-lg transition-all duration-200 shadow-lg"
+            >
+              📥 Install
+            </button>
+            <button
+              onClick={() => setShowDropdown(!showDropdown)}
+              className="bg-[#00d4ff] hover:bg-[#00b8e6] text-white font-bold py-4 px-4 rounded-r-lg border-l border-white/20 transition-all duration-200 shadow-lg"
+            >
+              ▼
+            </button>
+          </div>
+
+          {showDropdown && (
+            <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden z-10">
+              <button
+                onClick={handleInstall}
+                className="w-full text-left px-6 py-3 hover:bg-gray-50 transition-colors text-gray-700 font-medium"
+              >
+                📥 Install
+              </button>
+              <button
+                onClick={handleInstallWeb}
+                className="w-full text-left px-6 py-3 hover:bg-gray-50 transition-colors text-gray-700 font-medium border-t border-gray-100"
+              >
+                🌐 Install Web
+              </button>
+              <button
+                onClick={handleCopyUrl}
+                className="w-full text-left px-6 py-3 hover:bg-gray-50 transition-colors text-gray-700 font-medium border-t border-gray-100"
+              >
+                📋 Copy URL
+              </button>
+            </div>
+          )}
+        </div>
 
         {installedUrl && (
           <div className="mt-4 p-4 bg-white rounded-lg shadow">
