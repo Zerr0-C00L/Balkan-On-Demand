@@ -157,7 +157,8 @@ const allCatalogs = [
       },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
-    ]
+    ],
+    extraRequired: ['genre']  // Hide from Home, only show in Discover
   },
   {
     id: 'balkan_foreign_movies',
@@ -172,7 +173,8 @@ const allCatalogs = [
       },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
-    ]
+    ],
+    extraRequired: ['genre']  // Hide from Home, only show in Discover
   },
   {
     id: 'balkan_kids',
@@ -187,7 +189,8 @@ const allCatalogs = [
       },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
-    ]
+    ],
+    extraRequired: ['genre']  // Hide from Home, only show in Discover
   },
   {
     id: 'balkan_series',
@@ -202,7 +205,8 @@ const allCatalogs = [
       },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
-    ]
+    ],
+    extraRequired: ['genre']  // Hide from Home, only show in Discover
   }
 ];
 
@@ -226,12 +230,13 @@ function generateManifest(config = null) {
       
       // Build the extra array and extraSupported based on home/discover settings
       const filteredExtra = [];
-      const extraRequired = [];
       
       // Add 'skip' for home catalogs (enables pagination in Home section)
       if (inHome) {
         extraSupported.push('skip');
         filteredExtra.push({ name: 'skip', isRequired: false });
+        // Remove extraRequired when catalog is in home (make it visible)
+        delete catalogCopy.extraRequired;
       }
       
       // Add 'search' and 'genre' for discover
@@ -254,15 +259,17 @@ function generateManifest(config = null) {
       
       catalogCopy.extra = filteredExtra;
       catalogCopy.extraSupported = [...new Set(extraSupported)]; // Remove duplicates
-      // Note: Never set extraRequired - we want genres optional
       
       return catalogCopy;
     }).filter(Boolean);
   } else {
-    // Default: NO catalogs in manifest (requires user configuration)
-    // This prevents any catalogs from appearing until user selects them
-    // Users must use configuration URL format: /home=catalog1&discover=catalog2/manifest.json
-    catalogs = [];
+    // Default: Show all catalogs but hide from Home (Discover only)
+    // Catalogs have extraRequired: ['genre'] which hides them from Home
+    // They appear in Discover section where users can browse by genre
+    catalogs = allCatalogs.map(cat => ({
+      ...cat,
+      extraSupported: ['genre', 'search', 'skip']
+    }));
   }
 
   return {
