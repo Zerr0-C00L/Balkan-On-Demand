@@ -91,10 +91,10 @@ export function Catalogs() {
             <strong>Home:</strong> Shows the catalog on your Stremio home screen for quick browsing.
           </p>
           <p>
-            <strong>TMDB Catalogs:</strong> Dynamic content from TMDB API - Popular, Year, Language, Trending, plus regional Balkan catalogs.
+            <strong>✅ Working Now:</strong> Direct HD catalogs (3,848 movies, 37 series) and Balkan regional catalogs work immediately.
           </p>
           <p>
-            <strong>Direct Catalogs:</strong> Our curated 3,800+ movies/series with instant HD streams from Bilosta CDN.
+            <strong>🚧 Coming Soon:</strong> TMDB catalogs (Popular, Year, Language, Trending) require TMDB API integration - currently in development.
           </p>
           <p className="text-xs text-gray-600 mt-2">
             💡 Drag catalogs to reorder them - your preferred order will appear in Stremio

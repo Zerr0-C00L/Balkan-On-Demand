@@ -452,7 +452,7 @@ function generateManifest(config = null) {
     version: '6.0.0',
     name: 'Balkan On Demand',
     description: catalogs.length > 0
-      ? 'Direct HD streams + Balkan catalogs for movies & series'
+      ? `Direct HD streams + Balkan catalogs for movies & series. ${catalogs.length} catalog(s) active. (TMDB catalogs coming soon!)`
       : 'Direct HD streams for Balkan movies & series. Use with TMDB/Cinemeta for browsing.',
     
     resources: [
