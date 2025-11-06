@@ -230,129 +230,47 @@ function HomePage() {
 }
 
 // Settings Page
-function SettingsPage({ tmdbApiKey, setTmdbApiKey, mdblistApiKey, setMdblistApiKey }) {
-  const [localTmdbKey, setLocalTmdbKey] = useState(tmdbApiKey)
-  const [localMdblistKey, setLocalMdblistKey] = useState(mdblistApiKey)
+function SettingsPage({ tmdbApiKey, setTmdbApiKey }) {
+  const [localKey, setLocalKey] = useState(tmdbApiKey)
   const [tmdbSaved, setTmdbSaved] = useState(false)
-  const [mdblistSaved, setMdblistSaved] = useState(false)
   const [tmdbTestResult, setTmdbTestResult] = useState(null)
-  const [mdblistTestResult, setMdblistTestResult] = useState(null)
-  const [syncStatus, setSyncStatus] = useState(null)
 
-  const handleTmdbSave = () => {
-    setTmdbApiKey(localTmdbKey)
-    localStorage.setItem('tmdb_api_key', localTmdbKey)
+  const handleSave = () => {
+    setTmdbApiKey(localKey)
     setTmdbSaved(true)
-    setTimeout(() => setTmdbSaved(false), 3000)
+    setTimeout(() => setTmdbSaved(false), 2000)
   }
 
-  const handleMdblistSave = () => {
-    setMdblistApiKey(localMdblistKey)
-    localStorage.setItem('mdblist_api_key', localMdblistKey)
-    setMdblistSaved(true)
-    setTimeout(() => setMdblistSaved(false), 3000)
-  }
-
-  const handleTmdbTest = async () => {
-    if (!localTmdbKey || localTmdbKey === 'YOUR_TMDB_API_KEY_HERE') {
-      setTmdbTestResult({ success: false, message: 'Please enter a valid API key' })
+  const handleTest = async () => {
+    if (!localKey) {
+      setTmdbTestResult({ 
+        success: false, 
+        message: '❌ Please enter an API key first' 
+      })
       return
     }
 
-    setTmdbTestResult({ success: null, message: 'Testing...' })
-    
+    setTmdbTestResult({ 
+      success: null, 
+      message: '🔄 Testing...' 
+    })
+
     try {
-      const response = await fetch(`https://api.themoviedb.org/3/configuration?api_key=${localTmdbKey}`)
-      const data = await response.json()
+      const response = await fetch(`https://api.themoviedb.org/3/configuration?api_key=${localKey}`)
       
       if (response.ok) {
         setTmdbTestResult({ 
           success: true, 
-          message: '✅ API key is valid! Your TMDB integration is working.' 
+          message: '✅ API key is valid!' 
         })
       } else {
         setTmdbTestResult({ 
           success: false, 
-          message: `❌ ${data.status_message || 'Invalid API key'}` 
+          message: '❌ Invalid API key' 
         })
       }
     } catch (error) {
       setTmdbTestResult({ 
-        success: false, 
-        message: `❌ Error: ${error.message}` 
-      })
-    }
-  }
-
-  const handleMdblistTest = async () => {
-    if (!localMdblistKey) {
-      setMdblistTestResult({ success: false, message: 'Please enter a valid API key' })
-      return
-    }
-
-    setMdblistTestResult({ success: null, message: 'Testing...' })
-    
-    try {
-      // Test endpoint - get user info
-      const response = await fetch(`https://mdblist.com/api/user?apikey=${localMdblistKey}`)
-      
-      if (response.ok) {
-        const data = await response.json()
-        setMdblistTestResult({ 
-          success: true, 
-          message: `✅ Connected! User: ${data.name || data.user || 'Valid'}` 
-        })
-      } else {
-        const errorText = await response.text()
-        setMdblistTestResult({ 
-          success: false, 
-          message: `❌ Invalid API key (${response.status})` 
-        })
-      }
-    } catch (error) {
-      setMdblistTestResult({ 
-        success: false, 
-        message: `❌ Error: ${error.message}` 
-      })
-    }
-  }
-
-  const handleSyncToMdblist = async () => {
-    if (!localMdblistKey) {
-      setSyncStatus({ success: false, message: 'Please save your MDBList API key first' })
-      return
-    }
-
-    setSyncStatus({ success: null, message: 'Syncing content to MDBList... This may take a minute.' })
-    
-    try {
-      const baseUrl = window.location.hostname === 'localhost'
-        ? 'http://localhost:7005'
-        : 'https://balkan-on-demand-828b9dd653f6.herokuapp.com'
-      
-      const response = await fetch(`${baseUrl}/api/sync-mdblist`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ apiKey: localMdblistKey })
-      })
-      
-      const data = await response.json()
-      
-      if (response.ok) {
-        setSyncStatus({ 
-          success: true, 
-          message: `✅ Synced! ${data.added || 0} items added to MDBList. List ID: ${data.listId}` 
-        })
-      } else {
-        setSyncStatus({ 
-          success: false, 
-          message: `❌ ${data.error || 'Sync failed'}` 
-        })
-      }
-    } catch (error) {
-      setSyncStatus({ 
         success: false, 
         message: `❌ Error: ${error.message}` 
       })
@@ -381,8 +299,8 @@ function SettingsPage({ tmdbApiKey, setTmdbApiKey, mdblistApiKey, setMdblistApiK
                 </label>
                 <input
                   type="text"
-                  value={localTmdbKey}
-                  onChange={(e) => setLocalTmdbKey(e.target.value)}
+                  value={localKey}
+                  onChange={(e) => setLocalKey(e.target.value)}
                   placeholder="Enter your TMDB API key"
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#00d4ff] focus:border-transparent outline-none"
                 />
@@ -390,13 +308,13 @@ function SettingsPage({ tmdbApiKey, setTmdbApiKey, mdblistApiKey, setMdblistApiK
 
               <div className="flex gap-2">
                 <button
-                  onClick={handleTmdbSave}
+                  onClick={handleSave}
                   className="px-6 py-2 bg-[#00d4ff] hover:bg-[#00b8e6] text-white font-semibold rounded-lg transition-colors"
                 >
                   {tmdbSaved ? '✓ Saved!' : 'Save'}
                 </button>
                 <button
-                  onClick={handleTmdbTest}
+                  onClick={handleTest}
                   className="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold rounded-lg transition-colors"
                 >
                   Test Key
@@ -445,101 +363,13 @@ function SettingsPage({ tmdbApiKey, setTmdbApiKey, mdblistApiKey, setMdblistApiK
             <div className="bg-gray-50 rounded-lg p-4">
               <p className="text-sm text-gray-700 mb-2">Once you've saved your API key, run the metadata scraper:</p>
               <code className="block bg-gray-800 text-gray-100 p-3 rounded text-xs overflow-x-auto">
-                export TMDB_API_KEY="{localTmdbKey || 'your_key_here'}"<br/>
+                export TMDB_API_KEY="{localKey || 'your_key_here'}"<br/>
                 node scrape-tmdb-metadata.js
               </code>
               <p className="text-xs text-gray-600 mt-2">
                 The scraper will use the environment variable to authenticate with TMDB.
               </p>
             </div>
-          </div>
-        </div>
-
-        {/* MDBList API Key Section */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6 mt-6">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800">📋 MDBList Integration</h2>
-          
-          <div className="mb-4">
-            <p className="text-sm text-gray-600 mb-4">
-              Sync your Balkan content to MDBList to create a custom list that can be used in TMDB Addon or other addons.
-            </p>
-            
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  API Key
-                </label>
-                <input
-                  type="text"
-                  value={localMdblistKey}
-                  onChange={(e) => setLocalMdblistKey(e.target.value)}
-                  placeholder="Enter your MDBList API key"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#00d4ff] focus:border-transparent outline-none"
-                />
-              </div>
-
-              <div className="flex gap-2 flex-wrap">
-                <button
-                  onClick={handleMdblistSave}
-                  className="px-6 py-2 bg-[#00d4ff] hover:bg-[#00b8e6] text-white font-semibold rounded-lg transition-colors"
-                >
-                  {mdblistSaved ? '✓ Saved!' : 'Save'}
-                </button>
-                <button
-                  onClick={handleMdblistTest}
-                  className="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold rounded-lg transition-colors"
-                >
-                  Test Key
-                </button>
-                <button
-                  onClick={handleSyncToMdblist}
-                  className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition-colors"
-                >
-                  🔄 Sync to MDBList
-                </button>
-              </div>
-
-              {mdblistTestResult && (
-                <div className={`p-4 rounded-lg ${
-                  mdblistTestResult.success === null ? 'bg-blue-50 text-blue-800' :
-                  mdblistTestResult.success ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'
-                }`}>
-                  {mdblistTestResult.message}
-                </div>
-              )}
-
-              {syncStatus && (
-                <div className={`p-4 rounded-lg ${
-                  syncStatus.success === null ? 'bg-blue-50 text-blue-800' :
-                  syncStatus.success ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'
-                }`}>
-                  {syncStatus.message}
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Instructions */}
-          <div className="mt-6 pt-6 border-t border-gray-200">
-            <h3 className="font-semibold text-gray-800 mb-3">📖 How to get your MDBList API key:</h3>
-            <ol className="list-decimal list-inside space-y-2 text-sm text-gray-700">
-              <li>
-                Go to{' '}
-                <a 
-                  href="https://mdblist.com/preferences/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-[#00d4ff] hover:underline"
-                >
-                  mdblist.com/preferences
-                </a>
-                {' '}and sign in or create an account
-              </li>
-              <li>Scroll to "API Key" section</li>
-              <li>Copy your API key and paste it above</li>
-              <li>Click "Sync to MDBList" to create a list with all Balkan content</li>
-              <li>Use the list ID in TMDB Addon or other compatible addons</li>
-            </ol>
           </div>
         </div>
 
@@ -797,9 +627,6 @@ function App() {
   const [tmdbApiKey, setTmdbApiKey] = useState(
     localStorage.getItem('tmdb_api_key') || ''
   )
-  const [mdblistApiKey, setMdblistApiKey] = useState(
-    localStorage.getItem('mdblist_api_key') || ''
-  )
 
   const renderPage = () => {
     switch (currentPage) {
@@ -808,7 +635,7 @@ function App() {
       case 'catalogs':
         return <CatalogsPage selectedCatalogs={selectedCatalogs} setSelectedCatalogs={setSelectedCatalogs} tmdbApiKey={tmdbApiKey} />
       case 'settings':
-        return <SettingsPage tmdbApiKey={tmdbApiKey} setTmdbApiKey={setTmdbApiKey} mdblistApiKey={mdblistApiKey} setMdblistApiKey={setMdblistApiKey} />
+        return <SettingsPage tmdbApiKey={tmdbApiKey} setTmdbApiKey={setTmdbApiKey} />
       default:
         return <HomePage />
     }
