@@ -953,6 +953,27 @@ app.get('/api/stats', (req, res) => {
   });
 });
 
+// API endpoint to sync content to MDBList
+app.post('/api/sync-mdblist', async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Content-Type', 'application/json');
+  
+  const { apiKey } = req.body;
+  
+  if (!apiKey) {
+    return res.status(400).json({ error: 'API key is required' });
+  }
+  
+  try {
+    const { syncToMDBList } = require('./sync-mdblist');
+    const result = await syncToMDBList(apiKey);
+    res.json(result);
+  } catch (error) {
+    console.error('MDBList sync error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Redirect root to configure
 app.get('/', (req, res) => {
   res.redirect('/configure');
