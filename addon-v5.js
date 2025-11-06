@@ -565,7 +565,7 @@ function defineHandlers(builder) {
             
             streams.push({
               name: `Direct ${qualityLabel}`,
-              title: `⭐ Direct ${qualityLabel}\n${stream.source || 'Bilosta'} • Cloudflare CDN`,
+              title: `⭐ Direct ${qualityLabel}\n${stream.source || 'Balkan'} • Cloudflare CDN`,
               url: stream.url,
               behaviorHints: {
                 bingeGroup: 'balkan-' + movie.id
