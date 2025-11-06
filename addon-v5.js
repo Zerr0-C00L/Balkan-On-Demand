@@ -319,34 +319,9 @@ function categorizeMovies() {
 const movieCategories = categorizeMovies();
 console.log(`📊 Categories: Movies(${movieCategories.movies.length}), Foreign(${movieCategories.foreign.length}), Kids(${movieCategories.kids.length})`);
 
-// Helper: Merge series from all sources
-function getAllSeries() {
-  const allSeries = [...bauBauDB.series];
-  
-  // Add YouTube series if available
-  if (sevcetDB.series && Array.isArray(sevcetDB.series)) {
-    sevcetDB.series.forEach(ytSeries => {
-      // Convert YouTube series to expected format
-      if (ytSeries.name) {
-        allSeries.push({
-          id: ytSeries.id || `yt:series:${ytSeries.name.toLowerCase().replace(/\s+/g, '-')}`,
-          type: 'series',
-          name: ytSeries.name,
-          year: ytSeries.releaseInfo,
-          poster: ytSeries.poster,
-          description: ytSeries.description,
-          genres: ytSeries.genres || [],
-          seasons: ytSeries.seasons || []
-        });
-      }
-    });
-  }
-  
-  return allSeries;
-}
-
-const allSeriesItems = getAllSeries();
-console.log(`📊 Total Series: ${allSeriesItems.length} (BauBau: ${bauBauDB.series?.length || 0}, YouTube: ${sevcetDB.series?.length || 0})`);
+// Use only BauBau series (direct streams only, no YouTube series)
+const allSeriesItems = bauBauDB.series;
+console.log(`📊 Total Series: ${allSeriesItems.length}`);
 
 
 // Helper: Convert to Stremio meta format with Cinemeta enrichment
@@ -519,15 +494,6 @@ builder.defineMetaHandler(async ({ type, id }) => {
     }
   }
   
-  // YouTube series
-  if (id.startsWith('yt:series:')) {
-    const ytSeries = sevcetDB.series?.find(s => s.id === id);
-    if (ytSeries) {
-      const meta = await toStremioMeta(ytSeries, 'series', true);
-      return { meta };
-    }
-  }
-  
   // YouTube movie
   if (id.startsWith('yt:') && !id.includes(':series:')) {
     const ytId = id.replace('yt:', '');
@@ -578,46 +544,9 @@ builder.defineStreamHandler(({ type, id }) => {
   
   // Handle series episode streams
   if (id.includes(':series:') && id.split(':').length === 5) {
-    const [prefix, , seriesSlug, seasonNum, epNum] = id.split(':');
-    
-    // Handle YouTube series
-    if (prefix === 'yt') {
-      const ytSeriesId = `yt:series:${seriesSlug}`;
-      const ytSeries = sevcetDB.series?.find(s => 
-        s.id === ytSeriesId || s.name.toLowerCase().replace(/\s+/g, '-') === seriesSlug
-      );
-      
-      if (ytSeries && ytSeries.seasons) {
-        const season = ytSeries.seasons.find(s => s.number === parseInt(seasonNum));
-        if (season && season.episodes) {
-          const episode = season.episodes.find(e => e.episode === parseInt(epNum));
-          if (episode && episode.youtubeId) {
-            streams.push({
-              name: 'YouTube HD (Infuse)',
-              title: `📺 ${ytSeries.name}\nS${seasonNum}E${epNum} - YouTube HD 720p`,
-              url: `https://www.youtube.com/watch?v=${episode.youtubeId}`,
-              behaviorHints: {
-                bingeGroup: `youtube-series-${seriesSlug}`
-              }
-            });
-            
-            streams.push({
-              name: 'YouTube SD',
-              title: `📺 ${ytSeries.name}\nS${seasonNum}E${epNum} - YouTube SD 480p`,
-              ytId: episode.youtubeId,
-              behaviorHints: {
-                bingeGroup: `youtube-series-${seriesSlug}`
-              }
-            });
-          }
-        }
-      }
-      
-      return Promise.resolve({ streams });
-    }
-    
-    // Handle BauBau/Bilosta series
+    const [, , seriesSlug, seasonNum, epNum] = id.split(':');
     const seriesId = `bilosta:series:${seriesSlug}`;
+    
     const series = bauBauDB.series.find(s => s.id === seriesId);
     if (series) {
       const season = series.seasons.find(s => s.number === parseInt(seasonNum));
