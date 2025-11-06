@@ -420,7 +420,7 @@ function generateManifest(config = null) {
 
   return {
     id: 'community.balkan.on.demand',
-    version: '5.7.0',
+    version: '6.0.0',
     name: 'Balkan On Demand',
     description: catalogs.length > 0
       ? 'Direct HD streams + Balkan catalogs for movies & series'
