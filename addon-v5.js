@@ -891,7 +891,7 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false, tmdbA
     logo: cinemeta?.logo || null,
     description: sanitizeText(tmdb?.overview || omdb?.plot || cinemeta?.fullMeta?.description || item.description || ''),
     releaseInfo: tmdb?.release_date?.split('-')[0] || cinemeta?.fullMeta?.year?.toString() || omdb?.year?.toString() || item.year?.toString() || '',
-    released: tmdb?.release_date || cinemeta?.fullMeta?.released || null,
+    released: tmdb?.release_date ? new Date(tmdb.release_date).toISOString() : (cinemeta?.fullMeta?.released || null),
     genres: tmdb?.genres?.map(g => g.name) || cinemeta?.fullMeta?.genres || omdb?.genres || item.genres || [],
     cast: tmdb?.credits?.cast?.slice(0, 10).map(c => c.name) || cinemeta?.fullMeta?.cast || omdb?.cast || item.cast || [],
     director: tmdb?.credits?.crew?.find(c => c.job === 'Director')?.name ? [tmdb.credits.crew.find(c => c.job === 'Director').name] : (cinemeta?.fullMeta?.director || omdb?.director || item.director || []),
