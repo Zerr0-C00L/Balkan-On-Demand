@@ -91,13 +91,13 @@ export function Catalogs() {
             <strong>Home:</strong> Shows the catalog on your Stremio home screen for quick browsing.
           </p>
           <p>
-            <strong>✅ Working Now:</strong> Direct HD catalogs (3,848 movies, 37 series) and Balkan regional catalogs work immediately.
+            <strong className="text-green-700">✅ Working Now:</strong> Direct HD catalogs (3,848 movies, 37 series) work immediately with direct streaming.
           </p>
           <p>
-            <strong>🚧 Coming Soon:</strong> TMDB catalogs (Popular, Year, Language, Trending) require TMDB API integration - currently in development.
+            <strong className="text-yellow-700">🚧 Coming Soon:</strong> TMDB catalogs (Popular, Year, Language, Trending) require API integration - in development.
           </p>
-          <p className="text-xs text-gray-600 mt-2">
-            💡 Drag catalogs to reorder them - your preferred order will appear in Stremio
+          <p className="mt-3 p-3 bg-purple-50 border border-purple-200 rounded">
+            <strong className="text-purple-900">💡 After changing settings:</strong> Click <strong>"📥 Install"</strong> in the sidebar to update your addon!
           </p>
         </div>
       </div>
