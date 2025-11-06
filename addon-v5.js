@@ -645,21 +645,48 @@ function defineHandlers(builder, config = null) {
     
     let streams = [];
     
-    // We only provide streams for OUR content, not for Cinemeta/IMDb IDs
-    // If someone clicks a movie from Cinemeta (tt12345), we return empty - that's expected!
+    // If it's an IMDb ID, try to find the matching item in our database
     if (id.startsWith('tt')) {
-      console.log(`ℹ️  IMDb ID ${id} - not in our database (this is normal, browse from addon catalogs instead)`);
-      // Return empty streams with a helpful message for the user
-      return Promise.resolve({ 
-        streams: [{
-          name: '⚠️ No streams available',
-          title: '⚠️ No direct streams for this item\n\n💡 Tip: Browse from "Filmovi", "Serije", or other Balkan On Demand catalogs to get direct streams.\n\nThis item is from IMDb/Cinemeta, not from our database.',
-          url: '',
-          behaviorHints: {
-            notWebReady: true
+      console.log(`🔍 IMDb ID ${id} - searching our database for match...`);
+      
+      // Search our database by trying to match via Cinemeta/OMDb
+      // This is slower but allows users to search globally and still get our streams
+      let matchedItem = null;
+      
+      if (type === 'movie') {
+        // Try to find a movie that matches this IMDb ID
+        for (const movie of bauBauDB.movies) {
+          if (movie.year) {
+            const cinemeta = await searchCinemeta(movie.name, movie.year, 'movie');
+            if (cinemeta?.imdbId === id) {
+              matchedItem = movie;
+              console.log(`✅ Found match: ${movie.name} (${movie.id})`);
+              break;
+            }
           }
-        }]
-      });
+        }
+      } else if (type === 'series') {
+        // Try to find a series that matches this IMDb ID
+        for (const series of bauBauDB.series) {
+          if (series.year) {
+            const cinemeta = await searchCinemeta(series.name, series.year, 'series');
+            if (cinemeta?.imdbId === id) {
+              matchedItem = series;
+              console.log(`✅ Found match: ${series.name} (${series.id})`);
+              break;
+            }
+          }
+        }
+      }
+      
+      if (!matchedItem) {
+        console.log(`❌ No match found in our database for IMDb ID ${id}`);
+        return Promise.resolve({ streams: [] });
+      }
+      
+      // Use the matched item's ID to continue with stream lookup
+      id = matchedItem.id;
+      console.log(`🔄 Using our ID: ${id}`);
     }
     
     // Handle series episode streams
