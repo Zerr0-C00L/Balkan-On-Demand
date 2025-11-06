@@ -75,9 +75,23 @@ export function Catalogs() {
 
   return (
     <div className="p-6 md:p-12 bg-gray-50 min-h-screen">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2 text-gray-800">Catalogs</h1>
-        <p className="text-gray-600">Drag to reorder • Toggle to enable • Control home screen visibility</p>
+      <div className="mb-8 flex justify-between items-start">
+        <div>
+          <h1 className="text-3xl font-bold mb-2 text-gray-800">Catalogs</h1>
+          <p className="text-gray-600">Drag to reorder • Toggle to enable • Control home screen visibility</p>
+        </div>
+        <button
+          onClick={() => {
+            setCatalogs(prev => prev.map(cat => ({
+              ...cat,
+              enabled: cat.id.startsWith('bilosta.') ? true : false,
+              showInHome: cat.id.startsWith('bilosta.') ? true : false
+            })));
+          }}
+          className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors shadow-sm"
+        >
+          ✅ Working Catalogs Only
+        </button>
       </div>
 
       {/* Info Box */}
