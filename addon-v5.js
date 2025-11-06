@@ -152,13 +152,12 @@ const allCatalogs = [
     extra: [
       { 
         name: 'genre', 
-        isRequired: true,  // Hide from Home - only show in Discover with genre selection
-        options: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
+        isRequired: false,  // Optional - allows "All" to show all movies
+        options: ['All', 'Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
       },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
-    ],
-    extraRequired: ['genre']  // Hide from Home, only show in Discover
+    ]
   },
   {
     id: 'balkan_foreign_movies',
@@ -168,13 +167,12 @@ const allCatalogs = [
     extra: [
       { 
         name: 'genre', 
-        isRequired: true,  // Hide from Home - only show in Discover with genre selection
-        options: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
+        isRequired: false,  // Optional - allows "All" to show all movies
+        options: ['All', 'Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
       },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
-    ],
-    extraRequired: ['genre']  // Hide from Home, only show in Discover
+    ]
   },
   {
     id: 'balkan_kids',
@@ -184,13 +182,12 @@ const allCatalogs = [
     extra: [
       { 
         name: 'genre', 
-        isRequired: true,  // Hide from Home - only show in Discover with genre selection
-        options: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
+        isRequired: false,  // Optional - allows "All" to show all movies
+        options: ['All', 'Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
       },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
-    ],
-    extraRequired: ['genre']  // Hide from Home, only show in Discover
+    ]
   },
   {
     id: 'balkan_series',
@@ -200,13 +197,12 @@ const allCatalogs = [
     extra: [
       { 
         name: 'genre', 
-        isRequired: true,  // Hide from Home - only show in Discover with genre selection
-        options: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
+        isRequired: false,  // Optional - allows "All" to show all series
+        options: ['All', 'Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
       },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
-    ],
-    extraRequired: ['genre']  // Hide from Home, only show in Discover
+    ]
   }
 ];
 
@@ -563,7 +559,8 @@ builder.defineCatalogHandler(async ({ type, id, extra }) => {
   let metas = await Promise.all(metasPromises);
   
   // Apply genre filter AFTER enrichment (since genres come from Cinemeta)
-  if (genre) {
+  // Skip filtering if genre is "All" - show all items
+  if (genre && genre.toLowerCase() !== 'all') {
     metas = metas.filter(meta => {
       if (!meta.genres || !Array.isArray(meta.genres)) return false;
       return meta.genres.some(g => g.toLowerCase() === genre.toLowerCase());
