@@ -436,10 +436,13 @@ function CatalogsPage({ selectedCatalogs, setSelectedCatalogs, tmdbApiKey }) {
 
       {/* Info Box */}
       <div className="bg-blue-50 border-l-4 border-[#00d4ff] rounded-lg p-4 mb-8">
-        <h4 className="font-semibold text-gray-800 mb-2">🏠 Home vs Discover</h4>
-        <div className="text-sm text-gray-700">
-          <p><strong>Selected (✓):</strong> Catalog appears on your Stremio home screen with browsable content</p>
-          <p><strong>Unselected:</strong> Catalog only available through search (Discover section)</p>
+        <h4 className="font-semibold text-gray-800 mb-2">💡 Recommended Setup</h4>
+        <div className="text-sm text-gray-700 space-y-2">
+          <p><strong>Leave catalogs disabled</strong> and use TMDB/Cinemeta addons for browsing.</p>
+          <p>This addon will automatically provide <strong>Direct HD streams</strong> when you watch any Balkan content.</p>
+          <p className="text-xs text-gray-600 mt-2">
+            💡 Tip: Enable catalogs only if you want dedicated Balkan browsing sections in Stremio.
+          </p>
         </div>
       </div>
 
@@ -569,7 +572,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState('home')
   const [isMobileOpen, setIsMobileOpen] = useState(false)
   const [selectedCatalogs, setSelectedCatalogs] = useState(
-    catalogs.map(cat => cat.id)
+    [] // Empty by default - catalogs disabled, users enable if they want
   )
   const [tmdbApiKey, setTmdbApiKey] = useState(
     localStorage.getItem('tmdb_api_key') || ''

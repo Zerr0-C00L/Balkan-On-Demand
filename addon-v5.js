@@ -415,25 +415,16 @@ function generateManifest(config = null) {
         };
       })
       .filter(cat => cat !== null); // Remove any null entries
-  } else {
-    // Default configuration - all catalogs in both Home and Discover
-    catalogs = allCatalogs.map(cat => ({
-      ...cat,
-      extraSupported: ['search', 'skip'],
-      extra: [
-        { name: 'search', isRequired: false },
-        { name: 'skip', isRequired: false }
-      ]
-    }));
   }
+  // If no config, catalogs remain empty (disabled by default)
 
   return {
     id: 'community.balkan.on.demand',
-    version: '5.6.0',
+    version: '5.7.0',
     name: 'Balkan On Demand',
-    description: config && config.tmdbApiKey 
-      ? 'Movies & Series from Serbia, Croatia & Bosnia (Enhanced with TMDB)'
-      : 'Movies & Series from Serbia, Croatia & Bosnia',
+    description: catalogs.length > 0
+      ? 'Direct HD streams + Balkan catalogs for movies & series'
+      : 'Direct HD streams for Balkan movies & series. Use with TMDB/Cinemeta for browsing.',
     
     resources: [
       'catalog',
