@@ -46,8 +46,10 @@ function extractTMDBId(posterUrl) {
     return match ? match[1] : null;
 }
 
-// Search TMDB by title and year to get movie ID
-async function searchTMDB(title, year, type = 'movie') {
+// Search TMDB by title and year to get movie details
+async function searchTMDB(title, year, type = 'movie', apiKey = null) {
+    if (!apiKey) return null;
+    
     const cacheKey = `search:${type}:${title}:${year}`;
     
     if (tmdbCache.has(cacheKey)) {
@@ -62,7 +64,7 @@ async function searchTMDB(title, year, type = 'movie') {
         
         const endpoint = type === 'series' ? 'tv' : 'movie';
         const searchQuery = encodeURIComponent(cleanTitle);
-        let searchUrl = `${TMDB_URL}/search/${endpoint}?api_key=${TMDB_API_KEY}&query=${searchQuery}&language=en-US`;
+        let searchUrl = `https://api.themoviedb.org/3/search/${endpoint}?api_key=${apiKey}&query=${searchQuery}&language=en-US`;
         
         if (year) {
             const yearParam = type === 'series' ? 'first_air_date_year' : 'year';
@@ -75,10 +77,16 @@ async function searchTMDB(title, year, type = 'movie') {
         const data = await response.json();
         
         if (data.results && data.results.length > 0) {
-            // Return the first match (year filtering already applied)
+            // Get full details for the first match
             const result = data.results[0];
-            tmdbCache.set(cacheKey, result.id);
-            return result.id;
+            const detailsUrl = `https://api.themoviedb.org/3/${endpoint}/${result.id}?api_key=${apiKey}&language=en-US&append_to_response=credits`;
+            const detailsResponse = await fetch(detailsUrl);
+            
+            if (detailsResponse.ok) {
+                const details = await detailsResponse.json();
+                tmdbCache.set(cacheKey, details);
+                return details;
+            }
         }
     } catch (error) {
         console.error(`TMDB search error for ${title}:`, error.message);
@@ -510,7 +518,7 @@ const allSeriesItems = bauBauDB.series;
 console.log(`📊 Total Series: ${allSeriesItems.length}`);
 
 // Define handlers on a builder instance (will be attached to route handler)
-function defineHandlers(builder) {
+function defineHandlers(builder, config = null) {
   // CATALOG Handler with Cinemeta enrichment
   builder.defineCatalogHandler(async ({ type, id, extra }) => {
     console.log(`📖 Catalog request: ${id} (type: ${type})`);
@@ -592,7 +600,7 @@ function defineHandlers(builder) {
     if (id.startsWith('bilosta:') && !id.includes(':series:')) {
       item = bauBauDB.movies.find(m => m.id === id);
       if (item) {
-        const meta = await toStremioMeta(item, 'movie', true);
+        const meta = await toStremioMeta(item, 'movie', true, config?.tmdbApiKey);
         return { meta };
       }
     }
@@ -601,7 +609,7 @@ function defineHandlers(builder) {
     if (id.startsWith('bilosta:series:')) {
       item = bauBauDB.series.find(s => s.id === id);
       if (item) {
-        const meta = await toStremioMeta(item, 'series', true);
+        const meta = await toStremioMeta(item, 'series', true, config?.tmdbApiKey);
         return { meta };
       }
     }
@@ -709,9 +717,10 @@ function defineHandlers(builder) {
 
 
 // Helper: Convert to Stremio meta format with multi-tier enrichment
-async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
+async function toStremioMeta(item, type = 'movie', enrichMetadata = false, tmdbApiKey = null) {
   let cinemeta = null;
   let omdb = null;
+  let tmdb = null;
   
   if (enrichMetadata) {
     // TIER 1: Items with years - try Cinemeta first (most accurate with IMDb IDs)
@@ -726,6 +735,15 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
       else {
         omdb = await fetchOMDb(null, item.name, item.year);
       }
+      
+      // TIER 1.5: If we have a TMDB API key, try TMDB as well for additional metadata
+      if (tmdbApiKey && tmdbApiKey !== 'YOUR_TMDB_API_KEY_HERE') {
+        try {
+          tmdb = await searchTMDB(item.name, item.year, type, tmdbApiKey);
+        } catch (e) {
+          console.error('TMDB search failed:', e.message);
+        }
+      }
     }
     // TIER 2: Items without years - try OMDb with normalized title
     else {
@@ -735,6 +753,15 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
       // If normalized title didn't work, try original title
       if (!omdb || !omdb.plot) {
         omdb = await fetchOMDb(null, item.name, null);
+      }
+      
+      // Try TMDB without year if API key is available
+      if (tmdbApiKey && tmdbApiKey !== 'YOUR_TMDB_API_KEY_HERE') {
+        try {
+          tmdb = await searchTMDB(item.name, null, type, tmdbApiKey);
+        } catch (e) {
+          console.error('TMDB search failed:', e.message);
+        }
       }
     }
     // TIER 3: If all enrichment fails - use local database only
@@ -799,35 +826,34 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
     };
   }
   
-  // For movies: Priority order: Cinemeta > OMDb fallback > Local data
+  // For movies: Priority order: TMDB (if available) > Cinemeta > OMDb fallback > Local data
   const meta = {
     id: item.id,
     type: 'movie',
-    name: sanitizeText(cinemeta?.fullMeta?.name || item.name),
-    poster: cinemeta?.poster || omdb?.poster || item.poster || 'https://via.placeholder.com/300x450/1a1a1a/ffffff?text=' + encodeURIComponent(item.name),
+    name: sanitizeText(tmdb?.title || cinemeta?.fullMeta?.name || item.name),
+    poster: tmdb?.poster_path ? `https://image.tmdb.org/t/p/w780${tmdb.poster_path}` : (cinemeta?.poster || omdb?.poster || item.poster || 'https://via.placeholder.com/300x450/1a1a1a/ffffff?text=' + encodeURIComponent(item.name)),
     posterShape: 'poster',
-    background: cinemeta?.background || item.background || null,
+    background: tmdb?.backdrop_path ? `https://image.tmdb.org/t/p/original${tmdb.backdrop_path}` : (cinemeta?.background || item.background || null),
     logo: cinemeta?.logo || null,
-    description: sanitizeText(omdb?.plot || cinemeta?.fullMeta?.description || item.description || ''),
-    releaseInfo: cinemeta?.fullMeta?.year?.toString() || omdb?.year?.toString() || item.year?.toString() || '',
-    released: cinemeta?.fullMeta?.released || null,
-    genres: cinemeta?.fullMeta?.genres || omdb?.genres || item.genres || [],
-    cast: cinemeta?.fullMeta?.cast || omdb?.cast || item.cast || [],
-    director: cinemeta?.fullMeta?.director || omdb?.director || item.director || [],
-    writer: cinemeta?.fullMeta?.writer || [],
+    description: sanitizeText(tmdb?.overview || omdb?.plot || cinemeta?.fullMeta?.description || item.description || ''),
+    releaseInfo: tmdb?.release_date?.split('-')[0] || cinemeta?.fullMeta?.year?.toString() || omdb?.year?.toString() || item.year?.toString() || '',
+    released: tmdb?.release_date || cinemeta?.fullMeta?.released || null,
+    genres: tmdb?.genres?.map(g => g.name) || cinemeta?.fullMeta?.genres || omdb?.genres || item.genres || [],
+    cast: tmdb?.credits?.cast?.slice(0, 10).map(c => c.name) || cinemeta?.fullMeta?.cast || omdb?.cast || item.cast || [],
+    director: tmdb?.credits?.crew?.find(c => c.job === 'Director')?.name ? [tmdb.credits.crew.find(c => c.job === 'Director').name] : (cinemeta?.fullMeta?.director || omdb?.director || item.director || []),
+    writer: tmdb?.credits?.crew?.filter(c => c.job === 'Writer' || c.job === 'Screenplay').map(c => c.name) || cinemeta?.fullMeta?.writer || [],
     awards: omdb?.awards || cinemeta?.fullMeta?.awards || null,
-    imdbRating: cinemeta?.fullMeta?.imdbRating || omdb?.imdbRating || null,
-    runtime: cinemeta?.fullMeta?.runtime || omdb?.runtime || null,
+    imdbRating: tmdb?.vote_average?.toString() || cinemeta?.fullMeta?.imdbRating || omdb?.imdbRating || null,
+    runtime: tmdb?.runtime?.toString() || cinemeta?.fullMeta?.runtime || omdb?.runtime || null,
     trailers: cinemeta?.fullMeta?.trailers || [],
     trailerStreams: cinemeta?.fullMeta?.trailerStreams || [],
-    country: omdb?.country || cinemeta?.fullMeta?.country || null,
+    country: tmdb?.production_countries?.map(c => c.name).join(', ') || omdb?.country || cinemeta?.fullMeta?.country || null,
     dvdRelease: cinemeta?.fullMeta?.dvdRelease || null,
     // DON'T add IMDb links - Stremio will use IMDb IDs for stream requests
     // and we only have streams for bilosta IDs
     links: []
   };
   
-  return meta;
   if (cinemeta?.fullMeta?.behaviorHints) {
     meta.behaviorHints = cinemeta.fullMeta.behaviorHints;
   }
@@ -902,7 +928,7 @@ app.use((req, res, next) => {
     
     // Create a builder for this specific configuration
     const builder = createBuilder(config);
-    defineHandlers(builder);
+    defineHandlers(builder, config);
     
     // Modify the request path to remove the config prefix
     req.url = '/' + pathParts.slice(1).join('/');
