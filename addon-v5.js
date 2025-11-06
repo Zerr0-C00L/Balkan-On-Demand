@@ -252,7 +252,7 @@ function generateManifest(config = null) {
 
   return {
     id: 'community.balkan.on.demand',
-    version: '5.2.0',
+    version: '5.3.0',
     name: 'Balkan On Demand',
     description: 'Movies & Series from Serbia, Croatia & Bosnia',
     
@@ -541,25 +541,23 @@ function defineHandlers(builder) {
 }
 
 
-// Helper: Convert to Stremio meta format with Cinemeta enrichment
+// Helper: Convert to Stremio meta format with year-based Cinemeta enrichment
 async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
-  // Always fetch Cinemeta metadata when enrichment is requested
   let cinemeta = null;
   let omdb = null;
   
-  if (enrichMetadata && item.name) {
+  // Option 1: Year-based matching
+  // Only enrich with Cinemeta if the item has a year to prevent wrong matches
+  if (enrichMetadata && item.year) {
     cinemeta = await searchCinemeta(item.name, item.year, type);
     
-    // Only fetch OMDb if we have validated Cinemeta data (prevents wrong matches)
+    // If Cinemeta found a match, also try OMDb for enhanced descriptions
     if (cinemeta?.imdbId) {
       omdb = await fetchOMDb(cinemeta.imdbId);
-      
-      // If OMDb by IMDb ID didn't return a plot, try searching by title as fallback
-      if (!omdb?.plot && item.name) {
-        omdb = await fetchOMDb(null, item.name, item.year);
-      }
     }
   }
+  // If no year is available, skip Cinemeta enrichment entirely
+  // This prevents wrong matches like "Boomerang" matching wrong content
   
   if (type === 'series') {
     // Extract fallback poster from first episode's thumbnail
@@ -571,7 +569,7 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
       }
     }
     
-    // Use Cinemeta data as primary source, fallback to local data only if Cinemeta fails
+    // Use Cinemeta data if available (only enriched if year exists), fallback to local data
     const poster = cinemeta?.poster || fallbackPoster || 'https://via.placeholder.com/300x450/1a1a1a/ffffff?text=' + encodeURIComponent(item.name);
     
     // Build videos array with Cinemeta episode metadata when available
@@ -620,7 +618,7 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
     };
   }
   
-  // For movies, prioritize Cinemeta metadata with OMDb enhancements, fallback to local data
+  // For movies: Use Cinemeta metadata (only if year exists) with OMDb enhancements, fallback to local data
   const meta = {
     id: item.id,
     type: 'movie',
@@ -737,13 +735,14 @@ app.use((req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`\n🚀 Balkan On Demand v5.2.0 running on http://localhost:${PORT}\n`);
+  console.log(`\n🚀 Balkan On Demand v5.3.0 running on http://localhost:${PORT}\n`);
   console.log(`📊 Content Stats:`);
   console.log(`   • Movies: ${movieCategories.movies.length}`);
   console.log(`   • Foreign Movies: ${movieCategories.foreign.length}`);
   console.log(`   • Crtani Filmovi: ${movieCategories.kids.length}`);
   console.log(`   • Series: ${allSeriesItems.length}`);
-  console.log(`\n✅ Ready to serve streams with Cinemeta metadata enrichment!`);
+  console.log(`\n✅ Ready to serve streams with year-based Cinemeta enrichment!`);
+  console.log(`   ℹ️  Only content with year metadata will be enriched (prevents wrong matches)`);
   console.log(`🎛️  Custom catalog configuration supported!`);
   console.log(`\n📖 Usage:`);
   console.log(`   Default (all catalogs): http://localhost:${PORT}/manifest.json`);
