@@ -843,18 +843,39 @@ app.get('/:config?/manifest.json', (req, res) => {
   res.json(manifest);
 });
 
-// Handle catalog, meta, and stream requests
-app.use('/:config?', (req, res, next) => {
-  const configString = req.params.config;
-  const config = parseConfig(configString);
+// Create default addon instance for routes without config
+const defaultBuilder = createBuilder(null);
+defineHandlers(defaultBuilder);
+const defaultRouter = getRouter(defaultBuilder.getInterface());
+
+// Handle addon routes without config (default)
+app.use((req, res, next) => {
+  const path = req.path;
   
-  // Create a builder for this specific configuration
-  const builder = createBuilder(config);
-  defineHandlers(builder);
+  // Check if this is an addon route (catalog, meta, stream)
+  if (path.startsWith('/catalog/') || path.startsWith('/meta/') || path.startsWith('/stream/')) {
+    return defaultRouter(req, res, next);
+  }
   
-  // Get the router for this builder and use it
-  const addonRouter = getRouter(builder.getInterface());
-  addonRouter(req, res, next);
+  // Check if path has config prefix (e.g., /home=movies,series/catalog/...)
+  const pathParts = path.split('/').filter(p => p);
+  if (pathParts.length > 0 && (pathParts[0].includes('=') || pathParts[0].includes('home'))) {
+    const configString = pathParts[0];
+    const config = parseConfig(configString);
+    
+    // Create a builder for this specific configuration
+    const builder = createBuilder(config);
+    defineHandlers(builder);
+    
+    // Modify the request path to remove the config prefix
+    req.url = '/' + pathParts.slice(1).join('/');
+    
+    // Get the router for this builder and use it
+    const addonRouter = getRouter(builder.getInterface());
+    return addonRouter(req, res, next);
+  }
+  
+  next();
 });
 
 app.listen(PORT, () => {
