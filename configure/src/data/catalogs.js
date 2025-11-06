@@ -10,17 +10,15 @@ export const tmdbCatalogs = [
   { id: "tmdb.trending", name: "Trending", type: "series" },
 ];
 
-// Direct HD catalogs from your Bilosta collection
+// Direct HD catalogs from your Bilosta collection (3,848 movies, 37 series)
+// These use bilosta.* IDs which get mapped to balkan_* in the backend
 export const baseCatalogs = [
-  { id: "bilosta.movies", name: "Direct HD Movies", type: "movie" },
-  { id: "bilosta.series", name: "Direct HD Series", type: "series" },
+  { id: "bilosta.movies", name: "⭐ Direct HD Movies", type: "movie" },
+  { id: "bilosta.series", name: "📺 Direct HD Series", type: "series" },
 ];
 
-// Balkan regional catalogs (TMDB keyword-based)
-export const balkanCatalogs = [
-  { id: "balkan_movies", name: "🇧🇦🇭🇷🇷🇸 Balkan Movies", type: "movie" },
-  { id: "balkan_series", name: "🇧�🇭�🇷��🇸 Balkan Series", type: "series" },
-];
+// No need for separate balkanCatalogs - bilosta IDs map to balkan_ catalogs in backend
+export const balkanCatalogs = [];
 
 // Age rating options
 export const ageRatings = [
