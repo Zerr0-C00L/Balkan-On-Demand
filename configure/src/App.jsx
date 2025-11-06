@@ -163,18 +163,31 @@ function Sidebar({ currentPage, setCurrentPage, isMobileOpen, setIsMobileOpen, s
 // Home Page
 function HomePage() {
   const [stats, setStats] = useState({
-    movies: 1364,
-    foreign: 1076,
-    kids: 374,
-    series: 37
+    tmdbCatalogs: 3,
+    directMovies: 3848,
+    directSeries: 37,
+    totalContent: 'Unlimited via TMDB'
   })
 
-  // Fetch real-time stats from server
+  // Fetch real-time stats from server (if available)
   useEffect(() => {
     fetch('/api/stats')
       .then(res => res.json())
-      .then(data => setStats(data))
-      .catch(err => console.error('Failed to load stats:', err))
+      .then(data => {
+        // Update stats if API returns data
+        if (data) {
+          setStats({
+            tmdbCatalogs: 3, // Fixed: 3 TMDB catalogs
+            directMovies: data.movies || 3848,
+            directSeries: data.series || 37,
+            totalContent: 'Unlimited'
+          })
+        }
+      })
+      .catch(err => {
+        // Use default stats if API fails
+        console.log('Using default stats (API not available)')
+      })
   }, [])
 
   return (
