@@ -294,17 +294,18 @@ function SettingsPage({ tmdbApiKey, setTmdbApiKey, mdblistApiKey, setMdblistApiK
     
     try {
       const response = await fetch(`https://api.mdblist.com/user?apikey=${localMdblistKey}`)
-      const data = await response.json()
       
-      if (response.ok && data.user) {
+      if (response.ok) {
+        const data = await response.json()
         setMdblistTestResult({ 
           success: true, 
-          message: `✅ Connected as: ${data.user}` 
+          message: `✅ Connected! User: ${data.user || 'Valid'}` 
         })
       } else {
+        const errorText = await response.text()
         setMdblistTestResult({ 
           success: false, 
-          message: `❌ Invalid API key` 
+          message: `❌ Invalid API key or error: ${errorText}` 
         })
       }
     } catch (error) {

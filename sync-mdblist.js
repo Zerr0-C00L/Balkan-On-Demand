@@ -72,13 +72,13 @@ async function syncToMDBList(apiKey) {
     const createResponse = await fetch('https://api.mdblist.com/lists', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'apikey': apiKey
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         name: listName,
         description: listDescription,
-        public: true
+        public: true,
+        apikey: apiKey
       })
     });
     
@@ -98,11 +98,11 @@ async function syncToMDBList(apiKey) {
     const addResponse = await fetch(`https://api.mdblist.com/lists/${listId}/items`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'apikey': apiKey
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        items: imdbIds.map(id => ({ imdb_id: id }))
+        items: imdbIds.map(id => ({ imdb_id: id })),
+        apikey: apiKey
       })
     });
     
