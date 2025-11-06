@@ -2,6 +2,11 @@
 const fs = require('fs');
 const path = require('path');
 
+// Polyfill fetch for older Node versions
+if (!globalThis.fetch) {
+  globalThis.fetch = require('node-fetch');
+}
+
 // Load content database
 const bauBauDB = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'baubau-content.json'), 'utf8'));
 

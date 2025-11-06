@@ -938,6 +938,9 @@ const { getRouter } = require('stremio-addon-sdk');
 
 const app = express();
 
+// Enable JSON body parsing
+app.use(express.json());
+
 // Serve React configure app from dist directory
 app.use('/configure', express.static('dist'));
 
@@ -954,23 +957,36 @@ app.get('/api/stats', (req, res) => {
 });
 
 // API endpoint to sync content to MDBList
+app.options('/api/sync-mdblist', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.status(200).end();
+});
+
 app.post('/api/sync-mdblist', async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   res.setHeader('Content-Type', 'application/json');
+  
+  console.log('📥 Received sync request, body:', req.body);
   
   const { apiKey } = req.body;
   
   if (!apiKey) {
+    console.error('❌ No API key provided');
     return res.status(400).json({ error: 'API key is required' });
   }
   
   try {
+    console.log('🚀 Starting MDBList sync with key:', apiKey.substring(0, 10) + '...');
     const { syncToMDBList } = require('./sync-mdblist');
     const result = await syncToMDBList(apiKey);
+    console.log('✅ Sync complete:', result);
     res.json(result);
   } catch (error) {
-    console.error('MDBList sync error:', error);
-    res.status(500).json({ error: error.message });
+    console.error('❌ MDBList sync error:', error);
+    res.status(500).json({ error: error.message, details: error.stack });
   }
 });
 
