@@ -506,52 +506,17 @@ function defineHandlers(builder) {
     });
   }
 
-  // STREAM Handler with merged streams
+  // STREAM Handler - only for OUR content (bilosta/yt IDs)
   builder.defineStreamHandler(async ({ type, id }) => {
     console.log(`🎬 Stream request: ${id} (type: ${type})`);
     
     let streams = [];
     
-    // Handle IMDb ID requests (tt*) - find matching movie/series in our database
+    // We only provide streams for OUR content, not for Cinemeta/IMDb IDs
+    // If someone clicks a movie from Cinemeta (tt12345), we return empty - that's expected!
     if (id.startsWith('tt')) {
-      if (type === 'movie') {
-        // Search through our movies to find one that matches this IMDb ID
-        for (const movie of bauBauDB.movies) {
-          // Use Cinemeta to get the IMDb ID for this movie
-          const cinemeta = await searchCinemeta(movie.name, movie.year, 'movie');
-          if (cinemeta?.imdbId === id) {
-            // Found a match! Add our streams
-            if (movie.streams) {
-              movie.streams.forEach(stream => {
-                const quality = stream.quality || 'HD';
-                const qualityLabel = quality === '4K' ? '4K UHD' : quality === 'HD' ? 'HD 1080p' : quality;
-                
-                streams.push({
-                  name: `Balkan On Demand - ${qualityLabel}`,
-                  title: `🇷🇸 Direct ${qualityLabel}\n${movie.name} • Bilosta CDN`,
-                  url: stream.url,
-                  behaviorHints: {
-                    bingeGroup: 'balkan-' + movie.id,
-                    notWebReady: false
-                  }
-                });
-              });
-            }
-            break; // Found the movie, stop searching
-          }
-        }
-      } else if (type === 'series') {
-        // Search through our series
-        for (const series of bauBauDB.series) {
-          const cinemeta = await searchCinemeta(series.name, series.year, 'series');
-          if (cinemeta?.imdbId === id) {
-            // This is handled by episode ID, not series ID
-            break;
-          }
-        }
-      }
-      
-      return Promise.resolve({ streams });
+      console.log(`ℹ️  IMDb ID ${id} - not in our database (this is normal)`);
+      return Promise.resolve({ streams: [] });
     }
     
     // Handle series episode streams
