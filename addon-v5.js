@@ -619,6 +619,30 @@ function defineHandlers(builder, config = null) {
       }
     }
     
+    // IMDb ID - search our database for a match
+    if (id.startsWith('tt')) {
+      console.log(`🔍 IMDb ID ${id} - searching our database for match...`);
+      
+      const db = type === 'series' ? bauBauDB.series : bauBauDB.movies;
+      
+      for (const dbItem of db) {
+        if (dbItem.year) {
+          const cinemeta = await searchCinemeta(dbItem.name, dbItem.year, type);
+          if (cinemeta?.imdbId === id) {
+            console.log(`✅ Found match: ${dbItem.name} (${dbItem.id})`);
+            const meta = await toStremioMeta(dbItem, type, true, config?.tmdbApiKey);
+            // Override the ID to use the IMDb ID for cross-addon compatibility
+            if (meta) {
+              meta.id = id;
+            }
+            return { meta };
+          }
+        }
+      }
+      
+      console.log(`❌ No match found in our database for ${id}`);
+    }
+    
     return { meta: null };
   });
 
