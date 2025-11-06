@@ -152,13 +152,12 @@ const allCatalogs = [
     extra: [
       { 
         name: 'genre', 
-        isRequired: true,  // Hide from Home - only show in Discover with genre selection
-        options: ['All', 'Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
+        isRequired: false,  // Optional - shows in Discover with genre dropdown
+        options: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
       },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
-    ],
-    extraRequired: ['genre']  // Hide from Home, only show in Discover
+    ]
   },
   {
     id: 'balkan_foreign_movies',
@@ -168,13 +167,12 @@ const allCatalogs = [
     extra: [
       { 
         name: 'genre', 
-        isRequired: true,  // Hide from Home - only show in Discover with genre selection
-        options: ['All', 'Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
+        isRequired: false,  // Optional - shows in Discover with genre dropdown
+        options: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
       },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
-    ],
-    extraRequired: ['genre']  // Hide from Home, only show in Discover
+    ]
   },
   {
     id: 'balkan_kids',
@@ -184,13 +182,12 @@ const allCatalogs = [
     extra: [
       { 
         name: 'genre', 
-        isRequired: true,  // Hide from Home - only show in Discover with genre selection
-        options: ['All', 'Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
+        isRequired: false,  // Optional - shows in Discover with genre dropdown
+        options: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
       },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
-    ],
-    extraRequired: ['genre']  // Hide from Home, only show in Discover
+    ]
   },
   {
     id: 'balkan_series',
@@ -200,13 +197,12 @@ const allCatalogs = [
     extra: [
       { 
         name: 'genre', 
-        isRequired: true,  // Hide from Home - only show in Discover with genre selection
-        options: ['All', 'Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
+        isRequired: false,  // Optional - shows in Discover with genre dropdown
+        options: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
       },
       { name: 'search', isRequired: false },
       { name: 'skip', isRequired: false }
-    ],
-    extraRequired: ['genre']  // Hide from Home, only show in Discover
+    ]
   }
 ];
 
@@ -235,12 +231,6 @@ function generateManifest(config = null) {
       if (inHome) {
         extraSupported.push('skip');
         filteredExtra.push({ name: 'skip', isRequired: false });
-        // Remove extraRequired when catalog is in home (make it visible)
-        delete catalogCopy.extraRequired;
-      } else if (inDiscover && !inHome) {
-        // Keep extraRequired for discover-only catalogs (hide from Home)
-        // This ensures catalogs only appear in Discover section
-        catalogCopy.extraRequired = cat.extraRequired || ['genre'];
       }
       
       // Add 'search' and 'genre' for discover
@@ -248,13 +238,11 @@ function generateManifest(config = null) {
         const hasGenre = cat.extra.some(e => e.name === 'genre');
         const hasSearch = cat.extra.some(e => e.name === 'search');
         
-        // Add genre support - preserve isRequired flag
+        // Add genre support - keep as optional
         if (hasGenre) {
           extraSupported.push('genre');
           const genreExtra = cat.extra.find(e => e.name === 'genre');
-          // If in home, make genre optional; otherwise keep isRequired from catalog definition
-          const genreIsRequired = inHome ? false : (genreExtra.isRequired || false);
-          filteredExtra.push({ ...genreExtra, isRequired: genreIsRequired });
+          filteredExtra.push({ ...genreExtra, isRequired: false });
         }
         
         if (hasSearch) {
@@ -269,9 +257,8 @@ function generateManifest(config = null) {
       return catalogCopy;
     }).filter(Boolean);
   } else {
-    // Default: Show all catalogs but hide from Home (Discover only)
-    // Catalogs have extraRequired: ['genre'] which hides them from Home
-    // They appear in Discover section where users can browse by genre
+    // Default: Show all catalogs in both Home and Discover
+    // Genre is optional - users can browse all content or filter by genre
     catalogs = allCatalogs.map(cat => ({
       ...cat,
       extraSupported: ['genre', 'search', 'skip']
