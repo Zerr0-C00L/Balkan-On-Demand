@@ -5,6 +5,22 @@ const path = require('path');
 // Load content databases
 const bauBauDB = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'baubau-content.json'), 'utf8'));
 
+// Load translations for Serbian/Croatian titles
+let titleTranslations = {};
+try {
+  const translationsData = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'translations.json'), 'utf8'));
+  titleTranslations = translationsData.serbian_to_english || {};
+  console.log(`🌍 Loaded ${Object.keys(titleTranslations).length} title translations`);
+} catch (err) {
+  console.warn('⚠️  Could not load translations.json, using fallback translations');
+  titleTranslations = {
+    'Kung Fu Panda': 'Kung Fu Panda',
+    'U Mojoj Glavi': 'Inside Out',
+    'Neukrotivi Robot': 'The Wild Robot',
+    'Gru i Malci': 'Despicable Me'
+  };
+}
+
 console.log(`📚 Loaded Database: ${bauBauDB.movies.length} movies, ${bauBauDB.series.length} series`);
 
 // Cinemeta integration for metadata enrichment
@@ -118,43 +134,8 @@ async function fetchTMDB(tmdbId, type = 'movie') {
 
 // Normalize Serbian/Croatian titles to English equivalents for better API matching
 function normalizeTitle(title) {
-    // Common Serbian/Croatian to English translations
-    const translations = {
-        'Kung Fu Panda': 'Kung Fu Panda',
-        'U Mojoj Glavi': 'Inside Out',
-        'Gru i Malci': 'Despicable Me',
-        'Gru': 'Despicable Me',
-        'Ko je smestio Crvenkapi': 'Hoodwinked',
-        'Snupi': 'Snoopy',
-        'Čarli Braun': 'Charlie Brown',
-        'Neukrotivi Robot': 'The Wild Robot',
-        'Ledeno Doba': 'Ice Age',
-        'Kako Izdresirati Zmaja': 'How to Train Your Dragon',
-        'Malci': 'Minions',
-        'Sing': 'Sing',
-        'Zveropolis': 'Zootopia',
-        'Tajna Ljubimaca': 'The Secret Life of Pets',
-        'Moana': 'Moana',
-        'Coco': 'Coco',
-        'Kod Kuce': 'Home',
-        'Valijana': 'Moana',
-        'Frozen': 'Frozen',
-        'Snezno Kraljevstvo': 'Frozen',
-        'Cars': 'Cars',
-        'Auti': 'Cars',
-        'Shrek': 'Shrek',
-        'Srek': 'Shrek',
-        'Spider': 'Spider',
-        'Pauk': 'Spider',
-        'Batman': 'Batman',
-        'Superman': 'Superman',
-        'Betmen': 'Batman',
-        'Iron Man': 'Iron Man',
-        'Gvozdeni Covek': 'Iron Man'
-    };
-    
-    // Try direct translation first
-    for (const [serbian, english] of Object.entries(translations)) {
+    // Try direct translation from loaded translations file
+    for (const [serbian, english] of Object.entries(titleTranslations)) {
         if (title.includes(serbian)) {
             // Extract sequel number (e.g., "4" from "Kung Fu Panda 4")
             const numberMatch = title.match(/\d+/);
