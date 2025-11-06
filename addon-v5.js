@@ -237,6 +237,10 @@ function generateManifest(config = null) {
         filteredExtra.push({ name: 'skip', isRequired: false });
         // Remove extraRequired when catalog is in home (make it visible)
         delete catalogCopy.extraRequired;
+      } else if (inDiscover && !inHome) {
+        // Keep extraRequired for discover-only catalogs (hide from Home)
+        // This ensures catalogs only appear in Discover section
+        catalogCopy.extraRequired = cat.extraRequired || ['genre'];
       }
       
       // Add 'search' and 'genre' for discover
