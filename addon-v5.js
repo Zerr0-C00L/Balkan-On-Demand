@@ -373,9 +373,18 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
       genres: cinemeta?.fullMeta?.genres || ['Drama'],
       cast: cinemeta?.fullMeta?.cast || [],
       director: cinemeta?.fullMeta?.director || [],
+      writer: cinemeta?.fullMeta?.writer || [],
       imdbRating: cinemeta?.fullMeta?.imdbRating || null,
+      awards: cinemeta?.fullMeta?.awards || null,
       trailers: cinemeta?.fullMeta?.trailers || [],
-      videos: videos
+      trailerStreams: cinemeta?.fullMeta?.trailerStreams || [],
+      videos: videos,
+      links: cinemeta?.imdbId ? [{
+        name: 'IMDb',
+        category: 'imdb',
+        url: `https://www.imdb.com/title/${cinemeta.imdbId}/`
+      }] : [],
+      behaviorHints: cinemeta?.fullMeta?.behaviorHints || {}
     };
   }
   
@@ -390,12 +399,18 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
     logo: cinemeta?.logo || null,
     description: sanitizeText(cinemeta?.fullMeta?.description || item.description || ''),
     releaseInfo: cinemeta?.fullMeta?.year?.toString() || item.year?.toString() || '',
+    released: cinemeta?.fullMeta?.released || null,
     genres: cinemeta?.fullMeta?.genres || [],
     cast: cinemeta?.fullMeta?.cast || [],
     director: cinemeta?.fullMeta?.director || [],
+    writer: cinemeta?.fullMeta?.writer || [],
+    awards: cinemeta?.fullMeta?.awards || null,
     imdbRating: cinemeta?.fullMeta?.imdbRating || null,
     runtime: cinemeta?.fullMeta?.runtime || null,
-    trailers: cinemeta?.fullMeta?.trailers || []
+    trailers: cinemeta?.fullMeta?.trailers || [],
+    trailerStreams: cinemeta?.fullMeta?.trailerStreams || [],
+    country: cinemeta?.fullMeta?.country || null,
+    dvdRelease: cinemeta?.fullMeta?.dvdRelease || null
   };
   
   // Add IMDb link if available
@@ -405,6 +420,11 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
       category: 'imdb',
       url: `https://www.imdb.com/title/${cinemeta.imdbId}/`
     }];
+  }
+  
+  // Add behavior hints from Cinemeta if available
+  if (cinemeta?.fullMeta?.behaviorHints) {
+    meta.behaviorHints = cinemeta.fullMeta.behaviorHints;
   }
   
   return meta;
