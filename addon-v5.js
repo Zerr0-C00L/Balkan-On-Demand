@@ -401,7 +401,7 @@ function generateManifest(config = null) {
 
   return {
     id: 'community.balkan.on.demand',
-    version: '5.5.0',
+    version: '5.6.0',
     name: 'Balkan On Demand',
     description: 'Movies & Series from Serbia, Croatia & Bosnia',
     
@@ -535,9 +535,10 @@ function defineHandlers(builder) {
     let metas;
     
     if (genre) {
-      // Enrich ALL items first (needed to get genres from Cinemeta)
+      // For genre filtering: NO enrichment in catalog, use database genres
+      // Enrichment only happens in individual meta view for descriptions
       const metasPromises = items.map(item => 
-        toStremioMeta(item, id === 'balkan_series' ? 'series' : 'movie', true)
+        toStremioMeta(item, id === 'balkan_series' ? 'series' : 'movie', false) // false = no enrichment
       );
       
       metas = await Promise.all(metasPromises);
@@ -551,11 +552,11 @@ function defineHandlers(builder) {
       // Apply pagination AFTER filtering
       metas = metas.slice(skip, skip + limit);
     } else {
-      // No genre filter: paginate first, then enrich (better performance)
+      // No genre filter: paginate first, NO enrichment for catalog (use database posters)
       items = items.slice(skip, skip + limit);
       
       const metasPromises = items.map(item => 
-        toStremioMeta(item, id === 'balkan_series' ? 'series' : 'movie', true)
+        toStremioMeta(item, id === 'balkan_series' ? 'series' : 'movie', false) // false = no enrichment
       );
       
       metas = await Promise.all(metasPromises);
@@ -898,17 +899,17 @@ app.use((req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`\n🚀 Balkan On Demand v5.5.0 running on http://localhost:${PORT}\n`);
+  console.log(`\n🚀 Balkan On Demand v5.6.0 running on http://localhost:${PORT}\n`);
   console.log(`📊 Content Stats:`);
   console.log(`   • Movies: ${movieCategories.movies.length}`);
   console.log(`   • Foreign Movies: ${movieCategories.foreign.length}`);
   console.log(`   • Crtani Filmovi: ${movieCategories.kids.length}`);
   console.log(`   • Series: ${allSeriesItems.length}`);
-  console.log(`\n✅ Ready to serve streams with multi-tier metadata enrichment!`);
-  console.log(`   📋 Tier 1: Cinemeta (items with year match) - IMDb verified`);
-  console.log(`   📋 Tier 2: OMDb API (fallback) - title/year search + Serbian→English translation`);
-  console.log(`   📋 Tier 3: Local database only (prevents wrong matches)`);
-  console.log(`   🌍 Serbian title normalization enabled for better matching`);
+  console.log(`\n✅ Ready to serve streams with optimized metadata!`);
+  console.log(`   📋 Catalog View: Fast database posters (no API calls)`);
+  console.log(`   📋 Detail View: Full enrichment (Cinemeta + OMDb + translations)`);
+  console.log(`   � Performance: Instant catalog loading`);
+  console.log(`   🌍 Serbian title normalization: ${Object.keys(titleTranslations).length} translations`);
   console.log(`🎛️  Custom catalog configuration supported!`);
   console.log(`\n📖 Usage:`);
   console.log(`   Default (all catalogs): http://localhost:${PORT}/manifest.json`);
