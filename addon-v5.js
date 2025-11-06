@@ -537,26 +537,14 @@ builder.defineStreamHandler(({ type, id }) => {
       if (season) {
         const episode = season.episodes.find(e => e.episode === parseInt(epNum));
         if (episode) {
+          // Only return the current episode's stream
+          // Stremio will handle "Next Episode" navigation automatically
           streams.push({
             name: 'Direct HD',
             title: `🇷🇸 ${series.name}\nS${seasonNum}E${epNum} - Direct HD 1080p`,
             url: episode.url,
             behaviorHints: {
-              bingeGroup: `series-${seriesSlug}`
-            }
-          });
-          
-          // Add all other episodes for binge-watching
-          season.episodes.forEach(ep => {
-            if (ep.episode !== parseInt(epNum)) {
-              streams.push({
-                name: 'Direct HD',
-                title: `S${seasonNum}E${ep.episode} - ${ep.title || 'Episode ' + ep.episode}`,
-                url: ep.url,
-                behaviorHints: {
-                  bingeGroup: `series-${seriesSlug}`
-                }
-              });
+              bingeGroup: `balkan-series-${seriesSlug}`
             }
           });
         }
