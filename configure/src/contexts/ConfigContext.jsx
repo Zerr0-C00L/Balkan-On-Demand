@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from 'lz-string';
-import { baseCatalogs, directCatalogs, balkanCatalogs } from '../data/catalogs';
+import { baseCatalogs, balkanCatalogs } from '../data/catalogs';
 
 const ConfigContext = createContext();
 
@@ -8,8 +8,15 @@ export function ConfigProvider({ children }) {
   // Language setting
   const [language, setLanguage] = useState('en-US');
   
-  // Catalog configuration
-  const [catalogs, setCatalogs] = useState([]);
+  // Catalog configuration - combine all catalogs
+  const allCatalogs = [...baseCatalogs, ...balkanCatalogs];
+  const [catalogs, setCatalogs] = useState(
+    allCatalogs.map(cat => ({
+      ...cat,
+      enabled: true,
+      showInHome: false
+    }))
+  );
   
   // TMDB settings
   const [tmdbApiKey, setTmdbApiKey] = useState('');
@@ -33,24 +40,6 @@ export function ConfigProvider({ children }) {
   const [enableAgeRating, setEnableAgeRating] = useState(false);
   const [showAgeRatingInGenres, setShowAgeRatingInGenres] = useState(true);
   const [showAgeRatingWithImdbRating, setShowAgeRatingWithImdbRating] = useState(false);
-
-  // Initialize catalogs with all available catalogs
-  useEffect(() => {
-    const allCatalogs = [
-      ...baseCatalogs,
-      ...balkanCatalogs,
-      ...directCatalogs
-    ];
-    
-    // Initialize with all catalogs disabled by default
-    const initialCatalogs = allCatalogs.map(catalog => ({
-      ...catalog,
-      enabled: false,
-      showInHome: false
-    }));
-    
-    setCatalogs(initialCatalogs);
-  }, []);
 
   // Load TMDB API key from localStorage
   useEffect(() => {

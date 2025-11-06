@@ -1,29 +1,13 @@
 // Base TMDB catalogs - inspired by mrcanelas addon
 export const baseCatalogs = [
-  { id: "tmdb.popular", name: "Popular", type: "movie" },
-  { id: "tmdb.popular", name: "Popular", type: "series" },
-  { id: "tmdb.year", name: "Year", type: "movie" },
-  { id: "tmdb.year", name: "Year", type: "series" },
-  { id: "tmdb.language", name: "Language", type: "movie" },
-  { id: "tmdb.language", name: "Language", type: "series" },
-  { id: "tmdb.trending", name: "Trending", type: "movie" },
-  { id: "tmdb.trending", name: "Trending", type: "series" },
-];
-
-// Direct HD catalogs from your Bilosta collection
-export const directCatalogs = [
   { id: "bilosta.movies", name: "Direct HD Movies", type: "movie" },
   { id: "bilosta.series", name: "Direct HD Series", type: "series" },
 ];
 
 // Balkan regional catalogs (TMDB keyword-based)
 export const balkanCatalogs = [
-  { id: "tmdb.bosnian", name: "🇧🇦 Bosnian", type: "movie" },
-  { id: "tmdb.bosnian", name: "🇧🇦 Bosnian", type: "series" },
-  { id: "tmdb.croatian", name: "🇭🇷 Croatian", type: "movie" },
-  { id: "tmdb.croatian", name: "🇭🇷 Croatian", type: "series" },
-  { id: "tmdb.serbian", name: "🇷🇸 Serbian", type: "movie" },
-  { id: "tmdb.serbian", name: "🇷🇸 Serbian", type: "series" },
+  { id: "balkan_movies", name: "🇧🇦🇭🇷🇷🇸 Balkan Movies", type: "movie" },
+  { id: "balkan_series", name: "🇧�🇭�🇷��🇸 Balkan Series", type: "series" },
 ];
 
 // Age rating options
