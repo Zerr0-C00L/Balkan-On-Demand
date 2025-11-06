@@ -87,12 +87,22 @@ async function searchCinemeta(title, year, type = 'movie') {
         const data = await response.json();
         
         if (data.metas && data.metas.length > 0) {
+            // Only accept exact year matches to prevent wrong metadata
             let match = data.metas.find(m => {
                 const metaYear = m.year || m.releaseInfo;
                 return metaYear && metaYear.toString() === year?.toString();
             });
             
-            if (!match) {
+            // If no year match and year is provided, don't use any match
+            // This prevents wrong metadata for regional content not in Cinemeta
+            if (!match && year) {
+                console.log(`No Cinemeta year match for ${title} (${year}), skipping enrichment`);
+                cinemetaCache.set(cacheKey, null);
+                return null;
+            }
+            
+            // If no year provided, use first result (for content without year info)
+            if (!match && !year) {
                 match = data.metas[0];
             }
             
@@ -379,14 +389,14 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
   if (enrichMetadata && item.name) {
     cinemeta = await searchCinemeta(item.name, item.year, type);
     
-    // Fetch OMDb data - try IMDb ID from Cinemeta first, then search by title
+    // Only fetch OMDb if we have validated Cinemeta data (prevents wrong matches)
     if (cinemeta?.imdbId) {
       omdb = await fetchOMDb(cinemeta.imdbId);
-    }
-    
-    // If OMDb by IMDb ID didn't return a plot, try searching by title
-    if (!omdb?.plot && item.name) {
-      omdb = await fetchOMDb(null, item.name, item.year);
+      
+      // If OMDb by IMDb ID didn't return a plot, try searching by title as fallback
+      if (!omdb?.plot && item.name) {
+        omdb = await fetchOMDb(null, item.name, item.year);
+      }
     }
   }
   
