@@ -146,7 +146,7 @@ function sanitizeText(text) {
 const allCatalogs = [
   {
     id: 'balkan_movies',
-    name: '🇷🇸 Filmovi',
+    name: '⭐ Filmovi',
     type: 'movie',
     extra: [
       { name: 'search', isRequired: false },
@@ -534,7 +534,7 @@ function defineHandlers(builder) {
             // Stremio will handle "Next Episode" navigation automatically
             streams.push({
               name: 'Direct HD',
-              title: `🇷🇸 ${series.name}\nS${seasonNum}E${epNum} - Direct HD 1080p`,
+              title: `⭐ ${series.name}\nS${seasonNum}E${epNum} - Direct HD 1080p`,
               url: episode.url,
               behaviorHints: {
                 bingeGroup: `balkan-series-${seriesSlug}`
@@ -560,11 +560,12 @@ function defineHandlers(builder) {
         if (movie.streams) {
           movie.streams.forEach(stream => {
             const quality = stream.quality || 'HD';
-            const qualityLabel = quality === '4K' ? '4K UHD' : quality === 'HD' ? 'HD 1080p' : quality;
+            // Don't assume HD = 1080p, just show the quality as-is
+            const qualityLabel = quality === '4K' ? '4K UHD' : 'HD';
             
             streams.push({
               name: `Direct ${qualityLabel}`,
-              title: `🇷🇸 Direct ${qualityLabel}\n${stream.source || 'Bilosta'} • Cloudflare CDN`,
+              title: `⭐ Direct ${qualityLabel}\n${stream.source || 'Bilosta'} • Cloudflare CDN`,
               url: stream.url,
               behaviorHints: {
                 bingeGroup: 'balkan-' + movie.id
