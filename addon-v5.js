@@ -152,7 +152,7 @@ const allCatalogs = [
     extra: [
       { 
         name: 'genre', 
-        isRequired: false,
+        isRequired: true,  // Hide from Home - only show in Discover with genre selection
         options: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
       },
       { name: 'search', isRequired: false },
@@ -168,7 +168,7 @@ const allCatalogs = [
     extra: [
       { 
         name: 'genre', 
-        isRequired: false,
+        isRequired: true,  // Hide from Home - only show in Discover with genre selection
         options: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
       },
       { name: 'search', isRequired: false },
@@ -184,7 +184,7 @@ const allCatalogs = [
     extra: [
       { 
         name: 'genre', 
-        isRequired: false,
+        isRequired: true,  // Hide from Home - only show in Discover with genre selection
         options: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
       },
       { name: 'search', isRequired: false },
@@ -200,7 +200,7 @@ const allCatalogs = [
     extra: [
       { 
         name: 'genre', 
-        isRequired: false,
+        isRequired: true,  // Hide from Home - only show in Discover with genre selection
         options: ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western']
       },
       { name: 'search', isRequired: false },
@@ -248,11 +248,13 @@ function generateManifest(config = null) {
         const hasGenre = cat.extra.some(e => e.name === 'genre');
         const hasSearch = cat.extra.some(e => e.name === 'search');
         
-        // Add genre support (always optional, never required)
+        // Add genre support - preserve isRequired flag
         if (hasGenre) {
           extraSupported.push('genre');
           const genreExtra = cat.extra.find(e => e.name === 'genre');
-          filteredExtra.push({ ...genreExtra, isRequired: false });
+          // If in home, make genre optional; otherwise keep isRequired from catalog definition
+          const genreIsRequired = inHome ? false : (genreExtra.isRequired || false);
+          filteredExtra.push({ ...genreExtra, isRequired: genreIsRequired });
         }
         
         if (hasSearch) {
