@@ -336,25 +336,40 @@ function parseConfig(configString) {
   }
   
   try {
-    // Check if it's a simple home=catalog1,catalog2 format
-    if (configString.startsWith('home=')) {
-      const homeCatalogs = configString.replace('home=', '').split(',');
-      
-      // Build full config object
-      const config = {
-        catalogs: allCatalogs.map(cat => ({
+    const config = {
+      catalogs: null,
+      tmdbApiKey: null
+    };
+    
+    // Split by & to handle multiple config parameters
+    const parts = configString.split('&');
+    
+    parts.forEach(part => {
+      // Handle home=catalog1,catalog2 format
+      if (part.startsWith('home=')) {
+        const homeCatalogs = part.replace('home=', '').split(',');
+        
+        // Build catalogs config
+        config.catalogs = allCatalogs.map(cat => ({
           id: cat.id,
           type: cat.type,
           enabled: true, // All catalogs enabled
           showInHome: homeCatalogs.includes(cat.id) // Home only for selected
-        }))
-      };
+        }));
+      }
       
-      return config;
+      // Handle tmdb=API_KEY format
+      if (part.startsWith('tmdb=')) {
+        config.tmdbApiKey = decodeURIComponent(part.replace('tmdb=', ''));
+      }
+    });
+    
+    // If no parts were parsed, try parsing as JSON (legacy support)
+    if (!config.catalogs && !config.tmdbApiKey) {
+      const jsonConfig = JSON.parse(decodeURIComponent(configString));
+      return jsonConfig;
     }
     
-    // Try to parse as JSON
-    const config = JSON.parse(decodeURIComponent(configString));
     return config;
   } catch (e) {
     console.error('Failed to parse config:', e.message);
@@ -403,7 +418,9 @@ function generateManifest(config = null) {
     id: 'community.balkan.on.demand',
     version: '5.6.0',
     name: 'Balkan On Demand',
-    description: 'Movies & Series from Serbia, Croatia & Bosnia',
+    description: config && config.tmdbApiKey 
+      ? 'Movies & Series from Serbia, Croatia & Bosnia (Enhanced with TMDB)'
+      : 'Movies & Series from Serbia, Croatia & Bosnia',
     
     resources: [
       'catalog',

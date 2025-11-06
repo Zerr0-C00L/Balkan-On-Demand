@@ -325,12 +325,17 @@ function SettingsPage({ tmdbApiKey, setTmdbApiKey }) {
 
         {/* Additional Info */}
         <div className="bg-blue-50 border-l-4 border-[#00d4ff] rounded-lg p-4">
-          <h4 className="font-semibold text-gray-800 mb-2">💡 What does this do?</h4>
-          <p className="text-sm text-gray-700">
-            The TMDB scraper will search TMDB for all your titles and extract metadata like descriptions, 
-            cast, genres, and ratings. This data is saved locally and used to enhance your addon's content 
-            without making API calls during runtime.
-          </p>
+          <h4 className="font-semibold text-gray-800 mb-2">💡 How it works</h4>
+          <div className="text-sm text-gray-700 space-y-2">
+            <p>
+              Your TMDB API key can be embedded in the addon installation URL. When you install 
+              the addon from the Catalogs page, your key will be included automatically.
+            </p>
+            <p>
+              <strong>Note:</strong> The key is stored in your browser and embedded in your personal 
+              addon URL. You can run the metadata scraper separately to enrich content.
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -338,7 +343,7 @@ function SettingsPage({ tmdbApiKey, setTmdbApiKey }) {
 }
 
 // Catalogs Page
-function CatalogsPage({ selectedCatalogs, setSelectedCatalogs }) {
+function CatalogsPage({ selectedCatalogs, setSelectedCatalogs, tmdbApiKey }) {
   const [installedUrl, setInstalledUrl] = useState('')
   const [stats, setStats] = useState({
     movies: 1364,
@@ -388,16 +393,25 @@ function CatalogsPage({ selectedCatalogs, setSelectedCatalogs }) {
       ? 'http://localhost:7005'
       : 'https://balkan-on-demand-828b9dd653f6.herokuapp.com'
 
-    if (selectedCatalogs.length === 0) {
+    const configParts = []
+    
+    // Add catalog selection
+    if (selectedCatalogs.length > 0 && selectedCatalogs.length < catalogs.length) {
+      configParts.push(`home=${selectedCatalogs.join(',')}`)
+    } else if (selectedCatalogs.length === catalogs.length) {
+      configParts.push(`home=${catalogs.map(c => c.id).join(',')}`)
+    }
+    
+    // Add TMDB API key if set
+    if (tmdbApiKey && tmdbApiKey !== '') {
+      configParts.push(`tmdb=${encodeURIComponent(tmdbApiKey)}`)
+    }
+    
+    if (configParts.length === 0) {
       return `${baseUrl}/manifest.json`
     }
-
-    if (selectedCatalogs.length === catalogs.length) {
-      return `${baseUrl}/home=${catalogs.map(c => c.id).join(',')}/manifest.json`
-    }
-
-    const config = `home=${selectedCatalogs.join(',')}`
-    return `${baseUrl}/${config}/manifest.json`
+    
+    return `${baseUrl}/${configParts.join('&')}/manifest.json`
   }
 
   const handleInstall = () => {
@@ -516,6 +530,13 @@ function CatalogsPage({ selectedCatalogs, setSelectedCatalogs }) {
 
       {/* Install Button */}
       <div className="mt-8 max-w-4xl mx-auto">
+        {tmdbApiKey && (
+          <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg flex items-center gap-2 text-sm">
+            <span className="text-green-600">✓</span>
+            <span className="text-green-800">TMDB API key configured - Enhanced metadata enabled</span>
+          </div>
+        )}
+        
         <button
           onClick={handleInstall}
           className="w-full bg-[#00d4ff] hover:bg-[#00b8e6] text-white font-bold py-4 px-6 rounded-lg text-lg transition-all duration-200 hover:scale-[1.02] shadow-lg"
@@ -556,7 +577,7 @@ function App() {
       case 'home':
         return <HomePage />
       case 'catalogs':
-        return <CatalogsPage selectedCatalogs={selectedCatalogs} setSelectedCatalogs={setSelectedCatalogs} />
+        return <CatalogsPage selectedCatalogs={selectedCatalogs} setSelectedCatalogs={setSelectedCatalogs} tmdbApiKey={tmdbApiKey} />
       case 'settings':
         return <SettingsPage tmdbApiKey={tmdbApiKey} setTmdbApiKey={setTmdbApiKey} />
       default:
