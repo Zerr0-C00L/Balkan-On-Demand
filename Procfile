@@ -1,1 +1,1 @@
-web: node addon-v5.js
+web: node addon.js
