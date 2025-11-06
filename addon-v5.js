@@ -16,6 +16,107 @@ const OMDB_URL = 'https://www.omdbapi.com';
 const OMDB_API_KEY = 'trilogy'; // Free public API key
 const omdbCache = new Map();
 
+// TMDB API integration for direct metadata lookup
+const TMDB_URL = 'https://api.themoviedb.org/3';
+const TMDB_API_KEY = '96b90a4671c68e4e24526bbad02bf522'; // Read-only API key
+const tmdbCache = new Map();
+
+// Extract TMDB ID from poster URL
+function extractTMDBId(posterUrl) {
+    if (!posterUrl || !posterUrl.includes('tmdb')) return null;
+    
+    // Extract the image hash from URLs like:
+    // https://image.tmdb.org/t/p/w780/d06BXJmEfcvvCzp2GRWQeXKVZMT.jpg
+    const match = posterUrl.match(/\/([a-zA-Z0-9]+)\.jpg$/);
+    return match ? match[1] : null;
+}
+
+// Search TMDB by title and year to get movie ID
+async function searchTMDB(title, year, type = 'movie') {
+    const cacheKey = `search:${type}:${title}:${year}`;
+    
+    if (tmdbCache.has(cacheKey)) {
+        return tmdbCache.get(cacheKey);
+    }
+    
+    try {
+        const cleanTitle = title
+            .replace(/\([^)]*\)/g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
+        
+        const endpoint = type === 'series' ? 'tv' : 'movie';
+        const searchQuery = encodeURIComponent(cleanTitle);
+        let searchUrl = `${TMDB_URL}/search/${endpoint}?api_key=${TMDB_API_KEY}&query=${searchQuery}&language=en-US`;
+        
+        if (year) {
+            const yearParam = type === 'series' ? 'first_air_date_year' : 'year';
+            searchUrl += `&${yearParam}=${year}`;
+        }
+        
+        const response = await fetch(searchUrl);
+        if (!response.ok) throw new Error(`TMDB search responded with ${response.status}`);
+        
+        const data = await response.json();
+        
+        if (data.results && data.results.length > 0) {
+            // Return the first match (year filtering already applied)
+            const result = data.results[0];
+            tmdbCache.set(cacheKey, result.id);
+            return result.id;
+        }
+    } catch (error) {
+        console.error(`TMDB search error for ${title}:`, error.message);
+    }
+    
+    tmdbCache.set(cacheKey, null);
+    return null;
+}
+
+// Fetch metadata from TMDB by movie/series ID
+async function fetchTMDB(tmdbId, type = 'movie') {
+    const cacheKey = `${type}:${tmdbId}`;
+    
+    if (tmdbCache.has(cacheKey)) {
+        return tmdbCache.get(cacheKey);
+    }
+    
+    try {
+        const endpoint = type === 'series' ? 'tv' : 'movie';
+        const url = `${TMDB_URL}/${endpoint}/${tmdbId}?api_key=${TMDB_API_KEY}&language=en-US&append_to_response=credits,videos`;
+        
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`TMDB responded with ${response.status}`);
+        
+        const data = await response.json();
+        
+        const result = {
+            description: data.overview || null,
+            poster: data.poster_path ? `https://image.tmdb.org/t/p/w780${data.poster_path}` : null,
+            background: data.backdrop_path ? `https://image.tmdb.org/t/p/original${data.backdrop_path}` : null,
+            genres: data.genres ? data.genres.map(g => g.name) : [],
+            cast: data.credits?.cast ? data.credits.cast.slice(0, 10).map(c => c.name) : [],
+            director: data.credits?.crew ? data.credits.crew.filter(c => c.job === 'Director').map(d => d.name) : [],
+            year: type === 'series' 
+                ? (data.first_air_date ? new Date(data.first_air_date).getFullYear() : null)
+                : (data.release_date ? new Date(data.release_date).getFullYear() : null),
+            rating: data.vote_average || null,
+            runtime: data.runtime || (data.episode_run_time ? data.episode_run_time[0] : null),
+            trailers: data.videos?.results ? data.videos.results
+                .filter(v => v.type === 'Trailer' && v.site === 'YouTube')
+                .map(v => ({ source: v.key, type: 'Trailer' })) : []
+        };
+        
+        tmdbCache.set(cacheKey, result);
+        return result;
+    } catch (error) {
+        console.error(`TMDB fetch error for ${tmdbId}:`, error.message);
+    }
+    
+    tmdbCache.set(cacheKey, null);
+    return null;
+}
+
 // Fetch metadata from OMDb by IMDb ID or search by title
 async function fetchOMDb(imdbId, title = null, year = null) {
     const cacheKey = imdbId || `${title}:${year}`;
@@ -252,7 +353,7 @@ function generateManifest(config = null) {
 
   return {
     id: 'community.balkan.on.demand',
-    version: '5.3.0',
+    version: '5.4.0',
     name: 'Balkan On Demand',
     description: 'Movies & Series from Serbia, Croatia & Bosnia',
     
@@ -541,23 +642,33 @@ function defineHandlers(builder) {
 }
 
 
-// Helper: Convert to Stremio meta format with year-based Cinemeta enrichment
+// Helper: Convert to Stremio meta format with multi-tier enrichment
 async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
   let cinemeta = null;
   let omdb = null;
+  let tmdb = null;
   
-  // Option 1: Year-based matching
-  // Only enrich with Cinemeta if the item has a year to prevent wrong matches
-  if (enrichMetadata && item.year) {
-    cinemeta = await searchCinemeta(item.name, item.year, type);
-    
-    // If Cinemeta found a match, also try OMDb for enhanced descriptions
-    if (cinemeta?.imdbId) {
-      omdb = await fetchOMDb(cinemeta.imdbId);
+  if (enrichMetadata) {
+    // TIER 1: Items with years - use Cinemeta + OMDb (safe year-based matching)
+    if (item.year) {
+      cinemeta = await searchCinemeta(item.name, item.year, type);
+      
+      // If Cinemeta found a match, also try OMDb for enhanced descriptions
+      if (cinemeta?.imdbId) {
+        omdb = await fetchOMDb(cinemeta.imdbId);
+      }
     }
+    // TIER 2: Items without years but with TMDB posters - use TMDB directly
+    // This is 100% accurate because we're using the TMDB ID from their own poster URL
+    else if (item.poster && item.poster.includes('tmdb')) {
+      // Try to search TMDB by title (without year) as fallback
+      const tmdbId = await searchTMDB(item.name, null, type);
+      if (tmdbId) {
+        tmdb = await fetchTMDB(tmdbId, type);
+      }
+    }
+    // TIER 3: Items without years or TMDB - use local database only (no enrichment)
   }
-  // If no year is available, skip Cinemeta enrichment entirely
-  // This prevents wrong matches like "Boomerang" matching wrong content
   
   if (type === 'series') {
     // Extract fallback poster from first episode's thumbnail
@@ -569,8 +680,8 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
       }
     }
     
-    // Use Cinemeta data if available (only enriched if year exists), fallback to local data
-    const poster = cinemeta?.poster || fallbackPoster || 'https://via.placeholder.com/300x450/1a1a1a/ffffff?text=' + encodeURIComponent(item.name);
+    // Use enriched data if available: Cinemeta (with year) > TMDB (without year) > local data
+    const poster = cinemeta?.poster || tmdb?.poster || fallbackPoster || 'https://via.placeholder.com/300x450/1a1a1a/ffffff?text=' + encodeURIComponent(item.name);
     
     // Build videos array with Cinemeta episode metadata when available
     const videos = item.seasons.flatMap(season =>
@@ -595,20 +706,20 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
     return {
       id: item.id,
       type: 'series',
-      name: sanitizeText(cinemeta?.fullMeta?.name || item.name),
+      name: sanitizeText(cinemeta?.fullMeta?.name || tmdb?.name || item.name),
       poster: poster,
       posterShape: 'poster',
-      background: cinemeta?.background || null,
+      background: cinemeta?.background || tmdb?.background || null,
       logo: cinemeta?.logo || null,
-      description: sanitizeText(omdb?.plot || cinemeta?.fullMeta?.description || ''),
-      releaseInfo: cinemeta?.fullMeta?.year?.toString() || item.year?.toString() || '',
-      genres: cinemeta?.fullMeta?.genres || [],
-      cast: cinemeta?.fullMeta?.cast || [],
-      director: cinemeta?.fullMeta?.director || [],
+      description: sanitizeText(omdb?.plot || tmdb?.description || cinemeta?.fullMeta?.description || ''),
+      releaseInfo: cinemeta?.fullMeta?.year?.toString() || tmdb?.year?.toString() || item.year?.toString() || '',
+      genres: cinemeta?.fullMeta?.genres || tmdb?.genres || [],
+      cast: cinemeta?.fullMeta?.cast || tmdb?.cast || [],
+      director: cinemeta?.fullMeta?.director || tmdb?.director || [],
       writer: cinemeta?.fullMeta?.writer || [],
-      imdbRating: cinemeta?.fullMeta?.imdbRating || null,
+      imdbRating: cinemeta?.fullMeta?.imdbRating || tmdb?.rating || null,
       awards: omdb?.awards || cinemeta?.fullMeta?.awards || null,
-      trailers: cinemeta?.fullMeta?.trailers || [],
+      trailers: cinemeta?.fullMeta?.trailers || tmdb?.trailers || [],
       trailerStreams: cinemeta?.fullMeta?.trailerStreams || [],
       videos: videos,
       // DON'T add IMDb links - Stremio will use IMDb IDs for stream requests
@@ -618,26 +729,26 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false) {
     };
   }
   
-  // For movies: Use Cinemeta metadata (only if year exists) with OMDb enhancements, fallback to local data
+  // For movies: Priority order: Cinemeta (with year) > TMDB (without year) > Local data
   const meta = {
     id: item.id,
     type: 'movie',
-    name: sanitizeText(cinemeta?.fullMeta?.name || item.name),
-    poster: cinemeta?.poster || item.poster || 'https://via.placeholder.com/300x450/1a1a1a/ffffff?text=' + encodeURIComponent(item.name),
+    name: sanitizeText(cinemeta?.fullMeta?.name || tmdb?.name || item.name),
+    poster: cinemeta?.poster || tmdb?.poster || item.poster || 'https://via.placeholder.com/300x450/1a1a1a/ffffff?text=' + encodeURIComponent(item.name),
     posterShape: 'poster',
-    background: cinemeta?.background || item.background || null,
+    background: cinemeta?.background || tmdb?.background || item.background || null,
     logo: cinemeta?.logo || null,
-    description: sanitizeText(omdb?.plot || cinemeta?.fullMeta?.description || item.description || ''),
-    releaseInfo: cinemeta?.fullMeta?.year?.toString() || item.year?.toString() || '',
+    description: sanitizeText(omdb?.plot || tmdb?.description || cinemeta?.fullMeta?.description || item.description || ''),
+    releaseInfo: cinemeta?.fullMeta?.year?.toString() || tmdb?.year?.toString() || item.year?.toString() || '',
     released: cinemeta?.fullMeta?.released || null,
-    genres: cinemeta?.fullMeta?.genres || item.genres || [],
-    cast: cinemeta?.fullMeta?.cast || item.cast || [],
-    director: cinemeta?.fullMeta?.director || item.director || [],
+    genres: cinemeta?.fullMeta?.genres || tmdb?.genres || item.genres || [],
+    cast: cinemeta?.fullMeta?.cast || tmdb?.cast || item.cast || [],
+    director: cinemeta?.fullMeta?.director || tmdb?.director || item.director || [],
     writer: cinemeta?.fullMeta?.writer || [],
     awards: omdb?.awards || cinemeta?.fullMeta?.awards || null,
-    imdbRating: cinemeta?.fullMeta?.imdbRating || null,
-    runtime: cinemeta?.fullMeta?.runtime || null,
-    trailers: cinemeta?.fullMeta?.trailers || [],
+    imdbRating: cinemeta?.fullMeta?.imdbRating || tmdb?.rating || null,
+    runtime: cinemeta?.fullMeta?.runtime || tmdb?.runtime || null,
+    trailers: cinemeta?.fullMeta?.trailers || tmdb?.trailers || [],
     trailerStreams: cinemeta?.fullMeta?.trailerStreams || [],
     country: omdb?.country || cinemeta?.fullMeta?.country || null,
     dvdRelease: cinemeta?.fullMeta?.dvdRelease || null,
@@ -735,14 +846,16 @@ app.use((req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`\n🚀 Balkan On Demand v5.3.0 running on http://localhost:${PORT}\n`);
+  console.log(`\n🚀 Balkan On Demand v5.4.0 running on http://localhost:${PORT}\n`);
   console.log(`📊 Content Stats:`);
   console.log(`   • Movies: ${movieCategories.movies.length}`);
   console.log(`   • Foreign Movies: ${movieCategories.foreign.length}`);
   console.log(`   • Crtani Filmovi: ${movieCategories.kids.length}`);
   console.log(`   • Series: ${allSeriesItems.length}`);
-  console.log(`\n✅ Ready to serve streams with year-based Cinemeta enrichment!`);
-  console.log(`   ℹ️  Only content with year metadata will be enriched (prevents wrong matches)`);
+  console.log(`\n✅ Ready to serve streams with multi-tier metadata enrichment!`);
+  console.log(`   📋 Tier 1: Cinemeta + OMDb (items with years) - safe matching`);
+  console.log(`   📋 Tier 2: TMDB API (items without years) - fallback enrichment`);
+  console.log(`   📋 Tier 3: Local database only (prevents wrong matches)`);
   console.log(`🎛️  Custom catalog configuration supported!`);
   console.log(`\n📖 Usage:`);
   console.log(`   Default (all catalogs): http://localhost:${PORT}/manifest.json`);
