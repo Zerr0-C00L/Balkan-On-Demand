@@ -378,25 +378,6 @@ const allCatalogs = [
     extraSupported: ['genre', 'skip'],
     extraRequired: ['genre']
   },
-  // Movies - By Language
-  {
-    id: 'balkan_movies_language',
-    name: 'Filmovi (Languages)',
-    type: 'movie',
-    genres: ['Serbian', 'Croatian', 'Bosnian', 'Macedonian', 'Slovenian', 'Montenegrin', 
-             'English', 'Russian', 'German', 'French', 'Italian', 'Spanish', 'Turkish'],
-    extra: [
-      { 
-        name: 'genre',
-        options: ['Serbian', 'Croatian', 'Bosnian', 'Macedonian', 'Slovenian', 'Montenegrin', 
-                  'English', 'Russian', 'German', 'French', 'Italian', 'Spanish', 'Turkish'],
-        isRequired: true
-      },
-      { name: 'skip' }
-    ],
-    extraSupported: ['genre', 'skip'],
-    extraRequired: ['genre']
-  },
   // Series - Popular (with genres and year sorting)
   {
     id: 'balkan_series',
@@ -435,25 +416,6 @@ const allCatalogs = [
                   '2007', '2006', '2005', '2004', '2003', '2002', '2001', '2000', '1999',
                   '1998', '1997', '1996', '1995', '1994', '1993', '1992', '1991', '1990',
                   '1989', '1988', '1987', '1986', '1985', '1984', '1983', '1982', '1981', '1980'],
-        isRequired: true
-      },
-      { name: 'skip' }
-    ],
-    extraSupported: ['genre', 'skip'],
-    extraRequired: ['genre']
-  },
-  // Series - By Language
-  {
-    id: 'balkan_series_language',
-    name: 'Serije (Languages)',
-    type: 'series',
-    genres: ['Serbian', 'Croatian', 'Bosnian', 'Macedonian', 'Slovenian', 'Montenegrin', 
-             'English', 'Russian', 'German', 'French', 'Italian', 'Spanish', 'Turkish'],
-    extra: [
-      { 
-        name: 'genre',
-        options: ['Serbian', 'Croatian', 'Bosnian', 'Macedonian', 'Slovenian', 'Montenegrin', 
-                  'English', 'Russian', 'German', 'French', 'Italian', 'Spanish', 'Turkish'],
         isRequired: true
       },
       { name: 'skip' }
@@ -538,10 +500,8 @@ function generateManifest(config = null) {
         let catalogId = cat.id;
         if (cat.id === 'bilosta.movies') catalogId = 'balkan_movies';
         if (cat.id === 'bilosta.movies_year') catalogId = 'balkan_movies_year';
-        if (cat.id === 'bilosta.movies_language') catalogId = 'balkan_movies_language';
         if (cat.id === 'bilosta.series') catalogId = 'balkan_series';
         if (cat.id === 'bilosta.series_year') catalogId = 'balkan_series_year';
-        if (cat.id === 'bilosta.series_language') catalogId = 'balkan_series_language';
         
         // Legacy mappings (if needed)
         if (cat.id === 'bilosta.foreign') catalogId = 'balkan_foreign_movies';
@@ -723,14 +683,10 @@ function defineHandlers(builder, config = null) {
     // Determine sort type and filter type based on catalog ID
     let sort = 'year'; // Default to year (newest first) for home catalogs
     let filterByYear = false;
-    let filterByLanguage = false;
     
     if (id.includes('_year')) {
       sort = 'year';
       filterByYear = true; // For year catalogs, genre field contains year
-    } else if (id.includes('_language')) {
-      sort = 'year';
-      filterByLanguage = true; // For language catalogs, genre field contains language
     }
     
     let items = [];
@@ -757,42 +713,6 @@ function defineHandlers(builder, config = null) {
       });
     }
     
-    // For language-based catalogs, filter by language
-    if (filterByLanguage && genre) {
-      items = await Promise.all(items.map(async item => {
-        // Enrich to get language information from Cinemeta
-        const meta = await toStremioMeta(item, type === 'series' ? 'series' : 'movie', true, config?.tmdbApiKey);
-        return { ...item, language: meta?.language };
-      }));
-      
-      // Filter by selected language
-      items = items.filter(item => {
-        if (!item.language) return false;
-        const itemLanguage = item.language.toLowerCase();
-        const selectedLanguage = genre.toLowerCase();
-        
-        // Map language codes and names
-        const languageMap = {
-          'serbian': ['sr', 'serbian', 'srpski'],
-          'croatian': ['hr', 'croatian', 'hrvatski'],
-          'bosnian': ['bs', 'bosnian', 'bosanski'],
-          'macedonian': ['mk', 'macedonian', 'македонски'],
-          'slovenian': ['sl', 'slovenian', 'slovenski'],
-          'montenegrin': ['me', 'montenegrin', 'crnogorski'],
-          'english': ['en', 'english'],
-          'russian': ['ru', 'russian', 'русский'],
-          'german': ['de', 'german', 'deutsch'],
-          'french': ['fr', 'french', 'français'],
-          'italian': ['it', 'italian', 'italiano'],
-          'spanish': ['es', 'spanish', 'español'],
-          'turkish': ['tr', 'turkish', 'türkçe']
-        };
-        
-        const matchingLanguages = languageMap[selectedLanguage] || [selectedLanguage];
-        return matchingLanguages.some(lang => itemLanguage.includes(lang));
-      });
-    }
-    
     // Apply sorting before pagination (always by year, newest first)
     items.sort((a, b) => {
       const yearA = parseInt(a.year) || 0;
@@ -804,9 +724,9 @@ function defineHandlers(builder, config = null) {
     // Otherwise we can paginate first for better performance
     let metas;
     
-    // For year-based or language-based catalogs, filtering was already done, just paginate
+    // For year-based catalogs, filtering was already done, just paginate
     // For regular catalogs, apply genre filter if specified
-    if (genre && genre !== 'All' && !filterByYear && !filterByLanguage) {
+    if (genre && genre !== 'All' && !filterByYear) {
       // For genre filtering: WITH enrichment so genres are available
       const metasPromises = items.map(item => 
         toStremioMeta(item, type === 'series' ? 'series' : 'movie', true, config?.tmdbApiKey) // true = with enrichment
@@ -823,7 +743,7 @@ function defineHandlers(builder, config = null) {
       // Apply pagination AFTER filtering
       metas = metas.slice(skip, skip + limit);
     } else {
-      // No genre filter OR year/language filtering already done: paginate first, WITH enrichment for full metadata
+      // No genre filter OR year filtering already done: paginate first, WITH enrichment for full metadata
       items = items.slice(skip, skip + limit);
       
       const metasPromises = items.map(item => 

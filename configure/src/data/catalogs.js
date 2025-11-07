@@ -6,12 +6,10 @@ export const baseCatalogs = [
   // Movies
   { id: "bilosta.movies", name: "🎬 Filmovi", type: "movie", description: "Browse by genre (sorted by year)" },
   { id: "bilosta.movies_year", name: "🎬 Filmovi (New)", type: "movie", description: "Browse by year" },
-  { id: "bilosta.movies_language", name: "🎬 Filmovi (Languages)", type: "movie", description: "Browse by language" },
   
   // Series
   { id: "bilosta.series", name: "📺 Serije", type: "series", description: "Browse by genre (sorted by year)" },
   { id: "bilosta.series_year", name: "📺 Serije (New)", type: "series", description: "Browse by year" },
-  { id: "bilosta.series_language", name: "📺 Serije (Languages)", type: "series", description: "Browse by language" },
 ];
 
 // No need for separate balkanCatalogs - bilosta IDs map to balkan_ catalogs in backend
