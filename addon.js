@@ -336,7 +336,7 @@ const allCatalogs = [
   // All Movies (Domaci + Foreign + Cartoons)
   {
     id: 'balkan_movies',
-    name: '� Filmovi',
+    name: 'Filmovi',
     type: 'movie',
     extra: [
       { name: 'search', isRequired: false },
@@ -346,84 +346,7 @@ const allCatalogs = [
   // All Series
   {
     id: 'balkan_series',
-    name: '📺 Serije',
-    type: 'series',
-    extra: [
-      { name: 'search', isRequired: false },
-      { name: 'skip', isRequired: false }
-    ]
-  },
-  // TMDB Dynamic Catalogs
-  {
-    id: 'tmdb_popular_movies',
-    name: '🔥 Popular Movies',
-    type: 'movie',
-    extra: [
-      { name: 'search', isRequired: false },
-      { name: 'skip', isRequired: false }
-    ]
-  },
-  {
-    id: 'tmdb_popular_series',
-    name: '🔥 Popular Series',
-    type: 'series',
-    extra: [
-      { name: 'search', isRequired: false },
-      { name: 'skip', isRequired: false }
-    ]
-  },
-  {
-    id: 'tmdb_year_movies',
-    name: '📅 Movies by Year',
-    type: 'movie',
-    extra: [
-      { name: 'search', isRequired: false },
-      { name: 'skip', isRequired: false },
-      { name: 'genre', isRequired: false }
-    ]
-  },
-  {
-    id: 'tmdb_year_series',
-    name: '📅 Series by Year',
-    type: 'series',
-    extra: [
-      { name: 'search', isRequired: false },
-      { name: 'skip', isRequired: false },
-      { name: 'genre', isRequired: false }
-    ]
-  },
-  {
-    id: 'tmdb_language_movies',
-    name: '🌍 Movies by Language',
-    type: 'movie',
-    extra: [
-      { name: 'search', isRequired: false },
-      { name: 'skip', isRequired: false },
-      { name: 'genre', isRequired: false }
-    ]
-  },
-  {
-    id: 'tmdb_language_series',
-    name: '🌍 Series by Language',
-    type: 'series',
-    extra: [
-      { name: 'search', isRequired: false },
-      { name: 'skip', isRequired: false },
-      { name: 'genre', isRequired: false }
-    ]
-  },
-  {
-    id: 'tmdb_trending_movies',
-    name: '📈 Trending Movies',
-    type: 'movie',
-    extra: [
-      { name: 'search', isRequired: false },
-      { name: 'skip', isRequired: false }
-    ]
-  },
-  {
-    id: 'tmdb_trending_series',
-    name: '📈 Trending Series',
+    name: 'Serije',
     type: 'series',
     extra: [
       { name: 'search', isRequired: false },
@@ -716,17 +639,6 @@ function defineHandlers(builder, config = null) {
       case 'balkan_series':
         items = allSeriesItems;
         break;
-        
-      // TMDB Catalogs
-      case 'tmdb_popular_movies':
-      case 'tmdb_popular_series':
-      case 'tmdb_year_movies':
-      case 'tmdb_year_series':
-      case 'tmdb_language_movies':
-      case 'tmdb_language_series':
-      case 'tmdb_trending_movies':
-      case 'tmdb_trending_series':
-        return await handleTMDBCatalog(id, type, extra, config?.tmdbApiKey);
     }
     
     // Apply search filter first (before enrichment for better performance)
