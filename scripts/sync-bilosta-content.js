@@ -222,27 +222,30 @@ function extractTitle(filename, folderPath) {
 
 /**
  * Determine content category from path
+ * Returns null for foreign/non-Balkan content to skip it
  */
 function determineCategory(filePath) {
   const upperPath = filePath.toUpperCase();
   
-  if (upperPath.includes('CRTANI') || upperPath.includes('CARTOON')) {
-    return 'kids'; // Cartoons/Kids
-  } else if (upperPath.includes('SERIJE') || upperPath.includes('SERIES') || upperPath.includes('IMDB')) {
-    return 'series'; // TV Series (including IMDB foreign series)
-  } else if (upperPath.includes('EXYU') || upperPath.includes('DOMACI')) {
-    return 'movies'; // Ex-YU movies
-  } else if (upperPath.includes('4K')) {
-    return 'foreign'; // 4K foreign movies
-  } else if (upperPath.includes('STRANI') || upperPath.includes('FOREIGN')) {
-    return 'foreign'; // Foreign movies
-  } else if (upperPath.includes('FILMOVI')) {
-    return 'movies'; // General movies (likely Ex-YU)
-  } else if (upperPath.includes('DOKU')) {
-    return 'foreign'; // Documentaries
+  // Skip foreign content entirely
+  if (upperPath.includes('STRANI') || upperPath.includes('FOREIGN') || 
+      upperPath.includes('4K') || upperPath.includes('DOKU') ||
+      upperPath.includes('CARTOON') || upperPath.includes('CRTANI')) {
+    return null; // Skip non-Balkan content
   }
   
-  return 'unknown';
+  // Keep only Ex-Yu/Balkan content
+  if (upperPath.includes('SERIJE') || upperPath.includes('SERIES')) {
+    // Skip IMDB series (foreign), keep only domestic
+    if (upperPath.includes('IMDB')) return null;
+    return 'series'; // Ex-YU TV Series
+  } else if (upperPath.includes('EXYU') || upperPath.includes('DOMACI')) {
+    return 'movies'; // Ex-YU movies
+  } else if (upperPath.includes('FILMOVI')) {
+    return 'movies'; // General movies (likely Ex-YU)
+  }
+  
+  return null; // Skip unknown content
 }
 
 /**
@@ -305,11 +308,18 @@ function mergeContent(database, newFiles, options = {}) {
       stats.existing++;
       console.log(`✓ Existing: ${file.filename}`);
     } else {
+      // Determine category - skip if null (foreign content)
+      const category = determineCategory(file.path);
+      
+      if (category === null) {
+        // Skip foreign/non-Balkan content
+        return;
+      }
+      
       stats.new++;
       console.log(`+ New: ${file.filename}`);
       
-      // Determine category and add to database
-      const category = determineCategory(file.path);
+      // Add to database
       const entry = createBasicEntry(file, category);
       
       if (category === 'series') {
