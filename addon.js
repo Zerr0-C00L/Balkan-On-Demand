@@ -425,9 +425,10 @@ function generateManifest(config = null) {
   if (config && config.catalogs && Array.isArray(config.catalogs)) {
     console.log('📦 Generating manifest with config:', JSON.stringify(config.catalogs, null, 2));
     
-    // User has configured catalogs - only include those with showInHome = true
+    // User has configured catalogs - all enabled catalogs are included in manifest
+    // Note: Stremio shows all manifest catalogs in both Board and Discover
+    // The showInHome property is preserved for potential future use
     catalogs = config.catalogs
-      .filter(cat => cat.showInHome === true) // Only include catalogs that should show on home
       .map(cat => {
         // Map bilosta.* IDs to actual catalog IDs
         let catalogId = cat.id;
@@ -455,14 +456,14 @@ function generateManifest(config = null) {
           return null;
         }
         
-        console.log(`✅ Found catalog (showInHome): ${cat.id} -> ${catalogId} (${cat.type})`);
+        console.log(`✅ Found catalog: ${cat.id} -> ${catalogId} (${cat.type})`);
         
         // Return the base catalog as-is (it already has proper structure)
         return baseCatalog;
       })
       .filter(cat => cat !== null); // Remove any null entries
     
-    console.log(`📋 Generated ${catalogs.length} catalogs for home screen`);
+    console.log(`📋 Generated ${catalogs.length} catalogs`);
   } else {
     console.log('⚠️  No config provided or no catalogs in config');
   }

@@ -85,10 +85,10 @@ export function Catalogs() {
         <h4 className="font-semibold text-gray-800 mb-2">📖 How Catalogs Work</h4>
         <div className="text-sm text-gray-700 space-y-2">
           <p>
-            <strong>Enable:</strong> Makes the catalog available in your addon configuration.
+            <strong>Enable:</strong> Makes the catalog available in your addon. Enabled catalogs appear in both Board (home) and Discover.
           </p>
           <p>
-            <strong>Home:</strong> When ON, the catalog appears on your Stremio Board (home screen). When OFF, the catalog is only in Discover but streams still work when you search for content.
+            <strong>Home (currently not used):</strong> This toggle is reserved for future functionality. Currently, all enabled catalogs appear on your Stremio Board and in Discover.
           </p>
           <p className="mt-3 p-3 bg-purple-50 border border-purple-200 rounded">
             <strong className="text-purple-900">💡 After changing settings:</strong> Click <strong>"📥 Install"</strong> in the sidebar to update your addon!
