@@ -163,24 +163,6 @@ export function Settings() {
             </p>
           </div>
         </div>
-
-        {/* Info about Language Setting */}
-        <div className="mt-6 bg-white rounded-lg shadow-sm p-6">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800">🌍 Language Setting</h2>
-          <p className="text-sm text-gray-700 mb-3">
-            The language selector on the Home page controls the metadata language for TMDB content.
-            This includes:
-          </p>
-          <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 ml-4">
-            <li>Movie/series descriptions and overviews</li>
-            <li>Cast and crew names</li>
-            <li>Genre labels</li>
-            <li>Original titles and translations</li>
-          </ul>
-          <p className="text-sm text-gray-600 mt-3">
-            Balkan languages (Bosnian, Croatian, Serbian) are highlighted for easy access.
-          </p>
-        </div>
       </div>
     </div>
   );
