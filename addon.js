@@ -362,12 +362,11 @@ const allCatalogs = [
                   '2007', '2006', '2005', '2004', '2003', '2002', '2001', '2000', '1999',
                   '1998', '1997', '1996', '1995', '1994', '1993', '1992', '1991', '1990',
                   '1989', '1988', '1987', '1986', '1985', '1984', '1983', '1982', '1981', '1980'],
-        isRequired: true
+        isRequired: false
       },
       { name: 'skip' }
     ],
-    extraSupported: ['genre', 'skip'],
-    extraRequired: ['genre']
+    extraSupported: ['genre', 'skip']
   },
   // Series - Popular (sorted by year)
   {
@@ -398,12 +397,11 @@ const allCatalogs = [
                   '2007', '2006', '2005', '2004', '2003', '2002', '2001', '2000', '1999',
                   '1998', '1997', '1996', '1995', '1994', '1993', '1992', '1991', '1990',
                   '1989', '1988', '1987', '1986', '1985', '1984', '1983', '1982', '1981', '1980'],
-        isRequired: true
+        isRequired: false
       },
       { name: 'skip' }
     ],
-    extraSupported: ['genre', 'skip'],
-    extraRequired: ['genre']
+    extraSupported: ['genre', 'skip']
   }
 ];
 
@@ -676,11 +674,13 @@ function defineHandlers(builder, config = null) {
     
     // For year-based catalogs, filter by year using the genre parameter
     if (filterByYear && genre) {
+      // Filter by specific year only if genre (year) is provided
       items = items.filter(item => {
         const itemYear = item.year ? item.year.toString() : '';
         return itemYear === genre;
       });
     }
+    // If no year selected, show all items (don't filter by recent years)
     
     // Apply sorting before pagination (always by year, newest first)
     items.sort((a, b) => {
