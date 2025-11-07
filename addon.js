@@ -303,6 +303,7 @@ function sanitizeText(text) {
 
 // All available catalogs with their base configuration
 const allCatalogs = [
+  // Direct HD Catalogs (bilosta collection)
   {
     id: 'balkan_movies',
     name: '⭐ Filmovi',
@@ -333,6 +334,83 @@ const allCatalogs = [
   {
     id: 'balkan_series',
     name: '📺 Serije',
+    type: 'series',
+    extra: [
+      { name: 'search', isRequired: false },
+      { name: 'skip', isRequired: false }
+    ]
+  },
+  // TMDB Dynamic Catalogs
+  {
+    id: 'tmdb_popular_movies',
+    name: '🔥 Popular Movies',
+    type: 'movie',
+    extra: [
+      { name: 'search', isRequired: false },
+      { name: 'skip', isRequired: false }
+    ]
+  },
+  {
+    id: 'tmdb_popular_series',
+    name: '🔥 Popular Series',
+    type: 'series',
+    extra: [
+      { name: 'search', isRequired: false },
+      { name: 'skip', isRequired: false }
+    ]
+  },
+  {
+    id: 'tmdb_year_movies',
+    name: '📅 Movies by Year',
+    type: 'movie',
+    extra: [
+      { name: 'search', isRequired: false },
+      { name: 'skip', isRequired: false },
+      { name: 'genre', isRequired: false }
+    ]
+  },
+  {
+    id: 'tmdb_year_series',
+    name: '📅 Series by Year',
+    type: 'series',
+    extra: [
+      { name: 'search', isRequired: false },
+      { name: 'skip', isRequired: false },
+      { name: 'genre', isRequired: false }
+    ]
+  },
+  {
+    id: 'tmdb_language_movies',
+    name: '🌍 Movies by Language',
+    type: 'movie',
+    extra: [
+      { name: 'search', isRequired: false },
+      { name: 'skip', isRequired: false },
+      { name: 'genre', isRequired: false }
+    ]
+  },
+  {
+    id: 'tmdb_language_series',
+    name: '🌍 Series by Language',
+    type: 'series',
+    extra: [
+      { name: 'search', isRequired: false },
+      { name: 'skip', isRequired: false },
+      { name: 'genre', isRequired: false }
+    ]
+  },
+  {
+    id: 'tmdb_trending_movies',
+    name: '📈 Trending Movies',
+    type: 'movie',
+    extra: [
+      { name: 'search', isRequired: false },
+      { name: 'skip', isRequired: false }
+    ]
+  },
+  {
+    id: 'tmdb_trending_series',
+    name: '📈 Trending Series',
     type: 'series',
     extra: [
       { name: 'search', isRequired: false },
@@ -418,6 +496,16 @@ function generateManifest(config = null) {
         if (cat.id === 'bilosta.foreign') catalogId = 'balkan_foreign_movies';
         if (cat.id === 'bilosta.kids') catalogId = 'balkan_kids';
         if (cat.id === 'bilosta.series') catalogId = 'balkan_series';
+        
+        // Map tmdb.* IDs to actual catalog IDs
+        if (cat.id === 'tmdb.top' && cat.type === 'movie') catalogId = 'tmdb_popular_movies';
+        if (cat.id === 'tmdb.top' && cat.type === 'series') catalogId = 'tmdb_popular_series';
+        if (cat.id === 'tmdb.year' && cat.type === 'movie') catalogId = 'tmdb_year_movies';
+        if (cat.id === 'tmdb.year' && cat.type === 'series') catalogId = 'tmdb_year_series';
+        if (cat.id === 'tmdb.language' && cat.type === 'movie') catalogId = 'tmdb_language_movies';
+        if (cat.id === 'tmdb.language' && cat.type === 'series') catalogId = 'tmdb_language_series';
+        if (cat.id === 'tmdb.trending' && cat.type === 'movie') catalogId = 'tmdb_trending_movies';
+        if (cat.id === 'tmdb.trending' && cat.type === 'series') catalogId = 'tmdb_trending_series';
         
         const baseCatalog = allCatalogs.find(c => c.id === catalogId && c.type === cat.type);
         
@@ -546,6 +634,79 @@ console.log(`📊 Categories: Movies(${movieCategories.movies.length}), Foreign(
 const allSeriesItems = bauBauDB.series;
 console.log(`📊 Total Series: ${allSeriesItems.length}`);
 
+// TMDB Catalog Handler
+async function handleTMDBCatalog(catalogId, type, extra, apiKey) {
+  if (!apiKey || apiKey === 'YOUR_TMDB_API_KEY_HERE') {
+    console.log(`❌ TMDB catalog ${catalogId} requires API key`);
+    return { metas: [] };
+  }
+  
+  const limit = 100;
+  const skip = parseInt(extra.skip) || 0;
+  const page = Math.floor(skip / 20) + 1; // TMDB uses 20 items per page
+  
+  try {
+    let endpoint = '';
+    const mediaType = type === 'series' ? 'tv' : 'movie';
+    
+    // Determine TMDB API endpoint based on catalog
+    if (catalogId.includes('popular')) {
+      endpoint = `https://api.themoviedb.org/3/${mediaType}/popular?api_key=${apiKey}&page=${page}&language=en-US`;
+    } else if (catalogId.includes('trending')) {
+      endpoint = `https://api.themoviedb.org/3/trending/${mediaType}/week?api_key=${apiKey}&page=${page}`;
+    } else if (catalogId.includes('year')) {
+      const currentYear = new Date().getFullYear();
+      const year = extra.genre || currentYear; // Use genre field for year
+      endpoint = `https://api.themoviedb.org/3/discover/${mediaType}?api_key=${apiKey}&page=${page}&sort_by=popularity.desc&primary_release_year=${year}&language=en-US`;
+    } else if (catalogId.includes('language')) {
+      const language = extra.genre || 'en'; // Use genre field for language code
+      endpoint = `https://api.themoviedb.org/3/discover/${mediaType}?api_key=${apiKey}&page=${page}&sort_by=popularity.desc&with_original_language=${language}&language=en-US`;
+    }
+    
+    console.log(`🎬 Fetching TMDB catalog: ${catalogId} (page ${page})`);
+    
+    const response = await fetch(endpoint);
+    if (!response.ok) {
+      console.error(`TMDB API error: ${response.status}`);
+      return { metas: [] };
+    }
+    
+    const data = await response.json();
+    
+    if (!data.results || data.results.length === 0) {
+      return { metas: [] };
+    }
+    
+    // Convert TMDB results to Stremio meta format
+    const metas = data.results.map(item => {
+      const id = `tt${item.id}`; // Use TMDB ID with tt prefix for compatibility
+      const name = type === 'series' ? item.name : item.title;
+      const year = type === 'series' 
+        ? (item.first_air_date ? item.first_air_date.split('-')[0] : '')
+        : (item.release_date ? item.release_date.split('-')[0] : '');
+      
+      return {
+        id: id,
+        type: type,
+        name: name,
+        poster: item.poster_path ? `https://image.tmdb.org/t/p/w780${item.poster_path}` : null,
+        posterShape: 'poster',
+        background: item.backdrop_path ? `https://image.tmdb.org/t/p/original${item.backdrop_path}` : null,
+        description: item.overview || '',
+        releaseInfo: year,
+        imdbRating: item.vote_average ? item.vote_average.toFixed(1) : null
+      };
+    }).filter(meta => meta.poster); // Only include items with posters
+    
+    console.log(`✅ Returned ${metas.length} TMDB items`);
+    return { metas };
+    
+  } catch (error) {
+    console.error(`Error fetching TMDB catalog ${catalogId}:`, error.message);
+    return { metas: [] };
+  }
+}
+
 // Define handlers on a builder instance (will be attached to route handler)
 function defineHandlers(builder, config = null) {
   // CATALOG Handler with Cinemeta enrichment
@@ -575,6 +736,17 @@ function defineHandlers(builder, config = null) {
       case 'balkan_series':
         items = allSeriesItems;
         break;
+        
+      // TMDB Catalogs
+      case 'tmdb_popular_movies':
+      case 'tmdb_popular_series':
+      case 'tmdb_year_movies':
+      case 'tmdb_year_series':
+      case 'tmdb_language_movies':
+      case 'tmdb_language_series':
+      case 'tmdb_trending_movies':
+      case 'tmdb_trending_series':
+        return await handleTMDBCatalog(id, type, extra, config?.tmdbApiKey);
     }
     
     // Apply search filter first (before enrichment for better performance)
