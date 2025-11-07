@@ -333,49 +333,121 @@ function sanitizeText(text) {
 
 // All available catalogs with their base configuration
 const allCatalogs = [
-  // All Movies (Domaci + Foreign + Cartoons)
+  // Movies - Popular (default, alphabetical)
   {
     id: 'balkan_movies',
     name: 'Filmovi',
     type: 'movie',
+    genres: ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 
+             'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 
+             'Romance', 'Science Fiction', 'Thriller', 'War', 'Western'],
     extra: [
-      { name: 'search', isRequired: false },
-      { name: 'skip', isRequired: false },
       { 
         name: 'genre',
-        isRequired: false,
         options: ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 
                   'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 
                   'Romance', 'Science Fiction', 'Thriller', 'War', 'Western']
       },
-      {
-        name: 'sort',
-        isRequired: false,
-        options: ['name', 'year', 'trending']
-      }
-    ]
+      { name: 'search' },
+      { name: 'skip' }
+    ],
+    extraSupported: ['search', 'genre', 'skip']
   },
-  // All Series
+  // Movies - By Year (Newest First)
+  {
+    id: 'balkan_movies_year',
+    name: 'Filmovi (By Year)',
+    type: 'movie',
+    genres: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', 
+             '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008', 
+             '2007', '2006', '2005', '2004', '2003', '2002', '2001', '2000'],
+    extra: [
+      { 
+        name: 'genre',
+        options: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', 
+                  '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008', 
+                  '2007', '2006', '2005', '2004', '2003', '2002', '2001', '2000']
+      },
+      { name: 'skip' }
+    ],
+    extraSupported: ['genre', 'skip']
+  },
+  // Movies - Trending (Quality + Year)
+  {
+    id: 'balkan_movies_trending',
+    name: 'Filmovi (Trending)',
+    type: 'movie',
+    genres: ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 
+             'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 
+             'Romance', 'Science Fiction', 'Thriller', 'War', 'Western'],
+    extra: [
+      { 
+        name: 'genre',
+        options: ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 
+                  'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 
+                  'Romance', 'Science Fiction', 'Thriller', 'War', 'Western']
+      },
+      { name: 'skip' }
+    ],
+    extraSupported: ['genre', 'skip']
+  },
+  // Series - Popular (default, alphabetical)
   {
     id: 'balkan_series',
     name: 'Serije',
     type: 'series',
+    genres: ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 
+             'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 
+             'Romance', 'Science Fiction', 'Thriller', 'War', 'Western'],
     extra: [
-      { name: 'search', isRequired: false },
-      { name: 'skip', isRequired: false },
       { 
         name: 'genre',
-        isRequired: false,
         options: ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 
                   'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 
                   'Romance', 'Science Fiction', 'Thriller', 'War', 'Western']
       },
-      {
-        name: 'sort',
-        isRequired: false,
-        options: ['name', 'year', 'trending']
-      }
-    ]
+      { name: 'search' },
+      { name: 'skip' }
+    ],
+    extraSupported: ['search', 'genre', 'skip']
+  },
+  // Series - By Year (Newest First)
+  {
+    id: 'balkan_series_year',
+    name: 'Serije (By Year)',
+    type: 'series',
+    genres: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', 
+             '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008', 
+             '2007', '2006', '2005', '2004', '2003', '2002', '2001', '2000'],
+    extra: [
+      { 
+        name: 'genre',
+        options: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', 
+                  '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008', 
+                  '2007', '2006', '2005', '2004', '2003', '2002', '2001', '2000']
+      },
+      { name: 'skip' }
+    ],
+    extraSupported: ['genre', 'skip']
+  },
+  // Series - Trending (Quality + Year)
+  {
+    id: 'balkan_series_trending',
+    name: 'Serije (Trending)',
+    type: 'series',
+    genres: ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 
+             'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 
+             'Romance', 'Science Fiction', 'Thriller', 'War', 'Western'],
+    extra: [
+      { 
+        name: 'genre',
+        options: ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 
+                  'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 
+                  'Romance', 'Science Fiction', 'Thriller', 'War', 'Western']
+      },
+      { name: 'skip' }
+    ],
+    extraSupported: ['genre', 'skip']
   }
 ];
 
@@ -646,24 +718,31 @@ async function handleTMDBCatalog(catalogId, type, extra, apiKey) {
 function defineHandlers(builder, config = null) {
   // CATALOG Handler with Cinemeta enrichment
   builder.defineCatalogHandler(async ({ type, id, extra }) => {
-    console.log(`📖 Catalog request: ${id} (type: ${type})`);
+    console.log(`📖 Catalog request: ${id} (type: ${type}), genre: ${extra.genre || 'none'}`);
     
     const limit = 100;
     const skip = parseInt(extra.skip) || 0;
     const search = extra.search || '';
     const genre = extra.genre || '';
-    const sort = extra.sort || 'name'; // Default to alphabetical by name
+    
+    // Determine sort type based on catalog ID
+    let sort = 'name'; // default
+    let filterByYear = false;
+    
+    if (id.includes('_year')) {
+      sort = 'year';
+      filterByYear = true; // For year catalogs, genre field contains year
+    } else if (id.includes('_trending')) {
+      sort = 'trending';
+    }
     
     let items = [];
     
-    switch (id) {
-      case 'balkan_movies':
-        items = allMovies;
-        break;
-        
-      case 'balkan_series':
-        items = allSeriesItems;
-        break;
+    // Map catalog IDs to content sources
+    if (id.startsWith('balkan_movies')) {
+      items = allMovies;
+    } else if (id.startsWith('balkan_series')) {
+      items = allSeriesItems;
     }
     
     // Apply search filter first (before enrichment for better performance)
@@ -671,6 +750,14 @@ function defineHandlers(builder, config = null) {
       items = items.filter(item => 
         item.name.toLowerCase().includes(search.toLowerCase())
       );
+    }
+    
+    // For year-based catalogs, filter by year using the genre parameter
+    if (filterByYear && genre) {
+      items = items.filter(item => {
+        const itemYear = item.year ? item.year.toString() : '';
+        return itemYear === genre;
+      });
     }
     
     // Apply sorting before pagination
@@ -703,11 +790,12 @@ function defineHandlers(builder, config = null) {
     // Otherwise we can paginate first for better performance
     let metas;
     
-    // Special case: genre="All" means show everything (for Discover-only catalogs)
-    if (genre && genre !== 'All') {
+    // For year-based catalogs, genre filtering was already done, skip it
+    // For regular catalogs, apply genre filter if specified
+    if (genre && genre !== 'All' && !filterByYear) {
       // For genre filtering: WITH enrichment so genres are available
       const metasPromises = items.map(item => 
-        toStremioMeta(item, id === 'balkan_series' ? 'series' : 'movie', true, config?.tmdbApiKey) // true = with enrichment
+        toStremioMeta(item, type === 'series' ? 'series' : 'movie', true, config?.tmdbApiKey) // true = with enrichment
       );
       
       metas = await Promise.all(metasPromises);
@@ -725,7 +813,7 @@ function defineHandlers(builder, config = null) {
       items = items.slice(skip, skip + limit);
       
       const metasPromises = items.map(item => 
-        toStremioMeta(item, id === 'balkan_series' ? 'series' : 'movie', true, config?.tmdbApiKey) // true = with enrichment
+        toStremioMeta(item, type === 'series' ? 'series' : 'movie', true, config?.tmdbApiKey) // true = with enrichment
       );
       
       metas = await Promise.all(metasPromises);
