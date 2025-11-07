@@ -237,9 +237,16 @@ function determineCategory(filePath) {
   // Special handling for KLASICI (00klsk) - contains both foreign and domestic classics
   // Only keep if path contains domestic/balkan markers
   if (upperPath.includes('00KLSK') || upperPath.includes('/KLASICI/')) {
+    // Skip if filename is just numbers (these are TMDB IDs for foreign movies)
+    const filename = filePath.split('/').pop();
+    if (/^\d+\.(mkv|mp4|avi)$/i.test(filename)) {
+      return null; // Foreign classic with TMDB ID as filename
+    }
+    
     if (upperPath.includes('/EX.YU/') || 
         upperPath.includes('/EXYU/') ||
         upperPath.includes('/DOMACE/') ||
+        upperPath.includes('/DOMACIFILMOVI/') ||
         upperPath.includes('/JUGOSLOVENSKI/') ||
         upperPath.includes('/SRPSKI/') ||
         upperPath.includes('/HRVATSKI/') ||

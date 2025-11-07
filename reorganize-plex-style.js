@@ -133,11 +133,18 @@ function isExYuContent(item) {
   }
   
   // Special handling for KLASICI - only keep if from EX-YU subdirectory
-  if (category === 'KLASICI') {
+  if (category === 'KLASICI' || category === 'FILMSKI KLASICI') {
+    // Skip if filename is just numbers (these are TMDB IDs for foreign movies)
+    const filename = url.split('/').pop();
+    if (/^\d+\.(mkv|mp4|avi)$/i.test(filename)) {
+      return false; // Foreign classic with TMDB ID as filename
+    }
+    
     // Only keep if path contains domestic/balkan markers
     if (upperPath.includes('/EX.YU/') || 
         upperPath.includes('/EXYU/') ||
         upperPath.includes('/DOMACE/') ||
+        upperPath.includes('/DOMACIFILMOVI/') ||
         upperPath.includes('/JUGOSLOVENSKI/') ||
         upperPath.includes('/SRPSKI/') ||
         upperPath.includes('/HRVATSKI/') ||
