@@ -202,10 +202,12 @@ function extractTitle(filename, folderPath) {
   // Remove extension
   let title = filename.replace(/\.(mp4|mkv|avi|mov|wmv|flv|webm)$/i, '');
   
-  // For numbered episodes, use folder name as title
-  if (/^\d+$/.test(title)) {
+  // For numbered episodes or episode patterns, use parent folder name as title
+  if (/^(S\d+E\d+|\d+|Ep?\d+|epizoda\d+)$/i.test(title)) {
     const parts = folderPath.split('/');
-    return parts[parts.length - 1] || title;
+    // Get the parent folder name (series/show name)
+    const folderName = parts[parts.length - 2] || parts[parts.length - 1] || title;
+    return folderName.replace(/\./g, ' ').replace(/_/g, ' ').replace(/\s+/g, ' ').trim();
   }
   
   // Clean up common patterns
@@ -224,18 +226,20 @@ function extractTitle(filename, folderPath) {
 function determineCategory(filePath) {
   const upperPath = filePath.toUpperCase();
   
-  if (upperPath.includes('/EXYU/') || upperPath.includes('DOMACI')) {
-    return 'movies'; // Ex-YU movies
-  } else if (upperPath.includes('/4K/')) {
-    return 'foreign'; // 4K foreign movies
-  } else if (upperPath.includes('/STRANI/') || upperPath.includes('FOREIGN')) {
-    return 'foreign'; // Foreign movies
-  } else if (upperPath.includes('/CRTANI/') || upperPath.includes('CARTOON')) {
+  if (upperPath.includes('CRTANI') || upperPath.includes('CARTOON')) {
     return 'kids'; // Cartoons/Kids
-  } else if (upperPath.includes('/SERIJE/') || upperPath.includes('/SERIES/')) {
-    return 'series'; // TV Series
-  } else if (upperPath.includes('/FILMOVI/')) {
+  } else if (upperPath.includes('SERIJE') || upperPath.includes('SERIES') || upperPath.includes('IMDB')) {
+    return 'series'; // TV Series (including IMDB foreign series)
+  } else if (upperPath.includes('EXYU') || upperPath.includes('DOMACI')) {
+    return 'movies'; // Ex-YU movies
+  } else if (upperPath.includes('4K')) {
+    return 'foreign'; // 4K foreign movies
+  } else if (upperPath.includes('STRANI') || upperPath.includes('FOREIGN')) {
+    return 'foreign'; // Foreign movies
+  } else if (upperPath.includes('FILMOVI')) {
     return 'movies'; // General movies (likely Ex-YU)
+  } else if (upperPath.includes('DOKU')) {
+    return 'foreign'; // Documentaries
   }
   
   return 'unknown';
@@ -246,19 +250,28 @@ function determineCategory(filePath) {
  */
 function createBasicEntry(file, category) {
   const title = extractTitle(file.filename, file.path);
-  const id = `bilosta:${Buffer.from(title).toString('base64').substring(0, 16)}`;
+  const id = `bilosta:${Buffer.from(file.url).toString('base64').substring(0, 16)}`;
+  
+  // Map internal category to user-facing category
+  const categoryMap = {
+    'movies': 'Domaci Filmovi',
+    'foreign': 'Strani Filmovi',
+    'kids': 'Crtani Filmovi',
+    'series': 'Serije',
+    'unknown': 'Direct HD'
+  };
   
   const basicEntry = {
     id: id,
-    type: category === 'series' ? 'series' : 'movie',
+    type: category === 'series' || category === 'kids' ? 'series' : 'movie',
     name: title,
     streams: [{
       url: file.url,
-      quality: file.path.includes('/4K/') ? '4K' : 'HD',
+      quality: file.path.includes('/4K/') || file.path.includes('/4k/') ? '4K' : 'HD',
       source: 'bilosta',
       size: null
     }],
-    category: 'Direct HD',
+    category: categoryMap[category] || 'Direct HD',
     needsEnrichment: true // Flag for future TMDB enrichment
   };
   
