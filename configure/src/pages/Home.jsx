@@ -38,10 +38,10 @@ export function Home() {
     fetch('/catalog/movie/balkan_movies.json')
       .then(res => res.json())
       .then(data => {
-        const moviesWithId = data.metas.filter(m => m.id && m.id.startsWith('tt'));
-        if (moviesWithId.length > 0) {
-          const random = moviesWithId[Math.floor(Math.random() * moviesWithId.length)];
-          setBackgroundUrl(`https://images.metahub.space/background/medium/${random.id}/img`);
+        const moviesWithBackground = data.metas.filter(m => m.background);
+        if (moviesWithBackground.length > 0) {
+          const random = moviesWithBackground[Math.floor(Math.random() * moviesWithBackground.length)];
+          setBackgroundUrl(random.background);
         }
       })
       .catch(() => {});
