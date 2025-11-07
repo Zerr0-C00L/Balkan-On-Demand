@@ -516,24 +516,28 @@ function generateManifest(config = null) {
         
         console.log(`✅ Found catalog: ${cat.id} -> ${catalogId} (${cat.type}) - showInHome: ${cat.showInHome}`);
         
-        // Control where catalog appears using extraRequired field (like Cinemeta does)
+        // Control where catalog appears using extraRequired field (like Cinemeta's "New" catalog)
         // - showInHome: true = no extraRequired, appears on Board (home screen)
-        // - showInHome: false = add extraRequired, only appears in Discover
+        // - showInHome: false = add genre as extraRequired with default option, only in Discover
         const extra = [
           { name: 'search', isRequired: false }, 
           { name: 'skip', isRequired: false }
         ];
         
+        // Add genre support for filtering (optional for all catalogs)
+        extra.push({ name: 'genre', isRequired: false });
+        
         const catalogConfig = {
           ...baseCatalog,
           extra: extra,
-          extraSupported: ['search', 'skip']
+          extraSupported: ['search', 'skip', 'genre']
         };
         
-        // If showInHome is false, make search required so catalog only appears in Discover
+        // If showInHome is false, require genre selection (Discover-only like Cinemeta "New")
         if (!cat.showInHome) {
-          catalogConfig.extraRequired = ['search'];
-          console.log(`   → Added extraRequired=['search'] for Discover-only`);
+          catalogConfig.extraRequired = ['genre'];
+          catalogConfig.genres = ['All']; // Default genre option
+          console.log(`   → Added extraRequired=['genre'] for Discover-only`);
         }
         
         return catalogConfig;
@@ -767,7 +771,8 @@ function defineHandlers(builder, config = null) {
     // Otherwise we can paginate first for better performance
     let metas;
     
-    if (genre) {
+    // Special case: genre="All" means show everything (for Discover-only catalogs)
+    if (genre && genre !== 'All') {
       // For genre filtering: NO enrichment in catalog, use database genres
       // Enrichment only happens in individual meta view for descriptions
       const metasPromises = items.map(item => 
@@ -785,7 +790,7 @@ function defineHandlers(builder, config = null) {
       // Apply pagination AFTER filtering
       metas = metas.slice(skip, skip + limit);
     } else {
-      // No genre filter: paginate first, NO enrichment for catalog (use database posters)
+      // No genre filter OR genre="All": paginate first, NO enrichment for catalog (use database posters)
       items = items.slice(skip, skip + limit);
       
       const metasPromises = items.map(item => 
