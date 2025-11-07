@@ -333,7 +333,7 @@ function sanitizeText(text) {
 
 // All available catalogs with their base configuration
 const allCatalogs = [
-  // Movies - Popular (with genres)
+  // Movies - Popular (with genres and year sorting)
   {
     id: 'balkan_movies',
     name: 'Filmovi',
@@ -378,26 +378,7 @@ const allCatalogs = [
     extraSupported: ['genre', 'skip'],
     extraRequired: ['genre']
   },
-  // Movies - Top Rated
-  {
-    id: 'balkan_movies_rating',
-    name: 'Filmovi (Featured)',
-    type: 'movie',
-    genres: ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 
-             'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 
-             'Romance', 'Science Fiction', 'Thriller', 'War', 'Western'],
-    extra: [
-      { 
-        name: 'genre',
-        options: ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 
-                  'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 
-                  'Romance', 'Science Fiction', 'Thriller', 'War', 'Western']
-      },
-      { name: 'skip' }
-    ],
-    extraSupported: ['genre', 'skip']
-  },
-  // Series - Popular (with genres)
+  // Series - Popular (with genres and year sorting)
   {
     id: 'balkan_series',
     name: 'Serije',
@@ -441,25 +422,6 @@ const allCatalogs = [
     ],
     extraSupported: ['genre', 'skip'],
     extraRequired: ['genre']
-  },
-  // Series - Top Rated
-  {
-    id: 'balkan_series_rating',
-    name: 'Serije (Featured)',
-    type: 'series',
-    genres: ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 
-             'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 
-             'Romance', 'Science Fiction', 'Thriller', 'War', 'Western'],
-    extra: [
-      { 
-        name: 'genre',
-        options: ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 
-                  'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 
-                  'Romance', 'Science Fiction', 'Thriller', 'War', 'Western']
-      },
-      { name: 'skip' }
-    ],
-    extraSupported: ['genre', 'skip']
   }
 ];
 
@@ -538,10 +500,8 @@ function generateManifest(config = null) {
         let catalogId = cat.id;
         if (cat.id === 'bilosta.movies') catalogId = 'balkan_movies';
         if (cat.id === 'bilosta.movies_year') catalogId = 'balkan_movies_year';
-        if (cat.id === 'bilosta.movies_rating') catalogId = 'balkan_movies_rating';
         if (cat.id === 'bilosta.series') catalogId = 'balkan_series';
         if (cat.id === 'bilosta.series_year') catalogId = 'balkan_series_year';
-        if (cat.id === 'bilosta.series_rating') catalogId = 'balkan_series_rating';
         
         // Legacy mappings (if needed)
         if (cat.id === 'bilosta.foreign') catalogId = 'balkan_foreign_movies';
@@ -721,14 +681,12 @@ function defineHandlers(builder, config = null) {
     const genre = extra.genre || '';
     
     // Determine sort type based on catalog ID
-    let sort = 'name'; // default
+    let sort = 'year'; // Default to year (newest first) for home catalogs
     let filterByYear = false;
     
     if (id.includes('_year')) {
       sort = 'year';
       filterByYear = true; // For year catalogs, genre field contains year
-    } else if (id.includes('_rating')) {
-      sort = 'rating'; // Sort by quality/popularity
     }
     
     let items = [];
@@ -755,31 +713,12 @@ function defineHandlers(builder, config = null) {
       });
     }
     
-    // Apply sorting before pagination
-    switch (sort) {
-      case 'name':
-        items.sort((a, b) => a.name.localeCompare(b.name));
-        break;
-      case 'year':
-        items.sort((a, b) => {
-          const yearA = parseInt(a.year) || 0;
-          const yearB = parseInt(b.year) || 0;
-          return yearB - yearA; // Newest first
-        });
-        break;
-      case 'rating':
-        // For rating/featured, prioritize higher quality content
-        items.sort((a, b) => {
-          const qualityA = (a.quality || '').includes('4K') ? 2 : (a.quality || '').includes('1080p') ? 1 : 0;
-          const qualityB = (b.quality || '').includes('4K') ? 2 : (b.quality || '').includes('1080p') ? 1 : 0;
-          const yearA = parseInt(a.year) || 0;
-          const yearB = parseInt(b.year) || 0;
-          // Sort by quality first, then by year
-          if (qualityB !== qualityA) return qualityB - qualityA;
-          return yearB - yearA;
-        });
-        break;
-    }
+    // Apply sorting before pagination (always by year, newest first)
+    items.sort((a, b) => {
+      const yearA = parseInt(a.year) || 0;
+      const yearB = parseInt(b.year) || 0;
+      return yearB - yearA; // Newest first
+    });
     
     // If genre filter is specified, we need to enrich first, then filter, then paginate
     // Otherwise we can paginate first for better performance

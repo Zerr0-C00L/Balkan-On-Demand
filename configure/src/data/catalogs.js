@@ -4,14 +4,12 @@ export const tmdbCatalogs = [];
 // Direct HD catalogs - with sorting variations (Cinemeta-style)
 export const baseCatalogs = [
   // Movies
-  { id: "bilosta.movies", name: "🎬 Filmovi", type: "movie", description: "Popular - browse by genre" },
+  { id: "bilosta.movies", name: "🎬 Filmovi", type: "movie", description: "Browse by genre (sorted by year)" },
   { id: "bilosta.movies_year", name: "🎬 Filmovi (New)", type: "movie", description: "Browse by year" },
-  { id: "bilosta.movies_rating", name: "🎬 Filmovi (Featured)", type: "movie", description: "Top quality content" },
   
   // Series
-  { id: "bilosta.series", name: "📺 Serije", type: "series", description: "Popular - browse by genre" },
+  { id: "bilosta.series", name: "📺 Serije", type: "series", description: "Browse by genre (sorted by year)" },
   { id: "bilosta.series_year", name: "📺 Serije (New)", type: "series", description: "Browse by year" },
-  { id: "bilosta.series_rating", name: "📺 Serije (Featured)", type: "series", description: "Top quality content" },
 ];
 
 // No need for separate balkanCatalogs - bilosta IDs map to balkan_ catalogs in backend
