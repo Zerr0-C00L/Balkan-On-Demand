@@ -99,16 +99,16 @@ export function Catalogs() {
         <h4 className="font-semibold text-gray-800 mb-2">📖 How Catalogs Work</h4>
         <div className="text-sm text-gray-700 space-y-2">
           <p>
-            <strong>Enable:</strong> Makes the catalog available in Discover (search). All enabled catalogs are searchable.
+            <strong>Enable:</strong> Makes the catalog available in your addon configuration.
           </p>
           <p>
-            <strong>Home:</strong> Shows the catalog on your Stremio home screen for quick browsing.
+            <strong>Home:</strong> When ON, the catalog appears on your Stremio Board (home screen). When OFF, the catalog is excluded but streams still work when you search for content.
           </p>
           <p>
             <strong className="text-green-700">✅ Working Now:</strong> Direct HD catalogs (3,848 movies, 37 series) work immediately with direct streaming.
           </p>
           <p>
-            <strong className="text-yellow-700">🚧 Coming Soon:</strong> TMDB catalogs (Popular, Year, Language, Trending) require API integration - in development.
+            <strong className="text-blue-700">🎬 TMDB Catalogs:</strong> Popular, Year, Language, Trending catalogs show TMDB content with streams from your Direct HD collection when available.
           </p>
           <p className="mt-3 p-3 bg-purple-50 border border-purple-200 rounded">
             <strong className="text-purple-900">💡 After changing settings:</strong> Click <strong>"📥 Install"</strong> in the sidebar to update your addon!

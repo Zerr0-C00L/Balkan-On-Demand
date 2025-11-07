@@ -516,20 +516,27 @@ function generateManifest(config = null) {
         
         console.log(`✅ Found catalog: ${cat.id} -> ${catalogId} (${cat.type}) - showInHome: ${cat.showInHome}`);
         
-        // All catalogs support both search and skip, and neither are required
-        // showInHome only affects where they appear in Stremio UI
-        // - showInHome: true = appears on Board (home screen)
-        // - showInHome: false = only appears in Discover (search/browse)
+        // Control where catalog appears using extraRequired field (like Cinemeta does)
+        // - showInHome: true = no extraRequired, appears on Board (home screen)
+        // - showInHome: false = add extraRequired, only appears in Discover
         const extra = [
           { name: 'search', isRequired: false }, 
           { name: 'skip', isRequired: false }
         ];
         
-        return {
+        const catalogConfig = {
           ...baseCatalog,
           extra: extra,
           extraSupported: ['search', 'skip']
         };
+        
+        // If showInHome is false, make search required so catalog only appears in Discover
+        if (!cat.showInHome) {
+          catalogConfig.extraRequired = ['search'];
+          console.log(`   → Added extraRequired=['search'] for Discover-only`);
+        }
+        
+        return catalogConfig;
       })
       .filter(cat => cat !== null); // Remove any null entries
     
