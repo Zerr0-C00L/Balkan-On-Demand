@@ -148,10 +148,10 @@ export function Home() {
             className="bg-white/10 backdrop-blur-md rounded-lg p-6 text-left"
           >
             <h3 className="text-xl font-semibold text-white mb-2 flex items-center gap-2">
-              <span>🎬</span> Dynamic TMDB Catalogs
+              <span>🎬</span> Ex-Yu Content Only
             </h3>
             <p className="text-gray-300 text-sm">
-              Browse by Popular, Year, Language, Trending with full metadata from TMDB. Includes dedicated Bosnian, Croatian, and Serbian catalogs.
+              681 carefully curated Ex-Yu movies and 37 series (2,320 episodes) with instant playback via direct CDN links. 100% Balkan content.
             </p>
           </motion.div>
           <motion.div 
@@ -161,10 +161,10 @@ export function Home() {
             className="bg-white/10 backdrop-blur-md rounded-lg p-6 text-left"
           >
             <h3 className="text-xl font-semibold text-white mb-2 flex items-center gap-2">
-              <span>⭐</span> Direct HD Streams
+              <span>⭐</span> No Foreign Movies
             </h3>
             <p className="text-gray-300 text-sm">
-              3,800+ curated movies and series with instant playback via direct CDN links. No torrents, no waiting.
+              Filtered to only Serbian, Croatian, and Bosnian content. No Hollywood, no foreign classics. Pure Ex-Yu entertainment.
             </p>
           </motion.div>
         </div>
