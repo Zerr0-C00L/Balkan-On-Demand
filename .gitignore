@@ -11,3 +11,4 @@ cleanup.sh
 *.m3u
 .vscode/
 .idea/
+.vercel
