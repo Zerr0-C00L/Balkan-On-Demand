@@ -336,7 +336,7 @@ const allCatalogs = [
   // Direct HD Catalogs (bilosta collection)
   {
     id: 'balkan_movies',
-    name: 'Filmovi',
+    name: '⭐ Filmovi',
     type: 'movie',
     extra: [
       { name: 'search', isRequired: false },
@@ -345,7 +345,7 @@ const allCatalogs = [
   },
   {
     id: 'balkan_foreign_movies',
-    name: 'Strani Filmovi',
+    name: '🌍 Strani Filmovi',
     type: 'movie',
     extra: [
       { name: 'search', isRequired: false },
@@ -354,7 +354,7 @@ const allCatalogs = [
   },
   {
     id: 'balkan_kids',
-    name: 'Crtani Filmovi',
+    name: '🎨 Crtani Filmovi',
     type: 'movie',
     extra: [
       { name: 'search', isRequired: false },
@@ -363,7 +363,7 @@ const allCatalogs = [
   },
   {
     id: 'balkan_series',
-    name: 'Serije',
+    name: '📺 Serije',
     type: 'series',
     extra: [
       { name: 'search', isRequired: false },
@@ -797,10 +797,9 @@ function defineHandlers(builder, config = null) {
     
     // Special case: genre="All" means show everything (for Discover-only catalogs)
     if (genre && genre !== 'All') {
-      // For genre filtering: NO enrichment in catalog, use database genres
-      // Enrichment only happens in individual meta view for descriptions
+      // For genre filtering: WITH enrichment so genres are available
       const metasPromises = items.map(item => 
-        toStremioMeta(item, id === 'balkan_series' ? 'series' : 'movie', false) // false = no enrichment
+        toStremioMeta(item, id === 'balkan_series' ? 'series' : 'movie', true, config?.tmdbApiKey) // true = with enrichment
       );
       
       metas = await Promise.all(metasPromises);
@@ -814,11 +813,11 @@ function defineHandlers(builder, config = null) {
       // Apply pagination AFTER filtering
       metas = metas.slice(skip, skip + limit);
     } else {
-      // No genre filter OR genre="All": paginate first, NO enrichment for catalog (use database posters)
+      // No genre filter OR genre="All": paginate first, WITH enrichment for full metadata
       items = items.slice(skip, skip + limit);
       
       const metasPromises = items.map(item => 
-        toStremioMeta(item, id === 'balkan_series' ? 'series' : 'movie', false) // false = no enrichment
+        toStremioMeta(item, id === 'balkan_series' ? 'series' : 'movie', true, config?.tmdbApiKey) // true = with enrichment
       );
       
       metas = await Promise.all(metasPromises);
