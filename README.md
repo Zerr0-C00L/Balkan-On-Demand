@@ -4,11 +4,13 @@ A Stremio addon that provides access to popular movies and TV series from the Ba
 
 ## Features
 
-- 🎬 Curated collection of Balkan movies
-- 📺 Popular TV series from the region
-- 🎭 Multiple genres: Drama, Comedy, War, Crime, Romance, Thriller
-- 🔍 Genre filtering support
-- 🌐 Easy installation and setup
+- 🎬 **15,000+ Videos** - Massive collection automatically synced from Bilosta CDN
+- 📺 **Direct HD Streams** - Movies, series, cartoons, and 4K content
+- 🎭 **Multiple Catalogs** - Domaci Filmovi, Strani Filmovi, Crtani, Serije
+- 🌟 **TMDB Integration** - Popular, trending, and year-based catalogs with metadata
+- 🔄 **Auto-Updates** - Daily sync discovers new content automatically
+- 🔍 **Rich Metadata** - TMDB/Cinemeta enrichment with posters, descriptions, cast
+- 🌐 **Easy Installation** - One-click install with configurable catalogs
 
 ## Installation
 
@@ -75,28 +77,45 @@ And popular TV series like:
 - **Better Life** (1987)
 - **The Grey Home** (1984)
 
-## Adding Content
+## Content Management
 
-To add more movies or series, edit the `movies.json` file following this structure:
+### Automatic Content Sync
 
-```json
-{
-  "id": "unique-id",
-  "type": "movie",
-  "name": "Movie Title",
-  "poster": "https://poster-url.jpg",
-  "posterShape": "poster",
-  "genres": ["Drama", "Comedy"],
-  "description": "Movie description",
-  "releaseInfo": "Year",
-  "imdbRating": "8.0",
-  "runtime": "120 min",
-  "director": "Director Name",
-  "cast": ["Actor 1", "Actor 2"],
-  "country": "Country",
-  "streams": []
-}
-```
+The addon automatically syncs with Bilosta CDN server daily at 2 AM UTC. See **[BILOSTA-SYNC.md](BILOSTA-SYNC.md)** for details.
+
+**Key Features:**
+- ✅ Discovers new files on Bilosta server
+- ✅ Preserves existing metadata and enrichment
+- ✅ Optional TMDB metadata fetching for new items
+- ✅ Manual trigger available via GitHub Actions
+
+### Manual Content Updates
+
+You can trigger updates manually:
+
+1. **Via GitHub Actions**:
+   - Go to Actions tab → "Sync Bilosta Content" → "Run workflow"
+
+2. **Locally**:
+   ```bash
+   # Sync from Bilosta server
+   node scripts/sync-bilosta-content.js
+   
+   # Analyze server structure
+   node scripts/analyze-bilosta-structure.js
+   
+   # Enrich with TMDB metadata
+   node scrape-tmdb-metadata.js
+   ```
+
+### Database Files
+
+- **`data/baubau-content.json`** - Main content database (15,000+ items)
+- **`data/bilosta/`** - URL lists organized by category
+- **`data/metadata-cache.json`** - TMDB/Cinemeta metadata cache
+- **`data/BILOSTA-STRUCTURE.md`** - Server content structure report
+
+See **[BILOSTA-SYNC.md](BILOSTA-SYNC.md)** for complete documentation.
 
 ## API Endpoints
 

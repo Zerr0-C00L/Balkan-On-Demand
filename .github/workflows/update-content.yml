@@ -1,4 +1,7 @@
-name: Update BauBau Content
+name: Update BauBau Content (Legacy)
+
+# NOTE: This workflow updates content from BauBau API (XML files)
+# For Bilosta server sync, see sync-bilosta.yml
 
 on:
   schedule:

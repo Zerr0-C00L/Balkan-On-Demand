@@ -1,0 +1,457 @@
+📁 BILOSTA CONTENT STRUCTURE
+==================================================
+
+Base URL: https://content.bilosta.org/SERCRT721/
+
+Statistics:
+  • Total Folders: 47
+  • Total Movies: 531
+  • Total Series: 37
+  • Total Episodes: 1524
+  • Total Files: 2055
+
+==================================================
+
+📂 /FILMOVI/ (movies)
+   Files: 3
+   📄 Put.oko.sveta.1964..avi [HD]
+   📄 Virdzina..mp4 [HD]
+   📄 Vlaznost.mp4 [HD]
+
+📂 CRTANI/ (movies)
+   Files: 23
+   📄 aladin.2019.mp4 [HD]
+   📄 Brzi.Brzic.mkv [HD]
+   📄 frka.mp4 [HD]
+   📄 gospodarica.zla2019.mkv [HD]
+   📄 the.campus.mp4 [HD]
+   ... and 18 more files
+
+📂 CRTANI/CrtaniKlasici/DisneyKlasici/ (movies)
+   Files: 20
+   📄 Bik.Ferdinand.mkv [HD]
+   📄 Drustveni.Lav.mkv [HD]
+   📄 Kornjaca.I.Zec.mkv [HD]
+   📄 Povratak.Kornjace.Tobi.mkv [HD]
+   📄 Prakticno.Prase.mkv [HD]
+   ... and 15 more files
+
+📂 CRTANI/SimsalaGrim/ (movies)
+   Files: 102
+   📄 Bremenski.Sviraci.mkv [HD]
+   📄 CarobniPasulj.mkv [HD]
+   📄 Hrabri.Krojac.mkv [HD]
+   📄 Crvenkapica.mkv [HD]
+   📄 Cupavko.mkv [HD]
+   ... and 97 more files
+
+📂 DOKU/ (movies)
+   Files: 237
+   📄 AnatomijaObmane.mp4 [HD]
+   📄 BorbaZaCernobil.mkv [HD]
+   📄 9961.mkv [HD]
+   📄 20657.mkv [HD]
+   📄 40422.mkv [HD]
+   ... and 232 more files
+
+📂 FILMOVI/ (movies)
+   Files: 60
+   📄 ajvar.mkv [HD]
+   📄 kisa.mkv [HD]
+   📄 Balkan2.avi [HD]
+   📄 balkanska.medja.mkv [HD]
+   📄 balkanska.pravila.avi [HD]
+   ... and 55 more files
+
+📂 FILMOVI/crt/ (movies)
+   Files: 2
+   📄 Covpas.mp4 [HD]
+   📄 Nerazdvojni.mp4 [HD]
+
+📂 FILMOVI/exyu/ (movies)
+   Files: 20
+   📄 Roda.mp4 [HD]
+   📄 Drava.mp4 [HD]
+   📄 VoljaSinovljeva.mp4 [HD]
+   📄 Proslava.mp4 [HD]
+   📄 Roda.mp4 [HD]
+   ... and 15 more files
+
+📂 FILMOVI/strani/ (movies)
+   Files: 63
+   📄 TheThursdayMurderClub.mp4 [HD]
+   📄 F1.mp4 [HD]
+   📄 ThePickup.mp4 [HD]
+   📄 StolenHeistOfTheCentury.mp4 [HD]
+   📄 LastSummer.mp4 [HD]
+   ... and 58 more files
+
+📂 SERIJE/NOVE.DOMACE/VA/ (series)
+   Series: Vojna Akademija
+   Files: 61
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S01E05.mkv
+   ... and 56 more files
+
+📂 SERIJE/NOVE.DOMACE/azbuka/ (series)
+   Series: Azbuka Naseg Zivota
+   Files: 21
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S01E05.mkv
+   ... and 16 more files
+
+📂 SERIJE/NOVE.DOMACE/beleznica/ (series)
+   Series: Beleznica
+   Files: 26
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S01E05.mkv
+   ... and 21 more files
+
+📂 SERIJE/NOVE.DOMACE/besa/ (series)
+   Series: Besa
+   Files: 22
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S01E05.mkv
+   ... and 17 more files
+
+📂 SERIJE/NOVE.DOMACE/biser.bojane/ (series)
+   Series: Biser Bojane
+   Files: 12
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S02E01.mkv
+   ... and 7 more files
+
+📂 SERIJE/NOVE.DOMACE/branilac/ (series)
+   Series: Branilac
+   Files: 30
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S01E05.mkv
+   ... and 25 more files
+
+📂 SERIJE/NOVE.DOMACE/crna.svadba/ (series)
+   Series: Crna Svadba
+   Files: 10
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S01E05.mkv
+   ... and 5 more files
+
+📂 SERIJE/NOVE.DOMACE/dtim/ (series)
+   Series: Drim Tim
+   Files: 28
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S01E05.mkv
+   ... and 23 more files
+
+📂 SERIJE/NOVE.DOMACE/iudobruiuzlu/ (series)
+   Series: U Dobru I U Zlu
+   Files: 167
+   📄 S01E01.mp4
+   📄 S01E02.mp4
+   📄 S01E03.mp4
+   📄 S01E04.mp4
+   📄 S01E05.mp4
+   ... and 162 more files
+
+📂 SERIJE/NOVE.DOMACE/jedini.izlaz/ (series)
+   Series: Jedini Izlaz
+   Files: 10
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S01E05.mkv
+   ... and 5 more files
+
+📂 SERIJE/NOVE.DOMACE/junaci/ (series)
+   Series: Junaci Naseg Doba
+   Files: 45
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S01E05.mkv
+   ... and 40 more files
+
+📂 SERIJE/NOVE.DOMACE/juzni.vetar/ (series)
+   Series: Juzni Vetar
+   Files: 30
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S01E05.mkv
+   ... and 25 more files
+
+📂 SERIJE/NOVE.DOMACE/kalkanski/ (series)
+   Series: Kalkanski Krugovi
+   Files: 30
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S01E05.mkv
+   ... and 25 more files
+
+📂 SERIJE/NOVE.DOMACE/kamiondzijedoo/ (series)
+   Series: Kamiondzije d.o.o
+   Files: 12
+   📄 S04E01.mp4
+   📄 S04E02.mp4
+   📄 S04E03.mp4
+   📄 S04E04.mp4
+   📄 S04E05.mp4
+   ... and 7 more files
+
+📂 SERIJE/NOVE.DOMACE/klan/ (series)
+   Series: Klan
+   Files: 24
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S01E05.mkv
+   ... and 19 more files
+
+📂 SERIJE/NOVE.DOMACE/kljun/ (series)
+   Series: Kljun
+   Files: 10
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S01E05.mkv
+   ... and 5 more files
+
+📂 SERIJE/NOVE.DOMACE/kosti/ (series)
+   Series: Kosti
+   Files: 10
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S01E05.mkv
+   ... and 5 more files
+
+📂 SERIJE/NOVE.DOMACE/kotlina/ (series)
+   Series: Kotlina
+   Files: 5
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S01E05.mkv
+
+📂 SERIJE/NOVE.DOMACE/mama.i.tata/ (series)
+   Series: Mama I Tata Se Igraju Rata
+   Files: 30
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S01E05.mkv
+   ... and 25 more files
+
+📂 SERIJE/NOVE.DOMACE/mileva/ (series)
+   Series: Radio Mileva
+   Files: 125
+   📄 S03E01.mkv
+   📄 S03E02.mkv
+   📄 S03E03.mkv
+   📄 S03E04.mkv
+   📄 S03E05.mkv
+   ... and 120 more files
+
+📂 SERIJE/NOVE.DOMACE/mocvara/ (series)
+   Series: Mocvara
+   Files: 8
+   📄 S03E01.mp4
+   📄 S03E02.mp4
+   📄 S03E03.mp4
+   📄 S03E04.mp4
+   📄 S03E05.mp4
+   ... and 3 more files
+
+📂 SERIJE/NOVE.DOMACE/novine/ (series)
+   Series: Novine
+   Files: 33
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S01E05.mkv
+   ... and 28 more files
+
+📂 SERIJE/NOVE.DOMACE/pasjaca/ (series)
+   Series: Pasjača
+   Files: 45
+   📄 S01E01.mp4
+   📄 S01E02.mp4
+   📄 S01E03.mp4
+   📄 S01E04.mp4
+   📄 S01E05.mp4
+   ... and 40 more files
+
+📂 SERIJE/NOVE.DOMACE/pevacica/ (series)
+   Series: Pevacica
+   Files: 23
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S01E05.mkv
+   ... and 18 more files
+
+📂 SERIJE/NOVE.DOMACE/preziveti.beograd/ (series)
+   Series: Preziveti Beograd
+   Files: 37
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S01E05.mkv
+   ... and 32 more files
+
+📂 SERIJE/NOVE.DOMACE/sablja/ (series)
+   Series: Sablja
+   Files: 8
+   📄 S01E01.mp4
+   📄 S01E02.mp4
+   📄 S01E03.mp4
+   📄 S01E04.mp4
+   📄 S01E05.mp4
+   ... and 3 more files
+
+📂 SERIJE/NOVE.DOMACE/senke/ (series)
+   Series: Senke Nad Balkanom
+   Files: 20
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S01E05.mkv
+   ... and 15 more files
+
+📂 SERIJE/NOVE.DOMACE/sinovljeva/ (series)
+   Series: Volja Sinovljeva
+   Files: 2
+   📄 S01E01.mp4
+   📄 S01E02.mp4
+
+📂 SERIJE/NOVE.DOMACE/sjene/ (series)
+   Series: Sjene Prošlosti
+   Files: 186
+   📄 S01E01.mp4
+   📄 S01E02.mp4
+   📄 S01E03.mp4
+   📄 S01E04.mp4
+   📄 S01E05.mp4
+   ... and 181 more files
+
+📂 SERIJE/NOVE.DOMACE/slatke.muke/ (movies)
+   Files: 1
+   📄 epizoda33.avi [HD]
+
+📂 SERIJE/NOVE.DOMACE/sluzbenik/ (series)
+   Series: Drzavni Sluzbenik
+   Files: 36
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S01E05.mkv
+   ... and 31 more files
+
+📂 SERIJE/NOVE.DOMACE/svindleri/ (series)
+   Series: Svindleri
+   Files: 24
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S01E05.mkv
+   ... and 19 more files
+
+📂 SERIJE/NOVE.DOMACE/tajkun/ (series)
+   Series: Tajkun
+   Files: 10
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S01E05.mkv
+   ... and 5 more files
+
+📂 SERIJE/NOVE.DOMACE/tajne.vinove.loze/ (series)
+   Series: Tajne Vinove Loze
+   Files: 110
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S01E05.mkv
+   ... and 105 more files
+
+📂 SERIJE/NOVE.DOMACE/ubice/ (series)
+   Series: Ubice Mog Oca
+   Files: 81
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S01E05.mkv
+   ... and 76 more files
+
+📂 SERIJE/NOVE.DOMACE/uklincu/ (series)
+   Series: U Klincu
+   Files: 90
+   📄 S01e01.mkv
+   📄 S01e02.mkv
+   📄 S01e03.mkv
+   📄 S01e04.mkv
+   📄 S01e05.mkv
+   ... and 85 more files
+
+📂 SERIJE/NOVE.DOMACE/vreme.zla/ (series)
+   Series: Vreme Zla
+   Files: 15
+   📄 S01E01.mkv
+   📄 S01E02.mkv
+   📄 S01E03.mkv
+   📄 S01E04.mkv
+   📄 S01E05.mkv
+   ... and 10 more files
+
+📂 SERIJE/NOVE.DOMACE/zigosani/ (series)
+   Series: Zigosani U Reketu
+   Files: 88
+   📄 S01e01.mkv
+   📄 S01e02.mkv
+   📄 S01e03.mkv
+   📄 S01e04.mkv
+   📄 S01e05.mkv
+   ... and 83 more files
+

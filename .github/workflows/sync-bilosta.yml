@@ -1,0 +1,177 @@
+name: Sync Bilosta Content
+
+on:
+  schedule:
+    # Run every day at 2 AM UTC (3 AM CET)
+    - cron: '0 2 * * *'
+  workflow_dispatch: # Allow manual trigger
+    inputs:
+      remove_old:
+        description: 'Remove items no longer on server'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+      enrich_new:
+        description: 'Enrich new items with TMDB metadata'
+        required: false
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+jobs:
+  sync-content:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Sync Bilosta content
+        id: sync
+        run: |
+          echo "🔄 Syncing content from Bilosta server..."
+          node scripts/sync-bilosta-content.js 2>&1 | tee sync-output.txt
+          
+          # Extract stats from output
+          NEW_ITEMS=$(grep "New items:" sync-output.txt | awk '{print $NF}' || echo "0")
+          EXISTING_ITEMS=$(grep "Existing items:" sync-output.txt | awk '{print $NF}' || echo "0")
+          
+          echo "new_items=$NEW_ITEMS" >> $GITHUB_OUTPUT
+          echo "existing_items=$EXISTING_ITEMS" >> $GITHUB_OUTPUT
+          
+          # Check if there are changes
+          if [ "$NEW_ITEMS" -gt 0 ] || [ -n "$(git status --porcelain)" ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Enrich new content with TMDB
+        if: steps.sync.outputs.new_items > 0 && github.event.inputs.enrich_new != 'false'
+        env:
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+        run: |
+          echo "🎬 Enriching new content with TMDB metadata..."
+          
+          # Check if TMDB API key is available
+          if [ -z "$TMDB_API_KEY" ]; then
+            echo "⚠️  TMDB_API_KEY not found in secrets - skipping enrichment"
+            echo "   Add it in: Settings → Secrets → Actions → New repository secret"
+            exit 0
+          fi
+          
+          # Run TMDB enrichment
+          node scrape-tmdb-metadata.js
+      
+      - name: Generate content statistics
+        if: steps.sync.outputs.has_changes == 'true'
+        run: |
+          echo "📊 Generating content statistics..."
+          
+          # Create stats file
+          cat > sync-stats.json << EOF
+          {
+            "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "new_items": ${{ steps.sync.outputs.new_items }},
+            "existing_items": ${{ steps.sync.outputs.existing_items }},
+            "database_stats": $(jq '.stats' data/baubau-content.json)
+          }
+          EOF
+          
+          echo "📈 Stats saved to sync-stats.json"
+      
+      - name: Commit and push changes
+        if: steps.sync.outputs.has_changes == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          # Add all changes
+          git add data/baubau-content.json
+          git add data/bilosta/*.txt
+          git add data/metadata-cache.json || true
+          
+          # Get current date
+          DATE=$(date '+%Y-%m-%d %H:%M UTC')
+          
+          # Get stats
+          TOTAL_MOVIES=$(jq '.stats.totalMovies' data/baubau-content.json)
+          TOTAL_SERIES=$(jq '.stats.totalSeries' data/baubau-content.json)
+          NEW_COUNT=${{ steps.sync.outputs.new_items }}
+          
+          # Create commit message
+          if [ "$NEW_COUNT" -gt 0 ]; then
+            COMMIT_MSG="🔄 Auto-sync: Added $NEW_COUNT new items - $DATE
+
+📊 Database Stats:
+• Total Movies: $TOTAL_MOVIES
+• Total Series: $TOTAL_SERIES
+• New items discovered: $NEW_COUNT
+
+🤖 Triggered by: GitHub Actions (scheduled sync)"
+          else
+            COMMIT_MSG="🔄 Auto-sync: Content updated - $DATE
+
+📊 Database Stats:
+• Total Movies: $TOTAL_MOVIES
+• Total Series: $TOTAL_SERIES
+
+🤖 Triggered by: GitHub Actions (scheduled sync)"
+          fi
+          
+          git commit -m "$COMMIT_MSG" || echo "No changes to commit"
+          git push
+      
+      - name: Create summary
+        if: steps.sync.outputs.has_changes == 'true'
+        run: |
+          echo "## 🎬 Bilosta Content Sync Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📊 Sync Results" >> $GITHUB_STEP_SUMMARY
+          echo "- **New Items:** ${{ steps.sync.outputs.new_items }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Existing Items:** ${{ steps.sync.outputs.existing_items }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📦 Database Stats" >> $GITHUB_STEP_SUMMARY
+          echo '```json' >> $GITHUB_STEP_SUMMARY
+          jq '.stats' data/baubau-content.json >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Changes committed and pushed successfully!" >> $GITHUB_STEP_SUMMARY
+      
+      - name: No changes summary
+        if: steps.sync.outputs.has_changes == 'false'
+        run: |
+          echo "## ℹ️ No Changes Detected" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "All content is up to date. No new items found." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📊 Current Database Stats" >> $GITHUB_STEP_SUMMARY
+          echo '```json' >> $GITHUB_STEP_SUMMARY
+          jq '.stats' data/baubau-content.json >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+      
+      - name: Upload sync output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sync-output
+          path: |
+            sync-output.txt
+            sync-stats.json
+          retention-days: 30
+

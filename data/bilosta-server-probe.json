@@ -1,0 +1,91 @@
+{
+  "baseUrl": "https://content.bilosta.org/SERCRT721/",
+  "timestamp": "2025-11-07T05:27:10.134Z",
+  "serverSupportsListing": true,
+  "folders": {
+    "FILMOVI/": {
+      "url": "https://content.bilosta.org/SERCRT721/FILMOVI/",
+      "status": 403,
+      "hasDirectoryListing": false,
+      "responseLength": 682,
+      "contentType": "text/html"
+    },
+    "FILMOVI/exyu/": {
+      "url": "https://content.bilosta.org/SERCRT721/FILMOVI/exyu/",
+      "status": 403,
+      "hasDirectoryListing": false,
+      "responseLength": 682,
+      "contentType": "text/html"
+    },
+    "FILMOVI/strani/": {
+      "url": "https://content.bilosta.org/SERCRT721/FILMOVI/strani/",
+      "status": 403,
+      "hasDirectoryListing": false,
+      "responseLength": 682,
+      "contentType": "text/html"
+    },
+    "FILMOVI/4K/": {
+      "url": "https://content.bilosta.org/SERCRT721/FILMOVI/4K/",
+      "status": 404,
+      "hasDirectoryListing": false,
+      "responseLength": 682,
+      "contentType": "text/html"
+    },
+    "FILMOVI/crt/": {
+      "url": "https://content.bilosta.org/SERCRT721/FILMOVI/crt/",
+      "status": 403,
+      "hasDirectoryListing": false,
+      "responseLength": 682,
+      "contentType": "text/html"
+    },
+    "SERIJE/": {
+      "url": "https://content.bilosta.org/SERCRT721/SERIJE/",
+      "status": 403,
+      "hasDirectoryListing": false,
+      "responseLength": 682,
+      "contentType": "text/html"
+    },
+    "SERIJE/NOVE.DOMACE/": {
+      "url": "https://content.bilosta.org/SERCRT721/SERIJE/NOVE.DOMACE/",
+      "status": 403,
+      "hasDirectoryListing": false,
+      "responseLength": 682,
+      "contentType": "text/html"
+    },
+    "CRTANI/": {
+      "url": "https://content.bilosta.org/SERCRT721/CRTANI/",
+      "status": 200,
+      "hasDirectoryListing": true,
+      "responseLength": 836,
+      "contentType": "text/html"
+    },
+    "CRTANI/CrtaniKlasici/": {
+      "url": "https://content.bilosta.org/SERCRT721/CRTANI/CrtaniKlasici/",
+      "status": 200,
+      "hasDirectoryListing": true,
+      "responseLength": 836,
+      "contentType": "text/html"
+    },
+    "CRTANI/CrtaniKlasici/DisneyKlasici/": {
+      "url": "https://content.bilosta.org/SERCRT721/CRTANI/CrtaniKlasici/DisneyKlasici/",
+      "status": 200,
+      "hasDirectoryListing": true,
+      "responseLength": 836,
+      "contentType": "text/html"
+    },
+    "CRTANI/SimsalaGrim/": {
+      "url": "https://content.bilosta.org/SERCRT721/CRTANI/SimsalaGrim/",
+      "status": 403,
+      "hasDirectoryListing": false,
+      "responseLength": 682,
+      "contentType": "text/html"
+    },
+    "DOKU/": {
+      "url": "https://content.bilosta.org/SERCRT721/DOKU/",
+      "status": 403,
+      "hasDirectoryListing": false,
+      "responseLength": 682,
+      "contentType": "text/html"
+    }
+  }
+}
