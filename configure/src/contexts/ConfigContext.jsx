@@ -118,6 +118,8 @@ export function ConfigProvider({ children }) {
       language,
       catalogs: catalogs
         .filter(c => c.enabled)
+        // IMPORTANT: Only include bilosta.* catalogs (Direct HD) - TMDB catalogs not yet implemented
+        .filter(c => c.id.startsWith('bilosta.'))
         .map(c => ({
           id: c.id,
           type: c.type,
