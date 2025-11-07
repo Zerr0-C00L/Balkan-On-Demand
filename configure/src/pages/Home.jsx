@@ -1,10 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useConfig } from '../contexts/ConfigContext';
-import { languages } from '../data/languages';
 import { motion } from 'framer-motion';
 
 export function Home() {
-  const { language, setLanguage } = useConfig();
   const [stats, setStats] = useState({
     tmdbCatalogs: 0,
     directMovies: 0,
@@ -50,10 +47,6 @@ export function Home() {
       .catch(() => {});
   }, []);
 
-  // Separate Balkan languages for prominent display
-  const balkanLanguages = languages.filter(lang => lang.highlighted);
-  const otherLanguages = languages.filter(lang => !lang.highlighted && !lang.divider);
-
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-900">
       {/* Background */}
@@ -82,38 +75,8 @@ export function Home() {
           Version 6.0.1 TMDB Edition
         </p>
 
-        {/* Language Selector */}
-        <div className="mb-12 max-w-md mx-auto">
-          <label className="block text-sm font-semibold text-gray-300 mb-3">
-            Select Metadata Language
-          </label>
-          <select
-            value={language}
-            onChange={(e) => setLanguage(e.target.value)}
-            className="w-full px-4 py-3 bg-white/10 border border-white/20 text-white rounded-lg backdrop-blur-sm focus:ring-2 focus:ring-[#00d4ff] focus:border-transparent outline-none"
-          >
-            <optgroup label="🌍 Balkan Region">
-              {balkanLanguages.map((lang) => (
-                <option key={lang.value} value={lang.value} className="bg-gray-800">
-                  {lang.label}
-                </option>
-              ))}
-            </optgroup>
-            <optgroup label="🌎 Other Languages">
-              {otherLanguages.map((lang) => (
-                <option key={lang.value} value={lang.value} className="bg-gray-800">
-                  {lang.label}
-                </option>
-              ))}
-            </optgroup>
-          </select>
-          <p className="mt-2 text-xs text-gray-400">
-            This sets the language for TMDB metadata (descriptions, cast, etc.)
-          </p>
-        </div>
-
         {/* Stats Grid */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

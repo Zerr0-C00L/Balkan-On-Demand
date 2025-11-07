@@ -5,9 +5,6 @@ import { tmdbCatalogs, baseCatalogs, balkanCatalogs } from '../data/catalogs';
 const ConfigContext = createContext();
 
 export function ConfigProvider({ children }) {
-  // Language setting
-  const [language, setLanguage] = useState('en-US');
-  
   // Catalog configuration - combine all catalogs
   const allCatalogs = [...tmdbCatalogs, ...baseCatalogs, ...balkanCatalogs];
   const [catalogs, setCatalogs] = useState(
@@ -60,7 +57,6 @@ export function ConfigProvider({ children }) {
       const config = JSON.parse(decompressed);
 
       // Apply configuration
-      if (config.language) setLanguage(config.language);
       if (config.tmdbPrefix !== undefined) setTmdbPrefix(config.tmdbPrefix);
       if (config.includeAdult !== undefined) setIncludeAdult(config.includeAdult);
       if (config.ageRating) setAgeRating(config.ageRating);
@@ -99,7 +95,6 @@ export function ConfigProvider({ children }) {
   // Generate compressed configuration string
   const generateConfig = () => {
     const config = {
-      language,
       catalogs: catalogs
         .filter(c => c.enabled)
         .map(c => ({
@@ -135,10 +130,6 @@ export function ConfigProvider({ children }) {
   };
 
   const value = {
-    // Language
-    language,
-    setLanguage,
-    
     // Catalogs
     catalogs,
     setCatalogs,
@@ -155,12 +146,6 @@ export function ConfigProvider({ children }) {
     ageRating,
     setAgeRating,
     
-    // Content
-    includeAdult,
-    setIncludeAdult,
-    ageRating,
-    setAgeRating,
-    
     // Age rating display
     enableAgeRating,
     setEnableAgeRating,
@@ -168,6 +153,12 @@ export function ConfigProvider({ children }) {
     setShowAgeRatingInGenres,
     showAgeRatingWithImdbRating,
     setShowAgeRatingWithImdbRating,
+    
+    // Utilities
+    loadConfigFromUrl,
+    generateConfig,
+    getManifestUrl
+  };
 
   return <ConfigContext.Provider value={value}>{children}</ConfigContext.Provider>;
 }
