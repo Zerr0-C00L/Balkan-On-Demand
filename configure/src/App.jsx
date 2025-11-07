@@ -76,7 +76,7 @@ function Sidebar({ currentPage, setCurrentPage, isMobileOpen, setIsMobileOpen })
               <span className="text-2xl">🎬</span>
               <h1 className="text-xl font-bold text-white">Balkan HD Streams</h1>
             </div>
-            <p className="text-gray-400 text-sm mt-1">v6.0.0 TMDB</p>
+            <p className="text-gray-400 text-sm mt-1">v6.0.1 TMDB</p>
           </div>
           <nav className="flex-1 px-3">
             <ul className="space-y-2">

@@ -79,7 +79,7 @@ export function Home() {
           TMDB-powered catalogs with Direct HD streams
         </p>
         <p className="text-lg text-gray-400 mb-8">
-          Version 6.0.0 TMDB Edition
+          Version 6.0.1 TMDB Edition
         </p>
 
         {/* Language Selector */}

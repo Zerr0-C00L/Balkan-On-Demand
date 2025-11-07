@@ -521,7 +521,7 @@ function generateManifest(config = null) {
 
   return {
     id: 'community.balkan.on.demand',
-    version: '6.0.0',
+    version: '6.0.1',
     name: 'Balkan On Demand',
     description: catalogs.length > 0
       ? `Direct HD streams + Balkan catalogs for movies & series. ${catalogs.length} catalog(s) active. (TMDB catalogs coming soon!)`
