@@ -1,22 +1,10 @@
-// TMDB dynamic catalogs - these will be available once TMDB integration is complete
-export const tmdbCatalogs = [
-  { id: "tmdb.top", name: "Popular", type: "movie" },
-  { id: "tmdb.top", name: "Popular", type: "series" },
-  { id: "tmdb.year", name: "Year", type: "movie" },
-  { id: "tmdb.year", name: "Year", type: "series" },
-  { id: "tmdb.language", name: "Language", type: "movie" },
-  { id: "tmdb.language", name: "Language", type: "series" },
-  { id: "tmdb.trending", name: "Trending", type: "movie" },
-  { id: "tmdb.trending", name: "Trending", type: "series" },
-];
+// TMDB dynamic catalogs - REMOVED (not needed)
+export const tmdbCatalogs = [];
 
-// Direct HD catalogs from your Bilosta collection (3,848 movies, 37 series)
-// These use bilosta.* IDs which get mapped to balkan_* in the backend
+// Direct HD catalogs - simplified to 2 main catalogs
 export const baseCatalogs = [
-  { id: "bilosta.movies", name: "⭐ Direct HD Movies", type: "movie" },
-  { id: "bilosta.foreign", name: "🌍 Direct HD Foreign Movies", type: "movie" },
-  { id: "bilosta.kids", name: "🎨 Direct HD Cartoons", type: "movie" },
-  { id: "bilosta.series", name: "📺 Direct HD Series", type: "series" },
+  { id: "bilosta.movies", name: "� Filmovi", type: "movie" },
+  { id: "bilosta.series", name: "📺 Serije", type: "series" },
 ];
 
 // No need for separate balkanCatalogs - bilosta IDs map to balkan_ catalogs in backend
