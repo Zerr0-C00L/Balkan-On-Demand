@@ -1,10 +1,10 @@
 {
-  "generated": "2025-11-07T21:18:26.406Z",
+  "generated": "2025-11-07T21:21:38.519Z",
   "stats": {
-    "totalMovies": 1293,
+    "totalMovies": 1176,
     "moviesWithTMDB": 0,
-    "moviesEnriched": 1293,
-    "totalSeries": 0,
+    "moviesEnriched": 1176,
+    "totalSeries": 117,
     "totalEpisodes": 2320
   },
   "movies": [
@@ -12774,1203 +12774,6 @@
       "originalTitle": "Supermarket (2023)"
     },
     {
-      "id": "bilosta:QmVsYSBMYWRq",
-      "type": "movie",
-      "name": "Bela Ladja S07 E01 Sojic i Stojkovic 1",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/belaladja/sojic1.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bela Ladja S07 E01 Sojic i Stojkovic 1"
-    },
-    {
-      "id": "bilosta:QmVsYSBMYWRq",
-      "type": "movie",
-      "name": "Bela Ladja S07 E02 Sojic i Stojkovic 2",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/belaladja/sojic2.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bela Ladja S07 E02 Sojic i Stojkovic 2"
-    },
-    {
-      "id": "bilosta:QmVsYSBMYWRq",
-      "type": "movie",
-      "name": "Bela Ladja S07 E03 Sojic i Stojkovic 3",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/belaladja/sojic3.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bela Ladja S07 E03 Sojic i Stojkovic 3"
-    },
-    {
-      "id": "bilosta:QmVsYSBMYWRq",
-      "type": "movie",
-      "name": "Bela Ladja S07 E04 Sojic i Stojkovic 4",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/belaladja/sojic4.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bela Ladja S07 E04 Sojic i Stojkovic 4"
-    },
-    {
-      "id": "bilosta:QmVsYSBMYWRq",
-      "type": "movie",
-      "name": "Bela Ladja S07 E05 Sojic i Stojkovic 5",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/belaladja/sojic5.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bela Ladja S07 E05 Sojic i Stojkovic 5"
-    },
-    {
-      "id": "bilosta:QmVsYSBMYWRq",
-      "type": "movie",
-      "name": "Bela Ladja S07 E06 Sojic i Stojkovic 6",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/belaladja/sojic6.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bela Ladja S07 E06 Sojic i Stojkovic 6"
-    },
-    {
-      "id": "bilosta:QmVsYSBMYWRq",
-      "type": "movie",
-      "name": "Bela Ladja S07 E07 Sojic i Stojkovic 7",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/belaladja/sojic7.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bela Ladja S07 E07 Sojic i Stojkovic 7"
-    },
-    {
-      "id": "bilosta:QmVsYSBMYWRq",
-      "type": "movie",
-      "name": "Bela Ladja S07 E08 Sojic i Stojkovic 8",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/belaladja/sojic8.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bela Ladja S07 E08 Sojic i Stojkovic 8"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E01 Bolji Zivot",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E01.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S01 E01 Bolji Zivot"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E02 Testament",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E02.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S01 E02 Testament"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E03 Terminator",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E03.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S01 E03 Terminator"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E04 Skandal",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E04.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S01 E04 Skandal"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E05 Zaruke",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E05.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S01 E05 Zaruke"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E06 Jataganac",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E06.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S01 E06 Jataganac"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E07 Zarucnicki prsten",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E07.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S01 E07 Zarucnicki prsten"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E08 Uloga",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E08.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S01 E08 Uloga"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E09 Portret",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E09.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S01 E09 Portret"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E10 Godisnjica mature",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E10.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S01 E10 Godisnjica mature"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E11 Odluka",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E11.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S01 E11 Odluka"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E12 Gigin flert",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E12.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S01 E12 Gigin flert"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E13 Zaposlenje",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E13.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S01 E13 Zaposlenje"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E14 Romeo i Julija",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E14.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S01 E14 Romeo i Julija"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E15 Svijedodzba",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E15.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S01 E15 Svijedodzba"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E16 Svadba",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E16.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S01 E16 Svadba"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E17 Zavodnik",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E17.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S01 E17 Zavodnik"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E18 Prvi radni dan",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E18.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S01 E18 Prvi radni dan"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E19 Giga zeli razvod",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E19.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S01 E19 Giga zeli razvod"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E20 Krivo optuzen",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E20.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S01 E20 Krivo optuzen"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E21 Specijalizacija",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E21.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S01 E21 Specijalizacija"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E22 Giga odlazi",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E22.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S01 E22 Giga odlazi"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E01 Svijedok",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E23.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S02 E01 Svijedok"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E02 Svijedok 2",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E24.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S02 E02 Svijedok 2"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E03 Ujak Kosta",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E25.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S02 E03 Ujak Kosta"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E04 Bunda",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E26.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S02 E04 Bunda"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E05 Dr. Ivo",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E27.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S02 E05 Dr. Ivo"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E06 Frka",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E28.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S02 E06 Frka"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E07 Glava",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E29.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S02 E07 Glava"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E08 Presuda",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E30.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S02 E08 Presuda"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E09 Rodzendan",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E31.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S02 E09 Rodzendan"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E10 Boba ode u zatvor",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E32.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S02 E10 Boba ode u zatvor"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E11 Francuz",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E33.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S02 E11 Francuz"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E12 Muski razgovor",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E34.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S02 E12 Muski razgovor"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E13 Prosnja",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E35.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S02 E13 Prosnja"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E14 Rucak",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E36.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S02 E14 Rucak"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E15 Potpisan ugovor",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E37.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S02 E15 Potpisan ugovor"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E16 Datum",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E38.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S02 E16 Datum"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E17 Komisija",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E39.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S02 E17 Komisija"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E18 Premjestaj",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E40.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S02 E18 Premjestaj"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E19 Povratak",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E41.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S02 E19 Povratak"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E20 Svadba",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E42.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S02 E20 Svadba"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E21 Zivadinka",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E43.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S02 E21 Zivadinka"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E22 Setnja",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E44.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S02 E22 Setnja"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E23 Preseljenje",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E45.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S02 E23 Preseljenje"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E24 Odlazak",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E46.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S02 E24 Odlazak"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E25 Pozajmnica",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E47.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Bolji Zivot S02 E25 Pozajmnica"
-    },
-    {
-      "id": "bilosta:UG9saWNhamFj",
-      "type": "movie",
-      "name": "Policajac Sa Petlovog Brda S03 E01 Novogodisnji Specijal",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/d1SrI6GI4yafxgm9aLm8tmU4c6t.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/d1SrI6GI4yafxgm9aLm8tmU4c6t.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/policajac/E13.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Policajac Sa Petlovog Brda S03 E01 Novogodisnji Specijal"
-    },
-    {
-      "id": "bilosta:U2xhdGtlIE11",
-      "type": "movie",
-      "name": "Slatke Muke S01 E33 Novogodisnji Specijal",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/j65h7ENAwLphLJ0zTaKw7xrJRf4.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/j65h7ENAwLphLJ0zTaKw7xrJRf4.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content.bilosta.org/SERCRT721/SERIJE/NOVE.DOMACE/slatke.muke/epizoda33.avi",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EX YU SERIJE",
-      "originalTitle": "Slatke Muke S01 E33 Novogodisnji Specijal"
-    },
-    {
       "id": "bilosta:U3ZldGEgUGV0",
       "type": "movie",
       "name": "Sveta Petka - Krst U Pustinji",
@@ -24350,1303 +23153,6 @@
       "originalTitle": "Уста пуна земље"
     },
     {
-      "id": "tt2118701",
-      "type": "movie",
-      "name": "EXYU SERIJE ON AIR S01 E01 V Efekat",
-      "year": null,
-      "poster": "https://images.metahub.space/poster/small/tt2118701/img",
-      "background": "https://images.metahub.space/background/medium/tt2118701/img",
-      "description": "A well known radio talk show host lives as a recluse during the day, until she found her real mother.",
-      "genres": [
-        "Comedy",
-        "Drama"
-      ],
-      "imdbRating": "6.2",
-      "runtime": "89 min",
-      "cast": [
-        "Karin Viard",
-        "Nicolas Duvauchelle",
-        "Nadia Barentin"
-      ],
-      "director": [
-        "Pierre Pinaud"
-      ],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/instal/trailer4.mp4",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EXYU SERIJE KOJE SE EMITUJU",
-      "originalTitle": "EXYU SERIJE ON AIR S01 E01 V Efekat"
-    },
-    {
-      "id": "tt2118701",
-      "type": "movie",
-      "name": "EXYU SERIJE ON AIR S03 E01 Tajne Vinove Loze",
-      "year": null,
-      "poster": "https://images.metahub.space/poster/small/tt2118701/img",
-      "background": "https://images.metahub.space/background/medium/tt2118701/img",
-      "description": "A well known radio talk show host lives as a recluse during the day, until she found her real mother.",
-      "genres": [
-        "Comedy",
-        "Drama"
-      ],
-      "imdbRating": "6.2",
-      "runtime": "89 min",
-      "cast": [
-        "Karin Viard",
-        "Nicolas Duvauchelle",
-        "Nadia Barentin"
-      ],
-      "director": [
-        "Pierre Pinaud"
-      ],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/instal/trailer5.mp4",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EXYU SERIJE KOJE SE EMITUJU",
-      "originalTitle": "EXYU SERIJE ON AIR S03 E01 Tajne Vinove Loze"
-    },
-    {
-      "id": "tt1638355",
-      "type": "movie",
-      "name": "Uskoro u ExYu Serijama S01 E01 Serija Sablja",
-      "year": null,
-      "poster": "https://images.metahub.space/poster/small/tt1638355/img",
-      "background": "https://images.metahub.space/background/medium/tt1638355/img",
-      "description": "In the early 1960s, CIA agent Napoleon Solo and KGB operative Illya Kuryakin participate in a joint mission against a mysterious criminal organization, which is working to proliferate nuclear weapons.",
-      "genres": [
-        "Action",
-        "Adventure",
-        "Comedy"
-      ],
-      "imdbRating": "7.2",
-      "runtime": "116 min",
-      "cast": [
-        "Henry Cavill",
-        "Armie Hammer",
-        "Alicia Vikander"
-      ],
-      "director": [
-        "Guy Ritchie"
-      ],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/instal/trailer1.mp4",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "EXYU SERIJE",
-      "originalTitle": "Uskoro u ExYu Serijama S01 E01 Serija Sablja"
-    },
-    {
-      "id": "bilosta:QmVsYSBMYWRq",
-      "type": "movie",
-      "name": "Bela Ladja S07 E01 Sojic i Stojkovic 1",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/belaladja/sojic1.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bela Ladja",
-      "originalTitle": "Bela Ladja S07 E01 Sojic i Stojkovic 1"
-    },
-    {
-      "id": "bilosta:QmVsYSBMYWRq",
-      "type": "movie",
-      "name": "Bela Ladja S07 E02 Sojic i Stojkovic 2",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/belaladja/sojic2.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bela Ladja",
-      "originalTitle": "Bela Ladja S07 E02 Sojic i Stojkovic 2"
-    },
-    {
-      "id": "bilosta:QmVsYSBMYWRq",
-      "type": "movie",
-      "name": "Bela Ladja S07 E03 Sojic i Stojkovic 3",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/belaladja/sojic3.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bela Ladja",
-      "originalTitle": "Bela Ladja S07 E03 Sojic i Stojkovic 3"
-    },
-    {
-      "id": "bilosta:QmVsYSBMYWRq",
-      "type": "movie",
-      "name": "Bela Ladja S07 E04 Sojic i Stojkovic 4",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/belaladja/sojic4.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bela Ladja",
-      "originalTitle": "Bela Ladja S07 E04 Sojic i Stojkovic 4"
-    },
-    {
-      "id": "bilosta:QmVsYSBMYWRq",
-      "type": "movie",
-      "name": "Bela Ladja S07 E05 Sojic i Stojkovic 5",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/belaladja/sojic5.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bela Ladja",
-      "originalTitle": "Bela Ladja S07 E05 Sojic i Stojkovic 5"
-    },
-    {
-      "id": "bilosta:QmVsYSBMYWRq",
-      "type": "movie",
-      "name": "Bela Ladja S07 E06 Sojic i Stojkovic 6",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/belaladja/sojic6.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bela Ladja",
-      "originalTitle": "Bela Ladja S07 E06 Sojic i Stojkovic 6"
-    },
-    {
-      "id": "bilosta:QmVsYSBMYWRq",
-      "type": "movie",
-      "name": "Bela Ladja S07 E07 Sojic i Stojkovic 7",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/belaladja/sojic7.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bela Ladja",
-      "originalTitle": "Bela Ladja S07 E07 Sojic i Stojkovic 7"
-    },
-    {
-      "id": "bilosta:QmVsYSBMYWRq",
-      "type": "movie",
-      "name": "Bela Ladja S07 E08 Sojic i Stojkovic 8",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/belaladja/sojic8.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bela Ladja",
-      "originalTitle": "Bela Ladja S07 E08 Sojic i Stojkovic 8"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E01 Bolji Zivot",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E01.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S01 E01 Bolji Zivot"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E02 Testament",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E02.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S01 E02 Testament"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E03 Terminator",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E03.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S01 E03 Terminator"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E04 Skandal",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E04.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S01 E04 Skandal"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E05 Zaruke",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E05.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S01 E05 Zaruke"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E06 Jataganac",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E06.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S01 E06 Jataganac"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E07 Zarucnicki prsten",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E07.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S01 E07 Zarucnicki prsten"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E08 Uloga",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E08.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S01 E08 Uloga"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E09 Portret",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E09.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S01 E09 Portret"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E10 Godisnjica mature",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E10.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S01 E10 Godisnjica mature"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E11 Odluka",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E11.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S01 E11 Odluka"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E12 Gigin flert",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E12.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S01 E12 Gigin flert"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E13 Zaposlenje",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E13.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S01 E13 Zaposlenje"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E14 Romeo i Julija",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E14.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S01 E14 Romeo i Julija"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E15 Svijedodzba",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E15.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S01 E15 Svijedodzba"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E16 Svadba",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E16.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S01 E16 Svadba"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E17 Zavodnik",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E17.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S01 E17 Zavodnik"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E18 Prvi radni dan",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E18.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S01 E18 Prvi radni dan"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E19 Giga zeli razvod",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E19.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S01 E19 Giga zeli razvod"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E20 Krivo optuzen",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E20.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S01 E20 Krivo optuzen"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E21 Specijalizacija",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E21.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S01 E21 Specijalizacija"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S01 E22 Giga odlazi",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E22.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S01 E22 Giga odlazi"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E01 Svijedok",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E23.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S02 E01 Svijedok"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E02 Svijedok 2",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E24.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S02 E02 Svijedok 2"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E03 Ujak Kosta",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E25.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S02 E03 Ujak Kosta"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E04 Bunda",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E26.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S02 E04 Bunda"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E05 Dr. Ivo",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E27.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S02 E05 Dr. Ivo"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E06 Frka",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E28.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S02 E06 Frka"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E07 Glava",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E29.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S02 E07 Glava"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E08 Presuda",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E30.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S02 E08 Presuda"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E09 Rodzendan",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E31.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S02 E09 Rodzendan"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E10 Boba ode u zatvor",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E32.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S02 E10 Boba ode u zatvor"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E11 Francuz",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E33.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S02 E11 Francuz"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E12 Muski razgovor",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E34.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S02 E12 Muski razgovor"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E13 Prosnja",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E35.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S02 E13 Prosnja"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E14 Rucak",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E36.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S02 E14 Rucak"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E15 Potpisan ugovor",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E37.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S02 E15 Potpisan ugovor"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E16 Datum",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E38.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S02 E16 Datum"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E17 Komisija",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E39.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S02 E17 Komisija"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E18 Premjestaj",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E40.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S02 E18 Premjestaj"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E19 Povratak",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E41.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S02 E19 Povratak"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E20 Svadba",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E42.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S02 E20 Svadba"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E21 Zivadinka",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E43.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S02 E21 Zivadinka"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E22 Setnja",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E44.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S02 E22 Setnja"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E23 Preseljenje",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E45.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S02 E23 Preseljenje"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E24 Odlazak",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E46.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S02 E24 Odlazak"
-    },
-    {
-      "id": "bilosta:Qm9samkgWml2",
-      "type": "movie",
-      "name": "Bolji Zivot S02 E25 Pozajmnica",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E47.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Bolji Zivot",
-      "originalTitle": "Bolji Zivot S02 E25 Pozajmnica"
-    },
-    {
-      "id": "bilosta:UG9saWNhamFj",
-      "type": "movie",
-      "name": "Policajac Sa Petlovog Brda S03 E01 Novogodisnji Specijal",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/d1SrI6GI4yafxgm9aLm8tmU4c6t.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/d1SrI6GI4yafxgm9aLm8tmU4c6t.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/policajac/E13.mkv",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Policajac Sa Petlovog Brda",
-      "originalTitle": "Policajac Sa Petlovog Brda S03 E01 Novogodisnji Specijal"
-    },
-    {
-      "id": "bilosta:U2xhdGtlIE11",
-      "type": "movie",
-      "name": "Slatke Muke S01 E33 Novogodisnji Specijal",
-      "year": null,
-      "poster": "https://image.tmdb.org/t/p/w780/j65h7ENAwLphLJ0zTaKw7xrJRf4.jpg",
-      "background": "https://image.tmdb.org/t/p/w780/j65h7ENAwLphLJ0zTaKw7xrJRf4.jpg",
-      "genres": [],
-      "cast": [],
-      "director": [],
-      "streams": [
-        {
-          "url": "https://content.bilosta.org/SERCRT189/SERIJE/NOVE.DOMACE/slatke.muke/epizoda33.avi",
-          "quality": "HD",
-          "source": "bilosta",
-          "size": null
-        }
-      ],
-      "category": "Slatke Muke",
-      "originalTitle": "Slatke Muke S01 E33 Novogodisnji Specijal"
-    },
-    {
       "id": "bilosta:Um9kYQ==",
       "type": "movie",
       "name": "Roda",
@@ -27264,5 +24770,2500 @@
       "originalTitle": "Umri Prije Smrti (2023)"
     }
   ],
-  "series": []
+  "series": [
+    {
+      "id": "bilosta:QmVsYSBMYWRq",
+      "type": "series",
+      "name": "Bela Ladja S07 E01 Sojic i Stojkovic 1",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/belaladja/sojic1.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bela Ladja S07 E01 Sojic i Stojkovic 1"
+    },
+    {
+      "id": "bilosta:QmVsYSBMYWRq",
+      "type": "series",
+      "name": "Bela Ladja S07 E02 Sojic i Stojkovic 2",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/belaladja/sojic2.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bela Ladja S07 E02 Sojic i Stojkovic 2"
+    },
+    {
+      "id": "bilosta:QmVsYSBMYWRq",
+      "type": "series",
+      "name": "Bela Ladja S07 E03 Sojic i Stojkovic 3",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/belaladja/sojic3.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bela Ladja S07 E03 Sojic i Stojkovic 3"
+    },
+    {
+      "id": "bilosta:QmVsYSBMYWRq",
+      "type": "series",
+      "name": "Bela Ladja S07 E04 Sojic i Stojkovic 4",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/belaladja/sojic4.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bela Ladja S07 E04 Sojic i Stojkovic 4"
+    },
+    {
+      "id": "bilosta:QmVsYSBMYWRq",
+      "type": "series",
+      "name": "Bela Ladja S07 E05 Sojic i Stojkovic 5",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/belaladja/sojic5.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bela Ladja S07 E05 Sojic i Stojkovic 5"
+    },
+    {
+      "id": "bilosta:QmVsYSBMYWRq",
+      "type": "series",
+      "name": "Bela Ladja S07 E06 Sojic i Stojkovic 6",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/belaladja/sojic6.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bela Ladja S07 E06 Sojic i Stojkovic 6"
+    },
+    {
+      "id": "bilosta:QmVsYSBMYWRq",
+      "type": "series",
+      "name": "Bela Ladja S07 E07 Sojic i Stojkovic 7",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/belaladja/sojic7.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bela Ladja S07 E07 Sojic i Stojkovic 7"
+    },
+    {
+      "id": "bilosta:QmVsYSBMYWRq",
+      "type": "series",
+      "name": "Bela Ladja S07 E08 Sojic i Stojkovic 8",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/belaladja/sojic8.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bela Ladja S07 E08 Sojic i Stojkovic 8"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E01 Bolji Zivot",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E01.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S01 E01 Bolji Zivot"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E02 Testament",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E02.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S01 E02 Testament"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E03 Terminator",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E03.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S01 E03 Terminator"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E04 Skandal",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E04.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S01 E04 Skandal"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E05 Zaruke",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E05.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S01 E05 Zaruke"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E06 Jataganac",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E06.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S01 E06 Jataganac"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E07 Zarucnicki prsten",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E07.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S01 E07 Zarucnicki prsten"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E08 Uloga",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E08.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S01 E08 Uloga"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E09 Portret",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E09.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S01 E09 Portret"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E10 Godisnjica mature",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E10.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S01 E10 Godisnjica mature"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E11 Odluka",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E11.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S01 E11 Odluka"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E12 Gigin flert",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E12.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S01 E12 Gigin flert"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E13 Zaposlenje",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E13.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S01 E13 Zaposlenje"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E14 Romeo i Julija",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E14.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S01 E14 Romeo i Julija"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E15 Svijedodzba",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E15.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S01 E15 Svijedodzba"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E16 Svadba",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E16.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S01 E16 Svadba"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E17 Zavodnik",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E17.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S01 E17 Zavodnik"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E18 Prvi radni dan",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E18.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S01 E18 Prvi radni dan"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E19 Giga zeli razvod",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E19.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S01 E19 Giga zeli razvod"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E20 Krivo optuzen",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E20.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S01 E20 Krivo optuzen"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E21 Specijalizacija",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E21.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S01 E21 Specijalizacija"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E22 Giga odlazi",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E22.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S01 E22 Giga odlazi"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E01 Svijedok",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E23.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S02 E01 Svijedok"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E02 Svijedok 2",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E24.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S02 E02 Svijedok 2"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E03 Ujak Kosta",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E25.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S02 E03 Ujak Kosta"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E04 Bunda",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E26.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S02 E04 Bunda"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E05 Dr. Ivo",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E27.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S02 E05 Dr. Ivo"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E06 Frka",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E28.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S02 E06 Frka"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E07 Glava",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E29.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S02 E07 Glava"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E08 Presuda",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E30.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S02 E08 Presuda"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E09 Rodzendan",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E31.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S02 E09 Rodzendan"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E10 Boba ode u zatvor",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E32.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S02 E10 Boba ode u zatvor"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E11 Francuz",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E33.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S02 E11 Francuz"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E12 Muski razgovor",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E34.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S02 E12 Muski razgovor"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E13 Prosnja",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E35.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S02 E13 Prosnja"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E14 Rucak",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E36.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S02 E14 Rucak"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E15 Potpisan ugovor",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E37.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S02 E15 Potpisan ugovor"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E16 Datum",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E38.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S02 E16 Datum"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E17 Komisija",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E39.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S02 E17 Komisija"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E18 Premjestaj",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E40.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S02 E18 Premjestaj"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E19 Povratak",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E41.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S02 E19 Povratak"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E20 Svadba",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E42.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S02 E20 Svadba"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E21 Zivadinka",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E43.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S02 E21 Zivadinka"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E22 Setnja",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E44.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S02 E22 Setnja"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E23 Preseljenje",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E45.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S02 E23 Preseljenje"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E24 Odlazak",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E46.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S02 E24 Odlazak"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E25 Pozajmnica",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/boljizivot/E47.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Bolji Zivot S02 E25 Pozajmnica"
+    },
+    {
+      "id": "bilosta:UG9saWNhamFj",
+      "type": "series",
+      "name": "Policajac Sa Petlovog Brda S03 E01 Novogodisnji Specijal",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/d1SrI6GI4yafxgm9aLm8tmU4c6t.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/d1SrI6GI4yafxgm9aLm8tmU4c6t.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER597/domaceserije/policajac/E13.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Policajac Sa Petlovog Brda S03 E01 Novogodisnji Specijal"
+    },
+    {
+      "id": "bilosta:U2xhdGtlIE11",
+      "type": "series",
+      "name": "Slatke Muke S01 E33 Novogodisnji Specijal",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/j65h7ENAwLphLJ0zTaKw7xrJRf4.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/j65h7ENAwLphLJ0zTaKw7xrJRf4.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content.bilosta.org/SERCRT721/SERIJE/NOVE.DOMACE/slatke.muke/epizoda33.avi",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU SERIJE",
+      "originalTitle": "Slatke Muke S01 E33 Novogodisnji Specijal"
+    },
+    {
+      "id": "tt2118701",
+      "type": "series",
+      "name": "EXYU SERIJE ON AIR S01 E01 V Efekat",
+      "year": null,
+      "poster": "https://images.metahub.space/poster/small/tt2118701/img",
+      "background": "https://images.metahub.space/background/medium/tt2118701/img",
+      "description": "A well known radio talk show host lives as a recluse during the day, until she found her real mother.",
+      "genres": [
+        "Comedy",
+        "Drama"
+      ],
+      "imdbRating": "6.2",
+      "runtime": "89 min",
+      "cast": [
+        "Karin Viard",
+        "Nicolas Duvauchelle",
+        "Nadia Barentin"
+      ],
+      "director": [
+        "Pierre Pinaud"
+      ],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/instal/trailer4.mp4",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EXYU SERIJE KOJE SE EMITUJU",
+      "originalTitle": "EXYU SERIJE ON AIR S01 E01 V Efekat"
+    },
+    {
+      "id": "tt2118701",
+      "type": "series",
+      "name": "EXYU SERIJE ON AIR S03 E01 Tajne Vinove Loze",
+      "year": null,
+      "poster": "https://images.metahub.space/poster/small/tt2118701/img",
+      "background": "https://images.metahub.space/background/medium/tt2118701/img",
+      "description": "A well known radio talk show host lives as a recluse during the day, until she found her real mother.",
+      "genres": [
+        "Comedy",
+        "Drama"
+      ],
+      "imdbRating": "6.2",
+      "runtime": "89 min",
+      "cast": [
+        "Karin Viard",
+        "Nicolas Duvauchelle",
+        "Nadia Barentin"
+      ],
+      "director": [
+        "Pierre Pinaud"
+      ],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/instal/trailer5.mp4",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EXYU SERIJE KOJE SE EMITUJU",
+      "originalTitle": "EXYU SERIJE ON AIR S03 E01 Tajne Vinove Loze"
+    },
+    {
+      "id": "tt1638355",
+      "type": "series",
+      "name": "Uskoro u ExYu Serijama S01 E01 Serija Sablja",
+      "year": null,
+      "poster": "https://images.metahub.space/poster/small/tt1638355/img",
+      "background": "https://images.metahub.space/background/medium/tt1638355/img",
+      "description": "In the early 1960s, CIA agent Napoleon Solo and KGB operative Illya Kuryakin participate in a joint mission against a mysterious criminal organization, which is working to proliferate nuclear weapons.",
+      "genres": [
+        "Action",
+        "Adventure",
+        "Comedy"
+      ],
+      "imdbRating": "7.2",
+      "runtime": "116 min",
+      "cast": [
+        "Henry Cavill",
+        "Armie Hammer",
+        "Alicia Vikander"
+      ],
+      "director": [
+        "Guy Ritchie"
+      ],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/instal/trailer1.mp4",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EXYU SERIJE",
+      "originalTitle": "Uskoro u ExYu Serijama S01 E01 Serija Sablja"
+    },
+    {
+      "id": "bilosta:QmVsYSBMYWRq",
+      "type": "series",
+      "name": "Bela Ladja S07 E01 Sojic i Stojkovic 1",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/belaladja/sojic1.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bela Ladja",
+      "originalTitle": "Bela Ladja S07 E01 Sojic i Stojkovic 1"
+    },
+    {
+      "id": "bilosta:QmVsYSBMYWRq",
+      "type": "series",
+      "name": "Bela Ladja S07 E02 Sojic i Stojkovic 2",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/belaladja/sojic2.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bela Ladja",
+      "originalTitle": "Bela Ladja S07 E02 Sojic i Stojkovic 2"
+    },
+    {
+      "id": "bilosta:QmVsYSBMYWRq",
+      "type": "series",
+      "name": "Bela Ladja S07 E03 Sojic i Stojkovic 3",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/belaladja/sojic3.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bela Ladja",
+      "originalTitle": "Bela Ladja S07 E03 Sojic i Stojkovic 3"
+    },
+    {
+      "id": "bilosta:QmVsYSBMYWRq",
+      "type": "series",
+      "name": "Bela Ladja S07 E04 Sojic i Stojkovic 4",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/belaladja/sojic4.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bela Ladja",
+      "originalTitle": "Bela Ladja S07 E04 Sojic i Stojkovic 4"
+    },
+    {
+      "id": "bilosta:QmVsYSBMYWRq",
+      "type": "series",
+      "name": "Bela Ladja S07 E05 Sojic i Stojkovic 5",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/belaladja/sojic5.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bela Ladja",
+      "originalTitle": "Bela Ladja S07 E05 Sojic i Stojkovic 5"
+    },
+    {
+      "id": "bilosta:QmVsYSBMYWRq",
+      "type": "series",
+      "name": "Bela Ladja S07 E06 Sojic i Stojkovic 6",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/belaladja/sojic6.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bela Ladja",
+      "originalTitle": "Bela Ladja S07 E06 Sojic i Stojkovic 6"
+    },
+    {
+      "id": "bilosta:QmVsYSBMYWRq",
+      "type": "series",
+      "name": "Bela Ladja S07 E07 Sojic i Stojkovic 7",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/belaladja/sojic7.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bela Ladja",
+      "originalTitle": "Bela Ladja S07 E07 Sojic i Stojkovic 7"
+    },
+    {
+      "id": "bilosta:QmVsYSBMYWRq",
+      "type": "series",
+      "name": "Bela Ladja S07 E08 Sojic i Stojkovic 8",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/bS0fOTDdqnaLlBoB3RFMGU7X0qr.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/belaladja/sojic8.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bela Ladja",
+      "originalTitle": "Bela Ladja S07 E08 Sojic i Stojkovic 8"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E01 Bolji Zivot",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E01.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S01 E01 Bolji Zivot"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E02 Testament",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E02.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S01 E02 Testament"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E03 Terminator",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E03.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S01 E03 Terminator"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E04 Skandal",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E04.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S01 E04 Skandal"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E05 Zaruke",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E05.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S01 E05 Zaruke"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E06 Jataganac",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E06.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S01 E06 Jataganac"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E07 Zarucnicki prsten",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E07.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S01 E07 Zarucnicki prsten"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E08 Uloga",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E08.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S01 E08 Uloga"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E09 Portret",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E09.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S01 E09 Portret"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E10 Godisnjica mature",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E10.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S01 E10 Godisnjica mature"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E11 Odluka",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E11.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S01 E11 Odluka"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E12 Gigin flert",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E12.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S01 E12 Gigin flert"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E13 Zaposlenje",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E13.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S01 E13 Zaposlenje"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E14 Romeo i Julija",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E14.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S01 E14 Romeo i Julija"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E15 Svijedodzba",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E15.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S01 E15 Svijedodzba"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E16 Svadba",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E16.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S01 E16 Svadba"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E17 Zavodnik",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E17.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S01 E17 Zavodnik"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E18 Prvi radni dan",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E18.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S01 E18 Prvi radni dan"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E19 Giga zeli razvod",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E19.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S01 E19 Giga zeli razvod"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E20 Krivo optuzen",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E20.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S01 E20 Krivo optuzen"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E21 Specijalizacija",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E21.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S01 E21 Specijalizacija"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S01 E22 Giga odlazi",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E22.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S01 E22 Giga odlazi"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E01 Svijedok",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E23.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S02 E01 Svijedok"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E02 Svijedok 2",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E24.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S02 E02 Svijedok 2"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E03 Ujak Kosta",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E25.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S02 E03 Ujak Kosta"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E04 Bunda",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E26.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S02 E04 Bunda"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E05 Dr. Ivo",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E27.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S02 E05 Dr. Ivo"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E06 Frka",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E28.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S02 E06 Frka"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E07 Glava",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E29.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S02 E07 Glava"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E08 Presuda",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E30.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S02 E08 Presuda"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E09 Rodzendan",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E31.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S02 E09 Rodzendan"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E10 Boba ode u zatvor",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E32.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S02 E10 Boba ode u zatvor"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E11 Francuz",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E33.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S02 E11 Francuz"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E12 Muski razgovor",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E34.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S02 E12 Muski razgovor"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E13 Prosnja",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E35.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S02 E13 Prosnja"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E14 Rucak",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E36.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S02 E14 Rucak"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E15 Potpisan ugovor",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E37.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S02 E15 Potpisan ugovor"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E16 Datum",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E38.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S02 E16 Datum"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E17 Komisija",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E39.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S02 E17 Komisija"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E18 Premjestaj",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E40.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S02 E18 Premjestaj"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E19 Povratak",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E41.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S02 E19 Povratak"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E20 Svadba",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E42.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S02 E20 Svadba"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E21 Zivadinka",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E43.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S02 E21 Zivadinka"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E22 Setnja",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E44.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S02 E22 Setnja"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E23 Preseljenje",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E45.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S02 E23 Preseljenje"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E24 Odlazak",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E46.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S02 E24 Odlazak"
+    },
+    {
+      "id": "bilosta:Qm9samkgWml2",
+      "type": "series",
+      "name": "Bolji Zivot S02 E25 Pozajmnica",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/wHudcY1tymZvo3THmKeV4jgZrb9.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/boljizivot/E47.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Bolji Zivot",
+      "originalTitle": "Bolji Zivot S02 E25 Pozajmnica"
+    },
+    {
+      "id": "bilosta:UG9saWNhamFj",
+      "type": "series",
+      "name": "Policajac Sa Petlovog Brda S03 E01 Novogodisnji Specijal",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/d1SrI6GI4yafxgm9aLm8tmU4c6t.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/d1SrI6GI4yafxgm9aLm8tmU4c6t.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content2.bilosta.org/DISK2/FILSER921/domaceserije/policajac/E13.mkv",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Policajac Sa Petlovog Brda",
+      "originalTitle": "Policajac Sa Petlovog Brda S03 E01 Novogodisnji Specijal"
+    },
+    {
+      "id": "bilosta:U2xhdGtlIE11",
+      "type": "series",
+      "name": "Slatke Muke S01 E33 Novogodisnji Specijal",
+      "year": null,
+      "poster": "https://image.tmdb.org/t/p/w780/j65h7ENAwLphLJ0zTaKw7xrJRf4.jpg",
+      "background": "https://image.tmdb.org/t/p/w780/j65h7ENAwLphLJ0zTaKw7xrJRf4.jpg",
+      "genres": [],
+      "cast": [],
+      "director": [],
+      "streams": [
+        {
+          "url": "https://content.bilosta.org/SERCRT189/SERIJE/NOVE.DOMACE/slatke.muke/epizoda33.avi",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "Slatke Muke",
+      "originalTitle": "Slatke Muke S01 E33 Novogodisnji Specijal"
+    }
+  ]
 }

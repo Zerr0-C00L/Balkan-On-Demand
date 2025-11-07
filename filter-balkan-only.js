@@ -26,15 +26,35 @@ console.log(`📊 Current database:`);
 console.log(`   Total movies: ${database.movies.length}`);
 console.log(`   Total series: ${database.series.length}`);
 
-// Filter movies
+// Series categories
+const SERIES_CATEGORIES = [
+  'EX YU SERIJE',
+  'EXYU SERIJE',
+  'EXYU SERIJE KOJE SE EMITUJU',
+  'Bolji Zivot',
+  'Bela Ladja',
+  'Policajac Sa Petlovog Brda',
+  'Slatke Muke'
+];
+
+// Filter and separate movies vs series
 const balkanMovies = database.movies.filter(movie => 
-  BALKAN_CATEGORIES.includes(movie.category)
+  BALKAN_CATEGORIES.includes(movie.category) && !SERIES_CATEGORIES.includes(movie.category)
 );
 
-// Filter series
-const balkanSeries = database.series.filter(series => 
-  BALKAN_CATEGORIES.includes(series.category)
-);
+// Convert series episodes stored as movies to proper series
+const seriesFromMovies = database.movies.filter(movie =>
+  SERIES_CATEGORIES.includes(movie.category)
+).map(episode => ({
+  ...episode,
+  type: 'series'
+}));
+
+// Combine with actual series
+const balkanSeries = [
+  ...database.series.filter(series => BALKAN_CATEGORIES.includes(series.category)),
+  ...seriesFromMovies
+];
 
 console.log(`\n✅ Filtered to Balkan content:`);
 console.log(`   Balkan movies: ${balkanMovies.length}`);
