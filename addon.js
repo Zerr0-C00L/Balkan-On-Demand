@@ -333,7 +333,7 @@ function sanitizeText(text) {
 
 // All available catalogs with their base configuration
 const allCatalogs = [
-  // Movies - Popular (default, alphabetical)
+  // Movies - Popular (with genres)
   {
     id: 'balkan_movies',
     name: 'Filmovi',
@@ -353,29 +353,35 @@ const allCatalogs = [
     ],
     extraSupported: ['search', 'genre', 'skip']
   },
-  // Movies - By Year (Newest First)
+  // Movies - By Year
   {
     id: 'balkan_movies_year',
-    name: 'Filmovi (By Year)',
+    name: 'Filmovi (New)',
     type: 'movie',
     genres: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', 
              '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008', 
-             '2007', '2006', '2005', '2004', '2003', '2002', '2001', '2000'],
+             '2007', '2006', '2005', '2004', '2003', '2002', '2001', '2000', '1999',
+             '1998', '1997', '1996', '1995', '1994', '1993', '1992', '1991', '1990',
+             '1989', '1988', '1987', '1986', '1985', '1984', '1983', '1982', '1981', '1980'],
     extra: [
       { 
         name: 'genre',
         options: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', 
                   '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008', 
-                  '2007', '2006', '2005', '2004', '2003', '2002', '2001', '2000']
+                  '2007', '2006', '2005', '2004', '2003', '2002', '2001', '2000', '1999',
+                  '1998', '1997', '1996', '1995', '1994', '1993', '1992', '1991', '1990',
+                  '1989', '1988', '1987', '1986', '1985', '1984', '1983', '1982', '1981', '1980'],
+        isRequired: true
       },
       { name: 'skip' }
     ],
-    extraSupported: ['genre', 'skip']
+    extraSupported: ['genre', 'skip'],
+    extraRequired: ['genre']
   },
-  // Movies - Trending (Quality + Year)
+  // Movies - Top Rated
   {
-    id: 'balkan_movies_trending',
-    name: 'Filmovi (Trending)',
+    id: 'balkan_movies_rating',
+    name: 'Filmovi (Featured)',
     type: 'movie',
     genres: ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 
              'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 
@@ -391,7 +397,7 @@ const allCatalogs = [
     ],
     extraSupported: ['genre', 'skip']
   },
-  // Series - Popular (default, alphabetical)
+  // Series - Popular (with genres)
   {
     id: 'balkan_series',
     name: 'Serije',
@@ -411,29 +417,35 @@ const allCatalogs = [
     ],
     extraSupported: ['search', 'genre', 'skip']
   },
-  // Series - By Year (Newest First)
+  // Series - By Year
   {
     id: 'balkan_series_year',
-    name: 'Serije (By Year)',
+    name: 'Serije (New)',
     type: 'series',
     genres: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', 
              '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008', 
-             '2007', '2006', '2005', '2004', '2003', '2002', '2001', '2000'],
+             '2007', '2006', '2005', '2004', '2003', '2002', '2001', '2000', '1999',
+             '1998', '1997', '1996', '1995', '1994', '1993', '1992', '1991', '1990',
+             '1989', '1988', '1987', '1986', '1985', '1984', '1983', '1982', '1981', '1980'],
     extra: [
       { 
         name: 'genre',
         options: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', 
                   '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008', 
-                  '2007', '2006', '2005', '2004', '2003', '2002', '2001', '2000']
+                  '2007', '2006', '2005', '2004', '2003', '2002', '2001', '2000', '1999',
+                  '1998', '1997', '1996', '1995', '1994', '1993', '1992', '1991', '1990',
+                  '1989', '1988', '1987', '1986', '1985', '1984', '1983', '1982', '1981', '1980'],
+        isRequired: true
       },
       { name: 'skip' }
     ],
-    extraSupported: ['genre', 'skip']
+    extraSupported: ['genre', 'skip'],
+    extraRequired: ['genre']
   },
-  // Series - Trending (Quality + Year)
+  // Series - Top Rated
   {
-    id: 'balkan_series_trending',
-    name: 'Serije (Trending)',
+    id: 'balkan_series_rating',
+    name: 'Serije (Featured)',
     type: 'series',
     genres: ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 
              'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 
@@ -525,9 +537,15 @@ function generateManifest(config = null) {
         // Map bilosta.* IDs to actual catalog IDs
         let catalogId = cat.id;
         if (cat.id === 'bilosta.movies') catalogId = 'balkan_movies';
+        if (cat.id === 'bilosta.movies_year') catalogId = 'balkan_movies_year';
+        if (cat.id === 'bilosta.movies_rating') catalogId = 'balkan_movies_rating';
+        if (cat.id === 'bilosta.series') catalogId = 'balkan_series';
+        if (cat.id === 'bilosta.series_year') catalogId = 'balkan_series_year';
+        if (cat.id === 'bilosta.series_rating') catalogId = 'balkan_series_rating';
+        
+        // Legacy mappings (if needed)
         if (cat.id === 'bilosta.foreign') catalogId = 'balkan_foreign_movies';
         if (cat.id === 'bilosta.kids') catalogId = 'balkan_kids';
-        if (cat.id === 'bilosta.series') catalogId = 'balkan_series';
         
         // Map tmdb.* IDs to actual catalog IDs
         if (cat.id === 'tmdb.top' && cat.type === 'movie') catalogId = 'tmdb_popular_movies';
@@ -546,33 +564,10 @@ function generateManifest(config = null) {
           return null;
         }
         
-        console.log(`✅ Found catalog: ${cat.id} -> ${catalogId} (${cat.type}) - showInHome: ${cat.showInHome}`);
+        console.log(`✅ Found catalog: ${cat.id} -> ${catalogId} (${cat.type})`);
         
-        // Control where catalog appears using extraRequired field (like Cinemeta's "New" catalog)
-        // - showInHome: true = no extraRequired, appears on Board (home screen)
-        // - showInHome: false = add genre as extraRequired with default option, only in Discover
-        const extra = [
-          { name: 'search', isRequired: false }, 
-          { name: 'skip', isRequired: false }
-        ];
-        
-        // Add genre support for filtering (optional for all catalogs)
-        extra.push({ name: 'genre', isRequired: false });
-        
-        const catalogConfig = {
-          ...baseCatalog,
-          extra: extra,
-          extraSupported: ['search', 'skip', 'genre']
-        };
-        
-        // If showInHome is false, require genre selection (Discover-only like Cinemeta "New")
-        if (!cat.showInHome) {
-          catalogConfig.extraRequired = ['genre'];
-          catalogConfig.genres = ['All']; // Default genre option
-          console.log(`   → Added extraRequired=['genre'] for Discover-only`);
-        }
-        
-        return catalogConfig;
+        // Return the base catalog as-is (it already has proper structure)
+        return baseCatalog;
       })
       .filter(cat => cat !== null); // Remove any null entries
     
@@ -732,8 +727,8 @@ function defineHandlers(builder, config = null) {
     if (id.includes('_year')) {
       sort = 'year';
       filterByYear = true; // For year catalogs, genre field contains year
-    } else if (id.includes('_trending')) {
-      sort = 'trending';
+    } else if (id.includes('_rating')) {
+      sort = 'rating'; // Sort by quality/popularity
     }
     
     let items = [];
@@ -772,13 +767,13 @@ function defineHandlers(builder, config = null) {
           return yearB - yearA; // Newest first
         });
         break;
-      case 'trending':
-        // For trending, prioritize newer content with higher quality
+      case 'rating':
+        // For rating/featured, prioritize higher quality content
         items.sort((a, b) => {
-          const yearA = parseInt(a.year) || 0;
-          const yearB = parseInt(b.year) || 0;
           const qualityA = (a.quality || '').includes('4K') ? 2 : (a.quality || '').includes('1080p') ? 1 : 0;
           const qualityB = (b.quality || '').includes('4K') ? 2 : (b.quality || '').includes('1080p') ? 1 : 0;
+          const yearA = parseInt(a.year) || 0;
+          const yearB = parseInt(b.year) || 0;
           // Sort by quality first, then by year
           if (qualityB !== qualityA) return qualityB - qualityA;
           return yearB - yearA;
