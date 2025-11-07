@@ -415,6 +415,8 @@ function generateManifest(config = null) {
         // Map bilosta.* IDs to actual catalog IDs
         let catalogId = cat.id;
         if (cat.id === 'bilosta.movies') catalogId = 'balkan_movies';
+        if (cat.id === 'bilosta.foreign') catalogId = 'balkan_foreign_movies';
+        if (cat.id === 'bilosta.kids') catalogId = 'balkan_kids';
         if (cat.id === 'bilosta.series') catalogId = 'balkan_series';
         
         const baseCatalog = allCatalogs.find(c => c.id === catalogId && c.type === cat.type);

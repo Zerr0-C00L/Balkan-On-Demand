@@ -14,6 +14,8 @@ export const tmdbCatalogs = [
 // These use bilosta.* IDs which get mapped to balkan_* in the backend
 export const baseCatalogs = [
   { id: "bilosta.movies", name: "⭐ Direct HD Movies", type: "movie" },
+  { id: "bilosta.foreign", name: "🌍 Direct HD Foreign Movies", type: "movie" },
+  { id: "bilosta.kids", name: "🎨 Direct HD Cartoons", type: "movie" },
   { id: "bilosta.series", name: "📺 Direct HD Series", type: "series" },
 ];
 
