@@ -1015,31 +1015,40 @@ const defaultBuilder = createBuilder(null);
 defineHandlers(defaultBuilder);
 const defaultRouter = getRouter(defaultBuilder.getInterface());
 
-// Handle addon routes without config (default)
+// Handle addon routes with or without config prefix
 app.use((req, res, next) => {
   const path = req.path;
+  const pathParts = path.split('/').filter(p => p);
   
-  // Check if this is an addon route (catalog, meta, stream)
+  // Check if this is a direct addon route without config (catalog, meta, stream)
   if (path.startsWith('/catalog/') || path.startsWith('/meta/') || path.startsWith('/stream/')) {
     return defaultRouter(req, res, next);
   }
   
-  // Check if path has config prefix (e.g., /home=movies,series/catalog/...)
-  const pathParts = path.split('/').filter(p => p);
-  if (pathParts.length > 0 && (pathParts[0].includes('=') || pathParts[0].includes('home'))) {
-    const configString = pathParts[0];
-    const config = parseConfig(configString);
+  // Check if path has config prefix
+  // Config can be: compressed (N4Ig...), legacy with = (home=movies), or contain 'home' or 'tmdb'
+  if (pathParts.length > 1) {
+    const firstPart = pathParts[0];
+    const secondPart = pathParts[1];
     
-    // Create a builder for this specific configuration
-    const builder = createBuilder(config);
-    defineHandlers(builder, config);
-    
-    // Modify the request path to remove the config prefix
-    req.url = '/' + pathParts.slice(1).join('/');
-    
-    // Get the router for this builder and use it
-    const addonRouter = getRouter(builder.getInterface());
-    return addonRouter(req, res, next);
+    // If second part is catalog/meta/stream, first part is likely the config
+    if (secondPart === 'catalog' || secondPart === 'meta' || secondPart === 'stream') {
+      const configString = firstPart;
+      const config = parseConfig(configString);
+      
+      console.log(`🔧 Config request detected: ${configString.substring(0, 20)}...`);
+      
+      // Create a builder for this specific configuration
+      const builder = createBuilder(config);
+      defineHandlers(builder, config);
+      
+      // Modify the request path to remove the config prefix
+      req.url = '/' + pathParts.slice(1).join('/');
+      
+      // Get the router for this builder and use it
+      const addonRouter = getRouter(builder.getInterface());
+      return addonRouter(req, res, next);
+    }
   }
   
   next();
