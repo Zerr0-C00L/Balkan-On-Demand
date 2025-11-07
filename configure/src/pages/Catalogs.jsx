@@ -75,23 +75,9 @@ export function Catalogs() {
 
   return (
     <div className="p-6 md:p-12 bg-gray-50 min-h-screen">
-      <div className="mb-8 flex justify-between items-start">
-        <div>
-          <h1 className="text-3xl font-bold mb-2 text-gray-800">Catalogs</h1>
-          <p className="text-gray-600">Drag to reorder • Toggle to enable • Control home screen visibility</p>
-        </div>
-        <button
-          onClick={() => {
-            setCatalogs(prev => prev.map(cat => ({
-              ...cat,
-              enabled: cat.id.startsWith('bilosta.') ? true : false,
-              showInHome: cat.id.startsWith('bilosta.') ? true : false
-            })));
-          }}
-          className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors shadow-sm"
-        >
-          ✅ Working Catalogs Only
-        </button>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold mb-2 text-gray-800">Catalogs</h1>
+        <p className="text-gray-600">Drag to reorder • Toggle to enable • Control home screen visibility</p>
       </div>
 
       {/* Info Box */}
@@ -102,13 +88,7 @@ export function Catalogs() {
             <strong>Enable:</strong> Makes the catalog available in your addon configuration.
           </p>
           <p>
-            <strong>Home:</strong> When ON, the catalog appears on your Stremio Board (home screen). When OFF, the catalog is excluded but streams still work when you search for content.
-          </p>
-          <p>
-            <strong className="text-green-700">✅ Working Now:</strong> Direct HD catalogs (3,848 movies, 37 series) work immediately with direct streaming.
-          </p>
-          <p>
-            <strong className="text-blue-700">🎬 TMDB Catalogs:</strong> Popular, Year, Language, Trending catalogs show TMDB content with streams from your Direct HD collection when available.
+            <strong>Home:</strong> When ON, the catalog appears on your Stremio Board (home screen). When OFF, the catalog is only in Discover but streams still work when you search for content.
           </p>
           <p className="mt-3 p-3 bg-purple-50 border border-purple-200 rounded">
             <strong className="text-purple-900">💡 After changing settings:</strong> Click <strong>"📥 Install"</strong> in the sidebar to update your addon!
