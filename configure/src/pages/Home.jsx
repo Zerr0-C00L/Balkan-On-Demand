@@ -168,24 +168,6 @@ export function Home() {
             </p>
           </motion.div>
         </div>
-
-        {/* Ko-fi Support Button */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="mt-8"
-        >
-          <a
-            href="https://ko-fi.com/ZeroQ"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-[#FF5E5B] hover:bg-[#ff4845] text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 hover:scale-105 shadow-lg"
-          >
-            <span>☕</span>
-            <span>Support Development</span>
-          </a>
-        </motion.div>
       </motion.div>
     </div>
   );

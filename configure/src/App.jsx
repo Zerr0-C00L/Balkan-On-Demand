@@ -131,7 +131,7 @@ function Sidebar({ currentPage, setCurrentPage, isMobileOpen, setIsMobileOpen })
           </div>
           <div className="px-6">
             <a href="https://ko-fi.com/ZeroQ" target="_blank" rel="noopener noreferrer" className="w-full inline-flex items-center justify-center gap-2 bg-[#FF5E5B] hover:bg-[#ff4845] text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 hover:scale-105 shadow-lg">
-              <span>☕</span><span>Support me</span>
+              <span>☕</span><span>Buy me a coffee</span>
             </a>
           </div>
         </div>
