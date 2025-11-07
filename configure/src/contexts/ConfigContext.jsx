@@ -122,7 +122,7 @@ export function ConfigProvider({ children }) {
   // Generate manifest URL
   const getManifestUrl = () => {
     const baseUrl = window.location.hostname === 'localhost'
-      ? 'http://localhost:7006'
+      ? 'http://localhost:7005'
       : 'https://balkan-on-demand-828b9dd653f6.herokuapp.com';
 
     const configString = generateConfig();

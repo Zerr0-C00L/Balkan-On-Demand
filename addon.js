@@ -425,8 +425,9 @@ function generateManifest(config = null) {
   if (config && config.catalogs && Array.isArray(config.catalogs)) {
     console.log('📦 Generating manifest with config:', JSON.stringify(config.catalogs, null, 2));
     
-    // User has configured catalogs - all catalogs in array are already enabled (filtered by frontend)
+    // User has configured catalogs - only include those with showInHome = true
     catalogs = config.catalogs
+      .filter(cat => cat.showInHome === true) // Only include catalogs that should show on home
       .map(cat => {
         // Map bilosta.* IDs to actual catalog IDs
         let catalogId = cat.id;
@@ -454,14 +455,14 @@ function generateManifest(config = null) {
           return null;
         }
         
-        console.log(`✅ Found catalog: ${cat.id} -> ${catalogId} (${cat.type})`);
+        console.log(`✅ Found catalog (showInHome): ${cat.id} -> ${catalogId} (${cat.type})`);
         
         // Return the base catalog as-is (it already has proper structure)
         return baseCatalog;
       })
       .filter(cat => cat !== null); // Remove any null entries
     
-    console.log(`📋 Generated ${catalogs.length} catalogs`);
+    console.log(`📋 Generated ${catalogs.length} catalogs for home screen`);
   } else {
     console.log('⚠️  No config provided or no catalogs in config');
   }
