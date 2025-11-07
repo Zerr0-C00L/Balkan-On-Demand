@@ -83,11 +83,26 @@ async function searchTMDB(title, year, type = 'movie', apiKey = null) {
         if (data.results && data.results.length > 0) {
             // Get full details for the first match
             const result = data.results[0];
-            const detailsUrl = `https://api.themoviedb.org/3/${endpoint}/${result.id}?api_key=${apiKey}&language=en-US&append_to_response=credits`;
+            const detailsUrl = `https://api.themoviedb.org/3/${endpoint}/${result.id}?api_key=${apiKey}&language=en-US&append_to_response=credits,keywords`;
             const detailsResponse = await fetch(detailsUrl);
             
             if (detailsResponse.ok) {
                 const details = await detailsResponse.json();
+                
+                // Check if this is Balkan content by looking at keywords and production countries
+                const keywords = details.keywords?.keywords || details.keywords?.results || [];
+                const balkanKeywords = ['bosnian', 'croatian', 'serbian', 'yugoslav', 'balkan', 'bosnia', 'croatia', 'serbia'];
+                const hasBalkanKeyword = keywords.some(k => 
+                    balkanKeywords.some(bk => k.name.toLowerCase().includes(bk))
+                );
+                
+                const productionCountries = details.production_countries || [];
+                const balkanCountries = ['BA', 'HR', 'RS', 'ME', 'SI', 'MK', 'XK']; // Bosnia, Croatia, Serbia, Montenegro, Slovenia, Macedonia, Kosovo
+                const hasBalkanCountry = productionCountries.some(c => balkanCountries.includes(c.iso_3166_1));
+                
+                // Add flag to indicate if this is Balkan content
+                details.isBalkanContent = hasBalkanKeyword || hasBalkanCountry;
+                
                 tmdbCache.set(cacheKey, details);
                 return details;
             }
@@ -1116,10 +1131,10 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false, tmdbA
     posterShape: 'poster',
     background: tmdb?.backdrop_path ? `https://image.tmdb.org/t/p/original${tmdb.backdrop_path}` : (cinemeta?.background || item.background || null),
     logo: cinemeta?.logo || null,
-    description: sanitizeText(tmdb?.overview || omdb?.plot || cinemeta?.fullMeta?.description || item.description || ''),
+    description: sanitizeText(tmdb?.overview || omdb?.plot || cinemeta?.fullMeta?.description || item.description || 'Direct HD stream available. No description available for this title.'),
     releaseInfo: tmdb?.release_date?.split('-')[0] || cinemeta?.fullMeta?.year?.toString() || omdb?.year?.toString() || item.year?.toString() || '',
     released: tmdb?.release_date ? new Date(tmdb.release_date).toISOString() : (cinemeta?.fullMeta?.released || null),
-    genres: tmdb?.genres?.map(g => g.name) || cinemeta?.fullMeta?.genres || omdb?.genres || item.genres || [],
+    genres: tmdb?.genres?.map(g => g.name) || cinemeta?.fullMeta?.genres || omdb?.genres || item.genres || ['Movie'],
     cast: tmdb?.credits?.cast?.slice(0, 10).map(c => c.name) || cinemeta?.fullMeta?.cast || omdb?.cast || item.cast || [],
     director: tmdb?.credits?.crew?.find(c => c.job === 'Director')?.name ? [tmdb.credits.crew.find(c => c.job === 'Director').name] : (cinemeta?.fullMeta?.director || omdb?.director || item.director || []),
     writer: tmdb?.credits?.crew?.filter(c => c.job === 'Writer' || c.job === 'Screenplay').map(c => c.name) || cinemeta?.fullMeta?.writer || [],
@@ -1134,6 +1149,11 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false, tmdbA
     // and we only have streams for bilosta IDs
     links: []
   };
+  
+  // Log enrichment status for debugging
+  if (enrichMetadata) {
+    console.log(`📊 Enrichment for ${item.name}: TMDB=${!!tmdb}, Cinemeta=${!!cinemeta}, OMDb=${!!omdb}, Description=${meta.description.length > 50 ? 'YES' : 'NO'}`);
+  }
   
   if (cinemeta?.fullMeta?.behaviorHints) {
     meta.behaviorHints = cinemeta.fullMeta.behaviorHints;
