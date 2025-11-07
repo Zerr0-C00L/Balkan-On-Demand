@@ -967,6 +967,30 @@ async function toStremioMeta(item, type = 'movie', enrichMetadata = false, tmdbA
   }
   
   if (type === 'series') {
+    // Handle both proper series (with seasons array) and flat episodes
+    if (!item.seasons || item.seasons.length === 0) {
+      // This is a flat episode item - convert to simple series format
+      const poster = item.poster || cinemeta?.poster || omdb?.poster || 
+        'https://via.placeholder.com/300x450/1a1a1a/ffffff?text=' + encodeURIComponent(item.name);
+      
+      return {
+        id: item.id,
+        type: 'series',
+        name: sanitizeText(item.name),
+        poster: poster,
+        background: item.background || poster,
+        description: sanitizeText(cinemeta?.description || omdb?.plot || `Ex-Yu series: ${item.name}`),
+        releaseInfo: item.year ? item.year.toString() : null,
+        genres: item.genres || cinemeta?.genres || omdb?.genre || [],
+        cast: item.cast || cinemeta?.cast || [],
+        director: item.director || cinemeta?.director || [],
+        links: cinemeta?.links || [],
+        imdbRating: cinemeta?.imdbRating || omdb?.rating || null,
+        runtime: cinemeta?.runtime || omdb?.runtime || null,
+        videos: [] // Flat episodes don't have proper video structure yet
+      };
+    }
+    
     // Extract fallback poster from first episode's thumbnail
     let fallbackPoster = null;
     if (item.seasons && item.seasons.length > 0) {
