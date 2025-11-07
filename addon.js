@@ -333,26 +333,24 @@ function sanitizeText(text) {
 
 // All available catalogs with their base configuration
 const allCatalogs = [
-  // All Movies (organized by genre/year/language)
+  // All Movies (Domaci + Foreign + Cartoons)
   {
-    id: 'balkan_all_movies',
-    name: '🎬 All Movies',
+    id: 'balkan_movies',
+    name: '� Filmovi',
     type: 'movie',
     extra: [
       { name: 'search', isRequired: false },
-      { name: 'skip', isRequired: false },
-      { name: 'genre', isRequired: false }
+      { name: 'skip', isRequired: false }
     ]
   },
-  // All Series (organized by genre/year/language)
+  // All Series
   {
-    id: 'balkan_all_series',
-    name: '📺 All Series',
+    id: 'balkan_series',
+    name: '📺 Serije',
     type: 'series',
     extra: [
       { name: 'search', isRequired: false },
-      { name: 'skip', isRequired: false },
-      { name: 'genre', isRequired: false }
+      { name: 'skip', isRequired: false }
     ]
   },
   // TMDB Dynamic Catalogs
@@ -598,28 +596,31 @@ function createBuilder(config = null) {
   return new addonBuilder(manifest);
 }
 
-// Helper: Get all movies and series from new database structure
-function getAllContent() {
-  return {
-    movies: bauBauDB.movies || [],
-    series: bauBauDB.series || []
-  };
+// Helper: Get all movies (combine all categories)
+function getAllMovies() {
+  const allMovies = [];
+  const movieMap = new Map();
+  
+  // Combine all movie types, deduplicate by normalized name
+  bauBauDB.movies.forEach(movie => {
+    // Only include actual movies, not series episodes
+    if (movie.type === 'movie') {
+      const normalizedName = movie.name.toLowerCase().trim();
+      if (!movieMap.has(normalizedName)) {
+        movieMap.set(normalizedName, movie);
+      }
+    }
+  });
+  
+  return Array.from(movieMap.values());
 }
 
-const allContent = getAllContent();
-console.log(`📊 Content: Movies(${allContent.movies.length}), Series(${allContent.series.length})`);
+const allMovies = getAllMovies();
+console.log(`📊 Total Movies: ${allMovies.length}`);
 
-// Get available genres, years, languages from database metadata
-const movieGenres = bauBauDB.metadata?.movies?.genres || [];
-const movieYears = bauBauDB.metadata?.movies?.years || [];
-const movieLanguages = bauBauDB.metadata?.movies?.languages || [];
-
-const seriesGenres = bauBauDB.metadata?.series?.genres || [];
-const seriesYears = bauBauDB.metadata?.series?.years || [];
-const seriesLanguages = bauBauDB.metadata?.series?.languages || [];
-
-console.log(`� Movie filters: ${movieGenres.length} genres, ${movieYears.length} years, ${movieLanguages.length} languages`);
-console.log(`📋 Series filters: ${seriesGenres.length} genres, ${seriesYears.length} years, ${seriesLanguages.length} languages`);
+// Use only BauBau series (direct streams only, no YouTube series)
+const allSeriesItems = bauBauDB.series || [];
+console.log(`📊 Total Series: ${allSeriesItems.length}`);
 
 // TMDB Catalog Handler
 async function handleTMDBCatalog(catalogId, type, extra, apiKey) {
@@ -698,7 +699,7 @@ async function handleTMDBCatalog(catalogId, type, extra, apiKey) {
 function defineHandlers(builder, config = null) {
   // CATALOG Handler with Cinemeta enrichment
   builder.defineCatalogHandler(async ({ type, id, extra }) => {
-    console.log(`📖 Catalog request: ${id} (type: ${type}), genre: ${extra.genre || 'all'}`);
+    console.log(`📖 Catalog request: ${id} (type: ${type})`);
     
     const limit = 100;
     const skip = parseInt(extra.skip) || 0;
@@ -708,12 +709,12 @@ function defineHandlers(builder, config = null) {
     let items = [];
     
     switch (id) {
-      case 'balkan_all_movies':
-        items = allContent.movies;
+      case 'balkan_movies':
+        items = allMovies;
         break;
         
-      case 'balkan_all_series':
-        items = allContent.series;
+      case 'balkan_series':
+        items = allSeriesItems;
         break;
         
       // TMDB Catalogs
@@ -728,30 +729,44 @@ function defineHandlers(builder, config = null) {
         return await handleTMDBCatalog(id, type, extra, config?.tmdbApiKey);
     }
     
-    // Apply search filter
+    // Apply search filter first (before enrichment for better performance)
     if (search) {
       items = items.filter(item => 
         item.name.toLowerCase().includes(search.toLowerCase())
       );
     }
     
-    // Apply genre filter
+    // If genre filter is specified, we need to enrich first, then filter, then paginate
+    // Otherwise we can paginate first for better performance
+    let metas;
+    
+    // Special case: genre="All" means show everything (for Discover-only catalogs)
     if (genre && genre !== 'All') {
-      items = items.filter(item => {
-        if (!item.genres || !Array.isArray(item.genres)) return false;
-        return item.genres.some(g => g.toLowerCase() === genre.toLowerCase());
+      // For genre filtering: WITH enrichment so genres are available
+      const metasPromises = items.map(item => 
+        toStremioMeta(item, id === 'balkan_series' ? 'series' : 'movie', true, config?.tmdbApiKey) // true = with enrichment
+      );
+      
+      metas = await Promise.all(metasPromises);
+      
+      // Apply genre filter AFTER enrichment (since genres come from Cinemeta)
+      metas = metas.filter(meta => {
+        if (!meta.genres || !Array.isArray(meta.genres)) return false;
+        return meta.genres.some(g => g.toLowerCase() === genre.toLowerCase());
       });
+      
+      // Apply pagination AFTER filtering
+      metas = metas.slice(skip, skip + limit);
+    } else {
+      // No genre filter OR genre="All": paginate first, WITH enrichment for full metadata
+      items = items.slice(skip, skip + limit);
+      
+      const metasPromises = items.map(item => 
+        toStremioMeta(item, id === 'balkan_series' ? 'series' : 'movie', true, config?.tmdbApiKey) // true = with enrichment
+      );
+      
+      metas = await Promise.all(metasPromises);
     }
-    
-    // Apply pagination
-    const paginatedItems = items.slice(skip, skip + limit);
-    
-    // Convert to Stremio meta format with enrichment
-    const metasPromises = paginatedItems.map(item => 
-      toStremioMeta(item, type, true, config?.tmdbApiKey)
-    );
-    
-    const metas = await Promise.all(metasPromises);
     
     return { metas };
   });
@@ -764,7 +779,7 @@ function defineHandlers(builder, config = null) {
     
     // BauBau movie
     if (id.startsWith('bilosta:') && !id.includes(':series:')) {
-      item = allContent.movies.find(m => m.id === id);
+      item = bauBauDB.movies.find(m => m.id === id);
       if (item) {
         const meta = await toStremioMeta(item, 'movie', true, config?.tmdbApiKey);
         return { meta };
@@ -773,7 +788,7 @@ function defineHandlers(builder, config = null) {
     
     // BauBau series
     if (id.startsWith('bilosta:series:')) {
-      item = allContent.series.find(s => s.id === id);
+      item = bauBauDB.series.find(s => s.id === id);
       if (item) {
         const meta = await toStremioMeta(item, 'series', true, config?.tmdbApiKey);
         return { meta };
@@ -784,7 +799,7 @@ function defineHandlers(builder, config = null) {
     if (id.startsWith('tt')) {
       console.log(`🔍 IMDb ID ${id} - searching our database for match...`);
       
-      const db = type === 'series' ? allContent.series : allContent.movies;
+      const db = type === 'series' ? bauBauDB.series : bauBauDB.movies;
       
       for (const dbItem of db) {
         // Try to match by Cinemeta lookup
@@ -841,7 +856,7 @@ function defineHandlers(builder, config = null) {
       
       if (type === 'movie') {
         // Try to find a movie that matches this IMDb ID
-        for (const movie of allContent.movies) {
+        for (const movie of bauBauDB.movies) {
           if (movie.year) {
             const cinemeta = await searchCinemeta(movie.name, movie.year, 'movie');
             if (cinemeta?.imdbId === id) {
@@ -853,7 +868,7 @@ function defineHandlers(builder, config = null) {
         }
       } else if (type === 'series') {
         // Try to find a series that matches this IMDb ID
-        for (const series of allContent.series) {
+        for (const series of bauBauDB.series) {
           if (series.year) {
             const cinemeta = await searchCinemeta(series.name, series.year, 'series');
             if (cinemeta?.imdbId === id) {
@@ -880,7 +895,7 @@ function defineHandlers(builder, config = null) {
       const [, , seriesSlug, seasonNum, epNum] = id.split(':');
       const seriesId = `bilosta:series:${seriesSlug}`;
       
-      const series = allContent.series.find(s => s.id === seriesId);
+      const series = bauBauDB.series.find(s => s.id === seriesId);
       if (series) {
         const season = series.seasons.find(s => s.number === parseInt(seasonNum));
         if (season) {
@@ -915,7 +930,7 @@ function defineHandlers(builder, config = null) {
     
     // Handle direct movie streams from BauBau
     if (id.startsWith('bilosta:')) {
-      const movie = allContent.movies.find(m => m.id === id);
+      const movie = bauBauDB.movies.find(m => m.id === id);
       
       if (movie) {
         movieName = movie.name;
@@ -1124,14 +1139,8 @@ app.get('/api/stats', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
   res.json({
-    movies: allContent.movies.length,
-    series: allContent.series.length,
-    movieGenres: movieGenres,
-    movieYears: movieYears,
-    movieLanguages: movieLanguages,
-    seriesGenres: seriesGenres,
-    seriesYears: seriesYears,
-    seriesLanguages: seriesLanguages
+    movies: allMovies.length,
+    series: allSeriesItems.length
   });
 });
 
@@ -1205,11 +1214,8 @@ app.use((req, res, next) => {
 app.listen(PORT, () => {
   console.log(`\n🚀 Balkan On Demand v7.0.0 running on http://localhost:${PORT}\n`);
   console.log(`📊 Content Stats:`);
-  console.log(`   • Movies: ${allContent.movies.length}`);
-  console.log(`   • Series: ${allContent.series.length}`);
-  console.log(`\n📋 Filter Options:`);
-  console.log(`   Movies: ${movieGenres.length} genres, ${movieYears.length} years, ${movieLanguages.length} languages`);
-  console.log(`   Series: ${seriesGenres.length} genres, ${seriesYears.length} years, ${seriesLanguages.length} languages`);
+  console.log(`   • Movies: ${allMovies.length} (all categories combined)`);
+  console.log(`   • Series: ${allSeriesItems.length}`);
   console.log(`\n✅ Ready to serve streams with optimized metadata!`);
   console.log(`   📋 Catalog View: Fast database posters (no API calls)`);
   console.log(`   📋 Detail View: Full enrichment (Cinemeta + OMDb + translations)`);
