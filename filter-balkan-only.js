@@ -43,12 +43,20 @@ const balkanMovies = database.movies.filter(movie =>
 );
 
 // Convert series episodes stored as movies to proper series
+// Make each episode have a unique ID by using the full URL WITHOUT substring
 const seriesFromMovies = database.movies.filter(movie =>
   SERIES_CATEGORIES.includes(movie.category)
-).map(episode => ({
-  ...episode,
-  type: 'series'
-}));
+).map((episode, index) => {
+  // Create unique ID from FULL URL - no substring, keep entire hash
+  const url = episode.streams?.[0]?.url || `episode_${index}`;
+  const urlHash = Buffer.from(url).toString('base64').replace(/[=/+]/g, '');
+  
+  return {
+    ...episode,
+    id: `bilosta:${urlHash}`, // Completely unique ID - full URL hash
+    type: 'series'
+  };
+});
 
 // Combine with actual series
 const balkanSeries = [
