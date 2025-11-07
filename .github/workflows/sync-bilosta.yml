@@ -175,3 +175,4 @@ jobs:
             sync-stats.json
           retention-days: 30
 
+# Trigger workflow sync
