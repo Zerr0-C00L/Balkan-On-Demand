@@ -234,15 +234,36 @@ function determineCategory(filePath) {
     return null; // Skip non-Balkan content
   }
   
+  // Special handling for KLASICI (00klsk) - contains both foreign and domestic classics
+  // Only keep if path contains domestic/balkan markers
+  if (upperPath.includes('00KLSK') || upperPath.includes('/KLASICI/')) {
+    if (upperPath.includes('/EX.YU/') || 
+        upperPath.includes('/EXYU/') ||
+        upperPath.includes('/DOMACE/') ||
+        upperPath.includes('/JUGOSLOVENSKI/') ||
+        upperPath.includes('/SRPSKI/') ||
+        upperPath.includes('/HRVATSKI/') ||
+        upperPath.includes('/BOSANSKI/')) {
+      return 'movies'; // Domestic classics
+    }
+    return null; // Foreign classics - skip
+  }
+  
   // Keep only Ex-Yu/Balkan content
   if (upperPath.includes('SERIJE') || upperPath.includes('SERIES')) {
     // Skip IMDB series (foreign), keep only domestic
     if (upperPath.includes('IMDB')) return null;
-    return 'series'; // Ex-YU TV Series
+    // Only keep if path contains domestic markers
+    if (upperPath.includes('/DOMACE/') || upperPath.includes('/EXYU/') || upperPath.includes('/EX.YU/')) {
+      return 'series'; // Ex-YU TV Series
+    }
+    return null; // Foreign series
   } else if (upperPath.includes('EXYU') || upperPath.includes('DOMACI')) {
     return 'movies'; // Ex-YU movies
   } else if (upperPath.includes('FILMOVI')) {
-    return 'movies'; // General movies (likely Ex-YU)
+    // Check if it's domestic or foreign
+    if (upperPath.includes('STRANI')) return null;
+    return 'movies'; // Domestic movies
   }
   
   return null; // Skip unknown content
@@ -253,20 +274,20 @@ function determineCategory(filePath) {
  */
 function createBasicEntry(file, category) {
   const title = extractTitle(file.filename, file.path);
-  const id = `bilosta:${Buffer.from(file.url).toString('base64').substring(0, 16)}`;
+  // Use full URL hash for unique ID (no substring to avoid collisions)
+  const urlHash = Buffer.from(file.url).toString('base64').replace(/[=/+]/g, '');
+  const id = `bilosta:${urlHash}`;
   
   // Map internal category to user-facing category
   const categoryMap = {
-    'movies': 'Domaci Filmovi',
-    'foreign': 'Strani Filmovi',
-    'kids': 'Crtani Filmovi',
-    'series': 'Serije',
+    'movies': 'EX YU FILMOVI',
+    'series': 'EX YU SERIJE',
     'unknown': 'Direct HD'
   };
   
   const basicEntry = {
     id: id,
-    type: category === 'series' || category === 'kids' ? 'series' : 'movie',
+    type: category === 'series' ? 'series' : 'movie',
     name: title,
     streams: [{
       url: file.url,
