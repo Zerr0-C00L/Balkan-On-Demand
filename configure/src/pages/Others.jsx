@@ -48,61 +48,10 @@ export function Others() {
               <div>
                 <h3 className="text-lg font-semibold text-gray-800 mb-1">Enable Search</h3>
                 <p className="text-sm text-gray-600">
-                  Allow searching for movies and TV shows in Stremio Discover
+                  Allow searching for Ex-Yu movies and series in Stremio Discover
                 </p>
               </div>
               <Toggle checked={searchEnabled} onChange={setSearchEnabled} />
-            </div>
-          </div>
-
-          {/* Adult Content Toggle */}
-          <div className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-1">Include Adult Content</h3>
-                <p className="text-sm text-gray-600">
-                  Include adult content in search results and catalogs
-                </p>
-              </div>
-              <Toggle checked={includeAdult} onChange={setIncludeAdult} />
-            </div>
-          </div>
-
-          {/* IMDb ID Options */}
-          <div className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-800 mb-1">Provide IMDb IDs</h3>
-                  <p className="text-sm text-gray-600">
-                    Include items with IMDb IDs when handling metadata requests
-                  </p>
-                </div>
-                <Toggle checked={provideImdbId} onChange={setProvideImdbId} />
-              </div>
-              
-              <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-800 mb-1">Return IMDb IDs Only</h3>
-                  <p className="text-sm text-gray-600">
-                    Return only items with IMDb IDs in catalogues for better integration
-                  </p>
-                </div>
-                <Toggle checked={returnImdbId} onChange={setReturnImdbId} />
-              </div>
-            </div>
-          </div>
-
-          {/* TMDB Prefix Toggle */}
-          <div className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-1">Use TMDB Prefix</h3>
-                <p className="text-sm text-gray-600">
-                  Add "TMDB -" prefix to all catalog names for better organization
-                </p>
-              </div>
-              <Toggle checked={tmdbPrefix} onChange={setTmdbPrefix} />
             </div>
           </div>
 
@@ -112,23 +61,10 @@ export function Others() {
               <div>
                 <h3 className="text-lg font-semibold text-gray-800 mb-1">Hide Episode Thumbnails</h3>
                 <p className="text-sm text-gray-600">
-                  Avoid spoilers by hiding episode preview images
+                  Avoid spoilers by hiding episode preview images for series
                 </p>
               </div>
               <Toggle checked={hideEpisodeThumbnails} onChange={setHideEpisodeThumbnails} />
-            </div>
-          </div>
-
-          {/* Hide In Cinema Tag */}
-          <div className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-1">Hide 'In Cinema' Tag</h3>
-                <p className="text-sm text-gray-600">
-                  Hide the "In Cinema" tag from posters for cleaner look
-                </p>
-              </div>
-              <Toggle checked={hideInCinemaTag} onChange={setHideInCinemaTag} />
             </div>
           </div>
 
@@ -137,7 +73,7 @@ export function Others() {
             <div>
               <h3 className="text-lg font-semibold text-gray-800 mb-1">Cast Count</h3>
               <p className="text-sm text-gray-600 mb-4">
-                Number of cast members to display (minimum 5, maximum 15, or Unlimited)
+                Number of cast members to display in metadata (minimum 5, maximum 15, or Unlimited)
               </p>
               <select
                 value={castCount === undefined ? 'Unlimited' : castCount}
@@ -151,80 +87,6 @@ export function Others() {
               </select>
             </div>
           </div>
-
-          {/* Age Rating Selection */}
-          <div className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-gray-800">Age Rating Filter</h3>
-                <div className="flex items-center text-xs text-gray-500">
-                  <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  Not available for trending catalogs
-                </div>
-              </div>
-              <p className="text-sm text-gray-600 mb-4">
-                Filter content by age rating (US certification system)
-              </p>
-              <select
-                value={ageRating || 'NONE'}
-                onChange={(e) => setAgeRating(e.target.value === 'NONE' ? undefined : e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#00d4ff] focus:border-transparent outline-none"
-              >
-                {ageRatings.map((rating) => (
-                  <option key={rating.id} value={rating.id}>
-                    {rating.badge.text} - {rating.name}
-                  </option>
-                ))}
-              </select>
-              {selectedRating && (
-                <p className="mt-2 text-xs text-gray-600">
-                  {selectedRating.description}
-                </p>
-              )}
-            </div>
-          </div>
-
-          {/* Age Rating Display Options */}
-          <div className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-800 mb-1">Enable Age Rating Display</h3>
-                  <p className="text-sm text-gray-600">
-                    Fetch and attach the content rating to metadata
-                  </p>
-                </div>
-                <Toggle checked={enableAgeRating} onChange={setEnableAgeRating} />
-              </div>
-
-              {/* Conditional sub-options */}
-              {enableAgeRating && (
-                <>
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-                    <div>
-                      <h3 className="text-base font-medium text-gray-800 mb-1">Show in Genres</h3>
-                      <p className="text-sm text-gray-600">
-                        Insert the age rating as the first genre entry
-                      </p>
-                    </div>
-                    <Toggle checked={showAgeRatingInGenres} onChange={setShowAgeRatingInGenres} />
-                  </div>
-
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-                    <div>
-                      <h3 className="text-base font-medium text-gray-800 mb-1">Show with IMDb Rating</h3>
-                      <p className="text-sm text-gray-600">
-                        Append the age rating next to the IMDb score
-                      </p>
-                    </div>
-                    <Toggle checked={showAgeRatingWithImdbRating} onChange={setShowAgeRatingWithImdbRating} />
-                  </div>
-                </>
-              )}
-            </div>
-          </div>
         </div>
 
         {/* Info Box */}
@@ -236,13 +98,13 @@ export function Others() {
               the addon from the Catalogs page, all your preferences will be preserved.
             </p>
             <p>
-              <strong>Age Rating:</strong> Based on US MPAA ratings. Filters content at the TMDB API level.
+              <strong>Search:</strong> Enables searching through 681 Ex-Yu movies and 37 series directly in Stremio.
             </p>
             <p>
-              <strong>IMDb IDs:</strong> Useful for integrating with other addons that rely on IMDb identifiers.
+              <strong>Episode Thumbnails:</strong> Hide thumbnails to avoid spoilers for series episodes.
             </p>
             <p>
-              <strong>Cast Count:</strong> Controls how many actors appear in the metadata. "Unlimited" shows all available cast members.
+              <strong>Cast Count:</strong> Controls how many actors appear in the movie/series metadata. "Unlimited" shows all available cast members from Cinemeta enrichment.
             </p>
           </div>
         </div>
