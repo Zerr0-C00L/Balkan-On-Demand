@@ -38,9 +38,19 @@ const SERIES_CATEGORIES = [
 ];
 
 // Filter and separate movies vs series
+// Also make each movie have a unique ID based on URL to avoid duplicates
 const balkanMovies = database.movies.filter(movie => 
   BALKAN_CATEGORIES.includes(movie.category) && !SERIES_CATEGORIES.includes(movie.category)
-);
+).map((movie, index) => {
+  // Create unique ID from full URL to avoid duplicates (sequels, etc)
+  const url = movie.streams?.[0]?.url || `movie_${index}`;
+  const urlHash = Buffer.from(url).toString('base64').replace(/[=/+]/g, '');
+  
+  return {
+    ...movie,
+    id: `bilosta:${urlHash}` // Unique ID per movie based on URL
+  };
+});
 
 // Convert series episodes stored as movies to proper series
 // Make each episode have a unique ID by using the full URL WITHOUT substring
@@ -64,15 +74,34 @@ const balkanSeries = [
   ...seriesFromMovies
 ];
 
+// Remove duplicates by ID (keep first occurrence)
+const uniqueMovies = [];
+const seenMovieIds = new Set();
+balkanMovies.forEach(movie => {
+  if (!seenMovieIds.has(movie.id)) {
+    seenMovieIds.add(movie.id);
+    uniqueMovies.push(movie);
+  }
+});
+
+const uniqueSeries = [];
+const seenSeriesIds = new Set();
+balkanSeries.forEach(series => {
+  if (!seenSeriesIds.has(series.id)) {
+    seenSeriesIds.add(series.id);
+    uniqueSeries.push(series);
+  }
+});
+
 console.log(`\n✅ Filtered to Balkan content:`);
-console.log(`   Balkan movies: ${balkanMovies.length}`);
-console.log(`   Balkan series: ${balkanSeries.length}`);
+console.log(`   Balkan movies: ${uniqueMovies.length}`);
+console.log(`   Balkan series: ${uniqueSeries.length}`);
 console.log(`   Total removed: ${(database.movies.length - balkanMovies.length) + (database.series.length - balkanSeries.length)}`);
 
 // Show category breakdown
 console.log(`\n📂 Movies by category:`);
 const movieCategories = {};
-balkanMovies.forEach(m => {
+uniqueMovies.forEach(m => {
   movieCategories[m.category] = (movieCategories[m.category] || 0) + 1;
 });
 Object.entries(movieCategories).forEach(([cat, count]) => {
@@ -81,7 +110,7 @@ Object.entries(movieCategories).forEach(([cat, count]) => {
 
 console.log(`\n📂 Series by category:`);
 const seriesCategories = {};
-balkanSeries.forEach(s => {
+uniqueSeries.forEach(s => {
   seriesCategories[s.category] = (seriesCategories[s.category] || 0) + 1;
 });
 Object.entries(seriesCategories).forEach(([cat, count]) => {
@@ -92,14 +121,14 @@ Object.entries(seriesCategories).forEach(([cat, count]) => {
 const filteredDatabase = {
   generated: new Date().toISOString(),
   stats: {
-    totalMovies: balkanMovies.length,
+    totalMovies: uniqueMovies.length,
     moviesWithTMDB: 0,
-    moviesEnriched: balkanMovies.length,
-    totalSeries: balkanSeries.length,
+    moviesEnriched: uniqueMovies.length,
+    totalSeries: uniqueSeries.length,
     totalEpisodes: database.stats?.totalEpisodes || 0
   },
-  movies: balkanMovies,
-  series: balkanSeries
+  movies: uniqueMovies,
+  series: uniqueSeries
 };
 
 // Backup original
