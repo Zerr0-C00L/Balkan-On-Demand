@@ -336,7 +336,7 @@ const allCatalogs = [
   // Direct HD Catalogs (bilosta collection)
   {
     id: 'balkan_movies',
-    name: '⭐ Filmovi',
+    name: 'Filmovi',
     type: 'movie',
     extra: [
       { name: 'search', isRequired: false },
@@ -345,7 +345,7 @@ const allCatalogs = [
   },
   {
     id: 'balkan_foreign_movies',
-    name: '🌍 Strani Filmovi',
+    name: 'Strani Filmovi',
     type: 'movie',
     extra: [
       { name: 'search', isRequired: false },
@@ -354,7 +354,7 @@ const allCatalogs = [
   },
   {
     id: 'balkan_kids',
-    name: '🎨 Crtani Filmovi',
+    name: 'Crtani Filmovi',
     type: 'movie',
     extra: [
       { name: 'search', isRequired: false },
@@ -363,7 +363,7 @@ const allCatalogs = [
   },
   {
     id: 'balkan_series',
-    name: '📺 Serije',
+    name: 'Serije',
     type: 'series',
     extra: [
       { name: 'search', isRequired: false },
