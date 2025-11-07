@@ -116,25 +116,22 @@ jobs:
           
           # Create commit message
           if [ "$NEW_COUNT" -gt 0 ]; then
-            COMMIT_MSG="🔄 Auto-sync: Added $NEW_COUNT new items - $DATE
-
-📊 Database Stats:
-• Total Movies: $TOTAL_MOVIES
-• Total Series: $TOTAL_SERIES
-• New items discovered: $NEW_COUNT
-
-🤖 Triggered by: GitHub Actions (scheduled sync)"
+            git commit -m "Auto-sync: Added $NEW_COUNT new items - $DATE" \
+              -m "Database Stats:" \
+              -m "- Total Movies: $TOTAL_MOVIES" \
+              -m "- Total Series: $TOTAL_SERIES" \
+              -m "- New items discovered: $NEW_COUNT" \
+              -m "" \
+              -m "Triggered by: GitHub Actions (scheduled sync)" || echo "No changes to commit"
           else
-            COMMIT_MSG="🔄 Auto-sync: Content updated - $DATE
-
-📊 Database Stats:
-• Total Movies: $TOTAL_MOVIES
-• Total Series: $TOTAL_SERIES
-
-🤖 Triggered by: GitHub Actions (scheduled sync)"
+            git commit -m "Auto-sync: Content updated - $DATE" \
+              -m "Database Stats:" \
+              -m "- Total Movies: $TOTAL_MOVIES" \
+              -m "- Total Series: $TOTAL_SERIES" \
+              -m "" \
+              -m "Triggered by: GitHub Actions (scheduled sync)" || echo "No changes to commit"
           fi
           
-          git commit -m "$COMMIT_MSG" || echo "No changes to commit"
           git push
       
       - name: Create summary
