@@ -333,7 +333,7 @@ function sanitizeText(text) {
 
 // All available catalogs with their base configuration
 const allCatalogs = [
-  // Movies - Popular (sorted by year)
+  // Movies - Sorted by newest first
   {
     id: 'balkan_movies',
     name: 'Filmovi',
@@ -344,31 +344,7 @@ const allCatalogs = [
     ],
     extraSupported: ['search', 'skip']
   },
-  // Movies - By Year
-  {
-    id: 'balkan_movies_year',
-    name: 'Filmovi (New)',
-    type: 'movie',
-    genres: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', 
-             '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008', 
-             '2007', '2006', '2005', '2004', '2003', '2002', '2001', '2000', '1999',
-             '1998', '1997', '1996', '1995', '1994', '1993', '1992', '1991', '1990',
-             '1989', '1988', '1987', '1986', '1985', '1984', '1983', '1982', '1981', '1980'],
-    extra: [
-      { 
-        name: 'genre',
-        options: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', 
-                  '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008', 
-                  '2007', '2006', '2005', '2004', '2003', '2002', '2001', '2000', '1999',
-                  '1998', '1997', '1996', '1995', '1994', '1993', '1992', '1991', '1990',
-                  '1989', '1988', '1987', '1986', '1985', '1984', '1983', '1982', '1981', '1980'],
-        isRequired: false
-      },
-      { name: 'skip' }
-    ],
-    extraSupported: ['genre', 'skip']
-  },
-  // Series - Popular (sorted by year)
+  // Series - Sorted by newest first
   {
     id: 'balkan_series',
     name: 'Serije',
@@ -378,30 +354,6 @@ const allCatalogs = [
       { name: 'skip' }
     ],
     extraSupported: ['search', 'skip']
-  },
-  // Series - By Year
-  {
-    id: 'balkan_series_year',
-    name: 'Serije (New)',
-    type: 'series',
-    genres: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', 
-             '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008', 
-             '2007', '2006', '2005', '2004', '2003', '2002', '2001', '2000', '1999',
-             '1998', '1997', '1996', '1995', '1994', '1993', '1992', '1991', '1990',
-             '1989', '1988', '1987', '1986', '1985', '1984', '1983', '1982', '1981', '1980'],
-    extra: [
-      { 
-        name: 'genre',
-        options: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', 
-                  '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008', 
-                  '2007', '2006', '2005', '2004', '2003', '2002', '2001', '2000', '1999',
-                  '1998', '1997', '1996', '1995', '1994', '1993', '1992', '1991', '1990',
-                  '1989', '1988', '1987', '1986', '1985', '1984', '1983', '1982', '1981', '1980'],
-        isRequired: false
-      },
-      { name: 'skip' }
-    ],
-    extraSupported: ['genre', 'skip']
   }
 ];
 
@@ -479,9 +431,7 @@ function generateManifest(config = null) {
         // Map bilosta.* IDs to actual catalog IDs
         let catalogId = cat.id;
         if (cat.id === 'bilosta.movies') catalogId = 'balkan_movies';
-        if (cat.id === 'bilosta.movies_year') catalogId = 'balkan_movies_year';
         if (cat.id === 'bilosta.series') catalogId = 'balkan_series';
-        if (cat.id === 'bilosta.series_year') catalogId = 'balkan_series_year';
         
         // Legacy mappings (if needed)
         if (cat.id === 'bilosta.foreign') catalogId = 'balkan_foreign_movies';
@@ -640,21 +590,11 @@ async function handleTMDBCatalog(catalogId, type, extra, apiKey) {
 function defineHandlers(builder, config = null) {
   // CATALOG Handler with Cinemeta enrichment
   builder.defineCatalogHandler(async ({ type, id, extra }) => {
-    console.log(`📖 Catalog request: ${id} (type: ${type}), genre: ${extra.genre || 'none'}`);
+    console.log(`📖 Catalog request: ${id} (type: ${type})`);
     
     const limit = 100;
     const skip = parseInt(extra.skip) || 0;
     const search = extra.search || '';
-    const genre = extra.genre || '';
-    
-    // Determine sort type and filter type based on catalog ID
-    let sort = 'year'; // Default to year (newest first) for home catalogs
-    let filterByYear = false;
-    
-    if (id.includes('_year')) {
-      sort = 'year';
-      filterByYear = true; // For year catalogs, genre field contains year
-    }
     
     let items = [];
     
@@ -672,25 +612,14 @@ function defineHandlers(builder, config = null) {
       );
     }
     
-    // For year-based catalogs, filter by year using the genre parameter
-    if (filterByYear && genre) {
-      // Filter by specific year only if genre (year) is provided
-      items = items.filter(item => {
-        const itemYear = item.year ? item.year.toString() : '';
-        return itemYear === genre;
-      });
-    }
-    // If no year selected, show all items (don't filter by recent years)
-    
-    // Apply sorting before pagination (always by year, newest first)
+    // Sort by year, newest first (items without year go to the end)
     items.sort((a, b) => {
       const yearA = parseInt(a.year) || 0;
       const yearB = parseInt(b.year) || 0;
       return yearB - yearA; // Newest first
     });
     
-    // Always paginate first for performance, then enrich
-    // Genre filtering is too slow when enriching all items, so we skip it
+    // Paginate before enrichment for performance
     items = items.slice(skip, skip + limit);
     
     const metasPromises = items.map(item => 
