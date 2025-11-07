@@ -1,11 +1,11 @@
 {
-  "generated": "2025-11-05T21:45:49.242Z",
+  "generated": "2025-11-07T05:46:22.612Z",
   "stats": {
     "totalMovies": 3848,
-    "moviesWithTMDB": 60,
-    "moviesEnriched": 60,
+    "moviesWithTMDB": 0,
+    "moviesEnriched": 3848,
     "totalSeries": 37,
-    "totalEpisodes": 0
+    "totalEpisodes": 2320
   },
   "movies": [
     {
