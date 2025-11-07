@@ -148,7 +148,6 @@ function AppContent() {
   }, [])
 
   const renderPage = () => {
-  const renderPage = () => {
     switch (currentPage) {
       case 'home': return <Home />
       case 'catalogs': return <Catalogs />
@@ -156,6 +155,7 @@ function AppContent() {
       default: return <Home />
     }
   }
+
   return (
     <div className="min-h-screen bg-gray-100">
       <Sidebar currentPage={currentPage} setCurrentPage={setCurrentPage} isMobileOpen={isMobileOpen} setIsMobileOpen={setIsMobileOpen} />
