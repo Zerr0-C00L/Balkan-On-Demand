@@ -600,13 +600,13 @@ function categorizeMovies() {
   bauBauDB.movies.forEach(movie => {
     const normalizedName = movie.name.toLowerCase().trim();
     
-    // Kids/Cartoons
+    // Kids/Cartoons - always goes to kids category
     if (movie.category && movie.category.toLowerCase().includes('crtani')) {
       if (!kidsMap.has(normalizedName)) {
         kidsMap.set(normalizedName, movie);
       }
     }
-    // Ex-YU movies
+    // Ex-YU/Domaci movies - goes to main movies category
     else if (movie.category && (
       movie.category.includes('EX YU') ||
       movie.category.includes('PREMIJERA') ||
@@ -616,13 +616,7 @@ function categorizeMovies() {
         movieMap.set(normalizedName, movie);
       }
     }
-    // 4K movies
-    else if (movie.streams && movie.streams[0].quality === '4K') {
-      if (!movieMap.has(normalizedName)) {
-        movieMap.set(normalizedName, movie);
-      }
-    }
-    // Foreign movies (everything else)
+    // Foreign movies (everything else, including 4K foreign movies)
     else {
       if (!foreignMap.has(normalizedName)) {
         foreignMap.set(normalizedName, movie);
