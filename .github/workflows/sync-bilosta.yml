@@ -26,6 +26,8 @@ on:
 jobs:
   sync-content:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     
     steps:
       - name: Checkout repository
@@ -132,7 +134,8 @@ jobs:
               -m "Triggered by: GitHub Actions (scheduled sync)" || echo "No changes to commit"
           fi
           
-          git push
+          # Push using the token from checkout
+          git push origin main
       
       - name: Create summary
         if: steps.sync.outputs.has_changes == 'true'
