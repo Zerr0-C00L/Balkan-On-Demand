@@ -112,15 +112,15 @@ export function ConfigProvider({ children }) {
     // Convert booleans to strings for better compression (following mrcanelas pattern)
     if (tmdbPrefix === true) config.tmdbPrefix = "true";
     if (includeAdult === true) config.includeAdult = "true";
-    if (hideEpisodeThumbnails === true) config.hideEpisodeThumbnails = "true";
-    if (hideInCinemaTag === true) config.hideInCinemaTag = "true";
-    if (searchEnabled === false) config.searchEnabled = "false"; // Only if disabled
-    // Convert booleans to strings for better compression (following mrcanelas pattern)
-    if (tmdbPrefix === true) config.tmdbPrefix = "true";
-    if (includeAdult === true) config.includeAdult = "true";
     if (enableAgeRating === true) config.enableAgeRating = "true";
     if (showAgeRatingInGenres === false) config.showAgeRatingInGenres = "false";
     if (showAgeRatingWithImdbRating === true) config.showAgeRatingWithImdbRating = "true";
+
+    return compressToEncodedURIComponent(JSON.stringify(config));
+  };
+
+  // Generate manifest URL
+  const getManifestUrl = () => {
     const baseUrl = window.location.hostname === 'localhost'
       ? 'http://localhost:7006'
       : 'https://balkan-on-demand-828b9dd653f6.herokuapp.com';
