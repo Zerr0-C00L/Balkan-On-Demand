@@ -409,9 +409,8 @@ function generateManifest(config = null) {
   if (config && config.catalogs && Array.isArray(config.catalogs)) {
     console.log('📦 Generating manifest with config:', JSON.stringify(config.catalogs, null, 2));
     
-    // User has configured catalogs - include all enabled catalogs
+    // User has configured catalogs - all catalogs in array are already enabled (filtered by frontend)
     catalogs = config.catalogs
-      .filter(cat => cat.enabled) // Only include enabled catalogs
       .map(cat => {
         // Map bilosta.* IDs to actual catalog IDs
         let catalogId = cat.id;
@@ -425,18 +424,21 @@ function generateManifest(config = null) {
           return null;
         }
         
-        console.log(`✅ Found catalog: ${cat.id} -> ${catalogId} (${cat.type})`);
+        console.log(`✅ Found catalog: ${cat.id} -> ${catalogId} (${cat.type}) - showInHome: ${cat.showInHome}`);
         
-        // If showInHome is false, make search required (Discover only)
-        // If showInHome is true, search is optional (appears on Board)
-        const extra = cat.showInHome 
-          ? [{ name: 'search', isRequired: false }, { name: 'skip', isRequired: false }]
-          : [{ name: 'search', isRequired: true }];
+        // All catalogs support both search and skip, and neither are required
+        // showInHome only affects where they appear in Stremio UI
+        // - showInHome: true = appears on Board (home screen)
+        // - showInHome: false = only appears in Discover (search/browse)
+        const extra = [
+          { name: 'search', isRequired: false }, 
+          { name: 'skip', isRequired: false }
+        ];
         
         return {
           ...baseCatalog,
           extra: extra,
-          extraSupported: cat.showInHome ? ['search', 'skip'] : ['search']
+          extraSupported: ['search', 'skip']
         };
       })
       .filter(cat => cat !== null); // Remove any null entries
