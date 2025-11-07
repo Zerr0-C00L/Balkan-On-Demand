@@ -51,6 +51,7 @@ function extractTMDBId(posterUrl) {
 }
 
 // Search TMDB by title and year to get movie details
+// Also tries to find matches using Balkan keyword IDs for better accuracy
 async function searchTMDB(title, year, type = 'movie', apiKey = null) {
     if (!apiKey) return null;
     
@@ -68,6 +69,8 @@ async function searchTMDB(title, year, type = 'movie', apiKey = null) {
         
         const endpoint = type === 'series' ? 'tv' : 'movie';
         const searchQuery = encodeURIComponent(cleanTitle);
+        
+        // First try: Standard search with title and year
         let searchUrl = `https://api.themoviedb.org/3/search/${endpoint}?api_key=${apiKey}&query=${searchQuery}&language=en-US`;
         
         if (year) {
@@ -80,31 +83,43 @@ async function searchTMDB(title, year, type = 'movie', apiKey = null) {
         
         const data = await response.json();
         
+        // If we got results, check if any match Balkan keywords
         if (data.results && data.results.length > 0) {
-            // Get full details for the first match
-            const result = data.results[0];
-            const detailsUrl = `https://api.themoviedb.org/3/${endpoint}/${result.id}?api_key=${apiKey}&language=en-US&append_to_response=credits,keywords`;
-            const detailsResponse = await fetch(detailsUrl);
+            // Balkan keyword IDs: Serbia (7492), Croatia (1248), Bosnia (1662)
+            const balkanKeywordIds = [7492, 1248, 1662];
             
-            if (detailsResponse.ok) {
-                const details = await detailsResponse.json();
+            // Check each result for Balkan keywords
+            for (const result of data.results) {
+                const detailsUrl = `https://api.themoviedb.org/3/${endpoint}/${result.id}?api_key=${apiKey}&language=en-US&append_to_response=credits,keywords`;
+                const detailsResponse = await fetch(detailsUrl);
                 
-                // Check if this is Balkan content by looking at keywords and production countries
-                const keywords = details.keywords?.keywords || details.keywords?.results || [];
-                const balkanKeywords = ['bosnian', 'croatian', 'serbian', 'yugoslav', 'balkan', 'bosnia', 'croatia', 'serbia'];
-                const hasBalkanKeyword = keywords.some(k => 
-                    balkanKeywords.some(bk => k.name.toLowerCase().includes(bk))
-                );
-                
-                const productionCountries = details.production_countries || [];
-                const balkanCountries = ['BA', 'HR', 'RS', 'ME', 'SI', 'MK', 'XK']; // Bosnia, Croatia, Serbia, Montenegro, Slovenia, Macedonia, Kosovo
-                const hasBalkanCountry = productionCountries.some(c => balkanCountries.includes(c.iso_3166_1));
-                
-                // Add flag to indicate if this is Balkan content
-                details.isBalkanContent = hasBalkanKeyword || hasBalkanCountry;
-                
-                tmdbCache.set(cacheKey, details);
-                return details;
+                if (detailsResponse.ok) {
+                    const details = await detailsResponse.json();
+                    
+                    // Check if this movie has Balkan keywords
+                    const keywords = details.keywords?.keywords || details.keywords?.results || [];
+                    const hasBalkanKeyword = keywords.some(k => balkanKeywordIds.includes(k.id));
+                    
+                    // Check production countries
+                    const productionCountries = details.production_countries || [];
+                    const balkanCountries = ['BA', 'HR', 'RS', 'ME', 'SI', 'MK', 'XK'];
+                    const hasBalkanCountry = productionCountries.some(c => balkanCountries.includes(c.iso_3166_1));
+                    
+                    details.isBalkanContent = hasBalkanKeyword || hasBalkanCountry;
+                    
+                    // If this is Balkan content, use it immediately
+                    if (details.isBalkanContent) {
+                        console.log(`✅ Found Balkan content match: ${details.title || details.name} (keywords: ${hasBalkanKeyword}, country: ${hasBalkanCountry})`);
+                        tmdbCache.set(cacheKey, details);
+                        return details;
+                    }
+                    
+                    // If no Balkan match found yet and this is the first result, keep it as fallback
+                    if (result === data.results[0]) {
+                        tmdbCache.set(cacheKey, details);
+                        return details;
+                    }
+                }
             }
         }
     } catch (error) {
