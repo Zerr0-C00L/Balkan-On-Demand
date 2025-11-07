@@ -6,12 +6,35 @@ import { motion } from 'framer-motion';
 export function Home() {
   const { language, setLanguage } = useConfig();
   const [stats, setStats] = useState({
-    tmdbCatalogs: 8,
-    directMovies: 3848,
-    directSeries: 37,
-    totalContent: 'Unlimited'
+    tmdbCatalogs: 0,
+    directMovies: 0,
+    directSeries: 0,
+    totalContent: 'Loading...'
   });
   const [backgroundUrl, setBackgroundUrl] = useState('https://images.metahub.space/background/medium/tt0816692/img');
+
+  // Fetch live stats from API
+  useEffect(() => {
+    fetch('/api/stats')
+      .then(res => res.json())
+      .then(data => {
+        setStats({
+          tmdbCatalogs: 0, // No TMDB catalogs anymore
+          directMovies: data.movies || 0,
+          directSeries: data.series || 0,
+          totalContent: (data.movies + data.series).toLocaleString()
+        });
+      })
+      .catch(() => {
+        // Fallback to defaults if API fails
+        setStats({
+          tmdbCatalogs: 0,
+          directMovies: 3848,
+          directSeries: 37,
+          totalContent: '3,885'
+        });
+      });
+  }, []);
 
   // Fetch random background
   useEffect(() => {
@@ -90,44 +113,31 @@ export function Home() {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-          <motion.div 
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="bg-white/10 backdrop-blur-md rounded-lg p-6"
-          >
-            <div className="text-3xl font-bold text-[#00d4ff] mb-2">{stats.tmdbCatalogs}</div>
-            <div className="text-sm text-gray-300">TMDB Catalogs</div>
-          </motion.div>
-          <motion.div 
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="bg-white/10 backdrop-blur-md rounded-lg p-6"
-          >
-            <div className="text-3xl font-bold text-[#00d4ff] mb-2">{stats.directMovies.toLocaleString()}</div>
-            <div className="text-sm text-gray-300">Direct HD Movies</div>
-          </motion.div>
-          <motion.div 
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="bg-white/10 backdrop-blur-md rounded-lg p-6"
-          >
-            <div className="text-3xl font-bold text-[#00d4ff] mb-2">{stats.directSeries}</div>
-            <div className="text-sm text-gray-300">Direct HD Series</div>
-          </motion.div>
-          <motion.div 
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="bg-white/10 backdrop-blur-md rounded-lg p-6"
-          >
-            <div className="text-3xl font-bold text-[#00d4ff] mb-2">∞</div>
-            <div className="text-sm text-gray-300">Via TMDB</div>
-          </motion.div>
-        </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="bg-pink-500/10 backdrop-blur-sm rounded-xl p-6 border border-pink-500/20"
+            >
+              <div className="text-4xl font-bold text-pink-400 mb-2">
+                {stats.directMovies.toLocaleString()}
+              </div>
+              <div className="text-gray-300">Direct HD Movies</div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="bg-cyan-500/10 backdrop-blur-sm rounded-xl p-6 border border-cyan-500/20"
+            >
+              <div className="text-4xl font-bold text-cyan-400 mb-2">
+                {stats.directSeries}
+              </div>
+              <div className="text-gray-300">Direct HD Series</div>
+            </motion.div>
+          </div>
 
         {/* Feature Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
