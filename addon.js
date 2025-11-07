@@ -340,7 +340,19 @@ const allCatalogs = [
     type: 'movie',
     extra: [
       { name: 'search', isRequired: false },
-      { name: 'skip', isRequired: false }
+      { name: 'skip', isRequired: false },
+      { 
+        name: 'genre',
+        isRequired: false,
+        options: ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 
+                  'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 
+                  'Romance', 'Science Fiction', 'Thriller', 'War', 'Western']
+      },
+      {
+        name: 'sort',
+        isRequired: false,
+        options: ['name', 'year', 'trending']
+      }
     ]
   },
   // All Series
@@ -350,7 +362,19 @@ const allCatalogs = [
     type: 'series',
     extra: [
       { name: 'search', isRequired: false },
-      { name: 'skip', isRequired: false }
+      { name: 'skip', isRequired: false },
+      { 
+        name: 'genre',
+        isRequired: false,
+        options: ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 
+                  'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 
+                  'Romance', 'Science Fiction', 'Thriller', 'War', 'Western']
+      },
+      {
+        name: 'sort',
+        isRequired: false,
+        options: ['name', 'year', 'trending']
+      }
     ]
   }
 ];
@@ -628,6 +652,7 @@ function defineHandlers(builder, config = null) {
     const skip = parseInt(extra.skip) || 0;
     const search = extra.search || '';
     const genre = extra.genre || '';
+    const sort = extra.sort || 'name'; // Default to alphabetical by name
     
     let items = [];
     
@@ -646,6 +671,32 @@ function defineHandlers(builder, config = null) {
       items = items.filter(item => 
         item.name.toLowerCase().includes(search.toLowerCase())
       );
+    }
+    
+    // Apply sorting before pagination
+    switch (sort) {
+      case 'name':
+        items.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case 'year':
+        items.sort((a, b) => {
+          const yearA = parseInt(a.year) || 0;
+          const yearB = parseInt(b.year) || 0;
+          return yearB - yearA; // Newest first
+        });
+        break;
+      case 'trending':
+        // For trending, prioritize newer content with higher quality
+        items.sort((a, b) => {
+          const yearA = parseInt(a.year) || 0;
+          const yearB = parseInt(b.year) || 0;
+          const qualityA = (a.quality || '').includes('4K') ? 2 : (a.quality || '').includes('1080p') ? 1 : 0;
+          const qualityB = (b.quality || '').includes('4K') ? 2 : (b.quality || '').includes('1080p') ? 1 : 0;
+          // Sort by quality first, then by year
+          if (qualityB !== qualityA) return qualityB - qualityA;
+          return yearB - yearA;
+        });
+        break;
     }
     
     // If genre filter is specified, we need to enrich first, then filter, then paginate
