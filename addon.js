@@ -552,23 +552,10 @@ function createBuilder(config = null) {
   return new addonBuilder(manifest);
 }
 
-// Helper: Get all movies (combine all categories)
+// Helper: Get all movies (no deduplication - already done in filter script)
 function getAllMovies() {
-  const allMovies = [];
-  const movieMap = new Map();
-  
-  // Combine all movie types, deduplicate by normalized name
-  bauBauDB.movies.forEach(movie => {
-    // Only include actual movies, not series episodes
-    if (movie.type === 'movie') {
-      const normalizedName = movie.name.toLowerCase().trim();
-      if (!movieMap.has(normalizedName)) {
-        movieMap.set(normalizedName, movie);
-      }
-    }
-  });
-  
-  return Array.from(movieMap.values());
+  // Return all movies - they're already deduplicated by unique IDs
+  return bauBauDB.movies.filter(movie => movie.type === 'movie');
 }
 
 const allMovies = getAllMovies();
