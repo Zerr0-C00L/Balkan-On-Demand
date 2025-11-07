@@ -155,27 +155,37 @@ function loadDatabase() {
 }
 
 /**
+ * Normalize URL by extracting just the path after SERCRT code
+ */
+function normalizeURL(url) {
+  const match = url.match(/SERCRT\d+\/(.+)/);
+  return match ? match[1] : url;
+}
+
+/**
  * Create URL to database entry lookup
  */
 function createURLLookup(database) {
   const lookup = new Map();
   
-  // Index movies by stream URLs
+  // Index movies by stream URLs (normalized)
   database.movies?.forEach(movie => {
     if (movie.streams) {
       movie.streams.forEach(stream => {
-        lookup.set(stream.url, { type: 'movie', entry: movie });
+        const normalizedURL = normalizeURL(stream.url);
+        lookup.set(normalizedURL, { type: 'movie', entry: movie });
       });
     }
   });
   
-  // Index series by stream URLs
+  // Index series by stream URLs (normalized)
   database.series?.forEach(series => {
     series.seasons?.forEach(season => {
       season.episodes?.forEach(episode => {
         if (episode.streams) {
           episode.streams.forEach(stream => {
-            lookup.set(stream.url, { type: 'series', entry: series, episode: episode });
+            const normalizedURL = normalizeURL(stream.url);
+            lookup.set(normalizedURL, { type: 'series', entry: series, episode: episode });
           });
         }
       });
@@ -275,7 +285,8 @@ function mergeContent(database, newFiles, options = {}) {
   
   // Process new files
   newFiles.forEach(file => {
-    const existing = urlLookup.get(file.url);
+    const normalizedURL = normalizeURL(file.url);
+    const existing = urlLookup.get(normalizedURL);
     
     if (existing) {
       stats.existing++;
@@ -327,6 +338,37 @@ function mergeContent(database, newFiles, options = {}) {
 }
 
 /**
+ * Load URLs from existing files instead of crawling
+ */
+function loadURLsFromFiles() {
+  const urlFile = path.join(BILOSTA_DIR, 'bilosta-all-urls.txt');
+  
+  if (!fs.existsSync(urlFile)) {
+    console.log('⚠️  No URL file found, will try to crawl server...');
+    return null;
+  }
+  
+  const content = fs.readFileSync(urlFile, 'utf8');
+  const urls = content.split('\n').filter(line => line.trim().length > 0);
+  
+  // Convert URLs to file objects
+  return urls.map(url => {
+    const match = url.match(/SERCRT\d+\/(.+)/);
+    if (!match) return null;
+    
+    const fullPath = match[1];
+    const parts = fullPath.split('/');
+    const filename = parts[parts.length - 1];
+    
+    return {
+      url: url.trim(),
+      path: fullPath,
+      filename: filename
+    };
+  }).filter(f => f !== null);
+}
+
+/**
  * Main execution
  */
 async function main() {
@@ -340,24 +382,30 @@ async function main() {
   const database = loadDatabase();
   console.log(`✓ Loaded ${database.movies.length} movies, ${database.series?.length || 0} series\n`);
   
-  // Step 2: Crawl server for current content
-  console.log('🕷️  Crawling Bilosta server...\n');
-  const newFiles = await crawlDirectory(BASE_URL);
+  // Step 2: Load URLs from files (or crawl if files don't exist)
+  console.log('📄 Loading URLs from files...\n');
+  let newFiles = loadURLsFromFiles();
+  
+  if (!newFiles) {
+    console.log('🕷️  Crawling Bilosta server...\n');
+    newFiles = await crawlDirectory(BASE_URL);
+  } else {
+    console.log(`✓ Loaded ${newFiles.length} URLs from files\n`);
+  }
   
   const duration = ((Date.now() - startTime) / 1000).toFixed(2);
-  console.log(`\n✅ Crawl complete in ${duration}s`);
+  console.log(`\n✅ Load complete in ${duration}s`);
   console.log(`📊 Found ${newFiles.length} video files\n`);
   
-  // Step 3: Save raw file list
-  const urlList = newFiles.map(f => f.url).join('\n');
-  const urlListPath = path.join(BILOSTA_DIR, 'bilosta-all-urls.txt');
-  fs.writeFileSync(urlListPath, urlList);
-  console.log(`💾 Saved URL list: ${urlListPath}\n`);
+  if (newFiles.length === 0) {
+    console.log('⚠️  No files found! Aborting to prevent data loss.');
+    process.exit(1);
+  }
   
-  // Step 4: Merge with existing database
+  // Step 3: Merge with existing database
   const { database: updatedDB, stats } = mergeContent(database, newFiles, { removeOld: false });
   
-  // Step 5: Save updated database
+  // Step 4: Save updated database
   const dbPath = DATABASE_FILE;
   fs.writeFileSync(dbPath, JSON.stringify(updatedDB, null, 2));
   console.log(`\n💾 Saved database: ${dbPath}\n`);
