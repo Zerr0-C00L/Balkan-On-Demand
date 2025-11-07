@@ -3,7 +3,6 @@ import { ConfigProvider, useConfig } from './contexts/ConfigContext'
 import { Home } from './pages/Home'
 import { Catalogs } from './pages/Catalogs'
 import { Settings } from './pages/Settings'
-import { Others } from './pages/Others'
 
 function Sidebar({ currentPage, setCurrentPage, isMobileOpen, setIsMobileOpen }) {
   const { getManifestUrl } = useConfig()
@@ -14,7 +13,6 @@ function Sidebar({ currentPage, setCurrentPage, isMobileOpen, setIsMobileOpen })
     { id: 'home', label: 'Home', icon: '🏠' },
     { id: 'catalogs', label: 'Catalogs', icon: '📚' },
     { id: 'settings', label: 'Settings', icon: '⚙️' },
-    { id: 'others', label: 'Others', icon: '🔧' },
   ]
 
   // Close dropdown when clicking outside
@@ -150,15 +148,14 @@ function AppContent() {
   }, [])
 
   const renderPage = () => {
+  const renderPage = () => {
     switch (currentPage) {
       case 'home': return <Home />
       case 'catalogs': return <Catalogs />
       case 'settings': return <Settings />
-      case 'others': return <Others />
       default: return <Home />
     }
   }
-
   return (
     <div className="min-h-screen bg-gray-100">
       <Sidebar currentPage={currentPage} setCurrentPage={setCurrentPage} isMobileOpen={isMobileOpen} setIsMobileOpen={setIsMobileOpen} />

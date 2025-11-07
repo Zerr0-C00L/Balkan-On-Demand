@@ -26,16 +26,6 @@ export function ConfigProvider({ children }) {
   const [includeAdult, setIncludeAdult] = useState(false);
   const [ageRating, setAgeRating] = useState(undefined);
   
-  // Display settings
-  const [hideEpisodeThumbnails, setHideEpisodeThumbnails] = useState(false);
-  const [hideInCinemaTag, setHideInCinemaTag] = useState(false);
-  const [castCount, setCastCount] = useState(5);
-  
-  // Feature toggles
-  const [searchEnabled, setSearchEnabled] = useState(true);
-  const [provideImdbId, setProvideImdbId] = useState(false);
-  const [returnImdbId, setReturnImdbId] = useState(false);
-  
   // Age rating display
   const [enableAgeRating, setEnableAgeRating] = useState(false);
   const [showAgeRatingInGenres, setShowAgeRatingInGenres] = useState(true);
@@ -74,12 +64,6 @@ export function ConfigProvider({ children }) {
       if (config.tmdbPrefix !== undefined) setTmdbPrefix(config.tmdbPrefix);
       if (config.includeAdult !== undefined) setIncludeAdult(config.includeAdult);
       if (config.ageRating) setAgeRating(config.ageRating);
-      if (config.hideEpisodeThumbnails !== undefined) setHideEpisodeThumbnails(config.hideEpisodeThumbnails);
-      if (config.hideInCinemaTag !== undefined) setHideInCinemaTag(config.hideInCinemaTag);
-      if (config.castCount !== undefined) setCastCount(config.castCount === 'Unlimited' ? undefined : config.castCount);
-      if (config.searchEnabled !== undefined) setSearchEnabled(config.searchEnabled);
-      if (config.provideImdbId !== undefined) setProvideImdbId(config.provideImdbId);
-      if (config.returnImdbId !== undefined) setReturnImdbId(config.returnImdbId);
       if (config.enableAgeRating !== undefined) setEnableAgeRating(config.enableAgeRating);
       if (config.showAgeRatingInGenres !== undefined) setShowAgeRatingInGenres(config.showAgeRatingInGenres);
       if (config.showAgeRatingWithImdbRating !== undefined) setShowAgeRatingWithImdbRating(config.showAgeRatingWithImdbRating);
@@ -136,18 +120,12 @@ export function ConfigProvider({ children }) {
     if (hideEpisodeThumbnails === true) config.hideEpisodeThumbnails = "true";
     if (hideInCinemaTag === true) config.hideInCinemaTag = "true";
     if (searchEnabled === false) config.searchEnabled = "false"; // Only if disabled
-    if (provideImdbId === true) config.provideImdbId = "true";
-    if (returnImdbId === true) config.returnImdbId = "true";
+    // Convert booleans to strings for better compression (following mrcanelas pattern)
+    if (tmdbPrefix === true) config.tmdbPrefix = "true";
+    if (includeAdult === true) config.includeAdult = "true";
     if (enableAgeRating === true) config.enableAgeRating = "true";
     if (showAgeRatingInGenres === false) config.showAgeRatingInGenres = "false";
     if (showAgeRatingWithImdbRating === true) config.showAgeRatingWithImdbRating = "true";
-    if (castCount !== 5 && castCount !== undefined) config.castCount = castCount; // Only if non-default
-
-    return compressToEncodedURIComponent(JSON.stringify(config));
-  };
-
-  // Generate manifest URL
-  const getManifestUrl = () => {
     const baseUrl = window.location.hostname === 'localhost'
       ? 'http://localhost:7006'
       : 'https://balkan-on-demand-828b9dd653f6.herokuapp.com';
@@ -177,21 +155,11 @@ export function ConfigProvider({ children }) {
     ageRating,
     setAgeRating,
     
-    // Display
-    hideEpisodeThumbnails,
-    setHideEpisodeThumbnails,
-    hideInCinemaTag,
-    setHideInCinemaTag,
-    castCount,
-    setCastCount,
-    
-    // Features
-    searchEnabled,
-    setSearchEnabled,
-    provideImdbId,
-    setProvideImdbId,
-    returnImdbId,
-    setReturnImdbId,
+    // Content
+    includeAdult,
+    setIncludeAdult,
+    ageRating,
+    setAgeRating,
     
     // Age rating display
     enableAgeRating,
@@ -200,12 +168,6 @@ export function ConfigProvider({ children }) {
     setShowAgeRatingInGenres,
     showAgeRatingWithImdbRating,
     setShowAgeRatingWithImdbRating,
-    
-    // Utilities
-    loadConfigFromUrl,
-    generateConfig,
-    getManifestUrl
-  };
 
   return <ConfigContext.Provider value={value}>{children}</ConfigContext.Provider>;
 }
