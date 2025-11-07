@@ -36,15 +36,15 @@ export function Home() {
       });
   }, []);
 
-  // Fetch random background
+  // Fetch random background from Ex-Yu movies
   useEffect(() => {
-    fetch('https://cinemeta-catalogs.strem.io/top/catalog/movie/top.json')
+    fetch('/catalog/movie/balkan_movies.json')
       .then(res => res.json())
       .then(data => {
-        const moviesWithId = data.metas.filter(m => m.imdb_id);
+        const moviesWithId = data.metas.filter(m => m.id && m.id.startsWith('tt'));
         if (moviesWithId.length > 0) {
           const random = moviesWithId[Math.floor(Math.random() * moviesWithId.length)];
-          setBackgroundUrl(`https://images.metahub.space/background/medium/${random.imdb_id}/img`);
+          setBackgroundUrl(`https://images.metahub.space/background/medium/${random.id}/img`);
         }
       })
       .catch(() => {});
