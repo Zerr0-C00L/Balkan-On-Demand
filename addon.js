@@ -333,25 +333,16 @@ function sanitizeText(text) {
 
 // All available catalogs with their base configuration
 const allCatalogs = [
-  // Movies - Popular (with genres and year sorting)
+  // Movies - Popular (sorted by year)
   {
     id: 'balkan_movies',
     name: 'Filmovi',
     type: 'movie',
-    genres: ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 
-             'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 
-             'Romance', 'Science Fiction', 'Thriller', 'War', 'Western'],
     extra: [
-      { 
-        name: 'genre',
-        options: ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 
-                  'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 
-                  'Romance', 'Science Fiction', 'Thriller', 'War', 'Western']
-      },
       { name: 'search' },
       { name: 'skip' }
     ],
-    extraSupported: ['search', 'genre', 'skip']
+    extraSupported: ['search', 'skip']
   },
   // Movies - By Year
   {
@@ -378,25 +369,16 @@ const allCatalogs = [
     extraSupported: ['genre', 'skip'],
     extraRequired: ['genre']
   },
-  // Series - Popular (with genres and year sorting)
+  // Series - Popular (sorted by year)
   {
     id: 'balkan_series',
     name: 'Serije',
     type: 'series',
-    genres: ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 
-             'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 
-             'Romance', 'Science Fiction', 'Thriller', 'War', 'Western'],
     extra: [
-      { 
-        name: 'genre',
-        options: ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 
-                  'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 
-                  'Romance', 'Science Fiction', 'Thriller', 'War', 'Western']
-      },
       { name: 'search' },
       { name: 'skip' }
     ],
-    extraSupported: ['search', 'genre', 'skip']
+    extraSupported: ['search', 'skip']
   },
   // Series - By Year
   {
@@ -720,38 +702,15 @@ function defineHandlers(builder, config = null) {
       return yearB - yearA; // Newest first
     });
     
-    // If genre filter is specified, we need to enrich first, then filter, then paginate
-    // Otherwise we can paginate first for better performance
-    let metas;
+    // Always paginate first for performance, then enrich
+    // Genre filtering is too slow when enriching all items, so we skip it
+    items = items.slice(skip, skip + limit);
     
-    // For year-based catalogs, filtering was already done, just paginate
-    // For regular catalogs, apply genre filter if specified
-    if (genre && genre !== 'All' && !filterByYear) {
-      // For genre filtering: WITH enrichment so genres are available
-      const metasPromises = items.map(item => 
-        toStremioMeta(item, type === 'series' ? 'series' : 'movie', true, config?.tmdbApiKey) // true = with enrichment
-      );
-      
-      metas = await Promise.all(metasPromises);
-      
-      // Apply genre filter AFTER enrichment (since genres come from Cinemeta)
-      metas = metas.filter(meta => {
-        if (!meta.genres || !Array.isArray(meta.genres)) return false;
-        return meta.genres.some(g => g.toLowerCase() === genre.toLowerCase());
-      });
-      
-      // Apply pagination AFTER filtering
-      metas = metas.slice(skip, skip + limit);
-    } else {
-      // No genre filter OR year filtering already done: paginate first, WITH enrichment for full metadata
-      items = items.slice(skip, skip + limit);
-      
-      const metasPromises = items.map(item => 
-        toStremioMeta(item, type === 'series' ? 'series' : 'movie', true, config?.tmdbApiKey) // true = with enrichment
-      );
-      
-      metas = await Promise.all(metasPromises);
-    }
+    const metasPromises = items.map(item => 
+      toStremioMeta(item, type === 'series' ? 'series' : 'movie', true, config?.tmdbApiKey) // true = with enrichment
+    );
+    
+    const metas = await Promise.all(metasPromises);
     
     return { metas };
   });
