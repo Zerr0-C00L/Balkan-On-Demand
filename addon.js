@@ -462,12 +462,14 @@ function generateManifest(config = null) {
         // This makes the catalog only appear in Discover (like Cinemeta's year/genre catalogs)
         if (cat.showInHome === false) {
           console.log(`📌 Hiding ${cat.id} from Board (home) - will only show in Discover`);
-          // Add a dummy required extra that will hide it from home
+          // Add a required extra with options to hide it from home
+          // Stremio won't show catalogs with required extras on the Board
           catalog.extra = [
-            { name: 'discoverOnly', isRequired: true },
-            ...(catalog.extra || [])
+            { name: 'skip', isRequired: false },
+            { name: 'genre', options: ['All'], isRequired: true }
           ];
-          catalog.extraRequired = ['discoverOnly'];
+          catalog.extraRequired = ['genre'];
+          catalog.extraSupported = ['skip', 'genre'];
         }
         
         console.log(`✅ Found catalog (enabled): ${cat.id} -> ${catalogId} (${cat.type}), showInHome: ${cat.showInHome}`);
@@ -605,11 +607,12 @@ async function handleTMDBCatalog(catalogId, type, extra, apiKey) {
 function defineHandlers(builder, config = null) {
   // CATALOG Handler with Cinemeta enrichment
   builder.defineCatalogHandler(async ({ type, id, extra }) => {
-    console.log(`📖 Catalog request: ${id} (type: ${type})`);
+    console.log(`📖 Catalog request: ${id} (type: ${type}), extra:`, extra);
     
     const limit = 100;
     const skip = parseInt(extra.skip) || 0;
     const search = extra.search || '';
+    // Ignore extra.genre - it's only used to hide catalog from home screen
     
     let items = [];
     
