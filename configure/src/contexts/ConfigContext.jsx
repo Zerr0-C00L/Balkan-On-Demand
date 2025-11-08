@@ -95,14 +95,14 @@ export function ConfigProvider({ children }) {
   // Generate compressed configuration string
   const generateConfig = () => {
     const config = {
-      catalogs: catalogs
-        .filter(c => c.enabled)
-        .map(c => ({
-          id: c.id,
-          type: c.type,
-          showInHome: c.showInHome
-          // NOTE: No need to send 'enabled' - already filtered by .filter(c => c.enabled)
-        }))
+      // Send all catalogs, not just enabled ones
+      // This allows streams to work even if catalog browsing is "disabled"
+      catalogs: catalogs.map(c => ({
+        id: c.id,
+        type: c.type,
+        enabled: c.enabled,
+        showInHome: c.showInHome
+      }))
     };
 
     // Only include optional settings if they differ from defaults

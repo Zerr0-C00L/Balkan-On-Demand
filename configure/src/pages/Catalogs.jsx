@@ -85,10 +85,10 @@ export function Catalogs() {
         <h4 className="font-semibold text-gray-800 mb-2">📖 How Catalogs Work</h4>
         <div className="text-sm text-gray-700 space-y-2">
           <p>
-            <strong>Enable:</strong> Makes the catalog available in your addon. Enabled catalogs appear in both Board (home) and Discover.
+            <strong>Enable:</strong> Controls whether the catalog is available in your addon. Disabled catalogs won't appear anywhere (but streams still work if you search by IMDb ID).
           </p>
           <p>
-            <strong>Home (currently not used):</strong> This toggle is reserved for future functionality. Currently, all enabled catalogs appear on your Stremio Board and in Discover.
+            <strong>Home:</strong> When ON, the catalog appears on your Stremio Board (home screen). When OFF, the catalog ONLY appears in Discover, not on your home screen.
           </p>
           <p className="mt-3 p-3 bg-purple-50 border border-purple-200 rounded">
             <strong className="text-purple-900">💡 After changing settings:</strong> Click <strong>"📥 Install"</strong> in the sidebar to update your addon!

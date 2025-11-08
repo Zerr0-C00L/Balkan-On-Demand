@@ -425,10 +425,9 @@ function generateManifest(config = null) {
   if (config && config.catalogs && Array.isArray(config.catalogs)) {
     console.log('📦 Generating manifest with config:', JSON.stringify(config.catalogs, null, 2));
     
-    // User has configured catalogs - all enabled catalogs are included in manifest
-    // Note: Stremio shows all manifest catalogs in both Board and Discover
-    // The showInHome property is preserved for potential future use
+    // Filter to only enabled catalogs for the manifest
     catalogs = config.catalogs
+      .filter(cat => cat.enabled !== false) // Include if enabled is true or undefined
       .map(cat => {
         // Map bilosta.* IDs to actual catalog IDs
         let catalogId = cat.id;
@@ -456,14 +455,28 @@ function generateManifest(config = null) {
           return null;
         }
         
-        console.log(`✅ Found catalog: ${cat.id} -> ${catalogId} (${cat.type})`);
+        // Clone the catalog to avoid mutating the original
+        const catalog = { ...baseCatalog };
         
-        // Return the base catalog as-is (it already has proper structure)
-        return baseCatalog;
+        // If showInHome is false, add a required extra property to hide from Board
+        // This makes the catalog only appear in Discover (like Cinemeta's year/genre catalogs)
+        if (cat.showInHome === false) {
+          console.log(`📌 Hiding ${cat.id} from Board (home) - will only show in Discover`);
+          // Add a dummy required extra that will hide it from home
+          catalog.extra = [
+            { name: 'discoverOnly', isRequired: true },
+            ...(catalog.extra || [])
+          ];
+          catalog.extraRequired = ['discoverOnly'];
+        }
+        
+        console.log(`✅ Found catalog (enabled): ${cat.id} -> ${catalogId} (${cat.type}), showInHome: ${cat.showInHome}`);
+        
+        return catalog;
       })
       .filter(cat => cat !== null); // Remove any null entries
     
-    console.log(`📋 Generated ${catalogs.length} catalogs`);
+    console.log(`📋 Generated ${catalogs.length} enabled catalogs`);
   } else {
     console.log('⚠️  No config provided or no catalogs in config');
   }
