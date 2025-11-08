@@ -1,7 +1,7 @@
 {
-  "generated": "2025-11-07T22:36:39.746Z",
+  "generated": "2025-11-08T03:41:15.662Z",
   "stats": {
-    "totalMovies": 681,
+    "totalMovies": 683,
     "moviesWithTMDB": 0,
     "moviesEnriched": 681,
     "totalSeries": 37,
@@ -14348,6 +14348,36 @@
       ],
       "category": "EX YU FILMOVI",
       "originalTitle": "Уста пуна земље"
+    },
+    {
+      "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2NydC9Db3ZwYXMubXA0",
+      "type": "movie",
+      "name": "Covpas",
+      "streams": [
+        {
+          "url": "https://content.bilosta.org/SERCRT721/FILMOVI/crt/Covpas.mp4",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU FILMOVI",
+      "needsEnrichment": true
+    },
+    {
+      "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2NydC9OZXJhemR2b2puaS5tcDQ",
+      "type": "movie",
+      "name": "Nerazdvojni",
+      "streams": [
+        {
+          "url": "https://content.bilosta.org/SERCRT721/FILMOVI/crt/Nerazdvojni.mp4",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU FILMOVI",
+      "needsEnrichment": true
     }
   ],
   "series": [
