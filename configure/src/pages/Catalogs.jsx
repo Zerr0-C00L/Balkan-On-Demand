@@ -33,11 +33,11 @@ export function Catalogs() {
 
   const sensors = useSensors(mouseSensor, touchSensor);
 
-  const handleCatalogChange = (catalogId, type, enabled, showInHome) => {
+  const handleCatalogChange = (catalogId, type, enabled, showInHome, customName) => {
     setCatalogs((prev) =>
       prev.map((c) =>
         c.id === catalogId && c.type === type
-          ? { ...c, enabled, showInHome }
+          ? { ...c, enabled, showInHome, customName }
           : c
       )
     );
@@ -69,6 +69,7 @@ export function Catalogs() {
     acc[key] = {
       enabled: config.enabled,
       showInHome: config.showInHome,
+      customName: config.customName,
     };
     return acc;
   }, {});

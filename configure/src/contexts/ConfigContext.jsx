@@ -76,7 +76,8 @@ export function ConfigProvider({ children }) {
               return {
                 ...catalog,
                 enabled: savedCatalog.enabled || false,
-                showInHome: savedCatalog.showInHome || false
+                showInHome: savedCatalog.showInHome || false,
+                customName: savedCatalog.customName || catalog.name
               };
             }
             
@@ -101,7 +102,8 @@ export function ConfigProvider({ children }) {
         id: c.id,
         type: c.type,
         enabled: c.enabled,
-        showInHome: c.showInHome
+        showInHome: c.showInHome,
+        ...(c.customName && c.customName !== c.name ? { customName: c.customName } : {})
       }))
     };
 

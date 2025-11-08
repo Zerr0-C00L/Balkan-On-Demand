@@ -458,6 +458,11 @@ function generateManifest(config = null) {
         // Clone the catalog to avoid mutating the original
         const catalog = { ...baseCatalog };
         
+        // Apply custom name if provided
+        if (cat.customName && cat.customName !== baseCatalog.name) {
+          catalog.name = cat.customName;
+        }
+        
         // If showInHome is false, add a required extra property to hide from Board
         // This makes the catalog only appear in Discover (like Cinemeta's year/genre catalogs)
         if (cat.showInHome === false) {
@@ -472,7 +477,7 @@ function generateManifest(config = null) {
           catalog.extraSupported = ['skip', 'genre'];
         }
         
-        console.log(`✅ Found catalog (enabled): ${cat.id} -> ${catalogId} (${cat.type}), showInHome: ${cat.showInHome}`);
+        console.log(`✅ Found catalog (enabled): ${cat.id} -> ${catalogId} (${cat.type}), showInHome: ${cat.showInHome}, name: ${catalog.name}`);
         
         return catalog;
       })

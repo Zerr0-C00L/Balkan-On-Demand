@@ -1,5 +1,6 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { useState } from 'react';
 
 export function SortableCatalogCard({ catalog, config, onChange, uniqueId }) {
   const {
@@ -19,6 +20,8 @@ export function SortableCatalogCard({ catalog, config, onChange, uniqueId }) {
 
   const isEnabled = config?.enabled || false;
   const showInHome = config?.showInHome || false;
+  const [isEditing, setIsEditing] = useState(false);
+  const [customName, setCustomName] = useState(config?.customName || catalog.name);
 
   // Determine icon based on catalog source
   const getIcon = () => {
@@ -65,9 +68,43 @@ export function SortableCatalogCard({ catalog, config, onChange, uniqueId }) {
             <div className="text-2xl">{getIcon()}</div>
 
             {/* Catalog Info */}
-            <div>
+            <div className="flex-1">
               <div className="font-semibold text-gray-800 flex items-center gap-2">
-                {catalog.name}
+                {isEditing ? (
+                  <input
+                    type="text"
+                    value={customName}
+                    onChange={(e) => setCustomName(e.target.value)}
+                    onBlur={() => {
+                      setIsEditing(false);
+                      onChange(catalog.id, catalog.type, isEnabled, showInHome, customName);
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        setIsEditing(false);
+                        onChange(catalog.id, catalog.type, isEnabled, showInHome, customName);
+                      } else if (e.key === 'Escape') {
+                        setCustomName(config?.customName || catalog.name);
+                        setIsEditing(false);
+                      }
+                    }}
+                    autoFocus
+                    className="px-2 py-1 border-2 border-[#00d4ff] rounded focus:outline-none"
+                  />
+                ) : (
+                  <>
+                    <span>{config?.customName || catalog.name}</span>
+                    <button
+                      onClick={() => setIsEditing(true)}
+                      className="text-gray-400 hover:text-[#00d4ff] transition-colors"
+                      title="Rename catalog"
+                    >
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                      </svg>
+                    </button>
+                  </>
+                )}
                 <span className={`text-xs px-2 py-0.5 rounded ${
                   catalog.type === 'movie' 
                     ? 'bg-blue-100 text-blue-700' 
@@ -93,7 +130,7 @@ export function SortableCatalogCard({ catalog, config, onChange, uniqueId }) {
             <div className="flex items-center gap-2">
               <span className="text-sm text-gray-600">Enable</span>
               <button
-                onClick={() => onChange(catalog.id, catalog.type, !isEnabled, showInHome && !isEnabled ? false : showInHome)}
+                onClick={() => onChange(catalog.id, catalog.type, !isEnabled, showInHome && !isEnabled ? false : showInHome, config?.customName)}
                 className={`
                   relative inline-flex h-6 w-11 items-center rounded-full transition-colors
                   ${isEnabled ? 'bg-[#00d4ff]' : 'bg-gray-300'}
@@ -110,7 +147,7 @@ export function SortableCatalogCard({ catalog, config, onChange, uniqueId }) {
             <div className="flex items-center gap-2">
               <span className={`text-sm ${!isEnabled ? 'text-gray-400' : 'text-gray-600'}`}>Home</span>
               <button
-                onClick={() => onChange(catalog.id, catalog.type, isEnabled, !showInHome)}
+                onClick={() => onChange(catalog.id, catalog.type, isEnabled, !showInHome, config?.customName)}
                 disabled={!isEnabled}
                 className={`
                   relative inline-flex h-6 w-11 items-center rounded-full transition-colors
