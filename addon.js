@@ -497,9 +497,10 @@ function generateManifest(config = null) {
     
     console.log(`📋 Generated ${catalogs.length} enabled catalogs`);
   } else {
-    console.log('⚠️  No config provided or no catalogs in config');
+    // Default configuration: enable all catalogs
+    console.log('📦 No config provided - using default configuration (all catalogs enabled)');
+    catalogs = allCatalogs.map(cat => ({ ...cat }));
   }
-  // If no config, catalogs remain empty (disabled by default)
 
   return {
     id: 'community.balkan.on.demand',
