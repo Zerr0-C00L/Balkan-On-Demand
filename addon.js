@@ -6,6 +6,18 @@ const { decompressFromEncodedURIComponent } = require('lz-string');
 // Load content databases
 const bauBauDB = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'baubau-content.json'), 'utf8'));
 
+// Load TMDB ID mapping (optional - for enhanced stream matching)
+let tmdbMapping = { movies: {}, series: {} };
+const mappingPath = path.join(__dirname, 'data', 'tmdb-id-mapping.json');
+try {
+  if (fs.existsSync(mappingPath)) {
+    tmdbMapping = JSON.parse(fs.readFileSync(mappingPath, 'utf8'));
+    console.log(`🎯 Loaded TMDB mapping: ${Object.keys(tmdbMapping.movies).length} movies, ${Object.keys(tmdbMapping.series).length} series`);
+  }
+} catch (err) {
+  console.warn('⚠️  Could not load TMDB mapping, using title-based matching only');
+}
+
 // Load translations for Serbian/Croatian titles
 let titleTranslations = {};
 try {
@@ -729,7 +741,59 @@ function defineHandlers(builder, config = null) {
     
     let streams = [];
     
-    // If it's an IMDb ID, try to find the matching item in our database
+    // OPTION 1: TMDB ID format (tmdb:12345 or tmdb:12345:1:1 for series)
+    if (id.startsWith('tmdb:')) {
+      const parts = id.split(':');
+      const tmdbId = parts[1];
+      const season = parts[2] ? parseInt(parts[2]) : null;
+      const episode = parts[3] ? parseInt(parts[3]) : null;
+      
+      console.log(`🎯 TMDB ID request: ${tmdbId}${season ? ` S${season}E${episode}` : ''}`);
+      
+      if (type === 'movie' && tmdbMapping.movies[tmdbId]) {
+        const movieData = tmdbMapping.movies[tmdbId];
+        console.log(`✅ Found TMDB mapping: ${movieData.title}`);
+        
+        movieData.streams.forEach((streamUrl, index) => {
+          streams.push({
+            name: 'Direct HD',
+            title: `⭐ ${movieData.title}\n🎬 Direct HD Stream`,
+            url: streamUrl,
+            behaviorHints: {
+              bingeGroup: `balkan-tmdb-${tmdbId}`
+            }
+          });
+        });
+      } else if (type === 'series' && tmdbMapping.series[tmdbId] && season && episode) {
+        const seriesData = tmdbMapping.series[tmdbId];
+        const seasonKey = `S${String(season).padStart(2, '0')}`;
+        const episodeKey = `E${String(episode).padStart(2, '0')}`;
+        
+        if (seriesData.episodes[seasonKey] && seriesData.episodes[seasonKey][episodeKey]) {
+          const ep = seriesData.episodes[seasonKey][episodeKey];
+          console.log(`✅ Found TMDB mapping: ${seriesData.title} ${seasonKey}${episodeKey}`);
+          
+          streams.push({
+            name: 'Direct HD',
+            title: `⭐ ${seriesData.title}\n📺 ${seasonKey}${episodeKey}`,
+            url: ep.url,
+            behaviorHints: {
+              bingeGroup: `balkan-tmdb-${tmdbId}`
+            }
+          });
+        }
+      }
+      
+      if (streams.length > 0) {
+        console.log(`📤 Returning ${streams.length} stream(s) from TMDB mapping`);
+        return Promise.resolve({ streams });
+      }
+      
+      console.log(`❌ No TMDB mapping found for ${id}`);
+      return Promise.resolve({ streams: [] });
+    }
+    
+    // OPTION 2: If it's an IMDb ID, try to find the matching item in our database
     if (id.startsWith('tt')) {
       console.log(`🔍 IMDb ID ${id} - searching our database for match...`);
       

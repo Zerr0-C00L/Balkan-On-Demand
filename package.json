@@ -10,8 +10,12 @@
     "start": "node addon.js",
     "start:old": "node addon.js",
     "start:tmdb": "node addon-tmdb-catalogs.js",
+    "start:enhanced": "node addon-tmdb-enhanced.js",
     "dev": "nodemon addon-enhanced.js",
-    "dev:tmdb": "nodemon addon-tmdb-catalogs.js"
+    "dev:tmdb": "nodemon addon-tmdb-catalogs.js",
+    "dev:enhanced": "nodemon addon-tmdb-enhanced.js",
+    "mapping:create": "node scripts/create-tmdb-symlinks.js",
+    "mapping:verify": "node -e \"console.log(require('./data/tmdb-id-mapping.json'))\""
   },
   "keywords": [
     "stremio",
