@@ -1103,7 +1103,7 @@ const app = express();
 app.use(express.json());
 
 // Serve React configure app from dist directory
-app.use('/configure', express.static('dist'));
+app.use('/configure', express.static(path.join(__dirname, 'dist')));
 
 // API endpoint to get content stats
 app.get('/api/stats', (req, res) => {

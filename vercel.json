@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "installCommand": "npm install && cd configure && npm install && npm run build",
   "builds": [
     {
       "src": "addon.js",
@@ -7,6 +8,10 @@
     }
   ],
   "routes": [
+    {
+      "src": "/configure/(.*)",
+      "dest": "/addon.js"
+    },
     {
       "src": "/(.*)",
       "dest": "/addon.js"

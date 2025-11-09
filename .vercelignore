@@ -1,0 +1,54 @@
+# Node modules
+node_modules/
+
+# Development files
+*.md
+.git
+.gitignore
+.DS_Store
+
+# Documentation and guides
+BILOSTA-SYNC.md
+COMPARISON.md
+CONTENT-REORGANIZATION.md
+GITHUB-ACTIONS.md
+QUICKSTART-SYMLINKS.md
+SETUP-COMPLETE.md
+SYMLINK-MANAGEMENT.md
+SYNC-IMPLEMENTATION.md
+TMDB-INTEGRATION.md
+TMDB-MAPPING-STATUS.md
+TMDB-MAPPING-WORKFLOW.md
+TMDB-SCRAPING.md
+
+# Archive folder
+archive/
+
+# Scripts not needed for production
+scripts/
+
+# Source files for configure app (dist is included)
+configure/src/
+configure/node_modules/
+configure/package.json
+configure/postcss.config.js
+configure/tailwind.config.js
+configure/vite.config.js
+
+# Build artifacts
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Procfile (Heroku specific)
+Procfile
+
+# Other addons
+addon-tmdb-catalogs.js
+addon-tmdb-enhanced.js
+build-exyu-metadata.js
+filter-balkan-only.js
+import-baubau-content.js
+reorganize-plex-style.js
+scrape-tmdb-metadata.js

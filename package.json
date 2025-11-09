@@ -11,6 +11,7 @@
     "start:old": "node addon.js",
     "start:tmdb": "node addon-tmdb-catalogs.js",
     "start:enhanced": "node addon-tmdb-enhanced.js",
+    "build": "cd configure && npm install && npm run build",
     "dev": "nodemon addon-enhanced.js",
     "dev:tmdb": "nodemon addon-tmdb-catalogs.js",
     "dev:enhanced": "nodemon addon-tmdb-enhanced.js",
