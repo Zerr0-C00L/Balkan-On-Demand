@@ -1,0 +1,1802 @@
+[
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2V4eXUvUm9kYS5tcDQ",
+    "oldName": "Roda",
+    "newName": "The Stork",
+    "tmdbId": 1351063
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2V4eXUvRHJhdmEubXA0",
+    "oldName": "Drava",
+    "newName": "Drava Doesn't Surrender",
+    "tmdbId": 1505938
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2V4eXUvVm9samFTaW5vdmxqZXZhLm1wNA",
+    "oldName": "Volja Sinovljeva",
+    "newName": "Son's Will",
+    "tmdbId": 687238
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2V4eXUvUHJvc2xhdmEubXA0",
+    "oldName": "Proslava",
+    "newName": "Celebration",
+    "tmdbId": 1261060
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZmlsbW92aS8wMGRtYy9CYXVrLm1wNA",
+    "oldName": "Bauk",
+    "newName": "The Erl-King",
+    "tmdbId": 1160614
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZmlsbW92aS8wMGRtYy9OYWtvbkxqZXRhLm1wNA",
+    "oldName": "Nakon Ljeta",
+    "newName": "My Late Summer",
+    "tmdbId": 1199651
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZmlsbW92aS8wMGRtYy9TdHJhdmljbm8ubXA0",
+    "oldName": "Stravicno",
+    "newName": "Horrible",
+    "tmdbId": 1327689
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZmlsbW92aS8wMGRtYy9SdXNraUtvbnp1bC5tcDQ",
+    "oldName": "Ruski Konzul",
+    "newName": "Russian Consul",
+    "tmdbId": 1252874
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZmlsbW92aS8wMGRtYy9QbGFuZXRhNzY5My5tcDQ",
+    "oldName": "Planeta 7693",
+    "newName": "Planet 7693",
+    "tmdbId": 1030600
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZmlsbW92aS8wMGRtYy9MYXphcmV2UHV0Lm1wNA",
+    "oldName": "Lazarev Put",
+    "newName": "Lazarus Path",
+    "tmdbId": 1160639
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZmlsbW92aS8wMGRtYy9aYURhbmFzVG9saWtvLm1wNA",
+    "oldName": "Za Danas Toliko",
+    "newName": "That's It for Today",
+    "tmdbId": 1160624
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZmlsbW92aS8wMGRtYy9NZWdkYW4ubXA0",
+    "oldName": "Megdan",
+    "newName": "Megdan: Between Water and Fire",
+    "tmdbId": 1314889
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZmlsbW92aS8wMGRtYy9WaWRlb3Rla2EubXA0",
+    "oldName": "Videoteka",
+    "newName": "Videotheque",
+    "tmdbId": 1160594
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9Kb3Jnb3ZhbmkubXA0",
+    "oldName": "Jorgovani",
+    "newName": "Lilacs",
+    "tmdbId": 1248783
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9HZXBlay5tcDQ",
+    "oldName": "Gepek",
+    "newName": "Gepack",
+    "tmdbId": 1229164
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9zaW1vbmEubXA0",
+    "oldName": "simona",
+    "newName": "Sweet Simona",
+    "tmdbId": 1231758
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2tpc2EubWt2",
+    "oldName": "kisa",
+    "newName": "If It Doesn't Rain",
+    "tmdbId": 1154947
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9sZXBzdmV0Lm1rdg",
+    "oldName": "lepsvet",
+    "newName": "What a Wonderful World",
+    "tmdbId": 1024403
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9hbWFuZXQubWt2",
+    "oldName": "Amanet",
+    "newName": "Legacy",
+    "tmdbId": 364714
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9hcHNvbHV0bmloLnN0by5ta3Y",
+    "oldName": "apsolutnih.sto",
+    "newName": "Absolute Hundred",
+    "tmdbId": 44183
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9hc2ltZXRyaWphLm1wNA",
+    "oldName": "Asimetrija",
+    "newName": "Asymmetry",
+    "tmdbId": 637204
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9hdG9tc2tpLnpkZXNuYS5tcDQ",
+    "oldName": "atomski.zdesna",
+    "newName": "From Zero to Hero",
+    "tmdbId": 269576
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9iYWNpc2VuYXBvZC5ta3Y",
+    "oldName": "Baci Se Na Pod",
+    "newName": "Kick and Scream",
+    "tmdbId": 1007013
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL0JhbGthbjIuYXZp",
+    "oldName": "Balkan2",
+    "newName": "Balkan Express 2",
+    "tmdbId": 54661
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2JhbGthbnNrYS5tZWRqYS5ta3Y",
+    "oldName": "balkanska.medja",
+    "newName": "Balkan Line",
+    "tmdbId": 517093
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2JhbGthbnNrYS5wcmF2aWxhLmF2aQ",
+    "oldName": "balkanska.pravila",
+    "newName": "Balkan Rules",
+    "tmdbId": 266807
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci9zcGlqdW4ubWt2",
+    "oldName": "spijun",
+    "newName": "Balkan Spy",
+    "tmdbId": 31400
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9uZXJldHZhLm1rdg",
+    "oldName": "neretva",
+    "newName": "The Battle of Neretva",
+    "tmdbId": 34449
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9ibGVkaS5tZXNlYy5hdmk",
+    "oldName": "bledi.mesec",
+    "newName": "Waning Moon",
+    "tmdbId": 478072
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9ib2cuamUudW1yby51emFsdWQuYXZp",
+    "oldName": "bog.je.umro.uzalud",
+    "newName": "God Died in Vain",
+    "tmdbId": 502478
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9ib2oubmEua29zb3Z1Lm1rdg",
+    "oldName": "boj.na.kosovu",
+    "newName": "The Bells of Notre Dame: The Battle of Kosovo",
+    "tmdbId": 930862
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9ib2tzZXJpLmlkdS51LnJhai5hdmk",
+    "oldName": "bokseri.idu.u.raj",
+    "newName": "Boxers Go to Heaven",
+    "tmdbId": 230548
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci9iei5ta3Y",
+    "oldName": "bz",
+    "newName": "Better Life",
+    "tmdbId": 794162
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2J1bWVyYW5nLmF2aQ",
+    "oldName": "bumerang",
+    "newName": "Boomerang",
+    "tmdbId": 11066
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9ib3JhLnBvZC5va3VwYWNpam9tLmF2aQ",
+    "oldName": "bora.pod.okupacijom",
+    "newName": "Bora Under Occupation",
+    "tmdbId": 1026840
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9icmV6YS5ta3Y",
+    "oldName": "Breza",
+    "newName": "The Birch Tree",
+    "tmdbId": 262220
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9icm9kLnBsb3ZpLnphLnNhbmdhai5ta3Y",
+    "oldName": "brod.plovi.za.sangaj",
+    "newName": "Ship Floats to Shanghai",
+    "tmdbId": 283433
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9idWxldmFyLnJldm9sdWNpamUuYXZp",
+    "oldName": "bulevar.revolucije",
+    "newName": "Boulevard of the Revolution",
+    "tmdbId": 110358
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9idXJkdXMubWt2",
+    "oldName": "Burdus",
+    "newName": "Burdush",
+    "tmdbId": 338465
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9idXJlLmJhcnV0YS5ta3Y",
+    "oldName": "bure.baruta",
+    "newName": "Cabaret Balkan",
+    "tmdbId": 47144
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9jYW8uaW5zcGVrdG9yZS5tcDQ",
+    "oldName": "cao.inspektore",
+    "newName": "Hi, Inspector",
+    "tmdbId": 266060
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9jYXZrYS5hdmk",
+    "oldName": "Cavka",
+    "newName": "Blackbird",
+    "tmdbId": 266677
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9rYWpjZS5ta3Y",
+    "oldName": "kajce",
+    "newName": "Wait for Me and I Will Come",
+    "tmdbId": 1165054
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9jZXR2cnRpLmNvdmVrLm1wNA",
+    "oldName": "cetvrti.covek",
+    "newName": "The Fourth Man",
+    "tmdbId": 26836
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9jaXR1bGphLnphLmVza29iYXJhLm1wNA",
+    "oldName": "citulja.za.eskobara",
+    "newName": "Obituary for Escobar",
+    "tmdbId": 33580
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9jcm5hLnpvcmljYS5hdmk",
+    "oldName": "crna.zorica",
+    "newName": "Loveless Zoritsa",
+    "tmdbId": 110911
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9jcm5pLmJvbWJhcmRlci5hdmk",
+    "oldName": "crni.bombarder",
+    "newName": "The Black Bomber",
+    "tmdbId": 109143
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9jcm5pLmdydWphLm1wNA",
+    "oldName": "crni.gruja",
+    "newName": "Black Gruja and the Stone of Wisdom",
+    "tmdbId": 33581
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL0N1ZG90dm9ybmkuTWFjLi5hdmk",
+    "oldName": "Cudotvorni.Mac.",
+    "newName": "The Magic Sword",
+    "tmdbId": 266079
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci9jcHV6cC5ta3Y",
+    "oldName": "cpuzp",
+    "newName": "The Beach Guard in Winter",
+    "tmdbId": 109678
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvamFja2llLzQ5MzQ5Lm1rdg",
+    "oldName": "49349",
+    "newName": "Guardians of the Formula",
+    "tmdbId": 1147335
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9kYXJhLm1wNA",
+    "oldName": "dara",
+    "newName": "Dara of Jasenovac",
+    "tmdbId": 733740
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9kYXZpdGVsanByb3Rpdi5tcDQ",
+    "oldName": "daviteljprotiv",
+    "newName": "Strangler vs Strangler",
+    "tmdbId": 15203
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9kZXNldC51LnBvbGEubWt2",
+    "oldName": "deset.u.pola",
+    "newName": "Not So Friendly Neighborhood Affair",
+    "tmdbId": 886849
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9EZXZvamFja29WZWNlLm1rdg",
+    "oldName": "Devojacko Vece",
+    "newName": "Girls Night Out",
+    "tmdbId": 1267791
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9ERVZPSktBLm1rdg",
+    "oldName": "Devojka",
+    "newName": "The Girl",
+    "tmdbId": 267211
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9kaXZsamFjaS5ta3Y",
+    "oldName": "Divljaci",
+    "newName": "Savages",
+    "tmdbId": 553472
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9kamVjYWNpLm1rdg",
+    "oldName": "djecaci",
+    "newName": "The Boys from Marx and Engels Street",
+    "tmdbId": 293120
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9kamVkaWJha2FzZXJhc3RhanUubXA0",
+    "oldName": "Djed I Baka Se Rastaju",
+    "newName": "Grandpa and Grandma Are Getting Divorced",
+    "tmdbId": 378375
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2RuZXZuaWsuZGlhbmUuYnVkaXNhdmxqZXZpYy5tcDQ",
+    "oldName": "dnevnik.diane.budisavljevic",
+    "newName": "The Diary of Diana B.",
+    "tmdbId": 619239
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9wYXVsaW5hLm1rdg",
+    "oldName": "paulina",
+    "newName": "The Diary of Paulina P.",
+    "tmdbId": 1104601
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2RvLmtvc2tlLmF2aQ",
+    "oldName": "do.koske",
+    "newName": "Rage",
+    "tmdbId": 109035
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9EVi5tcDQ",
+    "oldName": "DV",
+    "newName": "Volunteers",
+    "tmdbId": 70522
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9kb2t0b3IubWxhZGVuLm1rdg",
+    "oldName": "doktor.mladen",
+    "newName": "Doctor Mladen",
+    "tmdbId": 409396
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9kb20uemEudmVzYW5qZS5ta3Y",
+    "oldName": "dom.za.vesanje",
+    "newName": "Time of the Gypsies",
+    "tmdbId": 20123
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9kcnVnYXJjaW5lLmF2aQ",
+    "oldName": "Drugarcine",
+    "newName": "The Pals",
+    "tmdbId": 365356
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9kcnV6YmEucGVyZS5rdnJ6aWNlLm1rdg",
+    "oldName": "druzba.pere.kvrzice",
+    "newName": "Pero the Lump's Gang",
+    "tmdbId": 221241
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9kdmEuc2F0YS5rdmFsaXRldG5vZy5wcm9ncmFtYS5hdmk",
+    "oldName": "dva.sata.kvalitetnog.programa",
+    "newName": "Two Hours of Quality TV Program",
+    "tmdbId": 268352
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9kdm9ib2oubWt2",
+    "oldName": "dvoboj",
+    "newName": "The South Railway Battle",
+    "tmdbId": 159065
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9kemVtLm1rdg",
+    "oldName": "dzem",
+    "newName": "Caviar Jelly",
+    "tmdbId": 1024405
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL0VraXBhLjIwMTkubXA0",
+    "oldName": "Ekipa.2019",
+    "newName": "The Crew",
+    "tmdbId": 635694
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9mYWxzaWZpa2F0b3IuYXZp",
+    "oldName": "Falsifikator",
+    "newName": "Falsifier",
+    "tmdbId": 226286
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9nYXJidXJhLm1rdg",
+    "oldName": "Garbura",
+    "newName": "Carbide",
+    "tmdbId": 1007690
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9HbGF2YS5WZWxpa2UuUmliZS4yMDIyLm1rdg",
+    "oldName": "Glava.Velike.Ribe.2022",
+    "newName": "The Head of a Big Fish",
+    "tmdbId": 1008082
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9nbHV2aS5iYXJ1dC5ta3Y",
+    "oldName": "gluvi.barut",
+    "newName": "Silent Gunpowder",
+    "tmdbId": 110575
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9nby53ZXN0Lm1rdg",
+    "oldName": "go.west",
+    "newName": "Go West",
+    "tmdbId": 33015
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2dvcmNpbG8ubXA0",
+    "oldName": "gorcilo",
+    "newName": "Gorcilo - Did You Come to See Me?",
+    "tmdbId": 396408
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2dydWRpLm1wNA",
+    "oldName": "Grudi",
+    "newName": "Real Steel",
+    "tmdbId": 39254
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9ndWNhLm1rdg",
+    "oldName": "Guca",
+    "newName": "Guca - The Capital of the Trumpet",
+    "tmdbId": 1352457
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2hhamRlLmRhLnNlLnZvbGltbzIubWt2",
+    "oldName": "hajde.da.se.volimo2",
+    "newName": "Let's Make Love 2",
+    "tmdbId": 316415
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9IYWpkZS5kYS5zZS52b2xpbW8uSUlJLi5ta3Y",
+    "oldName": "Hajde.da.se.volimo.III.",
+    "newName": "Let's Make Love 3",
+    "tmdbId": 316417
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9IZXJvamkubWt2",
+    "oldName": "Heroji",
+    "newName": "Working Class Heroes",
+    "tmdbId": 928360
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9ob3RlbC5iZ2QubWt2",
+    "oldName": "hotel.bgd",
+    "newName": "Hotel Belgrade",
+    "tmdbId": 592717
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9pLmJvZy5zdHZvcmkua2FmYW5za3UucGV2YWNpY3UuYXZp",
+    "oldName": "i.bog.stvori.kafansku.pevacicu",
+    "newName": "And God Created a Tavern Singer",
+    "tmdbId": 336306
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2lkZXMuaWRlbS5ta3Y",
+    "oldName": "ides.idem",
+    "newName": "Go, Went, Gone",
+    "tmdbId": 721266
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9pbWUubmFyb2RhLm1wNA",
+    "oldName": "ime.naroda",
+    "newName": "In the Name of the People",
+    "tmdbId": 365486
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS80MTM0OS5ta3Y",
+    "oldName": "41349",
+    "newName": "Indigo Crystal",
+    "tmdbId": 945182
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL0l2a292YS5zbGF2YS5hdmk",
+    "oldName": "Ivkova.slava",
+    "newName": "Ivko's Feast",
+    "tmdbId": 55125
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9pemFrYW1lcmUubWt2",
+    "oldName": "Iza Kamere",
+    "newName": "Behind the Camera",
+    "tmdbId": 1122031
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9JemJhdml0ZWxqLm1rdg",
+    "oldName": "Izbavitelj",
+    "newName": "The Rat Savior",
+    "tmdbId": 169250
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2l6YnJpc2FuYS5ta3Y",
+    "oldName": "Izbrisana",
+    "newName": "Erased",
+    "tmdbId": 552934
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9qYWdvZGEudS5zdXBlcm1hcmtldHUubWt2",
+    "oldName": "jagoda.u.supermarketu",
+    "newName": "Strawberry in the Supermarket",
+    "tmdbId": 11373
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2phZ3Vhcm92cy5tcDQ",
+    "oldName": "jaguarovs",
+    "newName": "Jaguar Jump",
+    "tmdbId": 330834
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS8xbmExLmF2aQ",
+    "oldName": "1na1",
+    "newName": "A Day on the Drina",
+    "tmdbId": 553865
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9qZXNlbi5zYW11cmFqYS5ta3Y",
+    "oldName": "jesen.samuraja",
+    "newName": "The Samurai in Autumn",
+    "tmdbId": 419307
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9KT1AubWt2",
+    "oldName": "JOP",
+    "newName": "This Time Only",
+    "tmdbId": 331289
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2p1em5pLnZldGFyLm1wNA",
+    "oldName": "juzni.vetar",
+    "newName": "South Wind 3: Gas geben",
+    "tmdbId": 1335784
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS91YnJ6YW5qZS5tcDQ",
+    "oldName": "ubrzanje",
+    "newName": "South Wind 2: Speed Up",
+    "tmdbId": 635702
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9rYWQubGp1YmF2Lnpha2FzbmkubWt2",
+    "oldName": "kad.ljubav.zakasni",
+    "newName": "Love Isn't Always on Time",
+    "tmdbId": 339240
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9rZW5ndXIubWt2",
+    "oldName": "kengur",
+    "newName": "When I Grow Up, I'll Be a Kangaroo",
+    "tmdbId": 55135
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9rYWtvLmplLnBvY2VvLnJhdC5uYS5tb20ub3Rva3UubXA0",
+    "oldName": "kako.je.poceo.rat.na.mom.otoku",
+    "newName": "How the War Started on My Island",
+    "tmdbId": 40890
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci9rcHJuci5ta3Y",
+    "oldName": "kprnr",
+    "newName": "The Fall of Rock and Roll",
+    "tmdbId": 33587
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci9rc3N1b2kubWt2",
+    "oldName": "kssuoi",
+    "newName": "How I Was Systematically Destroyed by Idiots",
+    "tmdbId": 230570
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9ST01FT0lKVUxJSkEubWt2",
+    "oldName": "ROMEOIJULIJA",
+    "newName": "How Romeo and Juliet Loved Each Other",
+    "tmdbId": 265548
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9rYW1pb25kemlqZS5tcDQ",
+    "oldName": "kamiondzije",
+    "newName": "Truckers Ride Again",
+    "tmdbId": 263964
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9zZWNlci5ta3Y",
+    "oldName": "secer",
+    "newName": "Like Sugar on a Wound",
+    "tmdbId": 1130040
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9rYXJhZGpvcmRqZXZhLnNtcnQubXA0",
+    "oldName": "karadjordjeva.smrt",
+    "newName": "The Death of Black George",
+    "tmdbId": 460175
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2thcmF1bGEubWt2",
+    "oldName": "Karaula",
+    "newName": "The Border Post",
+    "tmdbId": 33591
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9rbGp1Yy5ta3Y",
+    "oldName": "Kljuc",
+    "newName": "The Key",
+    "tmdbId": 1225848
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9LTE9QS0EubWt2",
+    "oldName": "KLOPKA",
+    "newName": "The Trap",
+    "tmdbId": 4352
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9rbG9wa2EuemEuZ2VuZXJhbGEubWt2",
+    "oldName": "klopka.za.generala",
+    "newName": "A Trap for the General",
+    "tmdbId": 389251
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci9rdHRwLm1rdg",
+    "oldName": "kttp",
+    "newName": "Who's Singin' Over There?",
+    "tmdbId": 17909
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2tvamEuamUub3ZvLmRyemF2YS5tcDQ",
+    "oldName": "koja.je.ovo.drzava",
+    "newName": "What a Country!",
+    "tmdbId": 581759
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9rb21lZGlqYW5hdHJpLm1rdg",
+    "oldName": "komedijanatri",
+    "newName": "Comedy on Three Floors",
+    "tmdbId": 1024407
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9rb25jZW50cmlzaS5zZS5iYWJhLm1rdg",
+    "oldName": "koncentrisi.se.baba",
+    "newName": "Focus, Grandma",
+    "tmdbId": 731827
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9rb25qYW5pay5tcDQ",
+    "oldName": "Konjanik",
+    "newName": "The Horseman",
+    "tmdbId": 33598
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2tvcmlkb3IubWt2",
+    "oldName": "koridor",
+    "newName": "Corridor 92",
+    "tmdbId": 786471
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2tvemplLnVzaS5ta3Y",
+    "oldName": "kozje.usi",
+    "newName": "Out of the Woods",
+    "tmdbId": 477098
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL3BldGFyLm1rdg",
+    "oldName": "petar",
+    "newName": "King Petar the First",
+    "tmdbId": 560910
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9LcmF0a2kuSXpsZXQubWt2",
+    "oldName": "Kratki.Izlet",
+    "newName": "A Brief Excursion",
+    "tmdbId": 432794
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9rdXBpLm1pLmVsaW90YS5hdmk",
+    "oldName": "kupi.mi.eliota",
+    "newName": "Buy Me an Eliot",
+    "tmdbId": 478433
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2xhamFuamUubmEuenZlemRlLm1rdg",
+    "oldName": "lajanje.na.zvezde",
+    "newName": "Barking at the Stars",
+    "tmdbId": 55138
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci9sc2xnLm1rdg",
+    "oldName": "lslg",
+    "newName": "Pretty Village, Pretty Flame",
+    "tmdbId": 29927
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci9scC5ta3Y",
+    "oldName": "lp",
+    "newName": "The Beauty of Vice",
+    "tmdbId": 4560
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9sZXRvLm1rdg",
+    "oldName": "leto",
+    "newName": "How I Learned to Fly",
+    "tmdbId": 932083
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9MSklNLm1rdg",
+    "oldName": "LJIM",
+    "newName": "Love and Fashion",
+    "tmdbId": 265703
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9QVFQubWt2",
+    "oldName": "PTT",
+    "newName": "Love Affair, or the Case of the Missing Switchboard Operator",
+    "tmdbId": 42696
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci9sanpidC5ta3Y",
+    "oldName": "ljzbt",
+    "newName": "The Love Life of Budimir Trajković",
+    "tmdbId": 33603
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9sZzEubWt2",
+    "oldName": "lg1",
+    "newName": "Foolish Years",
+    "tmdbId": 55111
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9sZzIubWt2",
+    "oldName": "lg2",
+    "newName": "The Time Has Come for Love to Try",
+    "tmdbId": 55113
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9sZzQubWt2",
+    "oldName": "lg4",
+    "newName": "Like Grandpa, Like Grandson",
+    "tmdbId": 55116
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9sZzUubWt2",
+    "oldName": "lg5",
+    "newName": "Come to Me and Go from Me",
+    "tmdbId": 55117
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9sZzYubWt2",
+    "oldName": "lg6",
+    "newName": "What Happens When Love Comes to Town",
+    "tmdbId": 55118
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9sZzcubWt2",
+    "oldName": "lg7",
+    "newName": "Zika's Dynasty",
+    "tmdbId": 55119
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9sZzgubWt2",
+    "oldName": "lg8",
+    "newName": "Second Žika's Dynasty",
+    "tmdbId": 55120
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9sZzkubWt2",
+    "oldName": "lg9",
+    "newName": "Weird Years",
+    "tmdbId": 55121
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9sZzEwLm1rdg",
+    "oldName": "lg10",
+    "newName": "Žika's Marriage",
+    "tmdbId": 55122
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL21hLm5pamUub24udGFrYXYubWt2",
+    "oldName": "ma.nije.on.takav",
+    "newName": "He Ain't Like That",
+    "tmdbId": 110942
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9tYWdhcmVjZS5nb2RpbmUubWt2",
+    "oldName": "magarece.godine",
+    "newName": "The Awkward Age",
+    "tmdbId": 341579
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9tYWxhLnBsamFja2Eudmxha2EuYXZp",
+    "oldName": "mala.pljacka.vlaka",
+    "newName": "Small Train Robbery",
+    "tmdbId": 317177
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9NYWxpLkJ1ZG8ubWt2",
+    "oldName": "Mali.Budo",
+    "newName": "Little Buddho",
+    "tmdbId": 296340
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9tYWxpLnN2ZXQubWt2",
+    "oldName": "mali.svet",
+    "newName": "Small World",
+    "tmdbId": 109040
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci9tYXJhdG9uY2kubWt2",
+    "oldName": "maratonci",
+    "newName": "The Marathon Family",
+    "tmdbId": 29450
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9tYXJlLm1wNA",
+    "oldName": "Mare",
+    "newName": "The Mare",
+    "tmdbId": 437616
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9tYXJnaW5hbGNpLm1rdg",
+    "oldName": "Marginalci",
+    "newName": "Outsiders",
+    "tmdbId": 1045337
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci9tbmQubWt2",
+    "oldName": "mnd",
+    "newName": "March on the River Drina",
+    "tmdbId": 230648
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9tYXJzYWwubWt2",
+    "oldName": "Marsal",
+    "newName": "Marshal Tito's Spirit",
+    "tmdbId": 194941
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL21laGFuaXphbS5hdmk",
+    "oldName": "Mehanizam",
+    "newName": "Mechanism",
+    "tmdbId": 110370
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9tZXRhay51LmxlZGphLmF2aQ",
+    "oldName": "metak.u.ledja",
+    "newName": "Bullet in the Back",
+    "tmdbId": 978063
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9NZXRhc3RhemUubXA0",
+    "oldName": "Metastaze",
+    "newName": "Metastases",
+    "tmdbId": 45341
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci9tbmEubWt2",
+    "oldName": "mna",
+    "newName": "We Are Not Angels",
+    "tmdbId": 33604
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9NaW5pc3RhcnN0dm8uTGp1YmF2aS5ta3Y",
+    "oldName": "Ministarstvo.Ljubavi",
+    "newName": "Ministry of Love",
+    "tmdbId": 425247
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9taXJpcy5kdW5qYS5ta3Y",
+    "oldName": "miris.dunja",
+    "newName": "Scent of Quinces",
+    "tmdbId": 332198
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9taXN0ZXJkb2xhci5tcDQ",
+    "oldName": "Mister Dolar",
+    "newName": "Mister Dollar",
+    "tmdbId": 930854
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9SVVpBLm1rdg",
+    "oldName": "RUZA",
+    "newName": "Young and Healthy as a Rose",
+    "tmdbId": 62067
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL01vai5kaWRhLmplLnBhby5zLk1hcnNhLm1wNA",
+    "oldName": "Moj.dida.je.pao.s.Marsa",
+    "newName": "My Grandpa is an Alien",
+    "tmdbId": 506517
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9tb2phLmx1ZGEuZ2xhdmEuYXZp",
+    "oldName": "moja.luda.glava",
+    "newName": "My Crazy Head",
+    "tmdbId": 395738
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9tb21ha2lkZXZvamtlLm1rdg",
+    "oldName": "Momak i devojke",
+    "newName": "Boy and Girls",
+    "tmdbId": 1154942
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL21vbnRldmlkZW8uYm9nLnRlLnZpZGVvLm1wNA",
+    "oldName": "montevideo.bog.te.video",
+    "newName": "Montevideo, God Bless You!",
+    "tmdbId": 57419
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL21vbnRldmlkZW8yLm1rdg",
+    "oldName": "montevideo2",
+    "newName": "See You in Montevideo",
+    "tmdbId": 255647
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9tcmFrLm1rdg",
+    "oldName": "Mrak",
+    "newName": "Bleakness",
+    "tmdbId": 565438
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL21ydGF2LmxhZGFuLm1rdg",
+    "oldName": "mrtav.ladan",
+    "newName": "Frozen Stiff",
+    "tmdbId": 15303
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL211bmplLmF2aQ",
+    "oldName": "Munje",
+    "newName": "Munjya",
+    "tmdbId": 1187058
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9tdW5qZTIubWt2",
+    "oldName": "munje2",
+    "newName": "Dudes Again!",
+    "tmdbId": 987598
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci9uay5ta3Y",
+    "oldName": "nk",
+    "newName": "National Class Category Up to 785ccm",
+    "tmdbId": 144973
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9uYWpib2xqaS5ta3Y",
+    "oldName": "Najbolji",
+    "newName": "The Best",
+    "tmdbId": 375920
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9uYXRhc2EubXA0",
+    "oldName": "Natasa",
+    "newName": "Natasha",
+    "tmdbId": 398420
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9lbmdsZXppLm1rdg",
+    "oldName": "englezi",
+    "newName": "Don't Bet on the Brits",
+    "tmdbId": 1120167
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9uZWJlc2EubWt2",
+    "oldName": "Nebesa",
+    "newName": "Heavens Above",
+    "tmdbId": 741694
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9uZWNpc3RhLmtydi5ta3Y",
+    "oldName": "necista.krv",
+    "newName": "Bad Blood",
+    "tmdbId": 865561
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvbWFyYXRvbi82MTMyMS5ta3Y",
+    "oldName": "61321",
+    "newName": "Mothering Sunday",
+    "tmdbId": 718838
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9uZWtvLm1lLmlwYWsuY2VrYS5hdmk",
+    "oldName": "neko.me.ipak.ceka",
+    "newName": "Someone Is Still Waiting",
+    "tmdbId": 554864
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL25lbWEucHJvYmxlbWEubXA0",
+    "oldName": "nema.problema",
+    "newName": "No Problem",
+    "tmdbId": 502370
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9uZXBvc2x1c25pLm1wNA",
+    "oldName": "Neposlusni",
+    "newName": "The Disobedient",
+    "tmdbId": 245856
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9zbGF0a28ubWt2",
+    "oldName": "slatko",
+    "newName": "Something Sweet",
+    "tmdbId": 963945
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9uaS5uYS5uZWJ1Lm5pLm5hLnplbWxqaS5ta3Y",
+    "oldName": "ni.na.nebu.ni.na.zemlji",
+    "newName": "In the Middle of Nowhere",
+    "tmdbId": 283415
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9Ob01hbnNMYW5kLm1rdg",
+    "oldName": "NoMansLand",
+    "newName": "No Man's Land",
+    "tmdbId": 8342
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL25pZ2RlLm1rdg",
+    "oldName": "Nigde",
+    "newName": "Nowhere",
+    "tmdbId": 478432
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9OaWplLmxha28uc2EubXVza2FyY2ltYS5hdmk",
+    "oldName": "Nije.lako.sa.muskarcima",
+    "newName": "It Isn't Easy to Get Along with Men",
+    "tmdbId": 225713
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9Ob2MuVS5LdWNpLk1vamUuTWFqa2UuMTk5MS5hdmk",
+    "oldName": "Noc.U.Kuci.Moje.Majke.1991",
+    "newName": "A Night at My Mother's House",
+    "tmdbId": 601914
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9Ob3ouYXZp",
+    "oldName": "Noz",
+    "newName": "The Knife",
+    "tmdbId": 266510
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9vYXphLm1wNA",
+    "oldName": "Oaza",
+    "newName": "Oasis",
+    "tmdbId": 461899
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9va3VwYWNpamEubXA0",
+    "oldName": "okupacija",
+    "newName": "Occupation in 26 Pictures",
+    "tmdbId": 198509
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL29uYS52b2xpLnp2ZXpkdS5hdmk",
+    "oldName": "ona.voli.zvezdu",
+    "newName": "She Likes Red Star",
+    "tmdbId": 110371
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9vcGtvbGplbmkubWt2",
+    "oldName": "Opkoljeni",
+    "newName": "Besieged",
+    "tmdbId": 873962
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci9vcmwubWt2",
+    "oldName": "orl",
+    "newName": "Eagles Fly Early",
+    "tmdbId": 266461
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9PcnRhY2kubWt2",
+    "oldName": "Ortaci",
+    "newName": "Pals",
+    "tmdbId": 508986
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9vdGFjLm1rdg",
+    "oldName": "Otac",
+    "newName": "The Father",
+    "tmdbId": 1248724
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9vdGFjLm5hLnNsdXpiZW5vbS5wdXR1Lm1rdg",
+    "oldName": "otac.na.sluzbenom.putu",
+    "newName": "When Father Was Away on Business",
+    "tmdbId": 21042
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9wdXQubWt2",
+    "oldName": "put",
+    "newName": "Where the Road Leads",
+    "tmdbId": 1065303
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9vemFsb3NjZW5hLnBvcm9kaWNhLmF2aQ",
+    "oldName": "ozaloscena.porodica",
+    "newName": "Bereaved Family",
+    "tmdbId": 809751
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9wYXJhZGEubWt2",
+    "oldName": "Parada",
+    "newName": "The Parade",
+    "tmdbId": 81534
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL1BhcnRpemFuc2thIGVza2FkcmlsYS5ta3Y",
+    "oldName": "Partizanska Eskadrila",
+    "newName": "The Battle of the Eagles",
+    "tmdbId": 202433
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci9wa3Z2Lm1rdg",
+    "oldName": "pkvv",
+    "newName": "The Dog Who Loved Trains",
+    "tmdbId": 109674
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL3BhdHVsamNpLnNhLm5hc2xvdm5paC5zdHJhbmEubWt2",
+    "oldName": "patuljci.sa.naslovnih.strana",
+    "newName": "Front Page Midgets",
+    "tmdbId": 499431
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9wZWp6YXppLnUubWFnbGkubWt2",
+    "oldName": "pejzazi.u.magli",
+    "newName": "Landscapes in the Mist",
+    "tmdbId": 267201
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9wZW5hbC5ta3Y",
+    "oldName": "penal",
+    "newName": "The Penalty Kick and Sexual Life of Ana Dj.",
+    "tmdbId": 1115179
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS91bmRlcmdyb3VuZC5ta3Y",
+    "oldName": "underground",
+    "newName": "Havoc",
+    "tmdbId": 668489
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS83OTgxNy5ta3Y",
+    "oldName": "79817",
+    "newName": "Thorn",
+    "tmdbId": 1205312
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9Qb2tvam5pay5tcDQ",
+    "oldName": "Pokojnik",
+    "newName": "The Deceased",
+    "tmdbId": 1194233
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9Qb2x0cm9uLmF2aQ",
+    "oldName": "Poltron",
+    "newName": "Poltroon",
+    "tmdbId": 178501
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL3BvcC5jaXJhLmkucG9wLnNwaXJhLmF2aQ",
+    "oldName": "pop.cira.i.pop.spira",
+    "newName": "Priest Cira and Priest Spira",
+    "tmdbId": 364226
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9wb3Juby5ta3Y",
+    "oldName": "porno",
+    "newName": "Porno Story",
+    "tmdbId": 1024398
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci9wdC5ta3Y",
+    "oldName": "pt",
+    "newName": "Special Treatment",
+    "tmdbId": 76711
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci9wa3VtLm1rdg",
+    "oldName": "pkum",
+    "newName": "The Last Lap at Monza",
+    "tmdbId": 144974
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9Qb3NsZWRuamkudmFsY2VyLnUuU2FyYWpldnUuYXZp",
+    "oldName": "Poslednji.valcer.u.Sarajevu",
+    "newName": "The Last Waltz in Sarajevo",
+    "tmdbId": 474457
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9wcmF6bmlrcmFkYS5ta3Y",
+    "oldName": "Praznik Rada",
+    "newName": "May Labor Day",
+    "tmdbId": 1011872
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9QUkVLT0JST0pOQS5ta3Y",
+    "oldName": "Prekobrojna",
+    "newName": "Superfluous",
+    "tmdbId": 264016
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9Qcm9mZXNpb25hbGFjLm1rdg",
+    "oldName": "Profesionalac",
+    "newName": "The Professional",
+    "tmdbId": 55130
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL3Byb2xlY2UubmEucG9zbGVkbmplbS5qZXplcnUubWt2",
+    "oldName": "prolece.na.poslednjem.jezeru",
+    "newName": "Spring on the Last Lake",
+    "tmdbId": 682119
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL3BzaS51bWlydS5zYW1pLm1wNA",
+    "oldName": "psi.umiru.sami",
+    "newName": "Dogs Die Alone",
+    "tmdbId": 581414
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9QdW4ubWVzZWMubmFkLmJlb2dyYWRvbS5ta3Y",
+    "oldName": "Pun.mesec.nad.beogradom",
+    "newName": "Full Moon Over Belgrade",
+    "tmdbId": 269174
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9wdW4ubWplc2VjLm1wNA",
+    "oldName": "pun.mjesec",
+    "newName": "Full Moon",
+    "tmdbId": 647264
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9wbHVjaW1hLm1rdg",
+    "oldName": "plucima",
+    "newName": "High on Life",
+    "tmdbId": 1002415
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS8vRklMTU9WSS9QdXQub2tvLnN2ZXRhLjE5NjQuLmF2aQ",
+    "oldName": "Put.oko.sveta.1964.",
+    "newName": "A Trip Around the World",
+    "tmdbId": 266457
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9haWRhLm1wNA",
+    "oldName": "aida",
+    "newName": "Quo Vadis, Aida?",
+    "tmdbId": 728118
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci9ybm92Lm1rdg",
+    "oldName": "rnov",
+    "newName": "Part-Time Work",
+    "tmdbId": 266569
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL3JhZG92YW4zLm1wNA",
+    "oldName": "radovan3",
+    "newName": "Radovan the Third",
+    "tmdbId": 33614
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9SYW5lLmF2aQ",
+    "oldName": "Rane",
+    "newName": "Raněný lučištník",
+    "tmdbId": 1060627
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yYXR1eml2by5ta3Y",
+    "oldName": "Rat Uzivo",
+    "newName": "War Live",
+    "tmdbId": 77620
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL3JlYWxuYS5wcmljYS5ta3Y",
+    "oldName": "realna.prica",
+    "newName": "Common Story",
+    "tmdbId": 647734
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yc2J6cy5ta3Y",
+    "oldName": "rsbzs",
+    "newName": "Srpska: The Struggle for Freedom",
+    "tmdbId": 806943
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9SaW5nZXJhamEuNzIwcC5tcDQ",
+    "oldName": "Ringeraja.720p",
+    "newName": "Ring a Ring o' Roses",
+    "tmdbId": 161120
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL1NhYmlybmkuY2VudGFyLm1rdi4ubXA0",
+    "oldName": "Sabirni.centar.mkv.",
+    "newName": "Meeting Place",
+    "tmdbId": 196892
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9TQU4ubWt2",
+    "oldName": "San",
+    "newName": "The Dream",
+    "tmdbId": 268856
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9zYXZvdmkubWt2",
+    "oldName": "Savovi",
+    "newName": "Stitches",
+    "tmdbId": 551779
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9TZWRhbS5pcG8ubWt2",
+    "oldName": "Sedam.ipo",
+    "newName": "Seven and a Half",
+    "tmdbId": 110501
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9TZWt1bGEuaW5qZWdvdmUuemVuZS5ta3Y",
+    "oldName": "Sekula.injegove.zene",
+    "newName": "Sekula and His Women",
+    "tmdbId": 338483
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9TZWt1bGEubmV2aW5vLm9wdHV6ZW4ubWt2",
+    "oldName": "Sekula.nevino.optuzen",
+    "newName": "Sekula Innocent Accused",
+    "tmdbId": 463208
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9TZWt1bGEuc2Uub3BldC56ZW5pLm1rdg",
+    "oldName": "Sekula.se.opet.zeni",
+    "newName": "Sekula Is Getting Married Again",
+    "tmdbId": 463205
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL1NlbGphY2kubXA0",
+    "oldName": "Seljaci",
+    "newName": "Peasants",
+    "tmdbId": 478415
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9TZWxqYWNrYS5idW5hLm1rdg",
+    "oldName": "Seljacka.buna",
+    "newName": "Anno Domini 1573",
+    "tmdbId": 268122
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9hdXRvYnVzLm1rdg",
+    "oldName": "autobus",
+    "newName": "Sixth Bus",
+    "tmdbId": 1003871
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci9zbXVwLm1rdg",
+    "oldName": "smup",
+    "newName": "Season of Peace in Paris",
+    "tmdbId": 4571
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9TaWxlLnUudmF6ZHVodS5tcDQ",
+    "oldName": "Sile.u.vazduhu",
+    "newName": "Forces in the Air",
+    "tmdbId": 669545
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL3NpbG9tLm90YWMuYXZp",
+    "oldName": "silom.otac",
+    "newName": "Father by Force",
+    "tmdbId": 325229
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9TaW5vdmNpLmF2aQ",
+    "oldName": "Sinovci",
+    "newName": "Sons of My Brothers",
+    "tmdbId": 112098
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9TaXZpLmthbWlvbi5jcnZlbmUuYm9qZS5hdmk",
+    "oldName": "Sivi.kamion.crvene.boje",
+    "newName": "The Red Colored Grey Truck",
+    "tmdbId": 109587
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci9TLlAubWt2",
+    "oldName": "S.P",
+    "newName": "I Even Met Happy Gypsies",
+    "tmdbId": 59088
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9zb2tvbC5ta3Y",
+    "oldName": "sokol",
+    "newName": "Sokol Did Not Love Him",
+    "tmdbId": 356035
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci9zdi5ta3Y",
+    "oldName": "sv",
+    "newName": "Special Education",
+    "tmdbId": 265686
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9icmtvdmkubWt2",
+    "oldName": "brkovi",
+    "newName": "What Is a Man without a Moustache?",
+    "tmdbId": 319632
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9ib3JlbWlzbGkubWt2",
+    "oldName": "boremisli",
+    "newName": "The Duke and the Poet",
+    "tmdbId": 1170727
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9zdHJzbGplbi5hdmk",
+    "oldName": "Strsljen",
+    "newName": "The Hornet",
+    "tmdbId": 142453
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9zdHVkZW5hYy5tcDQ",
+    "oldName": "Studenac",
+    "newName": "The Well",
+    "tmdbId": 774035
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9TdW1uaml2by5MaWNlLm1rdg",
+    "oldName": "Sumnjivo.Lice",
+    "newName": "A Suspicious Character",
+    "tmdbId": 367521
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9TdXRqZXNrYS5tcDQ",
+    "oldName": "Sutjeska",
+    "newName": "The Battle of Sutjeska",
+    "tmdbId": 143355
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9zdXRyYS5qZS5qb3MudXZlay5qdWxpLm1wNA",
+    "oldName": "sutra.je.jos.uvek.juli",
+    "newName": "Tomorrow Is Still July",
+    "tmdbId": 681899
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9TdmVjYW5hLm9iYXZlemEubWt2",
+    "oldName": "Svecana.obaveza",
+    "newName": "The Honorary Duty",
+    "tmdbId": 505878
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9kamVjYS5ta3Y",
+    "oldName": "djeca",
+    "newName": "The Priest's Children",
+    "tmdbId": 165463
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL1N2ZXRpR2VvcmdpamUubXA0",
+    "oldName": "SvetiGeorgije",
+    "newName": "St. George Shoots the Dragon",
+    "tmdbId": 47435
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL1N2ZXRvLm1lc3RvLi5tcDQ",
+    "oldName": "Sveto.mesto.",
+    "newName": "Holy Place Đorđe Kadijević",
+    "tmdbId": 1487143
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9zdmlsZW5rb25hYy5ta3Y",
+    "oldName": "Svilen Konac",
+    "newName": "Silk Thread",
+    "tmdbId": 1112927
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9TdmlyYWMubXA0",
+    "oldName": "Svirac",
+    "newName": "The Musician",
+    "tmdbId": 1026915
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9UYWpuYS5Qb3JvZGljbm9nLkJsYWdhLm1wNA",
+    "oldName": "Tajna.Porodicnog.Blaga",
+    "newName": "The Secret of Family Treasure",
+    "tmdbId": 478420
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci90ay5ta3Y",
+    "oldName": "tk",
+    "newName": "Taiwan Canasta",
+    "tmdbId": 261510
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL1Rha3NpLmJsdXoubWt2",
+    "oldName": "Taksi.bluz",
+    "newName": "Taxi Blues",
+    "tmdbId": 575102
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS90ZW1yYWNuZW5vY2kubWt2",
+    "oldName": "Te Mracne Noci",
+    "newName": "Those Dark Nights",
+    "tmdbId": 862083
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9UZWdsYS5wdW5hLnZhemR1aGEuYXZp",
+    "oldName": "Tegla.puna.vazduha",
+    "newName": "Jar Full of Air",
+    "tmdbId": 273211
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL3RlcmV0Lm1wNA",
+    "oldName": "Teret",
+    "newName": "The Load",
+    "tmdbId": 519116
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL3Rlc25hLmtvemEyLm1wNA",
+    "oldName": "tesna.koza2",
+    "newName": "Tight Skin 2",
+    "tmdbId": 55131
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9UZXNuYUtvemEzLmF2aQ",
+    "oldName": "Tesna koza 3",
+    "newName": "Tight Skin 3",
+    "tmdbId": 55132
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL3Rlc25hLmtvemE0Lm1wNA",
+    "oldName": "tesna.koza4",
+    "newName": "Tight Skin 4",
+    "tmdbId": 55133
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL3RpdG8uaS5qYS5ta3Y",
+    "oldName": "tito.i.ja",
+    "newName": "Tito and Me",
+    "tmdbId": 41777
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9Ua28ucGpldmEuemxvLm5lLm1pc2xpLm1rdg",
+    "oldName": "Tko.pjeva.zlo.ne.misli",
+    "newName": "One Song a Day Takes Mischief Away",
+    "tmdbId": 221244
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9Ub2Nrb3ZpLmF2aQ",
+    "oldName": "Tockovi",
+    "newName": "People on Wheels",
+    "tmdbId": 526364
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci90a3poLm1rdg",
+    "oldName": "tkzh",
+    "newName": "Three Tickets to Hollywood",
+    "tmdbId": 17913
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci90cHpkYmlyLm1rdg",
+    "oldName": "tpzdbir",
+    "newName": "Three Palms for Two Punks and a Babe",
+    "tmdbId": 109576
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9Ucm9qZS5ta3Y",
+    "oldName": "Troje",
+    "newName": "Girls at Arms 2",
+    "tmdbId": 33941
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9VYmlzdHZvLnMucHJlZHVtaXNsamFqZW0ubWt2",
+    "oldName": "Ubistvo.s.predumisljajem",
+    "newName": "Premeditated Murder",
+    "tmdbId": 284154
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS91ZnVyYWouc2UuaS5wdWtuaS5ta3Y",
+    "oldName": "ufuraj.se.i.pukni",
+    "newName": "Keep Calm and Snap",
+    "tmdbId": 588024
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS91c2Vrb3ZhbmplLm1rdg",
+    "oldName": "Usekovanje",
+    "newName": "The Beheading of St. John the Baptist",
+    "tmdbId": 1010406
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci9WYWx0ZXIubWt2",
+    "oldName": "Valter",
+    "newName": "Walter Defends Sarajevo",
+    "tmdbId": 90617
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9WYW1waXJpLm1rdg",
+    "oldName": "Vampiri",
+    "newName": "Hi, Inspector 2 - Vampires Are Among Us",
+    "tmdbId": 266063
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci92bDY4Lm1rdg",
+    "oldName": "vl68",
+    "newName": "The Elusive Summer of '68",
+    "tmdbId": 148034
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL3ZlYy52aWRqZW5vLmF2aQ",
+    "oldName": "vec.vidjeno",
+    "newName": "Reflections",
+    "tmdbId": 264239
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9WRi5tcDQ",
+    "oldName": "VF",
+    "newName": "The Big Fuss",
+    "tmdbId": 266088
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS8vRklMTU9WSS9WaXJkemluYS4ubXA0",
+    "oldName": "Virdzina.",
+    "newName": "Virgina",
+    "tmdbId": 160126
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci92b2kubWt2",
+    "oldName": "voi",
+    "newName": "More Than a Game",
+    "tmdbId": 1009714
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9WaXNva2kubmFwb24uYXZp",
+    "oldName": "Visoki.napon",
+    "newName": "High Voltage",
+    "tmdbId": 373873
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS92bGFrLm1rdg",
+    "oldName": "vlak",
+    "newName": "Train in the Snow",
+    "tmdbId": 38817
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS8vRklMTU9WSS9WbGF6bm9zdC5tcDQ",
+    "oldName": "Vlaznost",
+    "newName": "Humidity",
+    "tmdbId": 383123
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9WdWtzYW1vdG5qYWsubWt2",
+    "oldName": "Vuk Samotnjak",
+    "newName": "Lone Wolf",
+    "tmdbId": 276711
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS96YWdyZWJhY2tpLmVrdmlub2Npai5ta3Y",
+    "oldName": "zagrebacki.ekvinocij",
+    "newName": "Zagreb Equinox",
+    "tmdbId": 683650
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9aYXNwYW5rYS56YS52b2puaWtlLm1rdg",
+    "oldName": "Zaspanka.za.vojnike",
+    "newName": "Soldier's Lullaby",
+    "tmdbId": 550519
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9aYXZldC5ta3Y",
+    "oldName": "Zavet",
+    "newName": "Závěť podivínova",
+    "tmdbId": 766110
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS96YXN0aXRhLm1rdg",
+    "oldName": "zastita",
+    "newName": "Safety First!",
+    "tmdbId": 1156137
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9abGF0bmEuUHJhY2thLm1rdg",
+    "oldName": "Zlatna.Pracka",
+    "newName": "Golden Slingshot",
+    "tmdbId": 385236
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS96bGF0bmlkZWNrby5tcDQ",
+    "oldName": "Zlatni Decko",
+    "newName": "Golden Boy",
+    "tmdbId": 855844
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9adXJrYS5hdmk",
+    "oldName": "Zurka",
+    "newName": "The Party",
+    "tmdbId": 113058
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9admVyaW5qYWsubXA0",
+    "oldName": "Zverinjak",
+    "newName": "Menagerie",
+    "tmdbId": 509049
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9Vc3RhUHVuYVplbWxqZS5ta3Y",
+    "oldName": "UstaPunaZemlje",
+    "newName": "Mouth Full of Earth",
+    "tmdbId": 1065911
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9sb25hYy5tcDQ",
+    "oldName": "lonac",
+    "newName": "Bosnian Pot",
+    "tmdbId": 1189296
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9vYml0ZWxqLm1wNA",
+    "oldName": "obitelj",
+    "newName": "Holy Family",
+    "tmdbId": 1190691
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS91cHMubXA0",
+    "oldName": "ups",
+    "newName": "Girl Upstairs Who Likes Big Things",
+    "tmdbId": 1223142
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9TYW1vS2FkU2VTbWlqZW0ubXA0",
+    "oldName": "Samo Kad Se Smijem",
+    "newName": "Only When I Laugh",
+    "tmdbId": 1159809
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZmlsbW92aS8wMGRtYy9Jemd1YmxqZW5hWmVtbGphLm1wNA",
+    "oldName": "Izgubljena Zemlja",
+    "newName": "Lost Country",
+    "tmdbId": 999147
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZmlsbW92aS8wMGRtYy9BQmlsaVNtb1ZhbURvYnJpLm1wNA",
+    "oldName": "A Bili Smo Vam Dobri",
+    "newName": "Once We Were Good for You",
+    "tmdbId": 891694
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2NydC9Db3ZwYXMubXA0",
+    "oldName": "Covpas",
+    "newName": "Dog Man",
+    "tmdbId": 774370
+  },
+  {
+    "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2NydC9OZXJhemR2b2puaS5tcDQ",
+    "oldName": "Nerazdvojni",
+    "newName": "The Inseparables",
+    "tmdbId": 1059264
+  }
+]
