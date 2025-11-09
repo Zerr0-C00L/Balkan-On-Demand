@@ -2,6 +2,10 @@
 
 A Stremio addon that provides access to popular movies and TV series from the Balkan region (ex-Yugoslavia).
 
+## ⚠️ Important Disclaimer
+
+This addon aggregates streams from the **BauBau Click Premium** Kodi addon. I do not own, host, or control any of the media content or streams. Users install and use this addon at their own discretion and responsibility. All content is provided by third-party sources.
+
 ## Features
 
 - 🎬 **15,000+ Videos** - Massive collection automatically synced from Bilosta CDN
@@ -14,7 +18,19 @@ A Stremio addon that provides access to popular movies and TV series from the Ba
 
 ## Installation
 
-### Prerequisites
+### Using Vercel (Recommended)
+
+**Live Production URL:** https://balkan-on-demand.vercel.app
+
+1. Visit: https://balkan-on-demand.vercel.app/configure
+2. Configure your catalogs (movies, series)
+3. Click "Install to Stremio"
+
+That's it! The addon is hosted on Vercel with 99.9% uptime.
+
+### Self-Hosting
+
+#### Prerequisites
 
 - Node.js (v14 or higher)
 - npm or yarn
@@ -33,15 +49,15 @@ npm install
 npm start
 ```
 
-The addon will start on port 7000 by default.
+The addon will start on port 7005 by default.
 
-### Install in Stremio
+#### Install in Stremio (Self-Hosted)
 
 1. Start the addon server (it must be running)
 2. Open Stremio
 3. Go to the Addons section
 4. Click on "Community Addons"
-5. Paste this URL: `http://127.0.0.1:7000/manifest.json`
+5. Paste this URL: `http://127.0.0.1:7005/manifest.json`
 6. Click "Install"
 
 The addon will now appear in your Stremio addons list!
@@ -79,49 +95,33 @@ And popular TV series like:
 
 ## Content Management
 
-### Automatic Content Sync
-
-The addon automatically syncs with Bilosta CDN server daily at 2 AM UTC. See **[BILOSTA-SYNC.md](BILOSTA-SYNC.md)** for details.
-
-**Key Features:**
-- ✅ Discovers new files on Bilosta server
-- ✅ Preserves existing metadata and enrichment
-- ✅ Optional TMDB metadata fetching for new items
-- ✅ Manual trigger available via GitHub Actions
-
-### Manual Content Updates
-
-You can trigger updates manually:
-
-1. **Via GitHub Actions**:
-   - Go to Actions tab → "Sync Bilosta Content" → "Run workflow"
-
-2. **Locally**:
-   ```bash
-   # Sync from Bilosta server
-   node scripts/sync-bilosta-content.js
-   
-   # Analyze server structure
-   node scripts/analyze-bilosta-structure.js
-   
-   # Enrich with TMDB metadata
-   node scrape-tmdb-metadata.js
-   ```
+The addon syncs content from Bilosta CDN server. Content is automatically updated and deployed via GitHub Actions.
 
 ### Database Files
 
-- **`data/baubau-content.json`** - Main content database (15,000+ items)
+- **`data/baubau-content.json`** - Main content database (movies and series)
 - **`data/bilosta/`** - URL lists organized by category
 - **`data/metadata-cache.json`** - TMDB/Cinemeta metadata cache
-- **`data/BILOSTA-STRUCTURE.md`** - Server content structure report
-
-See **[BILOSTA-SYNC.md](BILOSTA-SYNC.md)** for complete documentation.
+- **`data/tmdb-id-mapping.json`** - TMDB ID to stream mapping
 
 ## API Endpoints
 
 - `GET /manifest.json` - Addon manifest
-- `GET /catalog/:type/:id.json` - Get catalog items
-- `GET /stream/:type/:id.json` - Get streams for an item
+- `GET /catalog/:type/:id` - Get catalog items
+- `GET /meta/:type/:id` - Get metadata for an item
+- `GET /stream/:type/:id` - Get streams for an item
+- `GET /configure` - Web UI for configuring catalogs
+
+## Deployment
+
+This project is deployed on Vercel. To deploy your own instance:
+
+1. Fork this repository
+2. Sign up for [Vercel](https://vercel.com)
+3. Import your forked repository
+4. Deploy!
+
+Vercel will automatically build and deploy on every push to main.
 
 ## License
 
@@ -129,8 +129,8 @@ MIT
 
 ## Contributing
 
-Contributions are welcome! Feel free to submit pull requests with additional content or improvements.
+Contributions are welcome! Feel free to submit pull requests with improvements.
 
-## Disclaimer
+---
 
-This addon is for educational purposes. Make sure you have the right to stream any content you add to the database.
+**Made with ❤️ for the Balkan community**
