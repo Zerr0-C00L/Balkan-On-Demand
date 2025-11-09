@@ -48,18 +48,6 @@
       "tmdbTitle": "No Man's Land",
       "originalTitle": "No Man's Land"
     },
-    "11066": {
-      "title": "Boomerang",
-      "year": 1992,
-      "originalId": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2J1bWVyYW5nLmF2aQ",
-      "streams": [
-        "https://content.bilosta.org/SERCRT721/FILMOVI/bumerang.avi"
-      ],
-      "symlinkPath": "/Users/zeroq/Stremio-Addons/Balkan On Demand/symlinks/movies/tmdb-11066/bumerang (1992).mp4",
-      "confidence": "low",
-      "tmdbTitle": "Boomerang",
-      "originalTitle": "Boomerang"
-    },
     "11373": {
       "title": "Strawberry in the Supermarket",
       "year": 2003,
@@ -192,18 +180,6 @@
       "tmdbTitle": "Balkan Spy",
       "originalTitle": "Балкански шпијун"
     },
-    "33015": {
-      "title": "Go West",
-      "year": 1925,
-      "originalId": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9nby53ZXN0Lm1rdg",
-      "streams": [
-        "https://content2.bilosta.org/DISK2/FILSER597/domacifilmovi/go.west.mkv"
-      ],
-      "symlinkPath": "/Users/zeroq/Stremio-Addons/Balkan On Demand/symlinks/movies/tmdb-33015/go.west (1925).mp4",
-      "confidence": "low",
-      "tmdbTitle": "Go West",
-      "originalTitle": "Go West"
-    },
     "33580": {
       "title": "Obituary for Escobar",
       "year": 2008,
@@ -300,18 +276,6 @@
       "tmdbTitle": "Radovan the Third",
       "originalTitle": "Radovan III"
     },
-    "33941": {
-      "title": "Girls at Arms 2",
-      "year": 1976,
-      "originalId": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9Ucm9qZS5ta3Y",
-      "streams": [
-        "https://content2.bilosta.org/DISK2/FILSER597/domacifilmovi/Troje.mkv"
-      ],
-      "symlinkPath": "/Users/zeroq/Stremio-Addons/Balkan On Demand/symlinks/movies/tmdb-33941/Troje (1976).mp4",
-      "confidence": "low",
-      "tmdbTitle": "Girls at Arms 2",
-      "originalTitle": "Piger i trøjen 2"
-    },
     "34449": {
       "title": "The Battle of Neretva",
       "year": 1969,
@@ -335,18 +299,6 @@
       "confidence": "low",
       "tmdbTitle": "Train in the Snow",
       "originalTitle": "Vlak u snijegu"
-    },
-    "39254": {
-      "title": "Real Steel",
-      "year": 2011,
-      "originalId": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2dydWRpLm1wNA",
-      "streams": [
-        "https://content.bilosta.org/SERCRT721/FILMOVI/grudi.mp4"
-      ],
-      "symlinkPath": "/Users/zeroq/Stremio-Addons/Balkan On Demand/symlinks/movies/tmdb-39254/Grudi (2011).mp4",
-      "confidence": "low",
-      "tmdbTitle": "Real Steel",
-      "originalTitle": "Real Steel"
     },
     "40890": {
       "title": "How the War Started on My Island",
@@ -1980,18 +1932,6 @@
       "tmdbTitle": "Gorcilo - Did You Come to See Me?",
       "originalTitle": "Gorčilo - Jesi li to došao da me vidiš"
     },
-    "398420": {
-      "title": "Natasha",
-      "year": 1998,
-      "originalId": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9uYXRhc2EubXA0",
-      "streams": [
-        "https://content2.bilosta.org/DISK2/FILSER597/domacifilmovi/natasa.mp4"
-      ],
-      "symlinkPath": "/Users/zeroq/Stremio-Addons/Balkan On Demand/symlinks/movies/tmdb-398420/Natasa (1998).mp4",
-      "confidence": "low",
-      "tmdbTitle": "Natasha",
-      "originalTitle": "Natasa"
-    },
     "409396": {
       "title": "Doctor Mladen",
       "year": 1975,
@@ -2052,18 +1992,6 @@
       "tmdbTitle": "A Brief Excursion",
       "originalTitle": "Kratki izlet"
     },
-    "437616": {
-      "title": "The Mare",
-      "year": 2020,
-      "originalId": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9tYXJlLm1wNA",
-      "streams": [
-        "https://content2.bilosta.org/DISK2/FILSER597/domacifilmovi/mare.mp4"
-      ],
-      "symlinkPath": "/Users/zeroq/Stremio-Addons/Balkan On Demand/symlinks/movies/tmdb-437616/Mare (2020).mp4",
-      "confidence": "low",
-      "tmdbTitle": "The Mare",
-      "originalTitle": "Mare"
-    },
     "460175": {
       "title": "The Death of Black George",
       "year": 1984,
@@ -2075,18 +2003,6 @@
       "confidence": "low",
       "tmdbTitle": "The Death of Black George",
       "originalTitle": "Карађорђева смрт"
-    },
-    "461899": {
-      "title": "Oasis",
-      "year": 1972,
-      "originalId": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9vYXphLm1wNA",
-      "streams": [
-        "https://content2.bilosta.org/DISK2/FILSER597/domacifilmovi/oaza.mp4"
-      ],
-      "symlinkPath": "/Users/zeroq/Stremio-Addons/Balkan On Demand/symlinks/movies/tmdb-461899/Oaza (1972).mp4",
-      "confidence": "low",
-      "tmdbTitle": "Oasis",
-      "originalTitle": "Oáza"
     },
     "463205": {
       "title": "Sekula Is Getting Married Again",
@@ -2255,18 +2171,6 @@
       "confidence": "low",
       "tmdbTitle": "My Grandpa is an Alien",
       "originalTitle": "Moj dida je pao s Marsa"
-    },
-    "508943": {
-      "title": "Luca",
-      "year": 2022,
-      "originalId": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9sdWNhLm1rdg",
-      "streams": [
-        "https://content2.bilosta.org/DISK2/FILSER597/domacifilmovi/luca.mkv"
-      ],
-      "symlinkPath": "/Users/zeroq/Stremio-Addons/Balkan On Demand/symlinks/movies/tmdb-508943/Luca (2022).mp4",
-      "confidence": "low",
-      "tmdbTitle": "Luca",
-      "originalTitle": "Luca"
     },
     "508986": {
       "title": "Pals",
@@ -2484,18 +2388,6 @@
       "tmdbTitle": "Keep Calm and Snap",
       "originalTitle": "Ufuraj se i pukni"
     },
-    "592717": {
-      "title": "Hotel Belgrade",
-      "year": 2020,
-      "originalId": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9ob3RlbC5iZ2QubWt2",
-      "streams": [
-        "https://content2.bilosta.org/DISK2/FILSER597/domacifilmovi/hotel.bgd.mkv"
-      ],
-      "symlinkPath": "/Users/zeroq/Stremio-Addons/Balkan On Demand/symlinks/movies/tmdb-592717/hotel.bgd (2020).mp4",
-      "confidence": "low",
-      "tmdbTitle": "Hotel Belgrade",
-      "originalTitle": "Отель «Белград»"
-    },
     "601914": {
       "title": "A Night at My Mother's House",
       "year": 1991,
@@ -2592,18 +2484,6 @@
       "tmdbTitle": "Ajvar",
       "originalTitle": "Ајвар"
     },
-    "668489": {
-      "title": "Havoc",
-      "year": 2025,
-      "originalId": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS91bmRlcmdyb3VuZC5ta3Y",
-      "streams": [
-        "https://content2.bilosta.org/DISK2/FILSER597/domacifilmovi/underground.mkv"
-      ],
-      "symlinkPath": "/Users/zeroq/Stremio-Addons/Balkan On Demand/symlinks/movies/tmdb-668489/underground (2025).mp4",
-      "confidence": "low",
-      "tmdbTitle": "Havoc",
-      "originalTitle": "Havoc"
-    },
     "669545": {
       "title": "Forces in the Air",
       "year": 1989,
@@ -2660,18 +2540,6 @@
         "https://content.bilosta.org/SERCRT721/FILMOVI/exyu/VoljaSinovljeva.mp4"
       ],
       "symlinkPath": "/Users/zeroq/Stremio-Addons/Balkan On Demand/symlinks/movies/tmdb-687238/Volja Sinovljeva (2024).mp4"
-    },
-    "718838": {
-      "title": "Mothering Sunday",
-      "year": 2021,
-      "originalId": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvbWFyYXRvbi82MTMyMS5ta3Y",
-      "streams": [
-        "https://content2.bilosta.org/DISK2/FILSER597/maraton/61321.mkv"
-      ],
-      "symlinkPath": "/Users/zeroq/Stremio-Addons/Balkan On Demand/symlinks/movies/tmdb-718838/61321 (2021).mp4",
-      "confidence": "low",
-      "tmdbTitle": "Mothering Sunday",
-      "originalTitle": "Mothering Sunday"
     },
     "721266": {
       "title": "Go, Went, Gone",
@@ -2733,18 +2601,6 @@
       "tmdbTitle": "Heavens Above",
       "originalTitle": "Nebesa"
     },
-    "766110": {
-      "title": "Závěť podivínova",
-      "year": 1924,
-      "originalId": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9aYXZldC5ta3Y",
-      "streams": [
-        "https://content2.bilosta.org/DISK2/FILSER597/domacifilmovi/Zavet.mkv"
-      ],
-      "symlinkPath": "/Users/zeroq/Stremio-Addons/Balkan On Demand/symlinks/movies/tmdb-766110/Zavet (1924).mp4",
-      "confidence": "low",
-      "tmdbTitle": "Závěť podivínova",
-      "originalTitle": "Závěť podivínova"
-    },
     "774035": {
       "title": "The Well",
       "year": 2020,
@@ -2757,15 +2613,6 @@
       "tmdbTitle": "The Well",
       "originalTitle": "Studenac"
     },
-    "774370": {
-      "title": "Dog Man",
-      "year": 2025,
-      "originalId": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2NydC9Db3ZwYXMubXA0",
-      "streams": [
-        "https://content.bilosta.org/SERCRT721/FILMOVI/crt/Covpas.mp4"
-      ],
-      "symlinkPath": "/Users/zeroq/Stremio-Addons/Balkan On Demand/symlinks/movies/tmdb-774370/Covpas (2025).mp4"
-    },
     "786471": {
       "title": "Corridor 92",
       "year": 2021,
@@ -2777,18 +2624,6 @@
       "confidence": "low",
       "tmdbTitle": "Corridor 92",
       "originalTitle": "Коридор 92"
-    },
-    "794162": {
-      "title": "Better Life",
-      "year": 1989,
-      "originalId": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9yZW1hc3Rlci9iei5ta3Y",
-      "streams": [
-        "https://content2.bilosta.org/DISK2/FILSER597/domacifilmovi/remaster/bz.mkv"
-      ],
-      "symlinkPath": "/Users/zeroq/Stremio-Addons/Balkan On Demand/symlinks/movies/tmdb-794162/bz (1989).mp4",
-      "confidence": "low",
-      "tmdbTitle": "Better Life",
-      "originalTitle": "Бољи Живот"
     },
     "806943": {
       "title": "Srpska: The Struggle for Freedom",
@@ -3186,27 +3021,6 @@
       "tmdbTitle": "Outsiders",
       "originalTitle": "Marginalci"
     },
-    "1059264": {
-      "title": "The Inseparables",
-      "year": 2023,
-      "originalId": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2NydC9OZXJhemR2b2puaS5tcDQ",
-      "streams": [
-        "https://content.bilosta.org/SERCRT721/FILMOVI/crt/Nerazdvojni.mp4"
-      ],
-      "symlinkPath": "/Users/zeroq/Stremio-Addons/Balkan On Demand/symlinks/movies/tmdb-1059264/Nerazdvojni (2023).mp4"
-    },
-    "1060627": {
-      "title": "Raněný lučištník",
-      "year": 1976,
-      "originalId": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS9SYW5lLmF2aQ",
-      "streams": [
-        "https://content2.bilosta.org/DISK2/FILSER597/domacifilmovi/Rane.avi"
-      ],
-      "symlinkPath": "/Users/zeroq/Stremio-Addons/Balkan On Demand/symlinks/movies/tmdb-1060627/Rane (1976).mp4",
-      "confidence": "low",
-      "tmdbTitle": "Raněný lučištník",
-      "originalTitle": "Raněný lučištník"
-    },
     "1065303": {
       "title": "Where the Road Leads",
       "year": 2025,
@@ -3441,18 +3255,6 @@
       "tmdbTitle": "3211",
       "originalTitle": "3211"
     },
-    "1187058": {
-      "title": "Munjya",
-      "year": 2024,
-      "originalId": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL211bmplLmF2aQ",
-      "streams": [
-        "https://content.bilosta.org/SERCRT721/FILMOVI/munje.avi"
-      ],
-      "symlinkPath": "/Users/zeroq/Stremio-Addons/Balkan On Demand/symlinks/movies/tmdb-1187058/Munje (2024).mp4",
-      "confidence": "low",
-      "tmdbTitle": "Munjya",
-      "originalTitle": "मुंज्या"
-    },
     "1189296": {
       "title": "Bosnian Pot",
       "year": 2023,
@@ -3512,15 +3314,6 @@
       "confidence": "low",
       "tmdbTitle": "Thorn",
       "originalTitle": "Покидан"
-    },
-    "1223142": {
-      "title": "Girl Upstairs Who Likes Big Things",
-      "year": 2023,
-      "originalId": "bilosta:aHR0cHM6Ly9jb250ZW50Mi5iaWxvc3RhLm9yZy9ESVNLMi9GSUxTRVI1OTcvZG9tYWNpZmlsbW92aS91cHMubXA0",
-      "streams": [
-        "https://content2.bilosta.org/DISK2/FILSER597/domacifilmovi/ups.mp4"
-      ],
-      "symlinkPath": "/Users/zeroq/Stremio-Addons/Balkan On Demand/symlinks/movies/tmdb-1223142/ups (2023).mp4"
     },
     "1225848": {
       "title": "The Key",
