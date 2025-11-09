@@ -1,12 +1,11 @@
 {
-  "generated": "2025-11-08T03:41:15.662Z",
+  "generated": "2025-11-09T03:52:16.404Z",
   "stats": {
-    "totalMovies": 355,
+    "totalMovies": 346,
     "moviesWithTMDB": 0,
-    "moviesEnriched": 681,
+    "moviesEnriched": 336,
     "totalSeries": 37,
-    "totalEpisodes": 2320,
-    "lastUpdated": "2025-11-09T00:10:31.103Z"
+    "totalEpisodes": 2320
   },
   "movies": [
     {
@@ -8490,6 +8489,156 @@
       "originalTitle": "Supermarket (2023)",
       "description": "The supermarket closes its doors, the hordes of buyers leave the place step by step and the shiny and colourful corridors remain quiet and alone, with no one to seduce. No one? A man is hiding out, appearing when everyone is gone, making this flashy landscape his kingdom. He enjoys the products on offer, samples various flavours and makes himself at home, but…gradually begins to suspect he is being watched.",
       "runtime": 75
+    },
+    {
+      "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDE4OS9GSUxNT1ZJL2J1bWVyYW5nLmF2aQ",
+      "type": "movie",
+      "name": "bumerang",
+      "streams": [
+        {
+          "url": "https://content.bilosta.org/SERCRT189/FILMOVI/bumerang.avi",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU FILMOVI",
+      "needsEnrichment": true
+    },
+    {
+      "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDE4OS9GSUxNT1ZJL2dydWRpLm1wNA",
+      "type": "movie",
+      "name": "grudi",
+      "streams": [
+        {
+          "url": "https://content.bilosta.org/SERCRT189/FILMOVI/grudi.mp4",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU FILMOVI",
+      "needsEnrichment": true
+    },
+    {
+      "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDE4OS9GSUxNT1ZJL2tsb3BrYS5hdmk",
+      "type": "movie",
+      "name": "klopka",
+      "streams": [
+        {
+          "url": "https://content.bilosta.org/SERCRT189/FILMOVI/klopka.avi",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU FILMOVI",
+      "needsEnrichment": true
+    },
+    {
+      "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDE4OS9GSUxNT1ZJL211bmplLmF2aQ",
+      "type": "movie",
+      "name": "munje",
+      "streams": [
+        {
+          "url": "https://content.bilosta.org/SERCRT189/FILMOVI/munje.avi",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU FILMOVI",
+      "needsEnrichment": true
+    },
+    {
+      "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2J1bWVyYW5nLmF2aQ",
+      "type": "movie",
+      "name": "bumerang",
+      "streams": [
+        {
+          "url": "https://content.bilosta.org/SERCRT721/FILMOVI/bumerang.avi",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU FILMOVI",
+      "needsEnrichment": true
+    },
+    {
+      "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2NydC9Db3ZwYXMubXA0",
+      "type": "movie",
+      "name": "Covpas",
+      "streams": [
+        {
+          "url": "https://content.bilosta.org/SERCRT721/FILMOVI/crt/Covpas.mp4",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU FILMOVI",
+      "needsEnrichment": true
+    },
+    {
+      "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2NydC9OZXJhemR2b2puaS5tcDQ",
+      "type": "movie",
+      "name": "Nerazdvojni",
+      "streams": [
+        {
+          "url": "https://content.bilosta.org/SERCRT721/FILMOVI/crt/Nerazdvojni.mp4",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU FILMOVI",
+      "needsEnrichment": true
+    },
+    {
+      "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2dydWRpLm1wNA",
+      "type": "movie",
+      "name": "grudi",
+      "streams": [
+        {
+          "url": "https://content.bilosta.org/SERCRT721/FILMOVI/grudi.mp4",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU FILMOVI",
+      "needsEnrichment": true
+    },
+    {
+      "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL2tsb3BrYS5hdmk",
+      "type": "movie",
+      "name": "klopka",
+      "streams": [
+        {
+          "url": "https://content.bilosta.org/SERCRT721/FILMOVI/klopka.avi",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU FILMOVI",
+      "needsEnrichment": true
+    },
+    {
+      "id": "bilosta:aHR0cHM6Ly9jb250ZW50LmJpbG9zdGEub3JnL1NFUkNSVDcyMS9GSUxNT1ZJL211bmplLmF2aQ",
+      "type": "movie",
+      "name": "munje",
+      "streams": [
+        {
+          "url": "https://content.bilosta.org/SERCRT721/FILMOVI/munje.avi",
+          "quality": "HD",
+          "source": "bilosta",
+          "size": null
+        }
+      ],
+      "category": "EX YU FILMOVI",
+      "needsEnrichment": true
     }
   ],
   "series": [
