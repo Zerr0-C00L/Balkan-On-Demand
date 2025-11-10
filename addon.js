@@ -18,6 +18,18 @@ try {
   console.warn('⚠️  Could not load TMDB mapping, using title-based matching only');
 }
 
+// Load IMDb to bilosta mapping (for cross-addon compatibility)
+let imdbMapping = { movies: {}, series: {} };
+const imdbMappingPath = path.join(__dirname, 'data', 'imdb-to-bilosta-mapping.json');
+try {
+  if (fs.existsSync(imdbMappingPath)) {
+    imdbMapping = JSON.parse(fs.readFileSync(imdbMappingPath, 'utf8'));
+    console.log(`🎯 Loaded IMDb mapping: ${Object.keys(imdbMapping.movies).length} movies, ${Object.keys(imdbMapping.series).length} series`);
+  }
+} catch (err) {
+  console.log('ℹ️  No IMDb mapping found. Run "node scripts/build-imdb-mapping.js" to enable cross-addon series streams');
+}
+
 // Load translations for Serbian/Croatian titles
 let titleTranslations = {};
 try {
@@ -794,48 +806,48 @@ function defineHandlers(builder, config = null) {
       return Promise.resolve({ streams: [] });
     }
     
-    // OPTION 2: If it's an IMDb ID, try to find the matching item in our database
+    // OPTION 2: If it's an IMDb ID, try to find the matching item using pre-computed mapping
     if (id.startsWith('tt')) {
-      console.log(`🔍 IMDb ID ${id} - searching our database for match...`);
+      console.log(`🔍 IMDb ID ${id} - looking up in mapping...`);
       
-      // Search our database by trying to match via Cinemeta/OMDb
-      // This is slower but allows users to search globally and still get our streams
-      let matchedItem = null;
+      // For series, extract the base IMDb ID (tt123456) and season/episode if present
+      let imdbId = id;
+      let seasonNum = null;
+      let epNum = null;
       
-      if (type === 'movie') {
-        // Try to find a movie that matches this IMDb ID
-        for (const movie of bauBauDB.movies) {
-          if (movie.year) {
-            const cinemeta = await searchCinemeta(movie.name, movie.year, 'movie');
-            if (cinemeta?.imdbId === id) {
-              matchedItem = movie;
-              console.log(`✅ Found match: ${movie.name} (${movie.id})`);
-              break;
-            }
-          }
-        }
-      } else if (type === 'series') {
-        // Try to find a series that matches this IMDb ID
-        for (const series of bauBauDB.series) {
-          if (series.year) {
-            const cinemeta = await searchCinemeta(series.name, series.year, 'series');
-            if (cinemeta?.imdbId === id) {
-              matchedItem = series;
-              console.log(`✅ Found match: ${series.name} (${series.id})`);
-              break;
-            }
-          }
+      if (type === 'series' && id.includes(':')) {
+        // Format: tt123456:1:1 (IMDb ID:season:episode)
+        const parts = id.split(':');
+        imdbId = parts[0];  // tt123456
+        seasonNum = parts[1] ? parseInt(parts[1]) : null;
+        epNum = parts[2] ? parseInt(parts[2]) : null;
+        console.log(`   Extracted: IMDb=${imdbId}, Season=${seasonNum}, Episode=${epNum}`);
+      }
+      
+      // Check if we have a pre-computed mapping
+      let bilostaId = null;
+      if (type === 'movie' && imdbMapping.movies[imdbId]) {
+        bilostaId = imdbMapping.movies[imdbId].bilostaId;
+        console.log(`✅ Found IMDb mapping: ${imdbMapping.movies[imdbId].title} -> ${bilostaId}`);
+      } else if (type === 'series' && imdbMapping.series[imdbId]) {
+        bilostaId = imdbMapping.series[imdbId].bilostaId;
+        console.log(`✅ Found IMDb mapping: ${imdbMapping.series[imdbId].title} -> ${bilostaId}`);
+        
+        // For series, we need to append season and episode
+        if (seasonNum && epNum) {
+          bilostaId = `${bilostaId}:${seasonNum}:${epNum}`;
         }
       }
       
-      if (!matchedItem) {
-        console.log(`❌ No match found in our database for IMDb ID ${id}`);
+      if (bilostaId) {
+        id = bilostaId;
+        console.log(`🔄 Using bilosta ID: ${id}`);
+      } else {
+        console.log(`❌ No IMDb mapping found for ${imdbId}`);
+        console.log(`   💡 Tip: Run "node scripts/build-imdb-mapping.js" to generate IMDb mappings`);
+        console.log(`   💡 Or browse content via your addon's own catalogs`);
         return Promise.resolve({ streams: [] });
       }
-      
-      // Use the matched item's ID to continue with stream lookup
-      id = matchedItem.id;
-      console.log(`🔄 Using our ID: ${id}`);
     }
     
     // Handle series episode streams
