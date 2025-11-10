@@ -41,7 +41,7 @@ function Sidebar({ currentPage, setCurrentPage, isMobileOpen, setIsMobileOpen })
 
   const handleInstallWeb = () => {
     const manifestUrl = getManifestUrl()
-    window.open(manifestUrl, '_blank')
+    window.open(`https://web.stremio.com/#/addon/${encodeURIComponent(manifestUrl)}`, '_blank')
     setShowDropdown(false)
   }
 
