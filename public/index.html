@@ -179,7 +179,7 @@
 
         <div class="quick-install">
             <h3>⚡ Quick Install (All Catalogs in Home)</h3>
-            <a href="stremio://balkan-on-demand-828b9dd653f6.herokuapp.com/home=balkan_movies,balkan_foreign_movies,balkan_kids,balkan_series/manifest.json" class="quick-install-btn">
+            <a href="stremio://balkan-on-demand.vercel.app/home=balkan_movies,balkan_foreign_movies,balkan_kids,balkan_series/manifest.json" class="quick-install-btn">
                 📺 Install All in Home
             </a>
             <p style="color: #ccc; margin-top: 10px;">Or customize below ⬇️</p>
@@ -273,7 +273,7 @@
     <script>
         const BASE_URL = window.location.hostname === 'localhost' 
             ? 'http://localhost:7005'
-            : 'https://balkan-on-demand-828b9dd653f6.herokuapp.com';
+            : 'https://balkan-on-demand.vercel.app';
             
         function installCustom() {
             const catalogIds = [

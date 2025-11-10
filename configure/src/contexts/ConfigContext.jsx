@@ -125,7 +125,7 @@ export function ConfigProvider({ children }) {
   const getManifestUrl = () => {
     const baseUrl = window.location.hostname === 'localhost'
       ? 'http://localhost:7005'
-      : 'https://balkan-on-demand-828b9dd653f6.herokuapp.com';
+      : 'https://balkan-on-demand.vercel.app';
 
     const configString = generateConfig();
     return `${baseUrl}/${configString}/manifest.json`;
