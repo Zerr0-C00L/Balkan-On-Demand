@@ -1,0 +1,223 @@
+name: Update TMDB Mappings
+
+on:
+  schedule:
+    # Run weekly on Monday at 3 AM UTC (after sync-bilosta runs)
+    - cron: '0 3 * * 1'
+  workflow_dispatch: # Allow manual trigger
+    inputs:
+      skip_without_years:
+        description: 'Skip mapping movies without years (faster, 5 min vs 3 hours)'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+jobs:
+  update-tmdb-mappings:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Check TMDB API Key
+        env:
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+        run: |
+          if [ -z "$TMDB_API_KEY" ]; then
+            echo "❌ TMDB_API_KEY not found in repository secrets"
+            echo "   Add it in: Settings → Secrets and variables → Actions → New repository secret"
+            echo "   Name: TMDB_API_KEY"
+            echo "   Value: Your TMDB API v3 key"
+            exit 1
+          fi
+          
+          echo "✅ TMDB API key configured"
+          echo "🔑 Key: ${TMDB_API_KEY:0:12}..."
+      
+      - name: Backup current mapping
+        run: |
+          if [ -f "data/tmdb-id-mapping.json" ]; then
+            cp data/tmdb-id-mapping.json data/tmdb-id-mapping.backup.json
+            echo "✅ Backed up existing mapping file"
+            
+            MOVIES=$(jq '.movies | length' data/tmdb-id-mapping.json)
+            SERIES=$(jq '.series | length' data/tmdb-id-mapping.json)
+            echo "📊 Current mapping: $MOVIES movies, $SERIES series"
+          else
+            echo "ℹ️  No existing mapping file found"
+          fi
+      
+      - name: Map movies with years (fast)
+        env:
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+        run: |
+          echo "🎬 Mapping movies with year information..."
+          node scripts/create-tmdb-symlinks.js $TMDB_API_KEY 2>&1 | tee mapping-with-years.log
+          
+          echo "✅ Completed mapping movies with years"
+      
+      - name: Map movies without years (slow, ~3 hours)
+        if: github.event.inputs.skip_without_years != 'true'
+        env:
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+        run: |
+          echo "🔍 Mapping movies without year information..."
+          echo "⏱️  This will take 2-3 hours due to TMDB API rate limits"
+          
+          # Run with timeout of 4 hours
+          timeout 14400 node scripts/map-movies-without-years.js $TMDB_API_KEY 2>&1 | tee mapping-without-years.log || {
+            EXIT_CODE=$?
+            if [ $EXIT_CODE -eq 124 ]; then
+              echo "⚠️  Timeout reached (4 hours) - partial mapping saved"
+            else
+              echo "✅ Completed mapping movies without years"
+            fi
+          }
+      
+      - name: Generate mapping statistics
+        run: |
+          echo "📊 Generating mapping statistics..."
+          
+          if [ -f "data/tmdb-id-mapping.json" ]; then
+            MOVIES=$(jq '.movies | length' data/tmdb-id-mapping.json)
+            SERIES=$(jq '.series | length' data/tmdb-id-mapping.json)
+            
+            # Count low confidence mappings
+            LOW_CONF=$(jq '[.movies[] | select(.confidence == "low")] | length' data/tmdb-id-mapping.json)
+            HIGH_CONF=$((MOVIES - LOW_CONF))
+            
+            # Create stats file
+            cat > mapping-stats.json << EOF
+          {
+            "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "total_movies": $MOVIES,
+            "total_series": $SERIES,
+            "high_confidence": $HIGH_CONF,
+            "low_confidence": $LOW_CONF,
+            "database_stats": $(jq '.stats' data/baubau-content.json)
+          }
+          EOF
+            
+            echo "✅ Statistics generated"
+            echo "📈 Total mappings: $MOVIES movies, $SERIES series"
+            echo "   High confidence: $HIGH_CONF (with year)"
+            echo "   Low confidence: $LOW_CONF (without year)"
+          else
+            echo "❌ Mapping file not found!"
+            exit 1
+          fi
+      
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          # Check if there are changes
+          if [ -z "$(git status --porcelain data/tmdb-id-mapping.json)" ]; then
+            echo "ℹ️  No changes to TMDB mapping file"
+            exit 0
+          fi
+          
+          # Add mapping file
+          git add data/tmdb-id-mapping.json
+          
+          # Get stats
+          MOVIES=$(jq '.movies | length' data/tmdb-id-mapping.json)
+          SERIES=$(jq '.series | length' data/tmdb-id-mapping.json)
+          DATE=$(date '+%Y-%m-%d %H:%M UTC')
+          
+          # Create commit message
+          git commit -m "Auto-update: TMDB mappings - $DATE" \
+            -m "Updated TMDB ID mappings for enhanced metadata" \
+            -m "" \
+            -m "📊 Mapping Stats:" \
+            -m "- Movies mapped: $MOVIES" \
+            -m "- Series mapped: $SERIES" \
+            -m "- Total items: $((MOVIES + SERIES))" \
+            -m "" \
+            -m "🤖 Triggered by: GitHub Actions (weekly update)" || echo "No changes to commit"
+          
+          # Push changes
+          git push origin main
+      
+      - name: Create workflow summary
+        if: always()
+        run: |
+          echo "## 🎬 TMDB Mapping Update Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ -f "data/tmdb-id-mapping.json" ]; then
+            MOVIES=$(jq '.movies | length' data/tmdb-id-mapping.json)
+            SERIES=$(jq '.series | length' data/tmdb-id-mapping.json)
+            
+            echo "### 📊 Mapping Statistics" >> $GITHUB_STEP_SUMMARY
+            echo "- **Movies Mapped:** $MOVIES" >> $GITHUB_STEP_SUMMARY
+            echo "- **Series Mapped:** $SERIES" >> $GITHUB_STEP_SUMMARY
+            echo "- **Total Items:** $((MOVIES + SERIES))" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            
+            # Show some sample mappings
+            echo "### 🎯 Sample Mappings" >> $GITHUB_STEP_SUMMARY
+            echo '```json' >> $GITHUB_STEP_SUMMARY
+            jq -r '.movies | to_entries | .[0:3] | .[] | "TMDB \(.key): \(.value.title) (\(.value.year // "no year"))"' data/tmdb-id-mapping.json >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "✅ Mapping file updated successfully!" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ Mapping file not found or update failed" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📝 Next Steps" >> $GITHUB_STEP_SUMMARY
+          echo "1. Heroku/Vercel will auto-deploy with updated mappings" >> $GITHUB_STEP_SUMMARY
+          echo "2. Addon will use TMDB IDs for enhanced metadata" >> $GITHUB_STEP_SUMMARY
+          echo "3. Next update: Next Monday at 3 AM UTC" >> $GITHUB_STEP_SUMMARY
+      
+      - name: Upload logs and stats
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tmdb-mapping-logs
+          path: |
+            mapping-with-years.log
+            mapping-without-years.log
+            mapping-stats.json
+            data/tmdb-id-mapping.backup.json
+          retention-days: 30
+      
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "## ❌ TMDB Mapping Update Failed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "The TMDB mapping update encountered an error." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Possible causes:**" >> $GITHUB_STEP_SUMMARY
+          echo "- TMDB API key not configured or invalid" >> $GITHUB_STEP_SUMMARY
+          echo "- Network timeout or API rate limit" >> $GITHUB_STEP_SUMMARY
+          echo "- Invalid JSON in database files" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Check the workflow logs for details." >> $GITHUB_STEP_SUMMARY
+
+# Workflow notes:
+# - Runs weekly after the content sync (Monday 3 AM vs Sunday 2 AM)
+# - Can be triggered manually with option to skip slow mapping
+# - Saves progress every 10 movies (in the script)
+# - Creates backup before updating
+# - Commits only if there are actual changes

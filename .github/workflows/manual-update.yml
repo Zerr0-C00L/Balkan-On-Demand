@@ -1,0 +1,87 @@
+name: Manual Content Update
+
+on:
+  workflow_dispatch:
+    inputs:
+      force_update:
+        description: 'Force update even if no changes detected'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+jobs:
+  manual-update:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Download all BauBau content
+        run: |
+          echo "📥 Downloading ALL content from BauBau API..."
+          mkdir -p archive/analysis
+          
+          for i in {1..6}; do
+            echo "Downloading file$i..."
+            curl -s "https://dexe.win/addons/klik/klik.php?api&file=file$i&group=KLIK+PREMIJERA" \
+              -o "archive/analysis/baubau-file$i.xml"
+            
+            SIZE=$(du -h "archive/analysis/baubau-file$i.xml" | cut -f1)
+            echo "  ✓ file$i: $SIZE"
+          done
+          
+          echo "✅ Download complete"
+      
+      - name: Import content
+        run: |
+          echo "🔄 Processing content with Cinemeta enrichment..."
+          node import-baubau-content.js
+      
+      - name: Show statistics
+        run: |
+          echo "📊 Content Statistics:"
+          jq '.stats' data/baubau-content.json
+      
+      - name: Commit changes
+        if: github.event.inputs.force_update == 'true' || steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          git add archive/analysis/*.xml
+          git add data/baubau-content.json
+          
+          DATE=$(date '+%Y-%m-%d %H:%M:%S')
+          MOVIES=$(jq '.stats.totalMovies' data/baubau-content.json)
+          SERIES=$(jq '.stats.totalSeries' data/baubau-content.json)
+          
+          git commit -m "🔧 Manual update: $DATE
+
+          📊 Stats:
+          • Movies: $MOVIES
+          • Series: $SERIES
+          
+          Triggered manually" || echo "No changes to commit"
+          
+          git push
+      
+      - name: Summary
+        run: |
+          echo "✅ Manual update completed!"
+          echo ""
+          echo "📊 Final Stats:"
+          jq '.stats' data/baubau-content.json
