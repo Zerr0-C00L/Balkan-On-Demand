@@ -1,0 +1,37 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad512" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow512">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="512" height="512" rx="64" fill="url(#grad512)"/>
+  
+  <!-- Play button circle -->
+  <circle cx="256" cy="256" r="140" fill="white" opacity="0.95" filter="url(#shadow512)"/>
+  
+  <!-- Play triangle -->
+  <path d="M 220 190 L 220 322 L 320 256 Z" fill="url(#grad512)"/>
+  
+  <!-- Balkan region outline (stylized map) - scaled up -->
+  <path d="M 120 100 L 160 90 L 200 110 L 240 100 L 280 120 L 300 100 L 340 110 L 370 130 L 380 160 L 390 200 L 380 230 L 360 250 L 330 260 L 300 250 L 280 260 L 250 270 L 220 260 L 190 250 L 160 230 L 140 200 L 130 170 L 120 140 Z" 
+        fill="none" 
+        stroke="white" 
+        stroke-width="4" 
+        opacity="0.3"/>
+  
+  <!-- Text "BOD" at bottom -->
+  <text x="256" y="440" font-family="Arial, sans-serif" font-size="64" font-weight="bold" fill="white" text-anchor="middle" opacity="0.9">BOD</text>
+  
+  <!-- Subtitle "BALKAN ON DEMAND" -->
+  <text x="256" y="475" font-family="Arial, sans-serif" font-size="20" font-weight="normal" fill="white" text-anchor="middle" opacity="0.7">BALKAN ON DEMAND</text>
+  
+  <!-- Decorative lines -->
+  <line x1="150" y1="485" x2="220" y2="485" stroke="white" stroke-width="2" opacity="0.5"/>
+  <line x1="292" y1="485" x2="362" y2="485" stroke="white" stroke-width="2" opacity="0.5"/>
+</svg>
