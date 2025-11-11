@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Discord Community
+    url: https://discord.gg/your-discord-invite
+    about: Join our Discord server for quick help and community discussions
+  - name: Documentation
+    url: https://github.com/Zerr0-C00L/Balkan-On-Demand
+    about: Check out the documentation for setup and usage guides

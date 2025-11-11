@@ -537,7 +537,32 @@ function generateManifest(config = null) {
     behaviorHints: {
       configurable: true,
       configurationRequired: false
-    }
+    },
+    
+    contactEmail: 'support@balkan-on-demand.com',
+    
+    links: [
+      {
+        name: '🐛 Report Bug',
+        category: 'support',
+        url: 'https://github.com/Zerr0-C00L/Balkan-On-Demand-Issues/issues/new?template=bug_report.yml'
+      },
+      {
+        name: '💡 Request Feature',
+        category: 'support',
+        url: 'https://github.com/Zerr0-C00L/Balkan-On-Demand-Issues/issues/new?template=feature_request.yml'
+      },
+      {
+        name: '❓ Ask Question',
+        category: 'support',
+        url: 'https://github.com/Zerr0-C00L/Balkan-On-Demand-Issues/issues/new?template=question.yml'
+      },
+      {
+        name: '📖 Documentation',
+        category: 'help',
+        url: 'https://github.com/Zerr0-C00L/Balkan-On-Demand'
+      }
+    ]
   };
 }
 
