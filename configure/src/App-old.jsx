@@ -60,7 +60,7 @@ function App() {
   const getManifestUrl = () => {
     const baseUrl = window.location.hostname === 'localhost'
       ? 'http://localhost:7005'
-      : 'https://balkan-on-demand.vercel.app'
+      : 'https://balkan-ondemand.vercel.app'
 
     if (selectedCatalogs.length === 0) {
       return `${baseUrl}/manifest.json`

@@ -20,9 +20,9 @@ This addon aggregates streams from the **BauBau Click Premium** Kodi addon. I do
 
 ### Using Vercel (Recommended)
 
-**Live Production URL:** https://balkan-on-demand.vercel.app
+**Live Production URL:** https://balkan-ondemand.vercel.app
 
-1. Visit: https://balkan-on-demand.vercel.app/configure
+1. Visit: https://balkan-ondemand.vercel.app/configure
 2. Configure your catalogs (movies, series)
 3. Click "Install to Stremio"
 
